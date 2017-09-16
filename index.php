@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        phpinfo();jjjj
+        phpinfo();jjjjssss
         ?>
         <h1>Teste</h1>
     </body>

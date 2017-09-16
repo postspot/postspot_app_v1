@@ -13,5 +13,6 @@ and open the template in the editor.
         <?php
         phpinfo();
         ?>
+        <h1>Teste</h1>
     </body>
 </html>

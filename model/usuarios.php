@@ -5,6 +5,18 @@ class usuarios {
 
 	public static $instance;
 	public static $tabela = 'usuarios';
+        
+        
+        public static function getAutoInc() {
+            $stmt = Conexao::getInstance()->prepare("SHOW TABLE STATUS LIKE '" . self::$tabela . "'");
+
+            if ($stmt->execute()) {
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    $cod_produto = $row->Auto_increment;
+                    return $cod_produto;
+                }
+            }
+        }
 
 
 //--------- function insert($obj) --------------//
@@ -12,19 +24,17 @@ class usuarios {
 
 
 	public static function insert($obj) {
-		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO usuarios (id_usuario, nome_usuario, sexo_usuario, foto_usuario, idiomas, funcao_usuario, email_usuario, senha_usuario, cadastro_usuario)
- VALUES(:id_usuario, :nome_usuario, :sexo_usuario, :foto_usuario, :idiomas, :funcao_usuario, :email_usuario, :senha_usuario, :cadastro_usuario);");
+            try{
+            $stmt = Conexao::getInstance()->prepare("INSERT INTO usuarios 
+            (nome_usuario, sexo_usuario, foto_usuario, funcao_usuario, email_usuario, senha_usuario)VALUES
+            (:nome_usuario, :sexo_usuario, :foto_usuario, :funcao_usuario, :email_usuario, :senha_usuario);");
 
-		$stmt->bindParam(":id_usuario", $obj->id_usuario);
 		$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
 		$stmt->bindParam(":sexo_usuario", $obj->sexo_usuario);
 		$stmt->bindParam(":foto_usuario", $obj->foto_usuario);
-		$stmt->bindParam(":idiomas", $obj->idiomas);
 		$stmt->bindParam(":funcao_usuario", $obj->funcao_usuario);
 		$stmt->bindParam(":email_usuario", $obj->email_usuario);
 		$stmt->bindParam(":senha_usuario", $obj->senha_usuario);
-		$stmt->bindParam(":cadastro_usuario", $obj->cadastro_usuario);
 
 		$stmt->execute(); 
 			return true;
@@ -66,6 +76,23 @@ class usuarios {
 
 	 try {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM usuarios WHERE id_usuario = :id");
+
+		$stmt->bindParam(":id", $id);
+		 $stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+		return false;
+		}
+	}
+	public static function getAllTipo($id) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT nome_usuario, email_usuario, foto_usuario, funcao_usuario"
+                . " FROM usuarios WHERE funcao_usuario = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();

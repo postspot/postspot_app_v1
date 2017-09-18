@@ -1,6 +1,5 @@
 <?php
-
-require_once 'config/config.php';
+require_once '../../config/config.php';
 date_default_timezone_set('America/Sao_Paulo');
 
 class Conexao {
@@ -29,7 +28,9 @@ class Conexao {
             return self::$instance;
         } catch (PDOException $ex) {
             echo '<h1>Erro interno de servidor. Por favor, entre em contato com um de nossos desenvolvedores.</h1>';
-            echo 'email: desenvolvimento@cryptos.eti.br';
+            echo '<br>email: contato@melhorcomprapocos.com.br';
+            echo '<br>Erro'. $ex->getMessage();
+            echo '<br>mysql:host=' . HOST . ';dbname=' . BANCO, self::$user, self::$pass, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8");
             die();
         }
     }

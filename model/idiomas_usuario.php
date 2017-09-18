@@ -13,12 +13,11 @@ class idiomas_usuario {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO idiomas_usuario (id_idiomas_usuario, idiomas_id_idioma, usuarios_id_usuario)
- VALUES(:id_idiomas_usuario, :idiomas_id_idioma, :usuarios_id_usuario);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO idiomas_usuario (idiomas_id_idioma, usuarios_id_usuario)
+ VALUES(:idiomas_id_idioma, :usuarios_id_usuario);");
 
-		$stmt->bindParam(":id_idiomas_usuario", $obj->id_idiomas_usuario);
-		$stmt->bindParam(":idiomas_id_idioma", $obj->idiomas_id_idioma);
-		$stmt->bindParam(":usuarios_id_usuario", $obj->usuarios_id_usuario);
+		$stmt->bindParam(":idiomas_id_idioma", $obj->id_idioma);
+		$stmt->bindParam(":usuarios_id_usuario", $obj->id_usuario);
 
 		$stmt->execute(); 
 			return true;

@@ -12,12 +12,13 @@ class personas {
 
 
 	public static function insert($obj) {
-		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO personas (id_persona, data_criacao, nome, idade, sexo, caracteristicas, educacao, trabalho, segmento, objetivos, descricao, resolucao, id_projeto)
- VALUES(:id_persona, :data_criacao, :nome, :idade, :sexo, :caracteristicas, :educacao, :trabalho, :segmento, :objetivos, :descricao, :resolucao, :id_projeto);");
+        try{
+        $stmt = Conexao::getInstance()->prepare("INSERT INTO personas 
+        (nome, idade, sexo, caracteristicas, educacao, trabalho, segmento,
+        objetivos, descricao, resolucao, foto, id_projeto)VALUES
+        (:nome, :idade, :sexo, :caracteristicas, :educacao, :trabalho, :segmento,
+        :objetivos, :descricao, :resolucao, :foto, :id_projeto);");
 
-		$stmt->bindParam(":id_persona", $obj->id_persona);
-		$stmt->bindParam(":data_criacao", $obj->data_criacao);
 		$stmt->bindParam(":nome", $obj->nome);
 		$stmt->bindParam(":idade", $obj->idade);
 		$stmt->bindParam(":sexo", $obj->sexo);
@@ -28,6 +29,7 @@ class personas {
 		$stmt->bindParam(":objetivos", $obj->objetivos);
 		$stmt->bindParam(":descricao", $obj->descricao);
 		$stmt->bindParam(":resolucao", $obj->resolucao);
+		$stmt->bindParam(":foto", $obj->foto);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 
 		$stmt->execute(); 
@@ -71,6 +73,22 @@ class personas {
 
 
 	public static function getById($id) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM personas WHERE id_persona = :id");
+
+		$stmt->bindParam(":id", $id);
+		 $stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+		return false;
+		}
+	}
+	public static function getByProjeto($id) {
 
 	 try {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM personas WHERE id_projeto = :id");

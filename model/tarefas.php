@@ -12,23 +12,29 @@ class tarefas {
 
 
 	public static function insert($obj) {
-		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO tarefas (id_tarefa, nome_tarefa, tipo_tarefa, palavra_chave, briefing_tarefa, estagio_compra, id_projeto, id_equipe)
- VALUES(:id_tarefa, :nome_tarefa, :tipo_tarefa, :palavra_chave, :briefing_tarefa, :estagio_compra, :id_projeto, :id_equipe);");
+            try{
+            $stmt = Conexao::getInstance()->prepare("INSERT INTO tarefas 
+            (nome_tarefa, tipo_tarefa, palavra_chave, briefing_tarefa, estagio_compra, 
+            tipo_cta, referencias, consideracoes_gerais, id_persona, id_projeto, id_equipe) VALUES
+            (:nome_tarefa, :tipo_tarefa, :palavra_chave, :briefing_tarefa, :estagio_compra,
+            :tipo_cta, :referencias, :consideracoes_gerais, :id_persona, :id_projeto, :id_equipe);");
 
-		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
 		$stmt->bindParam(":nome_tarefa", $obj->nome_tarefa);
 		$stmt->bindParam(":tipo_tarefa", $obj->tipo_tarefa);
 		$stmt->bindParam(":palavra_chave", $obj->palavra_chave);
 		$stmt->bindParam(":briefing_tarefa", $obj->briefing_tarefa);
 		$stmt->bindParam(":estagio_compra", $obj->estagio_compra);
+		$stmt->bindParam(":tipo_cta", $obj->tipo_cta);
+		$stmt->bindParam(":referencias", $obj->referencias);
+		$stmt->bindParam(":consideracoes_gerais", $obj->consideracoes_gerais);
+		$stmt->bindParam(":id_persona", $obj->id_persona);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 		$stmt->bindParam(":id_equipe", $obj->id_equipe);
 
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+		return $ex;
 		}
 	}
 

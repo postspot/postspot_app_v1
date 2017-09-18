@@ -12,13 +12,19 @@ class estrategias {
 
 
 	public static function insert($obj) {
-		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO estrategias (id_estrategia, empresa, projeto, produtos_servicos, links, objetivo_primario, kpis_primario, objetivo_secundario, kpis_secundario, concorrentes, com_quem_falar, com_quem_nao_falar, abordar, evitar, linguagem, links_ref, categorias_conteudo, canais, acoes, consideracoes_gerais, projetos_id_projeto)
- VALUES(:id_estrategia, :empresa, :projeto, :produtos_servicos, :links, :objetivo_primario, :kpis_primario, :objetivo_secundario, :kpis_secundario, :concorrentes, :com_quem_falar, :com_quem_nao_falar, :abordar, :evitar, :linguagem, :links_ref, :categorias_conteudo, :canais, :acoes, :consideracoes_gerais, :projetos_id_projeto);");
+        try{
+        $stmt = Conexao::getInstance()->prepare("INSERT INTO estrategias 
+        (empresa, site, projeto, blog, produtos_servicos, links, objetivo_primario, kpis_primario, objetivo_secundario, 
+        kpis_secundario, concorrentes, com_quem_falar, com_quem_nao_falar, abordar, evitar, linguagem, links_ref,
+        categorias_conteudo, canais, acoes, consideracoes_gerais, projetos_id_projeto) VALUES
+        (:empresa, :site, :projeto, :blog, :produtos_servicos, :links, :objetivo_primario, :kpis_primario, :objetivo_secundario,
+        :kpis_secundario, :concorrentes, :com_quem_falar, :com_quem_nao_falar, :abordar, :evitar, :linguagem,
+        :links_ref, :categorias_conteudo, :canais, :acoes, :consideracoes_gerais, :projetos_id_projeto);");
 
-		$stmt->bindParam(":id_estrategia", $obj->id_estrategia);
 		$stmt->bindParam(":empresa", $obj->empresa);
+		$stmt->bindParam(":site", $obj->site);
 		$stmt->bindParam(":projeto", $obj->projeto);
+		$stmt->bindParam(":blog", $obj->blog);
 		$stmt->bindParam(":produtos_servicos", $obj->produtos_servicos);
 		$stmt->bindParam(":links", $obj->links);
 		$stmt->bindParam(":objetivo_primario", $obj->objetivo_primario);

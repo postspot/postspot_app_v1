@@ -1,60 +1,77 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
-require_once '../../model/personas.php';
+require_once '../../model/estrategias.php';
 
-//$id_projeto = $_POST["id_projeto"];
-//$foto = $_POST["foto"];
-//$nome = $_POST["nome"];
-//$idade = $_POST["idade"];
-//$sexo = $_POST["sexo"];
-//$caracteristicas = $_POST["caracteristicas"];
-//$educacao = $_POST["educacao"];
-//$trabalho = $_POST["trabalho"];
-//$segmento = $_POST["segmento"];
-//$objetivos = $_POST["objetivos"];
-//$descricao = $_POST["descricao"];
-//$resolucao = $_POST["resolucao"];
+$id_projeto = $_POST["id_projeto"];
+$empresa = $_POST["empresa"];
+$site = $_POST["site"];
+$projeto = $_POST["projeto"];
+$blog = $_POST["blog"];
+$produtos_servicos = $_POST["produtos_servicos"];
+$links = $_POST["links"];
+$concorrentes = $_POST["concorrentes"];
+$com_quem_falar = $_POST["com_quem_falar"];
+$com_quem_nao_falar = $_POST["com_quem_nao_falar"];
+$abordar = $_POST["abordar"];
+$evitar = $_POST["evitar"];
+$linguagem = $_POST["linguagem"];
+$categorias_conteudo = $_POST["categorias_conteudo"];
+$canais = $_POST["canais"];
+$acoes = $_POST["acoes"];
+$consideracoes_gerais = $_POST["consideracoes_gerais"];
 
-pre_r($_POST);
-die();
+//pre_r($_POST);
+//die();
 
-if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) && 
-    isset($caracteristicas) && isset($educacao) && isset($trabalho) &&
-    isset($segmento) && isset($objetivos) && isset($descricao) && isset($resolucao)) {
 
-    if (!empty($id_projeto) && !empty($nome) && !empty($idade)) {
+if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) && 
+    isset($blog) && isset($produtos_servicos) && isset($links) &&
+    isset($concorrentes) && isset($com_quem_falar) && isset($com_quem_nao_falar) 
+    && isset($abordar) && isset($evitar) && isset($linguagem)
+    && isset($categorias_conteudo) && isset($canais) && isset($acoes) && isset($consideracoes_gerais)) {
+
+    if (!empty($id_projeto) && !empty($empresa) && !empty($projeto)) {
       
         $obj = new stdClass();
         
-        $obj->nome = $nome;
-        $obj->idade = $idade;
-	$obj->sexo = $sexo;
-	$obj->caracteristicas = $caracteristicas;
-	$obj->educacao = $educacao;
-	$obj->trabalho = $trabalho;
-	$obj->segmento = $segmento;
-	$obj->objetivos = $objetivos;
-	$obj->descricao = $descricao;
-	$obj->resolucao = $resolucao;
-	$obj->foto = $foto;
-	$obj->id_projeto = $id_projeto;
-         
+        $obj->empresa = $empresa;
+        $obj->site = $site;
+	$obj->projeto = $projeto;
+	$obj->blog = $blog;
+	$obj->produtos_servicos = $produtos_servicos;
+	$obj->links = $links;
+	$obj->objetivo_primario = $objetivo_primario;
+	$obj->kpis_primario = $kpis_primario;
+	$obj->objetivo_secundario = $objetivo_secundario;
+	$obj->kpis_secundario = $kpis_secundario;
+	$obj->concorrentes = $concorrentes;
+	$obj->com_quem_falar = $com_quem_falar;
+	$obj->com_quem_nao_falar = $com_quem_nao_falar;
+	$obj->abordar = $abordar;
+	$obj->evitar = $evitar;
+	$obj->linguagem = $linguagem;
+	$obj->links_ref = $links_ref;
+	$obj->categorias_conteudo = $categorias_conteudo;
+	$obj->canais = $canais;
+	$obj->acoes = $acoes;
+	$obj->consideracoes_gerais = $consideracoes_gerais;
+	$obj->projetos_id_projeto = $id_projeto;         
         
-        if(personas::insert($obj)){
-            header('Location: ../../view/adm/cria_persona.php?retorno=ok');
+        if(estrategias::insert($obj)){
+            header('Location: ../../view/adm/estrategia.php?retorno=ok');
         }
         else{
-            header('Location: ../../view/adm/cria_persona.php?retorno=erro');
+            header('Location: ../../view/adm/estrategia.php?retorno=erro');
             
         }
     }
     else {
-        header('Location: ../../view/adm/cria_persona.php?retorno=falha');
+        header('Location: ../../view/adm/estrategia.php?retorno=falha1');
     }
 } 
 else {
-    header('Location: ../../view/adm/cria_persona.php?retorno=falha');
+    header('Location: ../../view/adm/estrategia.php?retorno=falha2');
 }
 
 

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Set-2017 às 06:18
+-- Generation Time: 18-Set-2017 às 07:05
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -75,7 +75,9 @@ CREATE TABLE `estrategias` (
   `id_estrategia` int(11) NOT NULL,
   `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `empresa` text,
+  `site` varchar(45) DEFAULT NULL,
   `projeto` text,
+  `blog` varchar(45) DEFAULT NULL,
   `produtos_servicos` text,
   `links` text,
   `objetivo_primario` varchar(45) DEFAULT NULL,
@@ -95,6 +97,13 @@ CREATE TABLE `estrategias` (
   `consideracoes_gerais` varchar(45) DEFAULT NULL,
   `projetos_id_projeto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `estrategias`
+--
+
+INSERT INTO `estrategias` (`id_estrategia`, `data_cadastro`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `categorias_conteudo`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`) VALUES
+(1, '2017-09-18 05:05:38', 'sobre', 'site', 'proje', 'blog', 'prods', 'links', NULL, NULL, NULL, NULL, 'concorrente', 'falar', 'nao', 'abordar', 'evitar', 'lingua', NULL, 'categas', 'canais', 'acoes', 'cinsi', 1);
 
 -- --------------------------------------------------------
 
@@ -513,7 +522,7 @@ ALTER TABLE `equipes`
 -- AUTO_INCREMENT for table `estrategias`
 --
 ALTER TABLE `estrategias`
-  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `habilidades`
 --

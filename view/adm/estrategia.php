@@ -106,40 +106,42 @@ require_once '../../lib/operacoes.php';
                                                     <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
                                                 </div>
                                                 <div class="tab-pane" id="editar">
+                                                    <form class="form-horizontal" action="../../controller/estrategia/criar_estrategia.php" method="POST">
                                                     <div class="form-group">
                                                         <label>Sobre a empresa</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve brevemente a empresa ou o negócio"></textarea>
+                                                        <textarea name="empresa" class="form-control" rows="3" placeholder="Descreve brevemente a empresa ou o negócio"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Site</label>
-                                                        <input type="text" placeholder="Informe o site" class="form-control">
+                                                        <input name="site" type="text" placeholder="Informe o site" class="form-control">
+                                                         
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Sobre o projeto</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea name="projeto" class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Blog</label>
-                                                        <input type="text" placeholder="Informe o Blog" class="form-control">
+                                                        <input name="blog" type="text" placeholder="Informe o Blog" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Produtos e Serviço</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve os produtos e ou serviços que queremos vender com o Marketing de Conteúdo"></textarea>
+                                                        <textarea name="produtos_servicos" class="form-control" rows="3" placeholder="Descreve os produtos e ou serviços que queremos vender com o Marketing de Conteúdo"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links de Midia Sociais</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control">
+                                                        <input name="links" type="text" placeholder="Informe a url" class="form-control">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Objetivo primário</label>
-                                                        <select class="form-control">
+                                                        <select name="objetivo_primario" class="form-control">
                                                             <option value="0" selected disabled>Educar Cliente</option>
                                                             <option value="1">Vender</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPIs de acompanhamento primário</label>
-                                                        <select class="form-control">
+                                                        <select class="form-control" name="kpis_primario">
                                                             <option value="0" selected disabled>Educar Cliente</option>
                                                             <option value="1">Vender</option>
                                                         </select>
@@ -147,68 +149,70 @@ require_once '../../lib/operacoes.php';
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Objetivo secundário</label>
-                                                        <select class="form-control">
+                                                        <select class="form-control" name="objetivo_secundario">
                                                             <option value="0" selected disabled>Geração de Leads</option>
                                                             <option value="1">Vender</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPIs de acompanhamento secundário</label>
-                                                        <select class="form-control">
+                                                        <select class="form-control" name="kpis_secundario">
                                                             <option value="0" selected disabled>Lead gerados</option>
                                                             <option value="1">Vender</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Concorrentes(de segmento e/ou palavras-chave)</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="concorrentes">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Com quem falar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_falar"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Com quem não falar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_nao_falar"></textarea>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Abordar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="abordar"></textarea>
                                                     </div>  
                                                     <div class="form-group">
                                                         <label>Evitar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="evitar"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Linguagem</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="linguagem"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links para Referências</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="links_ref">
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="categorias_conteudo">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Canais de aquisição de tráfeco</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="canais">
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Ações de marketing levantadas</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="acoes"></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Considerações gerais de freelancers</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="consideracoes_gerais"></textarea>
                                                     </div>
                                                     <hr>
-                                                    <button class="btn btn-fill btn-success pull-right">Salvar</button>
+                                                    <input type="hidden" name="id_projeto" value="1" class="form-control border-input">
+                                                    <button type=submit" class="btn btn-fill btn-success pull-right">Salvar</button>
                                                     <div class="clearfix"></div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

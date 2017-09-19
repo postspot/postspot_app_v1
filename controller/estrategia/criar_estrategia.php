@@ -21,10 +21,6 @@ $canais = $_POST["canais"];
 $acoes = $_POST["acoes"];
 $consideracoes_gerais = $_POST["consideracoes_gerais"];
 
-//pre_r($_POST);
-//die();
-
-
 if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) && 
     isset($blog) && isset($produtos_servicos) && isset($links) &&
     isset($concorrentes) && isset($com_quem_falar) && isset($com_quem_nao_falar) 

@@ -105,6 +105,24 @@ class usuarios {
 		return false;
 		}
 	}
+        
+        public static function login($login, $senha) {
+            $stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, "
+                    . "funcao_usuario "
+                    . "FROM " . self::$tabela
+                    . " WHERE email_usuario= :login_usuario "
+                    . "AND senha_usuario= :senha_usuario");
+
+            $stmt->bindParam(":login_usuario", $login);
+            $stmt->bindParam(":senha_usuario", $senha);
+            if ($stmt->execute()) {
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+
+                    return $row;
+                }
+                return null;
+            }
+        }
 
 
  //------------------ function delete($id)---------//

@@ -4,41 +4,35 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/usuarios.php';
 require_once '../../model/idiomas_usuario.php';
 
-$nome_tarefa = $_POST["nome_tarefa"];
-$tipo_tarefa = $_POST["tipo_tarefa"];
-$palavra_chave = $_POST["palavra_chave"];
-$briefing_tarefa = $_POST["briefing_tarefa"];
-$estagio_compra = $_POST["estagio_compra"];
-$id_persona = $_POST["id_persona"];
-$tipo_cta = $_POST["tipo_cta"];
-$referencias = $_POST["referencias"];
-$consideracoes_gerais = $_POST["consideracoes_gerais"];
-$id_projeto = $_POST["id_projeto"];
-//$consideracoes_gerais = $_POST["consideracoes_gerais"];
+$nome_usuario = $_POST["nome_usuario"];
+$sexo_usuario = $_POST["sexo_usuario"];
+$foto_usuario = $_POST["foto_usuario"];
+$funcao_usuario = $_POST["funcao_usuario"];
+$email_usuario = $_POST["email_usuario"];
+$senha_usuario = $_POST["senha_usuario"];
+$idioma = $_POST["idioma"];
+
 
 //pre_r($_POST);
 //die();    
 
-if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) && 
-    isset($briefing_tarefa) && isset($estagio_compra) && isset($id_persona) &&
-    isset($tipo_cta) && isset($referencias) && isset($consideracoes_gerais)) {
+if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) && 
+    isset($funcao_usuario) && isset($email_usuario) && isset($senha_usuario) &&
+    isset($idioma)) {
 
     if (!empty($id_persona)) {
       
         $obj = new stdClass();
         
-        $obj->nome_usuario = $nome_tarefa;
-        $obj->sexo_usuario = $tipo_tarefa;
-	$obj->foto_usuario = $palavra_chave;
+        $obj->nome_usuario = $nome_usuario;
+        $obj->sexo_usuario = $sexo_usuario;
+	$obj->foto_usuario = $foto_usuario;
 	$obj->funcao_usuario = $funcao_usuario;
-	$obj->email_usuario = $briefing_tarefa;
-	$obj->senha_usuario = $estagio_compra;
-	$obj->senha_usuario = $id_persona;
-	$obj->senha_usuario = $tipo_cta;
-	$obj->senha_usuario = $id_projeto;
+	$obj->email_usuario = $email_usuario;
+	$obj->senha_usuario = md5($senha_usuario);
 //	$obj->senha_usuario = $estagio_compra;
         
-        $obj->id_usuario = ta::getAutoInc();
+        $obj->id_usuario = usuarios::getAutoInc();
         $obj->id_idioma = $idioma;
          
 //        pre_r($obj);

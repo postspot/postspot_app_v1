@@ -70,6 +70,22 @@ class projetos {
 		return false;
 		}
 	}
+        
+        public static function getByUsuario($id) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM projetos WHERE responsavel_projeto = :id");
+
+		$stmt->bindParam(":id", $id);
+		 $stmt->execute();
+                    while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                        return $colunas;
+                    }
+			
+		} catch(PDOException $ex) {
+		return false;
+		}
+	}
 
 
  //------------------ function delete($id)---------//

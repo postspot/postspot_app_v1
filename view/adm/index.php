@@ -58,7 +58,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                                <form method="#" action="dashboard.php">
+                                <form class="form-horizontal" action="../../controller/usuario/login.php" method="POST">
                                     <div class="card card-hidden" data-background="color" data-color="blue">
                                         <div class="card-header">
                                             <h3 class="card-title">Login</h3>
@@ -66,11 +66,11 @@
                                         <div class="card-content">
                                             <div class="form-group">
                                                 <label>Email</label>
-                                                <input type="email" placeholder="Informe o email" class="form-control input-no-border">
+                                                <input type="text" name="campo_login" placeholder="Informe o email" class="form-control input-no-border">
                                             </div>
                                             <div class="form-group">
                                                 <label>Senha</label>
-                                                <input type="password" placeholder="Informe a senha" class="form-control input-no-border">
+                                                <input type="password" name="campo_senha" placeholder="Informe a senha" class="form-control input-no-border">
                                             </div>
                                         </div>
                                         <div class="card-footer text-center">

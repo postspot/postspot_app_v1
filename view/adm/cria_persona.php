@@ -33,11 +33,10 @@ require_once '../../lib/operacoes.php';
                                                 <div class="col-md-2">
                                                     
                                                     <div class="form-group">
-                                                        <input type="hidden" name="foto" value="foto" class="form-control border-input">
-                                                        <input type="hidden" name="id_projeto" value="1" class="form-control border-input">
-                                                        <img id="fotoPersona" class="avatar border-white" src="assets/img/faces/face-2.jpg" alt="Foto Persona">                                                    
+                                                        <input type="hidden" name="foto" value="foto" class="form-control border-input" id="hiddenFotoPersona">
+                                                        <img id="fotoPersona" class="avatar border-white" src="assets/img/faces/01-avatar-postspot.png" alt="Foto Persona">                                                    
                                                     </div>
-                                                    <button class="btn btn-fill btn-success" onclick="funcoes.showSwal('personas')">Escolher Foto</button>
+                                                    <button  type="button" class="btn btn-fill btn-success" onclick="funcoes.showSwal('personas')">Escolher Foto</button>
                                                 </div>
                                                 <div class="col-md-10">
                                                     <div class="form-group">

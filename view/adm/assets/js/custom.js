@@ -161,40 +161,25 @@ funcoes = {
                 });
                 break;
             case 'personas':
+            var camposHtml = '<div class="row">';
+            for(i=1 ; i < 61 ; i++){
+                camposHtml +=  '<div class="col-md-3">' +
+                                    '<div class="foto-persona-radio">' +
+                                        '<img src="assets/img/faces/'+i+'-avatar-postspot.png">' +
+                                        '<input type="radio" name="foto_persona" value="'+i+'-avatar-postspot.png">' +
+                                    '</div>' +
+                                '</div>';
+            }
+            camposHtml += '</div>';
                 swal({
                     title: 'Escolha a Persona',
                     showConfirmButton: true,
                     confirmButtonText: 'Salvar',
-                    html:
-                            '<div class="row">' +
-                                    '<div class="col-md-3">' +
-                                         '<div class="foto-persona-radio">' +
-                                            '<img src="assets/img/faces/face-0.jpg">' +
-                                            '<input type="radio" name="foto_persona" value="face-0.jpg">' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="col-md-3">' +
-                                         '<div class="foto-persona-radio">' +
-                                            '<img src="assets/img/faces/face-1.jpg">' +
-                                            '<input type="radio" name="foto_persona" value="face-1.jpg">' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="col-md-3">' +
-                                         '<div class="foto-persona-radio">' +
-                                            '<img src="assets/img/faces/face-2.jpg">' +
-                                            '<input type="radio" name="foto_persona" value="face-2.jpg">' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="col-md-3">' +
-                                         '<div class="foto-persona-radio">' +
-                                            '<img src="assets/img/faces/face-3.jpg">' +
-                                            '<input type="radio" name="foto_persona" value="face-3.jpg">' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>'
+                    html: camposHtml
                 }).then(function() {
                     var fotoPersona = 'assets/img/faces/' + ($('input[name=foto_persona]:checked').val());
                   $('#fotoPersona').attr('src', fotoPersona);
+                  $('#hiddenFotoPersona').val($('input[name=foto_persona]:checked').val());
                 });
                 break;
             case 'criaProjeto':
@@ -208,40 +193,25 @@ funcoes = {
                                     '<div class="col-md-12">' +
                                             '<div class="form-group">' +
                                             '<label>Nome do Projeto</label>' +
-                                            '<input type="text" class="form-control border-input" name="nomeProduto">' +
+                                            '<input type="text" class="form-control border-input" name="nome_projeto">' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="col-md-12">' +
+                                            '<div class="form-group">' +
+                                            '<label>Site do Projeto</label>' +
+                                            '<input type="text" class="form-control border-input" name="site_projeto">' +
                                         '</div>' +
                                     '</div>' +
                                     '<div class="col-md-12">' +
                                         '<label>Data de Criação</label>' +
                                         '<div class="form-group">' +
-                                            '<input type="text" class="form-control datepicker" value="'+today+'" name="daraCriacao"/>' +
+                                            '<input type="text" class="form-control datepicker" value="'+today+'" name="cadastro_projeto"/>' +
                                         '</div>' +
                                     '</div>'+
                                 '</form>' +
                             '</div>'
                 }).then(function() {
                     $('#formCriaProjeto').trigger('submit');
-                    /*var nomeProduto = $('$nomeProduto').val();
-                    var daraCriacao = $('$daraCriacao').val();
-                    var dados = {nome_usuario: nome, email_usuario: email};
-                    $.ajax({
-                        url: "http://www.melhorcomprabrasil.com/controller//cadastro_usuario.php",
-                        type: "POST",
-                        dataType: "json",
-                        data: dados,
-                        async: true,
-                        timeout: 15000,
-                        success: function (data) {
-                            mainView.router.load({pageName: 'index'});
-                            limpaCamposCadastro();
-                            if (data == 'true') {
-                                mensagemAlerta('Sucesso!','Verifique sua caixa de email (spam e outros filtros de email) para confirmar seu cadastro.');
-                            }
-                        },
-                        error: function (x, t, m) {
-                            mensagemErro(t, x.responseText);
-                        }
-                    });*/
                 });
                 break;
             case 'trocarSenha':

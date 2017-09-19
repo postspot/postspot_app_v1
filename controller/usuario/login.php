@@ -1,6 +1,7 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../model/usuarios.php';
+require_once '../../model/projetos.php';
 
 session_start();
 

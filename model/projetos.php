@@ -13,10 +13,10 @@ class projetos {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO projetos (id_projeto, nome_projeto, cadastro_projeto, site_projeto, responsavel_projeto)
- VALUES(:id_projeto, :nome_projeto, :cadastro_projeto, :site_projeto, :responsavel_projeto);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO projetos 
+                (nome_projeto, cadastro_projeto, site_projeto, responsavel_projeto)
+                VALUES(:nome_projeto, :cadastro_projeto, :site_projeto, :responsavel_projeto);");
 
-		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 		$stmt->bindParam(":nome_projeto", $obj->nome_projeto);
 		$stmt->bindParam(":cadastro_projeto", $obj->cadastro_projeto);
 		$stmt->bindParam(":site_projeto", $obj->site_projeto);

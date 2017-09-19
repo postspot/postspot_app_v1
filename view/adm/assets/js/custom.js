@@ -204,22 +204,44 @@ funcoes = {
                     confirmButtonText: 'Criar Projeto',
                     html:
                             '<div class="row">' +
+                                '<form id="formCriaProjeto" action="../../controller/projeto/cria_projeto.php" method="post">' +
                                     '<div class="col-md-12">' +
-                                         '<div class="form-group">' +
+                                            '<div class="form-group">' +
                                             '<label>Nome do Projeto</label>' +
-                                            '<input type="text" class="form-control border-input">' +
+                                            '<input type="text" class="form-control border-input" name="nomeProduto">' +
                                         '</div>' +
                                     '</div>' +
                                     '<div class="col-md-12">' +
                                         '<label>Data de Criação</label>' +
                                         '<div class="form-group">' +
-                                            '<input type="text" class="form-control datepicker" value="'+today+'"/>' +
+                                            '<input type="text" class="form-control datepicker" value="'+today+'" name="daraCriacao"/>' +
                                         '</div>' +
-	                            '</div>'+
-                                '</div>'
+                                    '</div>'+
+                                '</form>' +
+                            '</div>'
                 }).then(function() {
-                    var fotoPersona = 'assets/img/faces/' + ($('input[name=foto_persona]:checked').val());
-                  $('#fotoPersona').attr('src', fotoPersona);
+                    $('#formCriaProjeto').trigger('submit');
+                    /*var nomeProduto = $('$nomeProduto').val();
+                    var daraCriacao = $('$daraCriacao').val();
+                    var dados = {nome_usuario: nome, email_usuario: email};
+                    $.ajax({
+                        url: "http://www.melhorcomprabrasil.com/controller//cadastro_usuario.php",
+                        type: "POST",
+                        dataType: "json",
+                        data: dados,
+                        async: true,
+                        timeout: 15000,
+                        success: function (data) {
+                            mainView.router.load({pageName: 'index'});
+                            limpaCamposCadastro();
+                            if (data == 'true') {
+                                mensagemAlerta('Sucesso!','Verifique sua caixa de email (spam e outros filtros de email) para confirmar seu cadastro.');
+                            }
+                        },
+                        error: function (x, t, m) {
+                            mensagemErro(t, x.responseText);
+                        }
+                    });*/
                 });
                 break;
             case 'trocarSenha':

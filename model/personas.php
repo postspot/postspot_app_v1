@@ -78,14 +78,13 @@ class personas {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM personas WHERE id_persona = :id");
 
 		$stmt->bindParam(":id", $id);
-		 $stmt->execute();
-			$colunas = array();
-			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-				array_push($colunas, $row);
-			}
-			return $colunas;
-		} catch(PDOException $ex) {
+		$stmt->execute();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			return $row;
+		}
 		return false;
+		} catch(PDOException $ex) {
+			return false;
 		}
 	}
 	public static function getByProjeto($id) {
@@ -102,6 +101,22 @@ class personas {
 			return $colunas;
 		} catch(PDOException $ex) {
 		return false;
+		}
+	}
+
+	public static function getAllPersona() {
+
+	 try {
+			$stmt = Conexao::getInstance()->prepare("SELECT * FROM personas");
+
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+			return false;
 		}
 	}
 

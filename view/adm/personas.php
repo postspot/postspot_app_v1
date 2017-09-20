@@ -1,6 +1,10 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/personas.php';
+$personas = Personas::getAllPersona();
+/*pre_r($personas);
+die();*/
 ?>
 <html lang="pt-br">
     <head>
@@ -28,105 +32,41 @@ require_once '../../lib/operacoes.php';
                                 <div class="card">
                                     <div class="card-content">
                                         <ul class="list-unstyled team-members">
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-xs-1">
-                                                        <div class="avatar">
-                                                            <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                            <?php foreach($personas as $persona): ?>
+                                                <li id="personaId<?= $persona->id_persona ?>">
+                                                    <div class="row">
+                                                        <div class="col-xs-1">
+                                                            <div class="avatar">
+                                                                <img src="assets/img/faces/<?= $persona->foto ?>" alt="Imagem persona <?= $persona->nome ?>" class="img-circle img-no-padding img-responsive">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-2">
+                                                            <?= $persona->nome ?>       
+                                                            <br>
+                                                            <span class="text-muted"><small><?= $persona->idade ?> anos</small></span>
+                                                        </div>
+                                                        <div class="col-xs-2">
+                                                            Educação
+                                                            <br>
+                                                            <span class="text-muted"><small><?= $persona->educacao ?></small></span>
+                                                        </div>
+                                                        <div class="col-xs-2">
+                                                            Trabalho
+                                                            <br>
+                                                            <span class="text-muted"><small><?= $persona->trabalho ?></small></span>
+                                                        </div>
+                                                        <div class="col-xs-2">
+                                                            Segmento
+                                                            <br>
+                                                            <span class="text-muted"><small><?= $persona->segmento ?></small></span>
+                                                        </div>
+                                                        <div class="col-xs-3 text-right">
+                                                            <a href="edita_persona.php?persona=<?= $persona->id_persona ?>" class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></a>
+                                                            <a href="#" onclick="deletaPersona(event,'<?= $persona->id_persona ?>',this);" class="btn btn-sm btn-danger btn-icon">Excluir <i class="fa fa-times"></i></a>
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-2">
-                                                        Andress
-                                                        <br>
-                                                        <span class="text-muted"><small>90 anos</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Educação
-                                                        <br>
-                                                        <span class="text-muted"><small>Curso Superior</small></span>
-                                                    </div>
-                                                    <div class="col-xs-3">
-                                                        Trabalho
-                                                        <br>
-                                                        <span class="text-muted"><small>Administrador de empresa</small></span>
-                                                    </div>
-                                                    <div class="col-xs-1">
-                                                        Segmento
-                                                        <br>
-                                                        <span class="text-muted"><small>Comércio</small></span>
-                                                    </div>
-                                                    <div class="col-xs-3 text-right">
-                                                        <btn class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></btn>
-                                                        <btn class="btn btn-sm btn-danger btn-icon">Excluir <i class="fa fa-times"></i></btn>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-xs-1">
-                                                        <div class="avatar">
-                                                            <img src="assets/img/faces/face-1.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Andress
-                                                        <br>
-                                                        <span class="text-muted"><small>90 anos</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Educação
-                                                        <br>
-                                                        <span class="text-muted"><small>Curso Superior</small></span>
-                                                    </div>
-                                                    <div class="col-xs-3">
-                                                        Trabalho
-                                                        <br>
-                                                        <span class="text-muted"><small>Administrador de empresa</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Segmento
-                                                        <br>
-                                                        <span class="text-muted"><small>Comércio</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2 text-right">
-                                                        <btn class="btn btn-sm btn-info btn-icon"><i class="fa fa-search"></i></btn>
-                                                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-xs-1">
-                                                        <div class="avatar">
-                                                            <img src="assets/img/faces/face-2.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Andress
-                                                        <br>
-                                                        <span class="text-muted"><small>90 anos</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Educação
-                                                        <br>
-                                                        <span class="text-muted"><small>Curso Superior</small></span>
-                                                    </div>
-                                                    <div class="col-xs-3">
-                                                        Trabalho
-                                                        <br>
-                                                        <span class="text-muted"><small>Administrador de empresa</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2">
-                                                        Segmento
-                                                        <br>
-                                                        <span class="text-muted"><small>Comércio</small></span>
-                                                    </div>
-                                                    <div class="col-xs-2 text-right">
-                                                        <a href="edita_persona.php" class="btn btn-sm btn-info btn-icon"><i class="fa fa-search"></i></a>
-                                                        <a class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></a>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                                </li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -143,4 +83,31 @@ require_once '../../lib/operacoes.php';
 
     <?php require_once './includes/footer_imports.php'; ?>
 
+    <script>
+    var codDeletado;
+        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona foi criada corretamente.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'eOk') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona editada com sucesso.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'dOk') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona deletada com sucesso.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'dFalha') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona deletada com sucesso.');
+            });
+        <?php } ?>
+        function deletaPersona(e,cod_persona,btn) { 
+            e.preventDefault();
+            var id = '#personaId' + cod_persona;
+            $(id).fadeOut();
+            codDeletado = cod_persona;
+            //funcoes.showSwal('deletaProjeto');
+         }
+    </script>
 </html>

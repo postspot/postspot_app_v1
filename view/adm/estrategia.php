@@ -1,6 +1,8 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+
+
 ?>
 <html lang="pt-br">
     <head>
@@ -38,7 +40,7 @@ require_once '../../lib/operacoes.php';
                                                 </div>
                                             </div>
                                             <div id="tab-persona" class="tab-content">
-                                                <div class="tab-pane active" id="estrategia">
+                                                <div class="tab-pane pane-pauta active" id="estrategia">
                                                     <h3>Sobre a empresa</h3>
                                                     <p>Agência de Inbound Marketing com o foco em estratégias capazes de identificar, conhecer e conquistar o público-alvo do cliente, com o proposito de impactar positivamente nas vendas.</p>
                                                     <p><strong>Site:</strong> http://ubound.co/</p>
@@ -106,7 +108,7 @@ require_once '../../lib/operacoes.php';
                                                     <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
                                                 </div>
                                                 <div class="tab-pane" id="editar">
-                                                    <form class="form-horizontal" action="../../controller/estrategia/criar_estrategia.php" method="POST">
+                                                    <form class="" action="../../controller/estrategia/criar_estrategia.php" method="POST">
                                                     <div class="form-group">
                                                         <label>Sobre a empresa</label>
                                                         <textarea name="empresa" class="form-control" rows="3" placeholder="Descreve brevemente a empresa ou o negócio"></textarea>
@@ -210,7 +212,7 @@ require_once '../../lib/operacoes.php';
                                                     </div>
                                                     <hr>
                                                     <input type="hidden" name="id_projeto" value="1" class="form-control border-input">
-                                                    <button type=submit" class="btn btn-fill btn-success pull-right">Salvar</button>
+                                                    <button type="submit" class="btn btn-fill btn-success pull-right">Salvar</button>
                                                     <div class="clearfix"></div>
                                                     </form>
                                                 </div>

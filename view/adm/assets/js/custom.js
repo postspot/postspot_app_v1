@@ -1,6 +1,8 @@
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
+icones = ['','info','success','warning','danger'];
+type = ['','info','success','warning','danger'];
 
 var yyyy = today.getFullYear();
 if(dd<10){
@@ -162,7 +164,7 @@ funcoes = {
                 break;
             case 'personas':
             var camposHtml = '<div class="row">';
-            for(i=1 ; i < 61 ; i++){
+            for(i=1 ; i < 60 ; i++){
                 camposHtml +=  '<div class="col-md-3">' +
                                     '<div class="foto-persona-radio">' +
                                         '<img src="assets/img/faces/'+i+'-avatar-postspot.png">' +
@@ -274,6 +276,51 @@ funcoes = {
                     alert('Vamos trocar a senha');
                 });
                 break;
+            case 'deletaProjeto':
+                swal({
+                    title: 'Deseja deletar a persona?',
+                    text: "Depois de confirmar a persona não poderá ser recuperada!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    //dados = {: codDeletado}
+                    $.ajax({
+                        url: "../../controller/persona/deleta_persona.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        //data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'A persona foi deletada.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'A persona não foi deletada.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
         }
     },
     
@@ -293,5 +340,21 @@ funcoes = {
                 close: 'fa fa-remove'
             }
          });
+    },
+    
+    showNotification: function(icon,cor, text){
+        
+        $.notify({
+            icon: icones[icon],
+            message: text
+
+        },{
+            type: type[cor],
+            timer: 3000,
+            placement: {
+                from: 'top',
+                align: 'right'
+            }
+        });
     },
 }

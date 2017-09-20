@@ -39,10 +39,10 @@ if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) &&
          
         
         if(personas::insert($obj)){
-            header('Location: ../../view/adm/cria_persona.php?retorno=ok');
+            header('Location: ../../view/adm/personas.php?retorno=ok');
         }
         else{
-            header('Location: ../../view/adm/cria_persona.php?retorno=erro');
+            header('Location: ../../view/adm/cria_persona.php?retorno=falha');
             
         }
     }

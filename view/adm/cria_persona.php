@@ -26,15 +26,16 @@ require_once '../../lib/operacoes.php';
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
+                                        <form action="../../controller/persona/criar_persona.php" method="POST">
+                                        <input type="hidden" name="id_projeto" value="1">
                                     <div class="card-content">
-                                        <form class="form-horizontal" action="../../controller/persona/criar_persona.php" method="POST">
                                             <div class="row">
 
                                                 <div class="col-md-2">
                                                     
                                                     <div class="form-group">
                                                         <input type="hidden" name="foto" value="foto" class="form-control border-input" id="hiddenFotoPersona">
-                                                        <img id="fotoPersona" class="avatar border-white" src="assets/img/faces/01-avatar-postspot.png" alt="Foto Persona">                                                    
+                                                        <img id="fotoPersona" class="avatar border-white" src="assets/img/faces/1-avatar-postspot.png" alt="Foto Persona">                                                    
                                                     </div>
                                                     <button  type="button" class="btn btn-fill btn-success" onclick="funcoes.showSwal('personas')">Escolher Foto</button>
                                                 </div>
@@ -118,8 +119,8 @@ require_once '../../lib/operacoes.php';
                                                 </div>
 
                                             </div>
-                                        </form>
                                     </div>
+                                        </form>
                                 </div> <!-- end col-md-12 -->
                             </div>
                         </div>
@@ -130,4 +131,12 @@ require_once '../../lib/operacoes.php';
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
+
+    <script>
+    <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'falha') { ?>
+        $(document).ready(function() {
+            funcoes.showNotification(0,4,'<b>Erro</b> - Erro ao criar persona.');
+        });
+    <?php } ?>
+    </script>
 </html>

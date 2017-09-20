@@ -168,3 +168,16 @@ h4.title{
     width: 130px;
     margin-left: -5px;
 }
+.menu-engrenagem li.sub-title{
+    padding: 10px 15px;
+    color: #94908c;
+}
+.menu-engrenagem hr{
+    margin: 0px;
+}
+.block{
+    display: block !important;
+}
+.no-border{
+    border-radius: 3px !important;
+}

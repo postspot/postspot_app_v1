@@ -32,7 +32,7 @@
                         <li><a href="#another">Another notification</a></li>
                     </ul>
                 </li>
-                <li>
+                <li class="menu-engrenagem">
                     <a href="#settings" class="dropdown-toggle btn-rotate" data-toggle="dropdown">
                         <i class="ti-settings"></i>
                         <p class="hidden-md hidden-lg">
@@ -41,7 +41,10 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a href="#"  onclick="funcoes.showSwal('projeto')">Trocar Projeto</a></li>
+                        <li class="sub-title">Projetos</li>
+                        <hr>
+                        <li><a href="#" >Melhorcompra</a></li>
+                        <hr>
                         <li><a href="index.php">Sair</a></li>
                     </ul>
                 </li>

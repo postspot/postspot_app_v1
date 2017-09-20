@@ -121,6 +121,8 @@
     <!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->
     <script src="assets/js/paper-dashboard.js"></script>
 
+    <script src="assets/js/custom.js"></script>
+
     <script type="text/javascript">
                                 $().ready(function () {
 
@@ -136,6 +138,12 @@
                                         // after 1000 ms we add the class animated to the login/register card
                                         $('.card').removeClass('card-hidden');
                                     }, 7000)
+
+                                    <?php if (isset($_GET['erro']) && $_GET['erro'] == 'loginerror') { ?>
+                                        $(document).ready(function() {
+                                            funcoes.showNotification(0,4,'<b>Dados incorretos</b> - verifique os campos e tente novamente.');
+                                        });
+                                    <?php } ?>
                                 });
     </script>
 

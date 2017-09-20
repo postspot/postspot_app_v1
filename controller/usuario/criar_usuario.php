@@ -13,8 +13,8 @@ $senha_usuario = $_POST["senha_usuario"];
 $idioma = $_POST["idioma"];
 
 
-//pre_r($_POST);
-//die();    
+pre_r($_POST);
+die();    
 
 if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) && 
     isset($funcao_usuario) && isset($email_usuario) && isset($senha_usuario) &&

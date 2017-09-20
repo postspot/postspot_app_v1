@@ -64,6 +64,22 @@ class habilidades {
 		return false;
 		}
 	}
+	
+		public static function getAllSkills() {
+	
+		 try {
+			$stmt = Conexao::getInstance()->prepare("SELECT * FROM habilidades");
+	
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+			} catch(PDOException $ex) {
+				return false;
+			}
+		}
 
 
  //------------------ function delete($id)---------//

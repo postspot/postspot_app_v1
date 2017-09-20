@@ -1,6 +1,9 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/habilidades.php';
+
+$habilidades = habilidades::getAllSkills();
 ?>
 <html lang="pt-br">
     <head>
@@ -22,7 +25,7 @@ require_once '../../lib/operacoes.php';
 
                 <div class="content">
                     <div class="container-fluid">
-                        <form action="../controller/usuario/criar_usuario.php" method="POST">
+                        <form action="../../controller/usuario/criar_usuario.php" method="POST">
                         <h4 class="title"><i class="ti-user"></i> Cria Usuário</h4>
                         <div class="row">
                             <div class="col-md-6">
@@ -57,25 +60,45 @@ require_once '../../lib/operacoes.php';
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Idioma</label>
-                                                    <input type="text" class="form-control border-input" name="idioma">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
                                                     <label>Função</label>
                                                     <select class="form-control border-input" name="funcao_usuario">
-                                                        <option value="0">Analista</option>
-                                                        <option value="1">Cliente</option>
+                                                        <option value="0">Gestor</option>
+                                                        <option value="1">Analista</option>
+                                                        <option value="2">Redator</option>
+                                                        <option value="3">Cliente</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
+                                                    <label class="block">Idiomas</label>
+                                                    <div class="checkbox checkbox-inline">
+                                                        <input id="checkIdiomaIngles" type="checkbox" value="Inglês" name="idioma[]">
+                                                        <label for="checkIdiomaIngles">
+                                                            Inglês
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox checkbox-inline">
+                                                        <input id="checkIdiomaEspanhol" type="checkbox" value="Espanhol" name="idioma[]">
+                                                        <label for="checkIdiomaEspanhol">
+                                                            Espanhol
+                                                        </label>
+                                                    </div>
+                                                    <div class="checkbox checkbox-inline">
+                                                        <input id="checkIdiomaPortugues" type="checkbox" value="Português" checked name="idioma[]">
+                                                        <label for="checkIdiomaPortugues">
+                                                            Português
+                                                        </label>
+                                                    </div>
+	                                            </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
                                                     <label>Habilidade</label>
-                                                    <select class="form-control border-input" name="habilidade">
-                                                        <option value="0">Falar</option>
-                                                        <option value="1">Escrever</option>
+                                                    <select multiple title="Escolha as Habilidades" class="selectpicker" data-style="no-border" data-size="7" name="habilidade[]">
+                                                        <?php foreach($habilidades as $habilidade):?>
+                                                            <option value="<?= $habilidade->id_habilidade ?>"><?= $habilidade->nome_habilidade ?></option>
+                                                        <?php endforeach;?>
                                                     </select>
                                                 </div>
                                             </div>

@@ -2,7 +2,11 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
-$persona = Personas::getById($_GET["persona"]);
+
+if(isset($_GET["persona"])){
+    $persona = Personas::getById($_GET["persona"]);
+}
+
 //pre_r($persona);
 //die();
 ?>
@@ -31,7 +35,8 @@ $persona = Personas::getById($_GET["persona"]);
                         <div class="col-md-12">
                             <div class="card">
                                     <form action="../../controller/persona/edita_persona.php" method="POST">
-                                    <input type="hidden" name="id_projeto" value="<?= $persona->nome ?>">
+                                    <input type="hidden" name="id_projeto" value="<?= $persona->id_projeto ?>">
+                                    <input type="hidden" name="id_persona" value="<?= $persona->id_persona ?>">
                                 <div class="card-content">
                                         <div class="row">
 
@@ -59,8 +64,8 @@ $persona = Personas::getById($_GET["persona"]);
                                                 <div class="form-group">
                                                     <label>Sexo</label>
                                                     <select class="form-control border-input" name="sexo">
-                                                        <option value="m" <?= ($persona->sexo == 'm') ? 'checked' : ''?>>Masculino</option>
-                                                        <option value="f" <?= ($persona->sexo == 'f') ? 'checked' : ''?>>Feminino</option>
+                                                        <option value="m" <?= ($persona->sexo == 'm') ? 'selected' : ''?>>Masculino</option>
+                                                        <option value="f" <?= ($persona->sexo == 'f') ? 'selected' : ''?>>Feminino</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -92,7 +97,7 @@ $persona = Personas::getById($_GET["persona"]);
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Segmento</label>
-                                                    <input type="text" class="form-control border-input" name="segmento" value="<?= $persona->nome ?>">
+                                                    <input type="text" class="form-control border-input" name="segmento" value="<?= $persona->segmento ?>">
                                                 </div>
                                             </div>
                                         </div>

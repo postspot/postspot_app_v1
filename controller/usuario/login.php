@@ -28,6 +28,7 @@ else {
     $_SESSION['id_usuario'] = $usuario->id_usuario;
     $_SESSION['funcao_usuario'] = $usuario->funcao_usuario;
     $_SESSION['nome_usuario'] = $usuario->nome_usuario;
+    
     if(projetos::getByUsuario($usuario->id_usuario)){
         $_SESSION['projeto_usuario'] = $usuario->id_projeto;
     }
@@ -36,8 +37,8 @@ else {
     }
     $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
     
-    if ($usuario->funcao_usuario == 1) {
+//    if ($usuario->funcao_usuario == 1) {
         header('location: ../../view/adm/dashboard.php');
-    }
+//    }
     
 }

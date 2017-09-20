@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 18-Set-2017 às 07:05
+-- Generation Time: 20-Set-2017 às 06:15
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -273,7 +273,7 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`id_persona`, `data_criacao`, `nome`, `idade`, `sexo`, `caracteristicas`, `educacao`, `trabalho`, `segmento`, `objetivos`, `descricao`, `resolucao`, `foto`, `id_projeto`) VALUES
 (1, NULL, 'persona mc', '20', '1', 'carac', 'pós', 'trab', 'seg', 'obj', 'desc', 'res', NULL, 1),
-(7, '2017-09-18 03:52:14', 'nome', '31', 'm', 'carac', 'edu', 'trab', 'seg', 'obj', 'problems', 'help', 'foto', 1);
+(7, '2017-09-18 03:52:14', 'nome3', '22', 'f', 'caracte3', 'edu3', 'trab3', 'seg3', 'obj3', 'problems3', 'help3', '1-avatar-postspot.png', 1);
 
 -- --------------------------------------------------------
 
@@ -361,7 +361,7 @@ CREATE TABLE `usuarios` (
   `nome_usuario` varchar(45) DEFAULT NULL,
   `sexo_usuario` varchar(1) DEFAULT NULL,
   `foto_usuario` varchar(45) DEFAULT NULL,
-  `funcao_usuario` varchar(1) DEFAULT NULL,
+  `funcao_usuario` varchar(1) DEFAULT NULL COMMENT '0-Gestor 1 - Analista 2- Redator 3-Cliente',
   `email_usuario` varchar(45) DEFAULT NULL,
   `senha_usuario` varchar(45) DEFAULT NULL,
   `cadastro_usuario` timestamp NULL DEFAULT CURRENT_TIMESTAMP
@@ -372,7 +372,7 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usuario`, `funcao_usuario`, `email_usuario`, `senha_usuario`, `cadastro_usuario`) VALUES
-(1, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 03:28:45'),
+(1, 'teste', 'm', 'assets/img/faces/face-0.jpg', '1', 'email', '202cb962ac59075b964b07152d234b70', '2017-09-14 03:28:45'),
 (2, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 03:29:27'),
 (3, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 03:34:12'),
 (4, 'aa', 'm', 'assets/img/faces/face-0.jpg', '0', 'aaa@a.com', '123', '2017-09-14 03:37:28'),

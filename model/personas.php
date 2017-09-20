@@ -44,10 +44,13 @@ class personas {
 
 	public static function update($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("UPDATE personas SET id_persona = :id_persona , data_criacao = :data_criacao , nome = :nome , idade = :idade , sexo = :sexo , caracteristicas = :caracteristicas , educacao = :educacao , trabalho = :trabalho , segmento = :segmento , objetivos = :objetivos , descricao = :descricao , resolucao = :resolucao , id_projeto = :id_projeto  WHERE id_persona = :id_persona ");
+		$stmt = Conexao::getInstance()->prepare("UPDATE personas SET "
+                . "nome = :nome , idade = :idade , sexo = :sexo , caracteristicas = :caracteristicas , "
+                . "educacao = :educacao , trabalho = :trabalho , segmento = :segmento , "
+                . "objetivos = :objetivos , descricao = :descricao , resolucao = :resolucao ,"
+                . " id_projeto = :id_projeto, foto =:foto  WHERE id_persona = :id_persona ");
 
 		$stmt->bindParam(":id_persona", $obj->id_persona);
-		$stmt->bindParam(":data_criacao", $obj->data_criacao);
 		$stmt->bindParam(":nome", $obj->nome);
 		$stmt->bindParam(":idade", $obj->idade);
 		$stmt->bindParam(":sexo", $obj->sexo);
@@ -58,6 +61,7 @@ class personas {
 		$stmt->bindParam(":objetivos", $obj->objetivos);
 		$stmt->bindParam(":descricao", $obj->descricao);
 		$stmt->bindParam(":resolucao", $obj->resolucao);
+		$stmt->bindParam(":foto", $obj->foto);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 
 		$stmt->execute(); 
@@ -127,7 +131,7 @@ class personas {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM personas WHERE id_projeto = :id");
+		$stmt = Conexao::getInstance()->prepare("DELETE FROM personas WHERE id_persona =:id");
 
 		$stmt->bindParam(":id", $id);
 

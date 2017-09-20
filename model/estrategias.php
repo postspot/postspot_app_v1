@@ -98,14 +98,13 @@ class estrategias {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM estrategias WHERE projetos_id_projeto = :id");
 
 		$stmt->bindParam(":id", $id);
-		 $stmt->execute();
-			$colunas = array();
-			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-				array_push($colunas, $row);
-			}
-			return $colunas;
-		} catch(PDOException $ex) {
+		$stmt->execute();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			return $row;
+		}
 		return false;
+		} catch(PDOException $ex) {
+			return false;
 		}
 	}
 

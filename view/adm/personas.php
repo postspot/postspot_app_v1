@@ -93,14 +93,6 @@ die();*/
             $(document).ready(function() {
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - persona editada com sucesso.');
             });
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'dOk') { ?>
-            $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona deletada com sucesso.');
-            });
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'dFalha') { ?>
-            $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona deletada com sucesso.');
-            });
         <?php } ?>
         function deletaPersona(e,cod_persona,btn) { 
             e.preventDefault();

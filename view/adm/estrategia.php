@@ -1,8 +1,11 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/estrategias.php';
 
-
+$estrategia = estrategias::getById(1);
+//pre_r($estrategia);
+//die();
 ?>
 <html lang="pt-br">
     <head>
@@ -42,97 +45,88 @@ require_once '../../lib/operacoes.php';
                                             <div id="tab-persona" class="tab-content">
                                                 <div class="tab-pane pane-pauta active" id="estrategia">
                                                     <h3>Sobre a empresa</h3>
-                                                    <p>Agência de Inbound Marketing com o foco em estratégias capazes de identificar, conhecer e conquistar o público-alvo do cliente, com o proposito de impactar positivamente nas vendas.</p>
-                                                    <p><strong>Site:</strong> http://ubound.co/</p>
+                                                    <p><?= $estrategia->empresa ?></p>
+                                                    <p><strong>Site:</strong> <?= $estrategia->site ?></p>
                                                     <hr>
                                                     <h3>Sobre o projeto</h3>
-                                                    <p>A Ubound é uma agência que tem 5 meses no mercado. Foi fundada por 2 sócios que tem uma vasta experiência em Marketing Digital e viram uma oportunidade em iniciar um negócio focado em Inbound.</p>
-
-                                                    <p>Não possuem concorrentes na região de Poços de Caldas.</p>
-
-                                                    <p>Possuem 5 clientes com contrato.</p>
-
-                                                    <p>Atualmente são os dois sócios desenvolvendo as estratégias e contam com parceiros para a produção.</p>
-
-                                                    <p>Diferencial da agência: focam em resultados, pois assim podem melhorar continuamente as estratégias dos clientes.</p>
+                                                    <?= $estrategia->projeto ?>
                                                     <hr>
                                                     <h3>Produtos e Serviço</h3>
-                                                    <p>Conhecimento e planejamento para que sua marca desponte em um mercado cada dia mais concorrido. Não somos uma agência de publicidade, que produz anúncios. Atuamos no universo do marketing digital de resultados. Nosso foco é montar estratégias capazes de identificar, conhecer e conquistar o público-alvo de seu negócio, impactando suas vendas.</p>
+                                                    <?= $estrategia->produtos_servicos ?>
                                                     <hr>
                                                     <h3>Links de Midia Sociais</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->links ?>
                                                     <hr>
                                                     <h3>Objetivo primário</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->objetivo_primario ?>
                                                     <hr>
                                                     <h3>KPIs de acompanhamento primário</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->kpis_primario ?>
                                                     <hr>
                                                     <h3>Objetivo secundário</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->objetivo_secundario ?>
                                                     <hr>
                                                     <h3>KPIs de acompanhamento secundário</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->kpis_secundario ?>
                                                     <hr>
                                                     <h3>Concorrentes(de segmento e/ou palavras-chave)</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->concorrentes ?>
                                                     <hr>
                                                     <h3>Com quem falar</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->com_quem_falar ?>
                                                     <hr>
                                                     <h3>Com quem não falar</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->com_quem_nao_falar ?>
                                                     <hr>
                                                     <h3>Abordar</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->abordar ?>
                                                     <hr>
                                                     <h3>Evitar</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->evitar ?>
                                                     <hr>
                                                     <h3>Linguagem</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->linguagem ?>
                                                     <hr>
                                                     <h3>Links para Referências</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->links_ref ?>
                                                     <hr>
                                                     <h3>Categorias de conteúdo</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->categorias_conteudo ?>
                                                     <hr>
                                                     <h3>Canais de aquisição de tráfeco</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->canais ?>
                                                     <hr>
                                                     <h3>Ações de marketing levantadas</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->acoes ?>
                                                     <hr>
                                                     <h3>Considerações gerais de freelancers</h3>
-                                                    <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. atically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                                    <?= $estrategia->consideracoes_gerais ?>
                                                 </div>
                                                 <div class="tab-pane" id="editar">
                                                     <form class="" action="../../controller/estrategia/criar_estrategia.php" method="POST">
                                                     <div class="form-group">
                                                         <label>Sobre a empresa</label>
-                                                        <textarea name="empresa" class="form-control" rows="3" placeholder="Descreve brevemente a empresa ou o negócio"></textarea>
+                                                        <textarea name="empresa" class="form-control" rows="3" placeholder="Descreve brevemente a empresa ou o negócio"><?= $estrategia->empresa ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Site</label>
-                                                        <input name="site" type="text" placeholder="Informe o site" class="form-control">
-                                                         
+                                                        <input name="site" type="text" placeholder="Informe o site" class="form-control" value="<?= $estrategia->site ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Sobre o projeto</label>
-                                                        <textarea name="projeto" class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"></textarea>
+                                                        <textarea name="projeto" class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"><?= $estrategia->projeto ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Blog</label>
-                                                        <input name="blog" type="text" placeholder="Informe o Blog" class="form-control">
+                                                        <input name="blog" type="text" placeholder="Informe o Blog" class="form-control" value="<?= $estrategia->blog ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Produtos e Serviço</label>
-                                                        <textarea name="produtos_servicos" class="form-control" rows="3" placeholder="Descreve os produtos e ou serviços que queremos vender com o Marketing de Conteúdo"></textarea>
+                                                        <textarea name="produtos_servicos" class="form-control" rows="3" placeholder="Descreve os produtos e ou serviços que queremos vender com o Marketing de Conteúdo"><?= $estrategia->produtos_servicos ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links de Midia Sociais</label>
-                                                        <input name="links" type="text" placeholder="Informe a url" class="form-control">
+                                                        <input name="links" type="text" placeholder="Informe a url" class="form-control" value="<?= $estrategia->links ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Objetivo primário</label>
@@ -165,50 +159,50 @@ require_once '../../lib/operacoes.php';
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Concorrentes(de segmento e/ou palavras-chave)</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="concorrentes">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="concorrentes" value="<?= $estrategia->concorrentes ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Com quem falar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_falar"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_falar"><?= $estrategia->com_quem_falar ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Com quem não falar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_nao_falar"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_nao_falar"><?= $estrategia->com_quem_nao_falar ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Abordar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="abordar"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="abordar"><?= $estrategia->abordar ?></textarea>
                                                     </div>  
                                                     <div class="form-group">
                                                         <label>Evitar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="evitar"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="evitar"><?= $estrategia->evitar ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Linguagem</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="linguagem"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="linguagem"><?= $estrategia->linguagem ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links para Referências</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="links_ref">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="links_ref" value="<?= $estrategia->links_ref ?>">
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="categorias_conteudo">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="categorias_conteudo" value="<?= $estrategia->categorias_conteudo ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Canais de aquisição de tráfeco</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="canais">
+                                                        <input type="text" placeholder="Informe a url" class="form-control" name="canais" value="<?= $estrategia->canais ?>">
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Ações de marketing levantadas</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="acoes"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="acoes"><?= $estrategia->acoes ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Considerações gerais de freelancers</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="consideracoes_gerais"></textarea>
+                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="consideracoes_gerais"><?= $estrategia->consideracoes_gerais ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <input type="hidden" name="id_projeto" value="1" class="form-control border-input">

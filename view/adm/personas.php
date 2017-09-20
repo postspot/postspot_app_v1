@@ -107,7 +107,7 @@ die();*/
             var id = '#personaId' + cod_persona;
             $(id).fadeOut();
             codDeletado = cod_persona;
-            //funcoes.showSwal('deletaProjeto');
+            funcoes.showSwal('deletaProjeto');
          }
     </script>
 </html>

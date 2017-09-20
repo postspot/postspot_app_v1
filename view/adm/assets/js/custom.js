@@ -287,7 +287,7 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar!',
                     buttonsStyling: false
                 }).then(function() {
-                    //dados = {: codDeletado}
+                    dados = {id_persona: codDeletado}
                     $.ajax({
                         url: "../../controller/persona/deleta_persona.php",
                         type: "POST",

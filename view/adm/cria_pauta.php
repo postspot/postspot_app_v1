@@ -71,26 +71,26 @@ require_once '../../model/personas.php';
                                                 <div class="col-md-10">
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio1" value="1" checked="">
+                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Aprendizado e Descoberta" checked="">
                                                         <label for="estagio1">
                                                             Aprendizado e Descoberta
                                                         </label>
                                                     </div>
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio" id="estagio2" value="2">
+                                                        <input type="radio" name="estagio_compra" id="estagio2" value="Reconhecimento do Problema">
                                                         <label for="estagio2">
                                                             Reconhecimento do Problema
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio" id="estagio3" value="3">
+                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração da Solução">
                                                         <label for="estagio3">
                                                             Consideração da Solução
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio" id="estagio4" value="4">
+                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão de Compra">
                                                         <label for="estagio4">
                                                             Decisão de Compra
                                                         </label>

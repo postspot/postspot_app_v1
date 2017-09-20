@@ -58,7 +58,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                                <form class="form-horizontal" action="../../controller/usuario/login.php" method="POST">
+                                <form class="l" action="../../controller/usuario/login.php" method="POST">
                                     <div class="card card-hidden" data-background="color" data-color="blue">
                                         <div class="card-header">
                                             <h3 class="card-title">Login</h3>

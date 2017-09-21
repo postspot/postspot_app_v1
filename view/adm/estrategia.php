@@ -49,7 +49,8 @@ $estrategia = estrategias::getById(1);
                                                     <p><strong>Site:</strong> <?= $estrategia->site ?></p>
                                                     <hr>
                                                     <h3>Sobre o projeto</h3>
-                                                    <?= $estrategia->projeto ?>
+                                                    <p><?= $estrategia->projeto ?></p>
+                                                    <p><b>Blog:</b> <?= $estrategia->blog ?></p>
                                                     <hr>
                                                     <h3>Produtos e Serviço</h3>
                                                     <?= $estrategia->produtos_servicos ?>
@@ -106,6 +107,7 @@ $estrategia = estrategias::getById(1);
                                                     <form class="" action="../../controller/estrategia/criar_estrategia.php" method="POST">
                                                     <div class="form-group">
                                                         <label>Sobre a empresa</label>
+                                                        <p class="text-muted">Descreva brevemente a empresa ou o negócio.</p>
                                                         <textarea name="empresa" class="form-control" rows="3" placeholder="Descreve brevemente a empresa ou o negócio"><?= $estrategia->empresa ?></textarea>
                                                     </div>
                                                     <div class="form-group">
@@ -114,7 +116,8 @@ $estrategia = estrategias::getById(1);
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Sobre o projeto</label>
-                                                        <textarea name="projeto" class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa"><?= $estrategia->projeto ?></textarea>
+                                                        <p class="text-muted">Descreva o projeto, caso ele seja um produto/serviço específico dentro da empresa</p>
+                                                        <textarea name="projeto" class="form-control" rows="3" ><?= $estrategia->projeto ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Blog</label>
@@ -122,87 +125,207 @@ $estrategia = estrategias::getById(1);
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Produtos e Serviço</label>
-                                                        <textarea name="produtos_servicos" class="form-control" rows="3" placeholder="Descreve os produtos e ou serviços que queremos vender com o Marketing de Conteúdo"><?= $estrategia->produtos_servicos ?></textarea>
+                                                        <p class="text-muted">Descreva os produtos e ou serviços que queremos vender com o Marketing de Conteúdo</p>
+                                                        <textarea name="produtos_servicos" class="form-control" rows="3" ><?= $estrategia->produtos_servicos ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links de Midia Sociais</label>
-                                                        <input name="links" type="text" placeholder="Informe a url" class="form-control" value="<?= $estrategia->links ?>">
+                                                        <p class="text-muted">Uma URL para cada tópico</p>
+                                                        <textarea name="links" class="form-control" rows="3" ><?= $estrategia->links ?></textarea>                                                        
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Objetivo primário</label>
                                                         <select name="objetivo_primario" class="form-control">
-                                                            <option value="0" selected disabled>Educar Cliente</option>
-                                                            <option value="1">Vender</option>
+                                                            <option value="" selected="selected" disabled>Selecione um Objetivo</option>
+                                                            <option value="Conhecimento de marca">Conhecimento de marca</option>
+                                                            <option value="Geração de leads">Geração de leads</option>
+                                                            <option value="Educar o cliente">Educar o cliente</option>
+                                                            <option value="Tornar-se referência">Tornar-se referência</option>
+                                                            <option value="Geração de tráfego">Geração de tráfego</option>
+                                                            <option value="Engajamento com a marca">Engajamento com a marca</option>
+                                                            <option value="Outro">Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPIs de acompanhamento primário</label>
                                                         <select class="form-control" name="kpis_primario">
-                                                            <option value="0" selected disabled>Educar Cliente</option>
-                                                            <option value="1">Vender</option>
+                                                            <option value="Selecione um KPI" selected="selected" disabled>Selecione um KPI</option>
+                                                            <option value="Tráfego total">Tráfego total</option>
+                                                            <option value="Tráfego orgânico">Tráfego orgânico</option>
+                                                            <option value="Leads gerados">Leads gerados</option>
+                                                            <option value="Assinantes">Assinantes</option>
+                                                            <option value="Conversão">Conversão</option>
+                                                            <option value="Taxa de cancelamento">Taxa de cancelamento</option>
+                                                            <option value="Outro">Outro</option>
                                                         </select>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Objetivo secundário</label>
                                                         <select class="form-control" name="objetivo_secundario">
-                                                            <option value="0" selected disabled>Geração de Leads</option>
-                                                            <option value="1">Vender</option>
+                                                            <option value="" selected="selected" disabled>Selecione um Objetivo</option>
+                                                            <option value="Conhecimento de marca">Conhecimento de marca</option>
+                                                            <option value="Geração de leads">Geração de leads</option>
+                                                            <option value="Educar o cliente">Educar o cliente</option>
+                                                            <option value="Tornar-se referência">Tornar-se referência</option>
+                                                            <option value="Geração de tráfego">Geração de tráfego</option>
+                                                            <option value="Engajamento com a marca">Engajamento com a marca</option>
+                                                            <option value="Outro">Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPIs de acompanhamento secundário</label>
                                                         <select class="form-control" name="kpis_secundario">
-                                                            <option value="0" selected disabled>Lead gerados</option>
-                                                            <option value="1">Vender</option>
+                                                            <option value="Selecione um KPI" selected="selected" disabled>Selecione um KPI</option>
+                                                            <option value="Tráfego total">Tráfego total</option>
+                                                            <option value="Tráfego orgânico">Tráfego orgânico</option>
+                                                            <option value="Leads gerados">Leads gerados</option>
+                                                            <option value="Assinantes">Assinantes</option>
+                                                            <option value="Conversão">Conversão</option>
+                                                            <option value="Taxa de cancelamento">Taxa de cancelamento</option>
+                                                            <option value="Outro">Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Concorrentes(de segmento e/ou palavras-chave)</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="concorrentes" value="<?= $estrategia->concorrentes ?>">
+                                                        <textarea class="form-control" rows="3"  name="concorrentes"><?= $estrategia->concorrentes ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Com quem falar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_falar"><?= $estrategia->com_quem_falar ?></textarea>
+                                                        <p class="text-muted">Público que queremos atrair</p>
+                                                        <textarea class="form-control" rows="3"  name="com_quem_falar"><?= $estrategia->com_quem_falar ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Com quem não falar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="com_quem_nao_falar"><?= $estrategia->com_quem_nao_falar ?></textarea>
+                                                        <p class="text-muted">Público que não queremos atrair</p>
+                                                        <textarea class="form-control" rows="3"  name="com_quem_nao_falar"><?= $estrategia->com_quem_nao_falar ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Abordar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="abordar"><?= $estrategia->abordar ?></textarea>
+                                                        <p class="text-muted">Assuntos para <b>abordar</b> nos conteúdos</p>
+                                                        <textarea class="form-control" rows="3"  name="abordar"><?= $estrategia->abordar ?></textarea>
                                                     </div>  
                                                     <div class="form-group">
                                                         <label>Evitar</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="evitar"><?= $estrategia->evitar ?></textarea>
+                                                        <p class="text-muted">Assuntos para <b>evitar</b> nos conteúdos</p>
+                                                        <textarea class="form-control" rows="3"  name="evitar"><?= $estrategia->evitar ?></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Linguagem</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="linguagem"><?= $estrategia->linguagem ?></textarea>
+                                                        <label class="block">Linguagem</label>
+                                                        <p class="text-muted">Descreve o tom e a voz da escrita</p>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem" type="checkbox" name="linguagem[]" value="Entusiasmado">
+                                                            <label for="linguagem">
+                                                                Entusiasmado
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem2" type="checkbox" name="linguagem[]" value="Especialista">
+                                                            <label for="linguagem2">
+                                                            Especialista
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem3" type="checkbox" name="linguagem[]" value="Prestativo">
+                                                            <label for="linguagem3">
+                                                            Prestativo
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem4" type="checkbox" name="linguagem[]" value="Informativo">
+                                                            <label for="linguagem4">
+                                                            Informativo
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem5" type="checkbox" name="linguagem[]" value="Franco">
+                                                            <label for="linguagem5">
+                                                            Franco
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem6" type="checkbox" name="linguagem[]" value="Autoritário">
+                                                            <label for="linguagem6">
+                                                            Autoritário
+                                                            </label>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem7" type="checkbox" name="linguagem[]" value="Casual">
+                                                            <label for="linguagem7">
+                                                            Casual
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem8" type="checkbox" name="linguagem[]" value="Atrevido">
+                                                            <label for="linguagem8">
+                                                            Atrevido
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem9" type="checkbox" name="linguagem[]" value="Convencional">
+                                                            <label for="linguagem9">
+                                                            Convencional
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem10" type="checkbox" name="linguagem[]" value="Cortês">
+                                                            <label for="linguagem10">
+                                                            Cortês
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem11" type="checkbox" name="linguagem[]" value="Criativo">
+                                                            <label for="linguagem11">
+                                                            Criativo
+                                                            </label>
+                                                        </div>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="linguagem12" type="checkbox" name="linguagem[]" value="Emocionado">
+                                                            <label for="linguagem12">
+                                                            Emocionado
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links para Referências</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="links_ref" value="<?= $estrategia->links_ref ?>">
+                                                        <textarea class="form-control" rows="3"  name="links_ref"><?= $estrategia->links_ref ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="categorias_conteudo" value="<?= $estrategia->categorias_conteudo ?>">
+                                                        <p class="text-muted">Selecione as duas ou três principaiis</p>
+                                                        <input type="text"  class="form-control" name="categorias_conteudo" value="<?= $estrategia->categorias_conteudo ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Canais de aquisição de tráfeco</label>
-                                                        <input type="text" placeholder="Informe a url" class="form-control" name="canais" value="<?= $estrategia->canais ?>">
+                                                        <p class="text-muted">Liste os principais canais de aquisição de tráfego</p>
+                                                        <input type="text"  class="form-control" name="canais" value="<?= $estrategia->canais ?>">
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Ações de marketing levantadas</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="acoes"><?= $estrategia->acoes ?></textarea>
+                                                        <p class="text-muted">Informações sobre ações de marketing passadas e seus resultados, separadas por quebra de linha</p>
+                                                        <textarea class="form-control" rows="3"  name="acoes"><?= $estrategia->acoes ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Considerações gerais de freelancers</label>
-                                                        <textarea class="form-control" rows="3" placeholder="Descreve o projeto, caso ele seja um produto/serviço específico de uma empresa" name="consideracoes_gerais"><?= $estrategia->consideracoes_gerais ?></textarea>
+                                                        <p class="text-muted">Considerações gerais de pauta devem ser atualizadas a cada ciclo</p>
+                                                        <textarea class="form-control" rows="3"  name="consideracoes_gerais"><?= $estrategia->consideracoes_gerais ?></textarea>
+                                                    </div>
+                                                    <hr>
+                                                    <div class="form-group">
+                                                        <label>Termos proibidos</label>
+                                                        <p class="text-muted">Liste os termos proibidos para a estratégia do cliente, separados por vírgula</p>
+                                                        <input type="text"  class="form-control" name="xxxx" value="<?= $estrategia->xxx ?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mapeamentos de conteúdo</label>
+                                                        <textarea class="form-control" rows="3"  name="xxxx"><?= $estrategia->xxxx ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <input type="hidden" name="id_projeto" value="1" class="form-control border-input">

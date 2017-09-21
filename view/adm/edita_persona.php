@@ -121,13 +121,43 @@ if(isset($_GET["persona"])){
                                                     <label>Como vamos ajudar?</label>
                                                     <textarea rows="5" class="form-control border-input" name="resolucao"><?= $persona->resolucao ?></textarea>
                                                 </div>
-                                                <hr>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-fill btn-info pull-right">Salvar</button>                                               
                                             </div>
 
                                         </div>
+                                        <hr>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Aprendizado e Descoberta</label>
+                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Reconhecimento do Problema</label>
+                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Consideração da Solução</label>
+                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Decisão de Compra</label>
+                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="submit" class="btn btn-fill btn-info pull-right">Salvar</button>                                               
+                                            </div>
+                                            </div>
                                 </div>
                                     </form>
                             </div> <!-- end col-md-12 -->

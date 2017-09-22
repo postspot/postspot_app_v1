@@ -1,6 +1,9 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/tipo_tarefa.php';
+
+$tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 ?>
 <html lang="pt-br">
     <head>
@@ -28,26 +31,18 @@ require_once '../../lib/operacoes.php';
                                 <div class="card">
                                     <div class="card-content">
                                         <ul class="list-unstyled team-members">
-                                            <li>
+                                            <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
+                                            <li id="tipo<?= $tipoTarefa->id_tipo ?>">
                                                 <div class="row">
                                                     <div class="col-xs-8">
-                                                        Social Post
+                                                    <?= $tipoTarefa->nome_tarefa ?>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
+                                                        <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);"><i class="fa fa-times"></i></btn>
                                                     </div>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-xs-8">
-                                                        Emailmarketing
-                                                    </div>
-                                                    <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            <?php endforeach; ?>
                                         </ul>
                                     </div>
                                 </div>
@@ -63,5 +58,23 @@ require_once '../../lib/operacoes.php';
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
-
+    
+    <script>
+    var codDeletado;
+    var elem;
+        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - tipo de conteúdo criado corretamente.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - tipo de conteúdo não foi criado.');
+            });
+        <?php } ?>
+        function deletaTipoTarefa(cod_tipo,btn) { 
+            elem = '#tipo' + cod_tipo;
+            codDeletado = cod_tipo;
+            funcoes.showSwal('deletaTipoTarefa');
+         }
+    </script>
 </html>

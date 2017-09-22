@@ -67,6 +67,29 @@ class membros_equipe {
 		}
 	}
 
+	public static function buscarPessoasDaEquipe($equipe) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare('SELECT * '
+		. 'FROM membros_equipe as me'
+		. 'INNER JOIN equipes eq'
+		. 'ON(me.sss = eq.sss)'
+		. 'INNER JOIN usuarios us'
+		. 'ON(me.sss = us.sss)'
+		. 'WHERE eq.id_equipe =:id_equipe');
+
+		$stmt->bindParam(":id_equipe", $id);
+		$stmt->execute();
+		$colunas = array();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			array_push($colunas, $row);
+		}
+		return $colunas;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+
 
  //------------------ function delete($id)---------//
 

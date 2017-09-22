@@ -66,6 +66,21 @@ class tipo_tarefa {
 		return false;
 		}
 	}
+	public static function getAllTiposTaredas() {
+		
+			 try {
+				$stmt = Conexao::getInstance()->prepare("SELECT * FROM tipo_tarefa");
+		
+				$stmt->execute();
+				$colunas = array();
+				while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+					array_push($colunas, $row);
+				}
+				return $colunas;
+				} catch(PDOException $ex) {
+					return false;
+				}
+			}
 
 
  //------------------ function delete($id)---------//
@@ -74,11 +89,11 @@ class tipo_tarefa {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM tipo_tarefa WHERE id_tarefa = :id");
+			$stmt = Conexao::getInstance()->prepare("DELETE FROM tipo_tarefa WHERE id_tipo = :id");
 
-		$stmt->bindParam(":id", $id);
+			$stmt->bindParam(":id", $id);
 
-		$stmt->execute(); 
+			$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
 		return false;

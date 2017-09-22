@@ -247,33 +247,37 @@ funcoes = {
                     confirmButtonText: 'Criar',
                     html:
                             '<div class="row">' +
+                                '<form id="formCriaTipoTarefa" action="../../controller/tipo_tarefa/cria_tipo.php" method="post">' +                                                        
                                     '<div class="col-md-12">' +
-                                         '<div class="form-group">' +
+                                        '<div class="form-group">' +
                                             '<label>Nome</label>' +
-                                            '<input type="text" class="form-control border-input">' +
+                                            '<input type="text" class="form-control border-input" name="nome_tarefa">' +
                                         '</div>' +
                                     '</div>' +
-                                '</div>'
+                                '</form>'+
+                            '</div>'
                 }).then(function() {
-                    alert('Vamos Criar');
+                    $('#formCriaTipoTarefa').trigger('submit');
                 });
                 break;
-            case 'habilidades':
+            case 'habilidade':
                 swal({
                     title: 'Criar Habilidade',
                     showConfirmButton: true,
-                    confirmButtonText: 'criar',
+                    confirmButtonText: 'Criar',
                     html:
                             '<div class="row">' +
+                                '<form id="formCriaProjeto" action="../../controller/habilidades/cria_habilidade.php" method="post">' +                            
                                     '<div class="col-md-12">' +
                                          '<div class="form-group">' +
                                             '<label>Nome</label>' +
-                                            '<input type="text" class="form-control border-input">' +
+                                            '<input type="text" class="form-control border-input" name="nome_habilidade">' +
                                         '</div>' +
                                     '</div>' +
-                                '</div>'
+                                '</form>'+
+                            '</div>'
                 }).then(function() {
-                    alert('Vamos trocar a senha');
+                    $('#formCriaProjeto').trigger('submit');
                 });
                 break;
             case 'deletaProjeto':
@@ -308,6 +312,98 @@ funcoes = {
                                 swal({
                                   title: 'Erro!',
                                   text: 'A persona não foi deletada.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
+            case 'deletaHabilidade':
+                swal({
+                    title: 'Deseja deletar a habilidade?',
+                    text: "Depois de confirmar a habilidade não poderá ser recuperada!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    dados = {id_habilidade: codDeletado}
+                    $.ajax({
+                        url: "../../controller/habilidades/deleta_habilidade.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                $(elem).remove();
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'A habilidade foi deletada.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'A habilidade não foi deletada.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
+            case 'deletaTipoTarefa':
+                swal({
+                    title: 'Deseja deletar?',
+                    text: "Depois de confirmar, este tipo de tarefa não poderá ser recuperado!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    dados = {id_tipo: codDeletado}
+                    $.ajax({
+                        url: "../../controller/tipo_tarefa/deleta_tipo.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                $(elem).remove();
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'O tipo de tarefa foi deletado.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'O tipo de tarefa não foi deletado.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
                                   buttonsStyling: false

@@ -2,6 +2,8 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
+require_once '../../model/tipo_tarefa.php';
+$tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 ?>
 <html lang="pt-br">
     <head>
@@ -46,10 +48,9 @@ require_once '../../model/personas.php';
                                                 <label class="col-md-2 control-label">Tipo</label>
                                                 <div class="col-md-4">
                                                     <select class="form-control" name="tipo_tarefa">
-                                                        <option>Blog Post</option>
-                                                        <option>Ebook</option>
-                                                        <option>Newsletter</option>
-                                                        <option>Social Post</option>
+                                                        <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </div>

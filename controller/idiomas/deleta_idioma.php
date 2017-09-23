@@ -1,13 +1,13 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
-require_once '../../model/habilidades.php';
+require_once '../../model/idiomas.php';
 
-$id_habilidade = $_POST["id_habilidade"];
+$id_idioma = $_POST["id_idioma"];
 
-if(isset($id_habilidade)){
-    if(!empty($id_habilidade)){
-        if(habilidades::delete($id_habilidade)){
+if(isset($id_idioma)){
+    if(!empty($id_idioma)){
+        if(idiomas::delete($id_idioma)){
             echo json_encode("true");
         }
         else{

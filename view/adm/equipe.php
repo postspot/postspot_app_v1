@@ -75,123 +75,123 @@ require_once '../../model/membros_equipe.php';
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="row">
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <h5>Andress</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <span class="label label-info">Gerente de Projeto</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <h5>Andress</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <span class="label label-info">Gerente de Projeto</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <h5>Andress</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <span class="label label-info">Gerente de Projeto</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <h5>Andress</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <span class="label label-info">Gerente de Projeto</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="card">
-                                    <div class="card-content">
-                                        <div class="row">
-                                            <div class="col-xs-4">
-                                                <div class="avatar">
-                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <h5>Andress</h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <hr>
-                                        <div class="stats">
-                                            <span class="label label-info">Gerente de Projeto</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
                         <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="avatar">
+                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h5>Andress</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <hr>
+                                        <div class="stats">
+                                            <span class="label label-info">Gerente de Projeto</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="avatar">
+                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h5>Andress</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <hr>
+                                        <div class="stats">
+                                            <span class="label label-info">Gerente de Projeto</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="avatar">
+                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h5>Andress</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <hr>
+                                        <div class="stats">
+                                            <span class="label label-info">Gerente de Projeto</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="avatar">
+                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h5>Andress</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <hr>
+                                        <div class="stats">
+                                            <span class="label label-info">Gerente de Projeto</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="avatar">
+                                                    <img src="assets/img/faces/face-0.jpg" alt="Circle Image" class="img-circle img-no-padding img-responsive">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <h5>Andress</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <hr>
+                                        <div class="stats">
+                                            <span class="label label-info">Gerente de Projeto</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="row">
                             <div class="col-md-12 text-center">
                                 <h2>:( Equipe sem profissionais</h2>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>

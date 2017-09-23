@@ -3,6 +3,16 @@ var dd = today.getDate();
 var mm = today.getMonth()+1; //January is 0!
 icones = ['','info','success','warning','danger'];
 type = ['','info','success','warning','danger'];
+var camposHtml = '<div class="row">';
+for(i=1 ; i < 60 ; i++){
+    camposHtml +=  '<div class="col-md-3">' +
+                        '<div class="foto-persona-radio">' +
+                            '<img src="assets/img/faces/'+i+'-avatar-postspot.png">' +
+                            '<input type="radio" name="foto_persona" value="'+i+'-avatar-postspot.png">' +
+                        '</div>' +
+                    '</div>';
+}
+camposHtml += '</div>';
 
 var yyyy = today.getFullYear();
 if(dd<10){
@@ -163,16 +173,6 @@ funcoes = {
                 });
                 break;
             case 'personas':
-            var camposHtml = '<div class="row">';
-            for(i=1 ; i < 60 ; i++){
-                camposHtml +=  '<div class="col-md-3">' +
-                                    '<div class="foto-persona-radio">' +
-                                        '<img src="assets/img/faces/'+i+'-avatar-postspot.png">' +
-                                        '<input type="radio" name="foto_persona" value="'+i+'-avatar-postspot.png">' +
-                                    '</div>' +
-                                '</div>';
-            }
-            camposHtml += '</div>';
                 swal({
                     title: 'Escolha a Persona',
                     showConfirmButton: true,
@@ -278,6 +278,26 @@ funcoes = {
                             '</div>'
                 }).then(function() {
                     $('#formCriaProjeto').trigger('submit');
+                });
+                break;
+            case 'idioma':
+                swal({
+                    title: 'Criar Idioma',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Criar',
+                    html:
+                            '<div class="row">' +
+                                '<form id="formCriaIdioma" action="../../controller/idiomas/cria_idioma.php" method="post">' +                            
+                                    '<div class="col-md-12">' +
+                                         '<div class="form-group">' +
+                                            '<label>Idioma</label>' +
+                                            '<input type="text" class="form-control border-input" name="nome_idioma">' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</form>'+
+                            '</div>'
+                }).then(function() {
+                    $('#formCriaIdioma').trigger('submit');
                 });
                 break;
             case 'deletaProjeto':
@@ -404,6 +424,52 @@ funcoes = {
                                 swal({
                                   title: 'Erro!',
                                   text: 'O tipo de tarefa não foi deletado.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
+            case 'deletaIdioma':
+                swal({
+                    title: 'Deseja deletar?',
+                    text: "Depois de confirmar, este idioma não poderá ser recuperado!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    dados = {id_idioma: codDeletado}
+                    $.ajax({
+                        url: "../../controller/idiomas/deleta_idioma.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                $(elem).remove();
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'O idioma foi deletado.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'O idioma não foi deletado.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
                                   buttonsStyling: false

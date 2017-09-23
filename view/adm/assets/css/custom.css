@@ -181,3 +181,45 @@ h4.title{
 .no-border{
     border-radius: 3px !important;
 }
+.lista-projetos img{
+
+width: 350px;
+
+margin: 0 auto;
+
+display: table;
+
+margin-top: 30px;
+}
+.lista-projetos h1{
+    text-align: center;
+    font-size: 2.6em;
+}
+.lista-projetos p{
+    font-size: 1em;
+}
+.lista-projetos ul{
+    list-style-type: none;
+    padding: 0;
+}
+.lista-projetos li{
+    padding: 15px;
+    border-bottom: 1px solid;
+    font-size: 1.3em;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.lista-projetos a{
+    color: #66615b;
+}
+.lista-projetos li i{}
+.lista-projetos li.active,
+.lista-projetos li:hover
+{
+    background-color: #96c;
+    color: white;
+}
+.lista-projetos li.active a,
+.lista-projetos li:hover a{
+    color: #fff;
+}

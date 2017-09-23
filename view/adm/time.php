@@ -59,8 +59,8 @@ require_once '../../model/usuarios.php';
                                                         <span class="text-muted"><small><?= $u->funcao_usuario ?></small></span>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-info btn-icon"><i class="fa fa-search"></i></btn>
-                                                        <btn class="btn btn-sm btn-danger btn-icon"><i class="fa fa-times"></i></btn>
+                                                        <btn class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></btn>
+                                                        <btn class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></btn>
                                                     </div>
                                                 </div>
                                             </li>

@@ -300,6 +300,60 @@ $estrategia = estrategias::getById(1);
                                                         <label>Categorias de conteúdo</label>
                                                         <p class="text-muted">Selecione as duas ou três principaiis</p>
                                                         <input type="text"  class="form-control" name="categorias_conteudo" value="<?= $estrategia->categorias_conteudo ?>">
+                                                        <select name="" id="">
+                                                        <option value="56">Atendimento ao Cliente</option>
+                                                            <option value="Automobilismo">Automobilismo</option>
+                                                            <option value="Big Data">Big Data</option>
+                                                            <option value="44">Business Intelligence</option>
+                                                            <option value="49">Call Center e VoIP</option>
+                                                            <option value="22">Carreira</option>
+                                                            <option value="38">Casa e Jardim</option>
+                                                            <option value="24">Comportamento</option>
+                                                            <option value="46">Contabilidade</option>
+                                                            <option value="28">Design</option>
+                                                            <option value="63">Diagramação</option>
+                                                            <option value="27">DIY (Faça você mesmo)</option>
+                                                            <option value="29">E-commerce</option>
+                                                            <option value="5">Economia e Finanças</option>
+                                                            <option value="2">Educação</option>
+                                                            <option value="6">Empreendedorismo e Startups</option>
+                                                            <option value="8">Engenharia</option>
+                                                            <option value="12">Entretenimento</option>
+                                                            <option value="4">Esportes e Fitness</option>
+                                                            <option value="30">Estética e Beleza</option>
+                                                            <option value="58">Fotografia</option>
+                                                            <option value="17">Gastronomia</option>
+                                                            <option value="52">Gestão de Projetos</option>
+                                                            <option value="31">Gestão e Administração</option>
+                                                            <option value="60">Inovação</option>
+                                                            <option value="26">Lei e Direito</option>
+                                                            <option value="32">Logística</option>
+                                                            <option value="1">Marketing</option>
+                                                            <option selected="selected" value="23">Marketing Digital</option>
+                                                            <option value="57">Medicina e Gestão Hospitalar</option>
+                                                            <option value="18">Meio Ambiente</option>
+                                                            <option value="37">Mercado Imobiliário</option>
+                                                            <option value="16">Moda</option>
+                                                            <option value="33">Negócios</option>
+                                                            <option value="59">Nutrição</option>
+                                                            <option value="65">Odontologia</option>
+                                                            <option value="55">Pauta</option>
+                                                            <option value="45">Pequenas e Médias Empresas</option>
+                                                            <option value="66">Produção de Eventos</option>
+                                                            <option value="43">Produção de Textos</option>
+                                                            <option value="48">Programação e APIs</option>
+                                                            <option value="42">Recursos Humanos e Comunicação Interna</option>
+                                                            <option value="67">Redação em Espanhol</option>
+                                                            <option value="14">Revisão</option>
+                                                            <option value="10">Saúde e Bem-estar</option>
+                                                            <option value="47">Segurança Digital</option>
+                                                            <option value="36">Tecnologia da Informação</option>
+                                                            <option value="40">Traduções</option>
+                                                            <option value="25">Turismo</option>
+                                                            <option value="39">Vendas</option>
+                                                            <option value="64">Veterinária</option>
+                                                            <option value="62">X PREMIUM</option>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Canais de aquisição de tráfeco</label>

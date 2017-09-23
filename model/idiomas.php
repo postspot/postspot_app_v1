@@ -65,6 +65,22 @@ class idiomas {
 		}
 	}
 
+	public static function getAllIdiomas() {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM idiomas");
+
+		$stmt->execute();
+		$colunas = array();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			array_push($colunas, $row);
+		}
+		return $colunas;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+
 
  //------------------ function delete($id)---------//
 

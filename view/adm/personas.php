@@ -62,7 +62,7 @@ die();*/
                                                         </div>
                                                         <div class="col-xs-3 text-right">
                                                             <a href="edita_persona.php?persona=<?= $persona->id_persona ?>" class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></a>
-                                                            <a href="#" onclick="deletaPersona(event,'<?= $persona->id_persona ?>',this);" class="btn btn-sm btn-danger btn-icon">Excluir <i class="fa fa-times"></i></a>
+                                                            <a href="#" onclick="deletaPersona(event,'<?= $persona->id_persona ?>',this);" class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></a>
                                                         </div>
                                                     </div>
                                                 </li>

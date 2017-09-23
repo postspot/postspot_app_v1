@@ -122,6 +122,12 @@ $detalhe_pagina = end($detalhe_pagina);
                                 <span class="sidebar-normal">Tipo Conteúdo</span>
                             </a>
                         </li>
+                        <li class="<?= $detalhe_pagina == "idiomas.php" ? "active" : "" ?>">
+                            <a href="idiomas.php">
+                                <span class="sidebar-mini">ID</span>
+                                <span class="sidebar-normal">Idiomas</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>

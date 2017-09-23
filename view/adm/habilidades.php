@@ -38,7 +38,7 @@ $habilidades = habilidades::getAllSkills();
                                                             <?= $habilidade->nome_habilidade ?>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaHabilidade('<?= $habilidade->id_habilidade ?>',this);"><i class="fa fa-times"></i></btn>
+                                                            <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaHabilidade('<?= $habilidade->id_habilidade ?>',this);">Deletar <i class="fa fa-times"></i></btn>
                                                         </div>
                                                     </div>
                                                 </li>

@@ -1,9 +1,9 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
-require_once '../../model/tipo_tarefa.php';
+require_once '../../model/idiomas.php';
 
-$tiposTarefa = tipo_tarefa::getAllTiposTaredas();
+$idiomas = idiomas::getAllIdiomas();
 ?>
 <html lang="pt-br">
     <head>
@@ -25,20 +25,20 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-panel"></i> Gestão - Tipo de Conteúdo</h4>
+                        <h4 class="title"><i class="ti-panel"></i> Gestão - Idiomas</h4>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="card">
                                     <div class="card-content">
                                         <ul class="list-unstyled team-members">
-                                            <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
-                                            <li id="tipo<?= $tipoTarefa->id_tipo ?>">
+                                            <?php foreach ($idiomas as $idioma) : ?>
+                                            <li id="idioma<?= $idioma->id_idioma ?>">
                                                 <div class="row">
                                                     <div class="col-xs-8">
-                                                    <?= $tipoTarefa->nome_tarefa ?>
+                                                    <?= $idioma->nome_idioma ?>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);">Deletar <i class="fa fa-times"></i></btn>
+                                                        <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaIdioma('<?= $idioma->id_idioma ?>',this);">Deletar <i class="fa fa-times"></i></btn>
                                                     </div>
                                                 </div>
                                             </li>
@@ -50,7 +50,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('tipoConteudo')">
+                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('idioma')">
                     <i class="ti-plus"></i>
                 </a>
             </div>
@@ -71,10 +71,10 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                 funcoes.showNotification(0,4,'<b>Erro</b> - tipo de conteúdo não foi criado.');
             });
         <?php } ?>
-        function deletaTipoTarefa(cod_tipo,btn) { 
-            elem = '#tipo' + cod_tipo;
-            codDeletado = cod_tipo;
-            funcoes.showSwal('deletaTipoTarefa');
+        function deletaIdioma(cod_idioma,btn) { 
+            elem = '#idioma' + cod_idioma;
+            codDeletado = cod_idioma;
+            funcoes.showSwal('deletaIdioma');
          }
     </script>
 </html>

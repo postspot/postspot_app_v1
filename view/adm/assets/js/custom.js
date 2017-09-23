@@ -14,15 +14,6 @@ for(i=1 ; i < 60 ; i++){
 }
 camposHtml += '</div>';
 
-var yyyy = today.getFullYear();
-if(dd<10){
-    dd='0'+dd;
-} 
-if(mm<10){
-    mm='0'+mm;
-} 
-var today = dd+'/'+mm+'/'+yyyy;
-
 funcoes = {
     initFullCalendar: function () {
         $calendar = $('#fullCalendar');
@@ -207,7 +198,7 @@ funcoes = {
                                     '<div class="col-md-12">' +
                                         '<label>Data de Criação</label>' +
                                         '<div class="form-group">' +
-                                            '<input type="text" class="form-control datepicker" value="'+today+'" name="cadastro_projeto"/>' +
+                                            '<select class="form-control border-input" name="responsavel_projeto">'+ optionResponsaveis + '</select>'+
                                         '</div>' +
                                     '</div>'+
                                 '</form>' +

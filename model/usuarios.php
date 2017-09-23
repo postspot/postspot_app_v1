@@ -91,7 +91,7 @@ class usuarios {
 	public static function getAllTipo($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT nome_usuario, email_usuario, foto_usuario, funcao_usuario"
+		$stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, email_usuario, foto_usuario, funcao_usuario"
                 . " FROM usuarios WHERE funcao_usuario = :id");
 
 		$stmt->bindParam(":id", $id);

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Set-2017 às 05:50
+-- Generation Time: 23-Set-2017 às 07:22
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -81,6 +81,13 @@ CREATE TABLE `equipes` (
   `cadastro_equipe` timestamp NULL DEFAULT NULL,
   `id_projeto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `equipes`
+--
+
+INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`, `id_projeto`) VALUES
+(1, '2017-09-23 03:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -310,7 +317,7 @@ CREATE TABLE `personas` (
 
 INSERT INTO `personas` (`id_persona`, `data_criacao`, `nome`, `idade`, `sexo`, `caracteristicas`, `educacao`, `trabalho`, `segmento`, `objetivos`, `descricao`, `resolucao`, `aprendizado`, `reconhecimento`, `consideracao`, `decisao`, `foto`, `id_projeto`, `data_cadastro`) VALUES
 (1, NULL, 'persona mc', '20', '1', 'carac', 'pós', 'trab', 'seg', 'obj', 'desc', 'res', NULL, NULL, NULL, NULL, NULL, 1, '2017-09-23 03:47:31'),
-(7, '2017-09-18 06:52:14', 'nome3', '22', 'f', 'caracte3', 'edu3', 'trab3', 'seg3', 'obj3', 'problems3', 'help3', NULL, NULL, NULL, NULL, '1-avatar-postspot.png', 1, '2017-09-23 03:47:31');
+(7, '2017-09-18 06:52:14', 'nome3', '22', 'f', 'caracte3', 'edu3', 'trab3', 'seg3', 'obj3', 'problems3', 'help3', 'apre', 'reco', 'consi', 'deci', '1-avatar-postspot.png', 1, '2017-09-23 03:47:31');
 
 -- --------------------------------------------------------
 
@@ -358,11 +365,21 @@ CREATE TABLE `tarefas` (
   `nome_tarefa` varchar(45) DEFAULT NULL,
   `palavra_chave` varchar(45) DEFAULT NULL,
   `briefing_tarefa` varchar(45) DEFAULT NULL,
-  `estagio_compra` varchar(1) DEFAULT NULL,
+  `estagio_compra` varchar(45) DEFAULT NULL,
+  `tipo_cta` text,
+  `referencias` text,
+  `consideracoes_gerais` text,
   `id_projeto` int(11) NOT NULL,
   `id_equipe` int(11) NOT NULL,
   `id_tipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tarefas`
+--
+
+INSERT INTO `tarefas` (`id_tarefa`, `nome_tarefa`, `palavra_chave`, `briefing_tarefa`, `estagio_compra`, `tipo_cta`, `referencias`, `consideracoes_gerais`, `id_projeto`, `id_equipe`, `id_tipo`) VALUES
+(2, 'titulo', 'palavra chave', 'brif', 'Decisão de Compra', 'tip', 'ref', 'consi', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -374,6 +391,13 @@ CREATE TABLE `tipo_tarefa` (
   `id_tipo` int(11) NOT NULL,
   `nome_tarefa` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `tipo_tarefa`
+--
+
+INSERT INTO `tipo_tarefa` (`id_tipo`, `nome_tarefa`) VALUES
+(1, 'tipo1');
 
 -- --------------------------------------------------------
 
@@ -571,7 +595,7 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT for table `equipes`
 --
 ALTER TABLE `equipes`
-  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `estrategias`
 --
@@ -626,12 +650,12 @@ ALTER TABLE `publicacoes`
 -- AUTO_INCREMENT for table `tarefas`
 --
 ALTER TABLE `tarefas`
-  MODIFY `id_tarefa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tarefa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tipo_tarefa`
 --
 ALTER TABLE `tipo_tarefa`
-  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --

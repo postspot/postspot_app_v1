@@ -1,6 +1,13 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/usuarios.php';
+
+$clientes = usuarios::getAllTipo(3);
+$listaClientes  = '';
+foreach ($clientes as $cliente) {
+    $listaClientes .= '<option value="'.$cliente->id_usuario.'">'.$cliente->nome_usuario.'</option>';
+}
 ?>
 <html lang="pt-br">
     <head>
@@ -69,5 +76,9 @@ require_once '../../lib/operacoes.php';
             funcoes.showSwal('criaProjeto');
             funcoes.initFormExtendedDatetimepickers();
         }
+
+        optionResponsaveis = '<?= $listaClientes ?>';
+
+
     </script>
 </html>

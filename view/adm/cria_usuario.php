@@ -2,8 +2,10 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/habilidades.php';
+require_once '../../model/idiomas.php';
 
 $habilidades = habilidades::getAllSkills();
+$idiomas = idiomas::getAllIdiomas();
 ?>
 <html lang="pt-br">
     <head>
@@ -72,24 +74,14 @@ $habilidades = habilidades::getAllSkills();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label class="block">Idiomas</label>
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input id="checkIdiomaIngles" type="checkbox" value="Inglês" name="idioma[]">
-                                                        <label for="checkIdiomaIngles">
-                                                            Inglês
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input id="checkIdiomaEspanhol" type="checkbox" value="Espanhol" name="idioma[]">
-                                                        <label for="checkIdiomaEspanhol">
-                                                            Espanhol
-                                                        </label>
-                                                    </div>
-                                                    <div class="checkbox checkbox-inline">
-                                                        <input id="checkIdiomaPortugues" type="checkbox" value="Português" checked name="idioma[]">
-                                                        <label for="checkIdiomaPortugues">
-                                                            Português
-                                                        </label>
-                                                    </div>
+                                                    <?php foreach ($idiomas as $idioma): ?>
+                                                        <div class="checkbox checkbox-inline">
+                                                            <input id="checkIdioma<?= $idioma->id_idioma ?>" type="checkbox" value="<?= $idioma->nome_idioma ?>" name="idioma[]">
+                                                            <label for="checkIdioma<?= $idioma->id_idioma ?>">
+                                                                <?= $idioma->nome_idioma ?>
+                                                            </label>
+                                                        </div>
+                                                    <?php endforeach;?>
 	                                            </div>
                                             </div>
                                             <div class="col-md-12">

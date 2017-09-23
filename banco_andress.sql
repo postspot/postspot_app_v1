@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 20-Set-2017 às 06:15
+-- Generation Time: 23-Set-2017 às 05:50
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -29,8 +29,31 @@ SET time_zone = "+00:00";
 CREATE TABLE `anexos` (
   `id_anexo` int(11) NOT NULL,
   `data_criacao` timestamp NULL DEFAULT NULL,
-  `id_tarefa` int(11) NOT NULL,
-  `membros_equipe_id_membros` int(11) NOT NULL
+  `id_responsavel` int(11) NOT NULL,
+  `id_projeto` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id_categoria` int(11) NOT NULL,
+  `nome_categoria` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `categorias_estrategia`
+--
+
+CREATE TABLE `categorias_estrategia` (
+  `id_categoria_estrategia` int(11) NOT NULL,
+  `id_estrategia` int(11) NOT NULL,
+  `id_categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -55,15 +78,9 @@ CREATE TABLE `comentarios` (
 
 CREATE TABLE `equipes` (
   `id_equipe` int(11) NOT NULL,
-  `cadastro_equipe` timestamp NULL DEFAULT NULL
+  `cadastro_equipe` timestamp NULL DEFAULT NULL,
+  `id_projeto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `equipes`
---
-
-INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`) VALUES
-(1, '2017-09-17 03:00:00');
 
 -- --------------------------------------------------------
 
@@ -73,11 +90,8 @@ INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`) VALUES
 
 CREATE TABLE `estrategias` (
   `id_estrategia` int(11) NOT NULL,
-  `data_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `empresa` text,
-  `site` varchar(45) DEFAULT NULL,
   `projeto` text,
-  `blog` varchar(45) DEFAULT NULL,
   `produtos_servicos` text,
   `links` text,
   `objetivo_primario` varchar(45) DEFAULT NULL,
@@ -95,15 +109,10 @@ CREATE TABLE `estrategias` (
   `canais` varchar(45) DEFAULT NULL,
   `acoes` varchar(45) DEFAULT NULL,
   `consideracoes_gerais` varchar(45) DEFAULT NULL,
-  `projetos_id_projeto` int(11) NOT NULL
+  `projetos_id_projeto` int(11) NOT NULL,
+  `termos_proibidos` text,
+  `mapeamentos` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `estrategias`
---
-
-INSERT INTO `estrategias` (`id_estrategia`, `data_cadastro`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `categorias_conteudo`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`) VALUES
-(1, '2017-09-18 05:05:38', 'sobre', 'site', 'proje', 'blog', 'prods', 'links', NULL, NULL, NULL, NULL, 'concorrente', 'falar', 'nao', 'abordar', 'evitar', 'lingua', NULL, 'categas', 'canais', 'acoes', 'cinsi', 1);
 
 -- --------------------------------------------------------
 
@@ -218,6 +227,29 @@ INSERT INTO `idiomas_usuario` (`id_idiomas_usuario`, `idiomas_id_idioma`, `usuar
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `linguagens`
+--
+
+CREATE TABLE `linguagens` (
+  `id_linguagem` int(11) NOT NULL,
+  `nome_linguagem` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `linguagens_estrategia`
+--
+
+CREATE TABLE `linguagens_estrategia` (
+  `id_linguagem_estrategia` int(11) NOT NULL,
+  `id_linguagem` int(11) NOT NULL,
+  `id_estrategia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `log_tarefas`
 --
 
@@ -263,17 +295,22 @@ CREATE TABLE `personas` (
   `objetivos` text,
   `descricao` text,
   `resolucao` text,
+  `aprendizado` varchar(45) DEFAULT NULL,
+  `reconhecimento` varchar(45) DEFAULT NULL,
+  `consideracao` varchar(45) DEFAULT NULL,
+  `decisao` varchar(45) DEFAULT NULL,
   `foto` varchar(45) DEFAULT NULL,
-  `id_projeto` int(11) NOT NULL
+  `id_projeto` int(11) NOT NULL,
+  `data_cadastro` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `personas`
 --
 
-INSERT INTO `personas` (`id_persona`, `data_criacao`, `nome`, `idade`, `sexo`, `caracteristicas`, `educacao`, `trabalho`, `segmento`, `objetivos`, `descricao`, `resolucao`, `foto`, `id_projeto`) VALUES
-(1, NULL, 'persona mc', '20', '1', 'carac', 'pós', 'trab', 'seg', 'obj', 'desc', 'res', NULL, 1),
-(7, '2017-09-18 03:52:14', 'nome3', '22', 'f', 'caracte3', 'edu3', 'trab3', 'seg3', 'obj3', 'problems3', 'help3', '1-avatar-postspot.png', 1);
+INSERT INTO `personas` (`id_persona`, `data_criacao`, `nome`, `idade`, `sexo`, `caracteristicas`, `educacao`, `trabalho`, `segmento`, `objetivos`, `descricao`, `resolucao`, `aprendizado`, `reconhecimento`, `consideracao`, `decisao`, `foto`, `id_projeto`, `data_cadastro`) VALUES
+(1, NULL, 'persona mc', '20', '1', 'carac', 'pós', 'trab', 'seg', 'obj', 'desc', 'res', NULL, NULL, NULL, NULL, NULL, 1, '2017-09-23 03:47:31'),
+(7, '2017-09-18 06:52:14', 'nome3', '22', 'f', 'caracte3', 'edu3', 'trab3', 'seg3', 'obj3', 'problems3', 'help3', NULL, NULL, NULL, NULL, '1-avatar-postspot.png', 1, '2017-09-23 03:47:31');
 
 -- --------------------------------------------------------
 
@@ -319,24 +356,13 @@ CREATE TABLE `publicacoes` (
 CREATE TABLE `tarefas` (
   `id_tarefa` int(11) NOT NULL,
   `nome_tarefa` varchar(45) DEFAULT NULL,
-  `tipo_tarefa` varchar(1) DEFAULT NULL,
   `palavra_chave` varchar(45) DEFAULT NULL,
   `briefing_tarefa` varchar(45) DEFAULT NULL,
   `estagio_compra` varchar(1) DEFAULT NULL,
-  `tipo_cta` text,
-  `referencias` text,
-  `consideracoes_gerais` text,
-  `id_persona` int(11) NOT NULL,
   `id_projeto` int(11) NOT NULL,
-  `id_equipe` int(11) NOT NULL
+  `id_equipe` int(11) NOT NULL,
+  `id_tipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `tarefas`
---
-
-INSERT INTO `tarefas` (`id_tarefa`, `nome_tarefa`, `tipo_tarefa`, `palavra_chave`, `briefing_tarefa`, `estagio_compra`, `tipo_cta`, `referencias`, `consideracoes_gerais`, `id_persona`, `id_projeto`, `id_equipe`) VALUES
-(1, 'teste titulo', 'E', 'palavra', 'bri', '1', 'cta', 'ref', 'cons', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -346,8 +372,7 @@ INSERT INTO `tarefas` (`id_tarefa`, `nome_tarefa`, `tipo_tarefa`, `palavra_chave
 
 CREATE TABLE `tipo_tarefa` (
   `id_tipo` int(11) NOT NULL,
-  `nome_tarefa` varchar(45) DEFAULT NULL,
-  `id_tarefa` int(11) NOT NULL
+  `nome_tarefa` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -361,23 +386,24 @@ CREATE TABLE `usuarios` (
   `nome_usuario` varchar(45) DEFAULT NULL,
   `sexo_usuario` varchar(1) DEFAULT NULL,
   `foto_usuario` varchar(45) DEFAULT NULL,
-  `funcao_usuario` varchar(1) DEFAULT NULL COMMENT '0-Gestor 1 - Analista 2- Redator 3-Cliente',
+  `idiomas` varchar(45) DEFAULT NULL,
+  `funcao_usuario` varchar(1) DEFAULT NULL,
   `email_usuario` varchar(45) DEFAULT NULL,
   `senha_usuario` varchar(45) DEFAULT NULL,
-  `cadastro_usuario` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `cadastro_usuario` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usuario`, `funcao_usuario`, `email_usuario`, `senha_usuario`, `cadastro_usuario`) VALUES
-(1, 'teste', 'm', 'assets/img/faces/face-0.jpg', '1', 'email', '202cb962ac59075b964b07152d234b70', '2017-09-14 03:28:45'),
-(2, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 03:29:27'),
-(3, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 03:34:12'),
-(4, 'aa', 'm', 'assets/img/faces/face-0.jpg', '0', 'aaa@a.com', '123', '2017-09-14 03:37:28'),
-(5, 'aa', 'm', 'assets/img/faces/face-0.jpg', '0', 'aaa@a.com', '123', '2017-09-14 03:43:12'),
-(6, 'admin mc', '1', 'assets/img/faces/face-0.jpg', '1', 'email@mc.com.br', '123', '2017-09-17 03:03:28');
+INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usuario`, `idiomas`, `funcao_usuario`, `email_usuario`, `senha_usuario`, `cadastro_usuario`) VALUES
+(1, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '1', 'email', '202cb962ac59075b964b07152d234b70', '2017-09-14 06:28:45'),
+(2, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'email@email.com', 'senha', '2017-09-14 06:29:27'),
+(3, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'email@email.com', 'senha', '2017-09-14 06:34:12'),
+(4, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'aaa@a.com', '123', '2017-09-14 06:37:28'),
+(5, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'aaa@a.com', '123', '2017-09-14 06:43:12'),
+(6, 'admin mc', '1', 'assets/img/faces/face-0.jpg', NULL, '1', 'email@mc.com.br', '123', '2017-09-17 06:03:28');
 
 --
 -- Indexes for dumped tables
@@ -387,9 +413,23 @@ INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usua
 -- Indexes for table `anexos`
 --
 ALTER TABLE `anexos`
-  ADD PRIMARY KEY (`id_anexo`,`id_tarefa`,`membros_equipe_id_membros`),
-  ADD KEY `fk_anexos_tarefas1_idx` (`id_tarefa`),
-  ADD KEY `fk_anexos_membros_equipe1_idx` (`membros_equipe_id_membros`);
+  ADD PRIMARY KEY (`id_anexo`,`id_responsavel`,`id_projeto`),
+  ADD KEY `fk_anexos_membros_equipe1_idx` (`id_responsavel`),
+  ADD KEY `fk_anexos_projetos1_idx` (`id_projeto`);
+
+--
+-- Indexes for table `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id_categoria`);
+
+--
+-- Indexes for table `categorias_estrategia`
+--
+ALTER TABLE `categorias_estrategia`
+  ADD PRIMARY KEY (`id_categoria_estrategia`,`id_estrategia`,`id_categoria`),
+  ADD KEY `fk_categorias_estrategia_estrategias1_idx` (`id_estrategia`),
+  ADD KEY `fk_categorias_estrategia_categorias1_idx` (`id_categoria`);
 
 --
 -- Indexes for table `comentarios`
@@ -403,7 +443,8 @@ ALTER TABLE `comentarios`
 -- Indexes for table `equipes`
 --
 ALTER TABLE `equipes`
-  ADD PRIMARY KEY (`id_equipe`);
+  ADD PRIMARY KEY (`id_equipe`,`id_projeto`),
+  ADD KEY `fk_equipes_projetos1_idx` (`id_projeto`);
 
 --
 -- Indexes for table `estrategias`
@@ -439,6 +480,20 @@ ALTER TABLE `idiomas_usuario`
   ADD PRIMARY KEY (`id_idiomas_usuario`,`idiomas_id_idioma`,`usuarios_id_usuario`),
   ADD KEY `fk_idiomas_usuario_idiomas1_idx` (`idiomas_id_idioma`),
   ADD KEY `fk_idiomas_usuario_usuarios1_idx` (`usuarios_id_usuario`);
+
+--
+-- Indexes for table `linguagens`
+--
+ALTER TABLE `linguagens`
+  ADD PRIMARY KEY (`id_linguagem`);
+
+--
+-- Indexes for table `linguagens_estrategia`
+--
+ALTER TABLE `linguagens_estrategia`
+  ADD PRIMARY KEY (`id_linguagem_estrategia`,`id_linguagem`,`id_estrategia`),
+  ADD KEY `fk_linguagens_estrategia_linguagens1_idx` (`id_linguagem`),
+  ADD KEY `fk_linguagens_estrategia_estrategias1_idx` (`id_estrategia`);
 
 --
 -- Indexes for table `log_tarefas`
@@ -481,17 +536,16 @@ ALTER TABLE `publicacoes`
 -- Indexes for table `tarefas`
 --
 ALTER TABLE `tarefas`
-  ADD PRIMARY KEY (`id_tarefa`,`id_equipe`,`id_projeto`),
+  ADD PRIMARY KEY (`id_tarefa`,`id_equipe`,`id_projeto`,`id_tipo`),
   ADD KEY `fk_tarefas_projetos1_idx` (`id_projeto`),
   ADD KEY `fk_tarefas_equipes1_idx` (`id_equipe`),
-  ADD KEY `id_persona` (`id_persona`);
+  ADD KEY `fk_tarefas_tipo_tarefa1_idx` (`id_tipo`);
 
 --
 -- Indexes for table `tipo_tarefa`
 --
 ALTER TABLE `tipo_tarefa`
-  ADD PRIMARY KEY (`id_tipo`,`id_tarefa`),
-  ADD KEY `fk_tipo_tarefa_tarefas1_idx` (`id_tarefa`);
+  ADD PRIMARY KEY (`id_tipo`);
 
 --
 -- Indexes for table `usuarios`
@@ -517,12 +571,12 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT for table `equipes`
 --
 ALTER TABLE `equipes`
-  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `estrategias`
 --
 ALTER TABLE `estrategias`
-  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `habilidades`
 --
@@ -572,7 +626,7 @@ ALTER TABLE `publicacoes`
 -- AUTO_INCREMENT for table `tarefas`
 --
 ALTER TABLE `tarefas`
-  MODIFY `id_tarefa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tarefa` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tipo_tarefa`
 --
@@ -591,8 +645,15 @@ ALTER TABLE `usuarios`
 -- Limitadores para a tabela `anexos`
 --
 ALTER TABLE `anexos`
-  ADD CONSTRAINT `fk_anexos_membros_equipe1` FOREIGN KEY (`membros_equipe_id_membros`) REFERENCES `membros_equipe` (`id_membros`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_anexos_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_anexos_membros_equipe1` FOREIGN KEY (`id_responsavel`) REFERENCES `membros_equipe` (`id_membros`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_anexos_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `categorias_estrategia`
+--
+ALTER TABLE `categorias_estrategia`
+  ADD CONSTRAINT `fk_categorias_estrategia_categorias1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_categorias_estrategia_estrategias1` FOREIGN KEY (`id_estrategia`) REFERENCES `estrategias` (`id_estrategia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `comentarios`
@@ -600,6 +661,12 @@ ALTER TABLE `anexos`
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `fk_comentarios_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_comentarios_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `equipes`
+--
+ALTER TABLE `equipes`
+  ADD CONSTRAINT `fk_equipes_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `estrategias`
@@ -620,6 +687,13 @@ ALTER TABLE `habilidades_usuario`
 ALTER TABLE `idiomas_usuario`
   ADD CONSTRAINT `fk_idiomas_usuario_idiomas1` FOREIGN KEY (`idiomas_id_idioma`) REFERENCES `idiomas` (`id_idioma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_idiomas_usuario_usuarios1` FOREIGN KEY (`usuarios_id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Limitadores para a tabela `linguagens_estrategia`
+--
+ALTER TABLE `linguagens_estrategia`
+  ADD CONSTRAINT `fk_linguagens_estrategia_estrategias1` FOREIGN KEY (`id_estrategia`) REFERENCES `estrategias` (`id_estrategia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_linguagens_estrategia_linguagens1` FOREIGN KEY (`id_linguagem`) REFERENCES `linguagens` (`id_linguagem`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Limitadores para a tabela `log_tarefas`
@@ -659,13 +733,7 @@ ALTER TABLE `publicacoes`
 ALTER TABLE `tarefas`
   ADD CONSTRAINT `fk_tarefas_equipes1` FOREIGN KEY (`id_equipe`) REFERENCES `equipes` (`id_equipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_tarefas_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `id_persona` FOREIGN KEY (`id_persona`) REFERENCES `personas` (`id_persona`);
-
---
--- Limitadores para a tabela `tipo_tarefa`
---
-ALTER TABLE `tipo_tarefa`
-  ADD CONSTRAINT `fk_tipo_tarefa_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tarefas_tipo_tarefa1` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_tarefa` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

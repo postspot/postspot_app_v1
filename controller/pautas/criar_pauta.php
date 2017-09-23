@@ -25,7 +25,7 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         $obj = new stdClass();
         
         $obj->nome_tarefa = $nome_tarefa;
-        $obj->tipo_tarefa = $tipo_tarefa;
+        
 	$obj->palavra_chave = $palavra_chave;
 	$obj->briefing_tarefa = $briefing_tarefa;
 	$obj->estagio_compra = $estagio_compra;
@@ -34,8 +34,12 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
 	$obj->consideracoes_gerais = $consideracoes_gerais;
 	$obj->id_persona = $id_persona;
 	$obj->id_projeto = $id_projeto;
+        $obj->id_tipo = $tipo_tarefa;
 	$obj->id_equipe = 1;
-         
+        
+//        echo tarefas::insert($obj);
+//        die();
+        
         if(tarefas::insert($obj)){
             header('Location: ../../view/adm/cria_pauta.php?retorno=ok');
         }

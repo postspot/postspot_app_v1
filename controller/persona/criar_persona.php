@@ -15,6 +15,10 @@ $segmento = $_POST["segmento"];
 $objetivos = $_POST["objetivos"];
 $descricao = $_POST["descricao"];
 $resolucao = $_POST["resolucao"];
+$aprendizado = $_POST["aprendizado"];
+$reconhecimento = $_POST["reconhecimento"];
+$consideracao = $_POST["consideracao"];
+$decisao = $_POST["decisao"];
 
 if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) && 
     isset($caracteristicas) && isset($educacao) && isset($trabalho) &&
@@ -34,6 +38,10 @@ if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) &&
 	$obj->objetivos = $objetivos;
 	$obj->descricao = $descricao;
 	$obj->resolucao = $resolucao;
+	$obj->aprendizado = $aprendizado;
+	$obj->reconhecimento = $reconhecimento;
+	$obj->consideracao = $consideracao;
+	$obj->decisao = $decisao;
 	$obj->foto = $foto;
 	$obj->id_projeto = $id_projeto;
          

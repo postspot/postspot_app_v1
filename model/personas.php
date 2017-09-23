@@ -29,6 +29,10 @@ class personas {
 		$stmt->bindParam(":objetivos", $obj->objetivos);
 		$stmt->bindParam(":descricao", $obj->descricao);
 		$stmt->bindParam(":resolucao", $obj->resolucao);
+		$stmt->bindParam(":aprendizado", $obj->aprendizado);
+		$stmt->bindParam(":reconhecimento", $obj->reconhecimento);
+		$stmt->bindParam(":consideracao", $obj->consideracao);
+		$stmt->bindParam(":decisao", $obj->decisao);
 		$stmt->bindParam(":foto", $obj->foto);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 

@@ -130,25 +130,25 @@ if(isset($_GET["persona"])){
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Aprendizado e Descoberta</label>
-                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                    <input type="text" class="form-control border-input" name="aprendizado">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Reconhecimento do Problema</label>
-                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                    <input type="text" class="form-control border-input" name="reconhecimento">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Consideração da Solução</label>
-                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                    <input type="text" class="form-control border-input" name="consideracao">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Decisão de Compra</label>
-                                                    <input type="text" class="form-control border-input" name="xxx">
+                                                    <input type="text" class="form-control border-input" name="decisao">
                                                 </div>
                                             </div>
                                         </div>

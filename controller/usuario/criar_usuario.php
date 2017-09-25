@@ -121,10 +121,13 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
             }
             if($flag_idiomas == 0){
                 $flag_idiomas=0;
-                 foreach ($habilidades as $value) {
+                 foreach ($habilidade as $value) {
                     $nova_habilidade = new stdClass();
                     $nova_habilidade->habilidades_id_habilidade = $value;
                     $nova_habilidade->usuarios_id_usuario = $obj->id_usuario;
+//                   
+//                    echo habilidades_usuario::insert($nova_habilidade);
+//                    die();
                     
                     if(habilidades_usuario::insert($nova_habilidade)){
                         $flag_idiomas = 0;

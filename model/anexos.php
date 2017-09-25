@@ -13,18 +13,17 @@ class anexos {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO anexos (id_anexo, data_criacao, id_tarefa, membros_equipe_id_membros)
- VALUES(:id_anexo, :data_criacao, :id_tarefa, :membros_equipe_id_membros);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO anexos (nome_anexo, id_responsavel, id_projeto)
+ VALUES(:nome_anexo, :id_responsavel, :id_projeto);");
 
-		$stmt->bindParam(":id_anexo", $obj->id_anexo);
-		$stmt->bindParam(":data_criacao", $obj->data_criacao);
-		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
-		$stmt->bindParam(":membros_equipe_id_membros", $obj->membros_equipe_id_membros);
+		$stmt->bindParam(":nome_anexo", $obj->nome_anexo);
+		$stmt->bindParam(":id_responsavel", $obj->id_responsavel);
+		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 
 		$stmt->execute(); 
-			return true;
+		return true;
 		} catch(PDOException $ex) {
-		return false;
+		echo $ex->getMessage();
 		}
 	}
 

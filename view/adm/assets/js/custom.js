@@ -311,6 +311,26 @@ funcoes = {
                     $('#formCriaCategoria').trigger('submit');
                 });
                 break;
+            case 'anexo':
+                    swal({
+                        title: 'Subir Arquivo',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Subir',
+                        html:
+                                '<div class="row">' +
+                                    '<form id="formSubirAnexo" action="../../controller/anexos/cria_anexos.php" method="post"enctype="multipart/form-data">' +                            
+                                        '<div class="col-md-12">' +
+                                             '<div class="form-group">' +
+                                                '<label>Arquivo(s)</label>' +
+                                                '<input type="file" class="form-control border-input" name="anexos[]" multiple>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</form>'+
+                                '</div>'
+                    }).then(function() {
+                        $('#formSubirAnexo').trigger('submit');
+                    });
+                    break;
             case 'deletaProjeto':
                 swal({
                     title: 'Deseja deletar?',

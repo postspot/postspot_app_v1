@@ -1,22 +1,23 @@
 <?php
 require_once 'stConexao.php';
 
-class equipes { 
+class linguagens { 
 
 	public static $instance;
-	public static $tabela = 'equipes';
+	public static $tabela = 'linguagens';
 
 
 //--------- function insert($obj) --------------//
 
 
 
-	public static function insert($id_projeto) {
+	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO equipes (id_projeto)
-                VALUES(:id_projeto);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO linguagens (id_linguagem, nome_linguagem)
+ VALUES(:id_linguagem, :nome_linguagem);");
 
-		$stmt->bindParam(":id_projeto", $obj->id_equipe);
+		$stmt->bindParam(":id_linguagem", $obj->id_linguagem);
+		$stmt->bindParam(":nome_linguagem", $obj->nome_linguagem);
 
 		$stmt->execute(); 
 			return true;
@@ -30,10 +31,10 @@ class equipes {
 
 	public static function update($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("UPDATE equipes SET id_equipe = :id_equipe , cadastro_equipe = :cadastro_equipe  WHERE id_equipe = :id_equipe ");
+		$stmt = Conexao::getInstance()->prepare("UPDATE linguagens SET id_linguagem = :id_linguagem , nome_linguagem = :nome_linguagem  WHERE id_linguagem = :id_linguagem ");
 
-		$stmt->bindParam(":id_equipe", $obj->id_equipe);
-		$stmt->bindParam(":cadastro_equipe", $obj->cadastro_equipe);
+		$stmt->bindParam(":id_linguagem", $obj->id_linguagem);
+		$stmt->bindParam(":nome_linguagem", $obj->nome_linguagem);
 
 		$stmt->execute(); 
 			return true;
@@ -50,7 +51,7 @@ class equipes {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM equipes WHERE id_equipe = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM linguagens WHERE id_linguagem = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
@@ -71,7 +72,7 @@ class equipes {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM equipes WHERE id_equipe = :id");
+		$stmt = Conexao::getInstance()->prepare("DELETE FROM linguagens WHERE id_linguagem = :id");
 
 		$stmt->bindParam(":id", $id);
 

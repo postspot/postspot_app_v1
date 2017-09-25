@@ -1,22 +1,23 @@
 <?php
 require_once 'stConexao.php';
 
-class equipes { 
+class categorias { 
 
 	public static $instance;
-	public static $tabela = 'equipes';
+	public static $tabela = 'categorias';
 
 
 //--------- function insert($obj) --------------//
 
 
 
-	public static function insert($id_projeto) {
+	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO equipes (id_projeto)
-                VALUES(:id_projeto);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO categorias (id_categoria, nome_categoria)
+ VALUES(:id_categoria, :nome_categoria);");
 
-		$stmt->bindParam(":id_projeto", $obj->id_equipe);
+		$stmt->bindParam(":id_categoria", $obj->id_categoria);
+		$stmt->bindParam(":nome_categoria", $obj->nome_categoria);
 
 		$stmt->execute(); 
 			return true;
@@ -30,10 +31,10 @@ class equipes {
 
 	public static function update($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("UPDATE equipes SET id_equipe = :id_equipe , cadastro_equipe = :cadastro_equipe  WHERE id_equipe = :id_equipe ");
+		$stmt = Conexao::getInstance()->prepare("UPDATE categorias SET id_categoria = :id_categoria , nome_categoria = :nome_categoria  WHERE id_categoria = :id_categoria ");
 
-		$stmt->bindParam(":id_equipe", $obj->id_equipe);
-		$stmt->bindParam(":cadastro_equipe", $obj->cadastro_equipe);
+		$stmt->bindParam(":id_categoria", $obj->id_categoria);
+		$stmt->bindParam(":nome_categoria", $obj->nome_categoria);
 
 		$stmt->execute(); 
 			return true;
@@ -50,7 +51,7 @@ class equipes {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM equipes WHERE id_equipe = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM categorias WHERE id_categoria = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
@@ -71,7 +72,7 @@ class equipes {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM equipes WHERE id_equipe = :id");
+		$stmt = Conexao::getInstance()->prepare("DELETE FROM categorias WHERE id_categoria = :id");
 
 		$stmt->bindParam(":id", $id);
 

@@ -14,7 +14,7 @@ class habilidades_usuario {
 	public static function insert($obj) {
 		 try{
 		$stmt = Conexao::getInstance()->prepare("INSERT INTO habilidades_usuario 
-                    (id_habilidade_usuario, habilidades_id_habilidade, usuarios_id_usuario)
+                    (habilidades_id_habilidade, usuarios_id_usuario)
                 VALUES(:habilidades_id_habilidade, :usuarios_id_usuario);");
 
 		$stmt->bindParam(":habilidades_id_habilidade", $obj->habilidades_id_habilidade);
@@ -23,7 +23,7 @@ class habilidades_usuario {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+		return $ex;
 		}
 	}
 

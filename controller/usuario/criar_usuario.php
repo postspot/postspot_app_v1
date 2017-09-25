@@ -47,13 +47,17 @@ function resizePersonal($originalFile, $pasta) {
 
 $nome_usuario = $_POST["nome_usuario"];
 $sexo_usuario = $_POST["sexo_usuario"];
-$foto_usuario = $_POST["foto_usuario"];
 $funcao_usuario = $_POST["funcao_usuario"];
 $email_usuario = $_POST["email_usuario"];
 $senha_usuario = $_POST["senha_usuario"];
 $idioma = $_POST["idioma"];
 
-if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) && 
+//pre_r($_POST);
+//pre_r($_FILES);
+//
+//die();
+
+if (isset($nome_usuario) && isset($sexo_usuario) && 
     isset($funcao_usuario) && isset($email_usuario) && isset($senha_usuario) &&
     isset($idioma)) {
 
@@ -63,7 +67,6 @@ if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) &&
         
         $obj->nome_usuario = $nome_usuario;
         $obj->sexo_usuario = $sexo_usuario;
-	$obj->foto_usuario = $foto_usuario;
 	$obj->funcao_usuario = $funcao_usuario;
 	$obj->email_usuario = $email_usuario;
 	$obj->senha_usuario = md5($senha_usuario);
@@ -79,7 +82,7 @@ if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) &&
             if (is_dir($uploads_dir)) {
                 $diretorio = dir($uploads_dir);
                 while ($arquivo = $diretorio->read()) {
-        //        chmod($uploads_dir . "/" . $arquivo, 0755);
+                chmod($uploads_dir . "/" . $arquivo, 0777);
                     if (($arquivo != '.') && ($arquivo != '..')) {
                         unlink($uploads_dir . "/" . $arquivo);
                     }
@@ -87,7 +90,7 @@ if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) &&
                 $diretorio->close();
             }
             
-            foreach ($_FILES["foto_usuario"]["error"] as $key => $error) {
+            foreach ($_FILES['foto_usuario']['error'] as $key => $error) {
                 if ($error == UPLOAD_ERR_OK) {
                     $tmp_name = $_FILES["foto_usuario"]["tmp_name"][$key];
                     $name = $_FILES["foto_usuario"]["name"][$key];
@@ -114,11 +117,11 @@ if (isset($nome_usuario) && isset($sexo_usuario) && isset($foto_usuario) &&
         }
     }
     else {
-        header('Location: ../../view/adm/cria_usuario.php?retorno=falha');
+        header('Location: ../../view/adm/cria_usuario.php?retorno=falha1');
     }
 } 
 else {
-    header('Location: ../../view/cria_usuario.php?retorno=falha');
+    header('Location: ../../view/cria_usuario.php?retorno=falha2');
 }
 
 

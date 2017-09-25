@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Set-2017 às 04:37
+-- Generation Time: 25-Set-2017 às 06:17
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -78,7 +78,7 @@ CREATE TABLE `comentarios` (
 
 CREATE TABLE `equipes` (
   `id_equipe` int(11) NOT NULL,
-  `cadastro_equipe` timestamp NULL DEFAULT NULL,
+  `cadastro_equipe` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `id_projeto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -87,7 +87,8 @@ CREATE TABLE `equipes` (
 --
 
 INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`, `id_projeto`) VALUES
-(1, '2017-09-23 03:00:00', 1);
+(1, '2017-09-23 03:00:00', 1),
+(2, '2017-09-23 03:00:00', 10);
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,9 @@ INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`, `id_projeto`) VALUES
 CREATE TABLE `estrategias` (
   `id_estrategia` int(11) NOT NULL,
   `empresa` text,
+  `site` varchar(45) DEFAULT NULL,
   `projeto` text,
+  `blog` varchar(45) DEFAULT NULL,
   `produtos_servicos` text,
   `links` text,
   `objetivo_primario` varchar(45) DEFAULT NULL,
@@ -120,6 +123,13 @@ CREATE TABLE `estrategias` (
   `termos_proibidos` text,
   `mapeamentos` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `estrategias`
+--
+
+INSERT INTO `estrategias` (`id_estrategia`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `categorias_conteudo`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`, `termos_proibidos`, `mapeamentos`) VALUES
+(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -328,7 +338,7 @@ INSERT INTO `personas` (`id_persona`, `data_criacao`, `nome`, `idade`, `sexo`, `
 CREATE TABLE `projetos` (
   `id_projeto` int(11) NOT NULL,
   `nome_projeto` varchar(45) DEFAULT NULL,
-  `cadastro_projeto` timestamp NULL DEFAULT NULL,
+  `cadastro_projeto` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `site_projeto` varchar(45) DEFAULT NULL,
   `responsavel_projeto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -338,7 +348,8 @@ CREATE TABLE `projetos` (
 --
 
 INSERT INTO `projetos` (`id_projeto`, `nome_projeto`, `cadastro_projeto`, `site_projeto`, `responsavel_projeto`) VALUES
-(1, 'projeto melhor compra', NULL, 'www', 6);
+(1, 'projeto melhor compra', NULL, 'www', 6),
+(10, 'projeto', '2017-09-25 03:30:45', '13121', 5);
 
 -- --------------------------------------------------------
 
@@ -426,7 +437,7 @@ INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usua
 (2, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'email@email.com', 'senha', '2017-09-14 06:29:27'),
 (3, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'email@email.com', 'senha', '2017-09-14 06:34:12'),
 (4, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'aaa@a.com', '123', '2017-09-14 06:37:28'),
-(5, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'aaa@a.com', '123', '2017-09-14 06:43:12'),
+(5, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '3', 'aaa@a.com', '123', '2017-09-14 06:43:12'),
 (6, 'admin mc', '1', 'assets/img/faces/face-0.jpg', NULL, '1', 'email@mc.com.br', '123', '2017-09-17 06:03:28');
 
 --
@@ -605,12 +616,12 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT for table `equipes`
 --
 ALTER TABLE `equipes`
-  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `estrategias`
 --
 ALTER TABLE `estrategias`
-  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `habilidades`
 --
@@ -660,7 +671,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT for table `projetos`
 --
 ALTER TABLE `projetos`
-  MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `publicacoes`
 --

@@ -4,6 +4,8 @@ $array_file = getcwd();
 $detalhe_pagina = explode("/", $_SERVER['PHP_SELF']);
 
 $detalhe_pagina = end($detalhe_pagina);
+
+$array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo.php','idiomas.php','categorias.php');
 ?>
 <div class="sidebar" data-background-color="white" data-active-color="danger">
     <div class="logo">
@@ -88,15 +90,15 @@ $detalhe_pagina = end($detalhe_pagina);
                     <p>Equipe</p>
                 </a>
             </li>
-            <li>
-                <a data-toggle="collapse" href="#gestao">
+            <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active": "" ?>">
+                <a data-toggle="collapse" href="#gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
                     <i class="ti-panel"></i>
                     <p>
                         Gestão
                         <b class="caret"></b>
                     </p>
                 </a>
-                <div class="collapse" id="gestao">
+                <div class="collapse <?= in_array($detalhe_pagina, $array_gestao) ? 'in': '' ?>" id="gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
                     <ul class="nav">
                         <li class="<?= $detalhe_pagina == "time.php" ? "active" : "" ?>">
                             <a href="time.php">

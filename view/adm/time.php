@@ -56,7 +56,7 @@ require_once '../../model/usuarios.php';
                                                     <div class="col-xs-3">
                                                         Função
                                                         <br>
-                                                        <span class="text-muted"><small><?= $u->funcao_usuario ?></small></span>
+                                                        <span class="text-muted"><small><?= funcaoCliente($u->funcao_usuario) ?></small></span>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
                                                         <btn class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></btn>

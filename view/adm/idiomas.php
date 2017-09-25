@@ -64,11 +64,11 @@ $idiomas = idiomas::getAllIdiomas();
     var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - tipo de conteúdo criado corretamente.');
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - idioma criado corretamente.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - tipo de conteúdo não foi criado.');
+                funcoes.showNotification(0,4,'<b>Erro</b> - idioma não foi criado.');
             });
         <?php } ?>
         function deletaIdioma(cod_idioma,btn) { 

@@ -13,12 +13,10 @@ class tipo_tarefa {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO tipo_tarefa (id_tipo, nome_tarefa, id_tarefa)
- VALUES(:id_tipo, :nome_tarefa, :id_tarefa);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO tipo_tarefa (nome_tarefa)
+ VALUES(:nome_tarefa);");
 
-		$stmt->bindParam(":id_tipo", $obj->id_tipo);
 		$stmt->bindParam(":nome_tarefa", $obj->nome_tarefa);
-		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
 
 		$stmt->execute(); 
 			return true;

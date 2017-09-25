@@ -4,8 +4,8 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/estrategias.php';
 
 $estrategia = estrategias::getById(1);
-//pre_r($estrategia);
-//die();
+pre_r($estrategia);
+die();
 ?>
 <html lang="pt-br">
     <head>

@@ -212,6 +212,10 @@ margin-top: 30px;
 .lista-projetos a{
     color: #66615b;
 }
+.lista-projetos li i{
+float: right;
+margin-top: 5px;
+}
 .lista-projetos li.active,
 .lista-projetos li:hover
 {

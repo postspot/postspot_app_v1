@@ -23,9 +23,3 @@ if(isset($id_persona)){
 else{
     echo json_encode("false3");
 }
-
-
-
-
-
-

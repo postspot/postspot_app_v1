@@ -41,14 +41,7 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li class="sub-title">Projetos</li>
-                        <hr>
-                        <li><a href="#" >Melhorcompra</a></li>
-                        <li><a href="#" >Melhorcompra</a></li>
-                        <li><a href="#" >Melhorcompra</a></li>
-                        <li><a href="#" >Melhorcompra</a></li>
-                        <li><a href="#" >Melhorcompra</a></li>
-                        <hr>
+                        <li><a href="lista_projetos.php" >Trocar Projeto</a></li>
                         <li><a href="index.php">Sair</a></li>
                     </ul>
                 </li>

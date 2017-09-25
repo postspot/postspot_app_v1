@@ -1,6 +1,9 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/projetos.php';
+
+$projetos = projetos::getAll();
 ?>
 <html lang="pt-br">
     <head>
@@ -18,12 +21,9 @@ require_once '../../lib/operacoes.php';
                         <h1>Bem vindo novamente, Andress!</h1>
                         <p>Selecione o projeto que deseja acompanhar</p>
                         <ul>
-                            <li class="active"><a href="#">Clube dos empreendedores de Poços de Caldas <i class="fa fa-heart heart"></i></a></li>
-                            <li>Projeto Melhor Compra <i class="fa fa-heart heart"></i></li>
-                            <li><a href="#">Projeto1</a></li>
-                            <li>Projeto14</li>
-                            <li>Projeto13</li>
-                            <li>Projeto12</li> 
+                            <?php foreach($projetos as $projeto): ?>
+                                <li class="<?= ($projeto->id_projeto == 1) ? 'active' : '' ?>"><a href="dashboard.php?p=<?= $projeto->id_projeto ?>"><?= $projeto->nome_projeto ?> <i class="fa fa-chevron-right"></i></a></li>
+                            <?php endforeach;?>
                         </ul>
                     </div>
                 </div>

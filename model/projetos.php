@@ -23,11 +23,10 @@ class projetos {
 	public static function insert($obj) {
 		 try{
 		$stmt = Conexao::getInstance()->prepare("INSERT INTO projetos 
-                (nome_projeto, cadastro_projeto, site_projeto, responsavel_projeto)
-                VALUES(:nome_projeto, :cadastro_projeto, :site_projeto, :responsavel_projeto);");
+                (nome_projeto, site_projeto, responsavel_projeto)
+                VALUES(:nome_projeto, :site_projeto, :responsavel_projeto);");
 
 		$stmt->bindParam(":nome_projeto", $obj->nome_projeto);
-		$stmt->bindParam(":cadastro_projeto", $obj->cadastro_projeto);
 		$stmt->bindParam(":site_projeto", $obj->site_projeto);
 		$stmt->bindParam(":responsavel_projeto", $obj->responsavel_projeto);
 
@@ -63,6 +62,21 @@ class projetos {
 
 
 
+	public static function getAll() {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM projetos");
+
+		 $stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+		return false;
+		}
+	}
 	public static function getById($id) {
 
 	 try {
@@ -103,7 +117,7 @@ class projetos {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM projetos WHERE responsavel_projeto = :id");
+		$stmt = Conexao::getInstance()->prepare("DELETE FROM projetos WHERE id_projeto = :id");
 
 		$stmt->bindParam(":id", $id);
 

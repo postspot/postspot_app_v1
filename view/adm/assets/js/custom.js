@@ -196,7 +196,7 @@ funcoes = {
                                         '</div>' +
                                     '</div>' +
                                     '<div class="col-md-12">' +
-                                        '<label>Data de Criação</label>' +
+                                        '<label>Responsável</label>' +
                                         '<div class="form-group">' +
                                             '<select class="form-control border-input" name="responsavel_projeto">'+ optionResponsaveis + '</select>'+
                                         '</div>' +
@@ -293,8 +293,8 @@ funcoes = {
                 break;
             case 'deletaProjeto':
                 swal({
-                    title: 'Deseja deletar a persona?',
-                    text: "Depois de confirmar a persona não poderá ser recuperada!",
+                    title: 'Deseja deletar?',
+                    text: "Depois de confirmar, este projeto não poderá ser recuperado!",
                     type: 'warning',
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
@@ -302,19 +302,20 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar!',
                     buttonsStyling: false
                 }).then(function() {
-                    dados = {id_persona: codDeletado}
+                    dados = {id_projeto: codDeletado}
                     $.ajax({
-                        url: "../../controller/persona/deleta_persona.php",
+                        url: "../../controller/projeto/deleta_projeto.php",
                         type: "POST",
                         dataType: "json",
                         async: true,
-                        //data: dados,
+                        data: dados,
                         timeout: 15000,
                         success: function (data) {
                             if(data == 'true'){
+                                $(elem).remove();
                                 swal({
                                   title: 'Sucesso!',
-                                  text: 'A persona foi deletada.',
+                                  text: 'O projeto foi deletado.',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
                                   buttonsStyling: false
@@ -322,7 +323,7 @@ funcoes = {
                             }else{
                                 swal({
                                   title: 'Erro!',
-                                  text: 'A persona não foi deletada.',
+                                  text: 'O projeto não foi deletado.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
                                   buttonsStyling: false

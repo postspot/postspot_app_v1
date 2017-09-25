@@ -2,10 +2,12 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/estrategias.php';
+require_once '../../model/linguagens.php';
+require_once '../../model/categorias.php';
 
 $estrategia = estrategias::getById(1);
-pre_r($estrategia);
-die();
+$linguagens = linguagens::getAll();
+$categorias = categorias::getAll();
 ?>
 <html lang="pt-br">
     <head>
@@ -214,82 +216,11 @@ die();
                                                     <div class="form-group">
                                                         <label class="block">Linguagem</label>
                                                         <p class="text-muted">Descreve o tom e a voz da escrita</p>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem" type="checkbox" name="linguagem[]" value="Entusiasmado">
-                                                            <label for="linguagem">
-                                                                Entusiasmado
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem2" type="checkbox" name="linguagem[]" value="Especialista">
-                                                            <label for="linguagem2">
-                                                            Especialista
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem3" type="checkbox" name="linguagem[]" value="Prestativo">
-                                                            <label for="linguagem3">
-                                                            Prestativo
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem4" type="checkbox" name="linguagem[]" value="Informativo">
-                                                            <label for="linguagem4">
-                                                            Informativo
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem5" type="checkbox" name="linguagem[]" value="Franco">
-                                                            <label for="linguagem5">
-                                                            Franco
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem6" type="checkbox" name="linguagem[]" value="Autoritário">
-                                                            <label for="linguagem6">
-                                                            Autoritário
-                                                            </label>
-                                                        </div>
-                                                        </div>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem7" type="checkbox" name="linguagem[]" value="Casual">
-                                                            <label for="linguagem7">
-                                                            Casual
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem8" type="checkbox" name="linguagem[]" value="Atrevido">
-                                                            <label for="linguagem8">
-                                                            Atrevido
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem9" type="checkbox" name="linguagem[]" value="Convencional">
-                                                            <label for="linguagem9">
-                                                            Convencional
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem10" type="checkbox" name="linguagem[]" value="Cortês">
-                                                            <label for="linguagem10">
-                                                            Cortês
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem11" type="checkbox" name="linguagem[]" value="Criativo">
-                                                            <label for="linguagem11">
-                                                            Criativo
-                                                            </label>
-                                                        </div>
-                                                        <div class="checkbox checkbox-inline">
-                                                            <input id="linguagem12" type="checkbox" name="linguagem[]" value="Emocionado">
-                                                            <label for="linguagem12">
-                                                            Emocionado
-                                                            </label>
-                                                        </div>
+                                                        <select multiple title="Escolha as Linguagens" class="selectpicker" data-style="no-border" data-size="7" name="linguagem[]">
+                                                            <?php foreach($linguagens as $linguagem):?>
+                                                                <option value="<?= $linguagem->id_linguagem ?>"><?= $linguagem->nome_linguagem ?></option>
+                                                            <?php endforeach;?>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Links para Referências</label>
@@ -298,61 +229,11 @@ die();
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
-                                                        <p class="text-muted">Selecione as duas ou três principaiis</p>
-                                                        <input type="text"  class="form-control" name="categorias_conteudo" value="<?= $estrategia->categorias_conteudo ?>">
-                                                        <select name="" id="">
-                                                        <option value="56">Atendimento ao Cliente</option>
-                                                            <option value="Automobilismo">Automobilismo</option>
-                                                            <option value="Big Data">Big Data</option>
-                                                            <option value="44">Business Intelligence</option>
-                                                            <option value="49">Call Center e VoIP</option>
-                                                            <option value="22">Carreira</option>
-                                                            <option value="38">Casa e Jardim</option>
-                                                            <option value="24">Comportamento</option>
-                                                            <option value="46">Contabilidade</option>
-                                                            <option value="28">Design</option>
-                                                            <option value="63">Diagramação</option>
-                                                            <option value="27">DIY (Faça você mesmo)</option>
-                                                            <option value="29">E-commerce</option>
-                                                            <option value="5">Economia e Finanças</option>
-                                                            <option value="2">Educação</option>
-                                                            <option value="6">Empreendedorismo e Startups</option>
-                                                            <option value="8">Engenharia</option>
-                                                            <option value="12">Entretenimento</option>
-                                                            <option value="4">Esportes e Fitness</option>
-                                                            <option value="30">Estética e Beleza</option>
-                                                            <option value="58">Fotografia</option>
-                                                            <option value="17">Gastronomia</option>
-                                                            <option value="52">Gestão de Projetos</option>
-                                                            <option value="31">Gestão e Administração</option>
-                                                            <option value="60">Inovação</option>
-                                                            <option value="26">Lei e Direito</option>
-                                                            <option value="32">Logística</option>
-                                                            <option value="1">Marketing</option>
-                                                            <option selected="selected" value="23">Marketing Digital</option>
-                                                            <option value="57">Medicina e Gestão Hospitalar</option>
-                                                            <option value="18">Meio Ambiente</option>
-                                                            <option value="37">Mercado Imobiliário</option>
-                                                            <option value="16">Moda</option>
-                                                            <option value="33">Negócios</option>
-                                                            <option value="59">Nutrição</option>
-                                                            <option value="65">Odontologia</option>
-                                                            <option value="55">Pauta</option>
-                                                            <option value="45">Pequenas e Médias Empresas</option>
-                                                            <option value="66">Produção de Eventos</option>
-                                                            <option value="43">Produção de Textos</option>
-                                                            <option value="48">Programação e APIs</option>
-                                                            <option value="42">Recursos Humanos e Comunicação Interna</option>
-                                                            <option value="67">Redação em Espanhol</option>
-                                                            <option value="14">Revisão</option>
-                                                            <option value="10">Saúde e Bem-estar</option>
-                                                            <option value="47">Segurança Digital</option>
-                                                            <option value="36">Tecnologia da Informação</option>
-                                                            <option value="40">Traduções</option>
-                                                            <option value="25">Turismo</option>
-                                                            <option value="39">Vendas</option>
-                                                            <option value="64">Veterinária</option>
-                                                            <option value="62">X PREMIUM</option>
+                                                        <p class="text-muted">Selecione as duas ou três principaiis</p>                                              
+                                                        <select multiple title="Escolha as Categorias" class="selectpicker" data-style="no-border" data-size="7" name="categorias_conteudo[]">
+                                                            <?php foreach($categorias as $categoria):?>
+                                                                <option value="<?= $categoria->id_categoria ?>"><?= $categoria->nome_categoria ?></option>
+                                                            <?php endforeach;?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">

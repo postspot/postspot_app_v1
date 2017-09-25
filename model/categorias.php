@@ -13,10 +13,9 @@ class categorias {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO categorias (id_categoria, nome_categoria)
- VALUES(:id_categoria, :nome_categoria);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO categorias (nome_categoria)
+ VALUES(:nome_categoria);");
 
-		$stmt->bindParam(":id_categoria", $obj->id_categoria);
 		$stmt->bindParam(":nome_categoria", $obj->nome_categoria);
 
 		$stmt->execute(); 
@@ -64,6 +63,23 @@ class categorias {
 		return false;
 		}
 	}
+	
+	
+		public static function getAll() {
+	
+		 try {
+			$stmt = Conexao::getInstance()->prepare("SELECT * FROM categorias");
+	
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+			} catch(PDOException $ex) {
+				return false;
+			}
+		}
 
 
  //------------------ function delete($id)---------//

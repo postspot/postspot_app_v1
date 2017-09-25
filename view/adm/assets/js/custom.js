@@ -291,6 +291,26 @@ funcoes = {
                     $('#formCriaIdioma').trigger('submit');
                 });
                 break;
+            case 'categoria':
+                swal({
+                    title: 'Criar Categoria',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Criar',
+                    html:
+                            '<div class="row">' +
+                                '<form id="formCriaCategoria" action="../../controller/categorias/cria_categoria.php" method="post">' +                            
+                                    '<div class="col-md-12">' +
+                                         '<div class="form-group">' +
+                                            '<label>Categoria</label>' +
+                                            '<input type="text" class="form-control border-input" name="nome_categoria">' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</form>'+
+                            '</div>'
+                }).then(function() {
+                    $('#formCriaCategoria').trigger('submit');
+                });
+                break;
             case 'deletaProjeto':
                 swal({
                     title: 'Deseja deletar?',
@@ -462,6 +482,52 @@ funcoes = {
                                 swal({
                                   title: 'Erro!',
                                   text: 'O idioma não foi deletado.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
+            case 'deletaCategoria':
+                swal({
+                    title: 'Deseja deletar?',
+                    text: "Depois de confirmar, esta categoria não poderá ser recuperada!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    dados = {id_categoria: codDeletado}
+                    $.ajax({
+                        url: "../../controller/categorias/deleta_categoria.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                $(elem).remove();
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'A categoria foi deletada.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'A categoria não foi deletada.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
                                   buttonsStyling: false

@@ -130,6 +130,12 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
                                 <span class="sidebar-normal">Idiomas</span>
                             </a>
                         </li>
+                        <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">
+                            <a href="categorias.php">
+                                <span class="sidebar-mini">CT</span>
+                                <span class="sidebar-normal">Categorias</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>

@@ -13,10 +13,9 @@ class categorias_estrategia {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO categorias_estrategia (id_categoria_estrategia, id_estrategia, id_categoria)
- VALUES(:id_categoria_estrategia, :id_estrategia, :id_categoria);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO categorias_estrategia (id_estrategia, id_categoria)
+ VALUES(:id_estrategia, :id_categoria);");
 
-		$stmt->bindParam(":id_categoria_estrategia", $obj->id_categoria_estrategia);
 		$stmt->bindParam(":id_estrategia", $obj->id_estrategia);
 		$stmt->bindParam(":id_categoria", $obj->id_categoria);
 
@@ -53,7 +52,11 @@ class categorias_estrategia {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM categorias_estrategia WHERE id_categoria = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT * "
+		. " FROM categorias_estrategia ce"
+		. " INNER JOIN categorias ca"
+		. " ON(ce.id_categoria = ca.id_categoria)"
+		. " WHERE id_estrategia = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
@@ -74,7 +77,7 @@ class categorias_estrategia {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM categorias_estrategia WHERE id_categoria = :id");
+		$stmt = Conexao::getInstance()->prepare("DELETE FROM categorias_estrategia WHERE id_estrategia = :id");
 
 		$stmt->bindParam(":id", $id);
 

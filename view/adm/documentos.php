@@ -56,9 +56,9 @@ require_once '../../lib/operacoes.php';
                         </div>
                     </div>
                 </div>
-                        <a href="cria_persona.php" class="btn btn-icon btn-fixed">
-                            <i class="ti-plus"></i>
-                        </a>
+                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('anexo')">
+                    <i class="ti-plus"></i>
+                </a>
             </div>
         </div>
     </body>

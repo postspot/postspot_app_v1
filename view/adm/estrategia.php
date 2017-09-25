@@ -4,10 +4,14 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/estrategias.php';
 require_once '../../model/linguagens.php';
 require_once '../../model/categorias.php';
+require_once '../../model/linguagens_estrategia.php';
+require_once '../../model/categorias_estrategia.php';
 
 $estrategia = estrategias::getById(1);
 $linguagens = linguagens::getAll();
 $categorias = categorias::getAll();
+$linguagens_estrategia = linguagens_estrategia::getById($estrategia->id_estrategia);
+$categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrategia);
 ?>
 <html lang="pt-br">
     <head>
@@ -88,13 +92,17 @@ $categorias = categorias::getAll();
                                                     <?= $estrategia->evitar ?>
                                                     <hr>
                                                     <h3>Linguagem</h3>
-                                                    <?= $estrategia->linguagem ?>
+                                                    <?php foreach($linguagens_estrategia as $lingua):?>
+                                                        <p><?=  $lingua->nome_linguagem ?></p> 
+                                                    <?php endforeach;?>
                                                     <hr>
                                                     <h3>Links para Referências</h3>
                                                     <?= $estrategia->links_ref ?>
                                                     <hr>
                                                     <h3>Categorias de conteúdo</h3>
-                                                    <?= $estrategia->categorias_conteudo ?>
+                                                    <?php foreach($categorias_estrategias as $categ):?>
+                                                        <p><?=  $categ->nome_categoria ?></p> 
+                                                    <?php endforeach;?>
                                                     <hr>
                                                     <h3>Canais de aquisição de tráfeco</h3>
                                                     <?= $estrategia->canais ?>
@@ -138,54 +146,54 @@ $categorias = categorias::getAll();
                                                     <div class="form-group">
                                                         <label>Objetivo primário</label>
                                                         <select name="objetivo_primario" class="form-control">
-                                                            <option value="" selected="selected" disabled>Selecione um Objetivo</option>
-                                                            <option value="Conhecimento de marca">Conhecimento de marca</option>
-                                                            <option value="Geração de leads">Geração de leads</option>
-                                                            <option value="Educar o cliente">Educar o cliente</option>
-                                                            <option value="Tornar-se referência">Tornar-se referência</option>
-                                                            <option value="Geração de tráfego">Geração de tráfego</option>
-                                                            <option value="Engajamento com a marca">Engajamento com a marca</option>
-                                                            <option value="Outro">Outro</option>
+                                                            <option value="0" <?=($estrategia->objetivo_primario == '0') ? 'selected="selected"' : ''?> disabled>Selecione um Objetivo</option>
+                                                            <option value="Conhecimento de marca" <?=($estrategia->objetivo_primario == 'Conhecimento de marca') ? 'selected="selected"' : ''?>>Conhecimento de marca</option>
+                                                            <option value="Geração de leads" <?=($estrategia->objetivo_primario == 'Geração de leads') ? 'selected="selected"' : ''?>>Geração de leads</option>
+                                                            <option value="Educar o cliente" <?=($estrategia->objetivo_primario == 'Educar o cliente') ? 'selected="selected"' : ''?>>Educar o cliente</option>
+                                                            <option value="Tornar-se referência" <?=($estrategia->objetivo_primario == 'Tornar-se referência') ? 'selected="selected"' : ''?>>Tornar-se referência</option>
+                                                            <option value="Geração de tráfego" <?=($estrategia->objetivo_primario == 'Geração de tráfego') ? 'selected="selected"' : ''?>>Geração de tráfego</option>
+                                                            <option value="Engajamento com a marca" <?=($estrategia->objetivo_primario == 'Engajamento com a marca') ? 'selected="selected"' : ''?>>Engajamento com a marca</option>
+                                                            <option value="Outro" <?=($estrategia->objetivo_primario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPIs de acompanhamento primário</label>
                                                         <select class="form-control" name="kpis_primario">
-                                                            <option value="Selecione um KPI" selected="selected" disabled>Selecione um KPI</option>
-                                                            <option value="Tráfego total">Tráfego total</option>
-                                                            <option value="Tráfego orgânico">Tráfego orgânico</option>
-                                                            <option value="Leads gerados">Leads gerados</option>
-                                                            <option value="Assinantes">Assinantes</option>
-                                                            <option value="Conversão">Conversão</option>
-                                                            <option value="Taxa de cancelamento">Taxa de cancelamento</option>
-                                                            <option value="Outro">Outro</option>
+                                                            <option value="0" <?=($estrategia->kpis_primario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um KPI</option>
+                                                            <option value="Tráfego total" <?=($estrategia->kpis_primario == 'Tráfego total') ? 'selected="selected"' : ''?>>Tráfego total</option>
+                                                            <option value="Tráfego orgânico" <?=($estrategia->kpis_primario == 'Tráfego orgânico') ? 'selected="selected"' : ''?>>Tráfego orgânico</option>
+                                                            <option value="Leads gerados" <?=($estrategia->kpis_primario == 'Leads gerados') ? 'selected="selected"' : ''?>>Leads gerados</option>
+                                                            <option value="Assinantes" <?=($estrategia->kpis_primario == 'Assinantes') ? 'selected="selected"' : ''?>>Assinantes</option>
+                                                            <option value="Conversão" <?=($estrategia->kpis_primario == 'Conversão') ? 'selected="selected"' : ''?>>Conversão</option>
+                                                            <option value="Taxa de cancelamento" <?=($estrategia->kpis_primario == 'Taxa de cancelamento') ? 'selected="selected"' : ''?>>Taxa de cancelamento</option>
+                                                            <option value="Outro" <?=($estrategia->kpis_primario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Objetivo secundário</label>
                                                         <select class="form-control" name="objetivo_secundario">
-                                                            <option value="" selected="selected" disabled>Selecione um Objetivo</option>
-                                                            <option value="Conhecimento de marca">Conhecimento de marca</option>
-                                                            <option value="Geração de leads">Geração de leads</option>
-                                                            <option value="Educar o cliente">Educar o cliente</option>
-                                                            <option value="Tornar-se referência">Tornar-se referência</option>
-                                                            <option value="Geração de tráfego">Geração de tráfego</option>
-                                                            <option value="Engajamento com a marca">Engajamento com a marca</option>
-                                                            <option value="Outro">Outro</option>
+                                                            <option value="0" <?=($estrategia->objetivo_secundario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um Objetivo</option>
+                                                            <option value="Conhecimento de marca" <?=($estrategia->objetivo_secundario == 'Conhecimento de marca') ? 'selected="selected"' : ''?>>Conhecimento de marca</option>
+                                                            <option value="Geração de leads" <?=($estrategia->objetivo_secundario == 'Geração de leads') ? 'selected="selected"' : ''?>>Geração de leads</option>
+                                                            <option value="Educar o cliente" <?=($estrategia->objetivo_secundario == 'Educar o cliente') ? 'selected="selected"' : ''?>>Educar o cliente</option>
+                                                            <option value="Tornar-se referência" <?=($estrategia->objetivo_secundario == 'Tornar-se referência') ? 'selected="selected"' : ''?>>Tornar-se referência</option>
+                                                            <option value="Geração de tráfego" <?=($estrategia->objetivo_secundario == 'Geração de tráfego') ? 'selected="selected"' : ''?>>Geração de tráfego</option>
+                                                            <option value="Engajamento com a marca" <?=($estrategia->objetivo_secundario == 'Engajamento com a marca') ? 'selected="selected"' : ''?>>Engajamento com a marca</option>
+                                                            <option value="Outro" <?=($estrategia->objetivo_secundario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPIs de acompanhamento secundário</label>
                                                         <select class="form-control" name="kpis_secundario">
-                                                            <option value="Selecione um KPI" selected="selected" disabled>Selecione um KPI</option>
-                                                            <option value="Tráfego total">Tráfego total</option>
-                                                            <option value="Tráfego orgânico">Tráfego orgânico</option>
-                                                            <option value="Leads gerados">Leads gerados</option>
-                                                            <option value="Assinantes">Assinantes</option>
-                                                            <option value="Conversão">Conversão</option>
-                                                            <option value="Taxa de cancelamento">Taxa de cancelamento</option>
-                                                            <option value="Outro">Outro</option>
+                                                            <option value="0" <?=($estrategia->kpis_secundario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um KPI</option>
+                                                            <option value="Tráfego total" <?=($estrategia->kpis_secundario == 'Tráfego total') ? 'selected="selected"' : ''?>>Tráfego total</option>
+                                                            <option value="Tráfego orgânico" <?=($estrategia->kpis_secundario == 'Tráfego orgânico') ? 'selected="selected"' : ''?>>Tráfego orgânico</option>
+                                                            <option value="Leads gerados" <?=($estrategia->kpis_secundario == 'Leads gerados') ? 'selected="selected"' : ''?>>Leads gerados</option>
+                                                            <option value="Assinantes" <?=($estrategia->kpis_secundario == 'Assinantes') ? 'selected="selected"' : ''?>>Assinantes</option>
+                                                            <option value="Conversão" <?=($estrategia->kpis_secundario == 'Conversão') ? 'selected="selected"' : ''?>>Conversão</option>
+                                                            <option value="Taxa de cancelamento" <?=($estrategia->kpis_secundario == 'Taxa de cancelamento') ? 'selected="selected"' : ''?>>Taxa de cancelamento</option>
+                                                            <option value="Outro" <?=($estrategia->kpis_secundario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -217,8 +225,15 @@ $categorias = categorias::getAll();
                                                         <label class="block">Linguagem</label>
                                                         <p class="text-muted">Descreve o tom e a voz da escrita</p>
                                                         <select multiple title="Escolha as Linguagens" class="selectpicker" data-style="no-border" data-size="7" name="linguagem[]">
-                                                            <?php foreach($linguagens as $linguagem):?>
-                                                                <option value="<?= $linguagem->id_linguagem ?>"><?= $linguagem->nome_linguagem ?></option>
+                                                            <?php foreach($linguagens as $linguagem):
+                                                                $selected = '';
+                                                                foreach ($linguagens_estrategia as $linguagem_escolhida) {
+                                                                    if($linguagem_escolhida->id_linguagem == $linguagem->id_linguagem){
+                                                                        $selected = 'selected="selected"';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <option value="<?= $linguagem->id_linguagem ?>" <?= $selected?>><?= $linguagem->nome_linguagem ?></option>
                                                             <?php endforeach;?>
                                                         </select>
                                                     </div>
@@ -230,9 +245,16 @@ $categorias = categorias::getAll();
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
                                                         <p class="text-muted">Selecione as duas ou três principaiis</p>                                              
-                                                        <select multiple title="Escolha as Categorias" class="selectpicker" data-style="no-border" data-size="7" name="categorias_conteudo[]">
-                                                            <?php foreach($categorias as $categoria):?>
-                                                                <option value="<?= $categoria->id_categoria ?>"><?= $categoria->nome_categoria ?></option>
+                                                        <select require multiple title="Escolha as Categorias" class="selectpicker" data-style="no-border" data-size="7" name="categorias_conteudo[]">
+                                                            <?php foreach($categorias as $categoria):
+                                                                $selected = '';
+                                                                foreach ($categorias_estrategias as $categoria_escolhida) {
+                                                                    if($categoria->id_categoria == $categoria_escolhida->id_categoria){
+                                                                        $selected = 'selected="selected"';
+                                                                    }
+                                                                }
+                                                                ?>
+                                                                <option value="<?= $categoria->id_categoria ?>" <?= $selected ?>><?= $categoria->nome_categoria ?></option>
                                                             <?php endforeach;?>
                                                         </select>
                                                     </div>
@@ -256,11 +278,11 @@ $categorias = categorias::getAll();
                                                     <div class="form-group">
                                                         <label>Termos proibidos</label>
                                                         <p class="text-muted">Liste os termos proibidos para a estratégia do cliente, separados por vírgula</p>
-                                                        <input type="text"  class="form-control" name="xxxx" value="<?= $estrategia->xxx ?>">
+                                                        <input type="text"  class="form-control" name="termos_proibidos" value="<?= $estrategia->termos_proibidos ?>">
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mapeamentos de conteúdo</label>
-                                                        <textarea class="form-control" rows="3"  name="xxxx"><?= $estrategia->xxxx ?></textarea>
+                                                        <textarea class="form-control" rows="3"  name="mapeamentos"><?= $estrategia->mapeamentos ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <input type="hidden" name="id_projeto" value="1" class="form-control border-input">
@@ -281,4 +303,15 @@ $categorias = categorias::getAll();
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
+    <script>
+        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - estratégia editada corretamente.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - estratégia não editada.');
+            });
+        <?php } ?>
+    </script>
 </html>

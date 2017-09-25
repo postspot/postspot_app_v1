@@ -311,6 +311,26 @@ funcoes = {
                     $('#formCriaCategoria').trigger('submit');
                 });
                 break;
+            case 'anexo':
+                    swal({
+                        title: 'Subir Arquivo',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Subir',
+                        html:
+                                '<div class="row">' +
+                                    '<form id="formSubirAnexo" action="../../controller/anexos/cria_anexos.php" method="post"enctype="multipart/form-data">' +                            
+                                        '<div class="col-md-12">' +
+                                             '<div class="form-group">' +
+                                                '<label>Arquivo(s)</label>' +
+                                                '<input type="file" class="form-control border-input" name="anexos[]" multiple>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</form>'+
+                                '</div>'
+                    }).then(function() {
+                        $('#formSubirAnexo').trigger('submit');
+                    });
+                    break;
             case 'deletaProjeto':
                 swal({
                     title: 'Deseja deletar?',
@@ -520,6 +540,52 @@ funcoes = {
                                 swal({
                                   title: 'Sucesso!',
                                   text: 'A categoria foi deletada.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'A categoria não foi deletada.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
+            case 'deletaMembro':
+                swal({
+                    title: 'Deseja deletar?',
+                    text: "Depois de confirmar, este membro não fará mais parte desta equipe!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    dados = {id_membros: codDeletado}
+                    $.ajax({
+                        url: "../../controller/membros_equipe/deleta_membro.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                $(elem).remove();
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'O membro foi deletado.',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
                                   buttonsStyling: false

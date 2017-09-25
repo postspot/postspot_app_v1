@@ -88,6 +88,18 @@ function mesEscrito($date) {
     return $meses[$mes];
 }
 
+
+function funcaoCliente($funcao){
+    $funcoes = array('0' => 'Gerente de Projeto',
+        '1' => 'Analista',
+        '2' => 'Redator',
+        '3' => 'Cliente'
+    );
+
+    return $funcoes[$funcao];
+}
+
+
 /**
  * 
  * Envia notificação OneSignal para todos registrados

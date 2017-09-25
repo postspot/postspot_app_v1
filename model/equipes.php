@@ -16,7 +16,7 @@ class equipes {
 		$stmt = Conexao::getInstance()->prepare("INSERT INTO equipes (id_projeto)
                 VALUES(:id_projeto);");
 
-		$stmt->bindParam(":id_projeto", $obj->id_equipe);
+		$stmt->bindParam(":id_projeto", $id_projeto);
 
 		$stmt->execute(); 
 			return true;

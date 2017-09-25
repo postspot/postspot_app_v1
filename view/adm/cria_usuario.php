@@ -27,7 +27,7 @@ $idiomas = idiomas::getAllIdiomas();
 
                 <div class="content">
                     <div class="container-fluid">
-                        <form action="../../controller/usuario/criar_usuario.php" method="POST">
+                        <form action="../../controller/usuario/criar_usuario.php" enctype="multipart/form-data" method="POST">
                         <h4 class="title"><i class="ti-user"></i> Cria Usuário</h4>
                         <div class="row">
                             <div class="col-md-6">
@@ -57,7 +57,7 @@ $idiomas = idiomas::getAllIdiomas();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Foto</label>
-                                                    <input type="file" class="form-control" name="foto_usuario[]" multiple>
+                                                    <input type="file" class="form-control" name="foto_usuario">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

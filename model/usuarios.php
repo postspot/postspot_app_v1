@@ -105,6 +105,41 @@ class usuarios {
 		return false;
 		}
 	}
+	
+	public static function getMenosEscritores() {
+		
+		try {
+		$stmt = Conexao::getInstance()->prepare("SELECT us.id_usuario, us.nome_usuario, us.funcao_usuario"
+				. " FROM usuarios us"
+				. " left JOIN membros_equipe me"
+				. " ON( us.id_usuario = me.id_usuario)"
+				. " WHERE us.funcao_usuario <> 2 AND me.id_usuario is null");
+
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+			echo $ex->getMessage();
+		}
+	}
+	
+	public static function countRedatores() {
+		
+		try {
+		$stmt = Conexao::getInstance()->prepare("SELECT COUNT(id_usuario) AS redatores FROM usuarios WHERE funcao_usuario = 2");
+
+			$stmt->execute();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				return $row->redatores;
+			}
+			return false;
+		} catch(PDOException $ex) {
+			echo $ex->getMessage();
+		}
+	}
         
         public static function login($login, $senha) {
             $stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, "

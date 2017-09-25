@@ -116,12 +116,12 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
                 }
                 else{
                     $flag_idiomas = 1;
-                    header('Location: ../../view/adm/cria_usuario.php?retorno=erro1');
+                    header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
                 }
             }
             if($flag_idiomas == 0){
                 $flag_idiomas=0;
-                 foreach ($habilidade as $value) {
+                 foreach ($habilidades as $value) {
                     $nova_habilidade = new stdClass();
                     $nova_habilidade->habilidades_id_habilidade = $value;
                     $nova_habilidade->usuarios_id_usuario = $obj->id_usuario;
@@ -134,7 +134,7 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
                     }
                     else{
                         $flag_idiomas = 1;
-                        header('Location: ../../view/adm/cria_usuario.php?retorno=erro3');
+                        header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
                     }
                 }
                 if($flag_idiomas == 0){ 
@@ -143,15 +143,15 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
             }
         }
         else{
-            header('Location: ../../view/adm/cria_usuario.php?retorno=erro2');
+            header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
         }
     }
     else {
-        header('Location: ../../view/adm/cria_usuario.php?retorno=falha1');
+        header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
     }
 } 
 else {
-    header('Location: ../../view/cria_usuario.php?retorno=falha2');
+    header('Location: ../../view/cria_usuario.php?retorno=erro');
 }
 
 

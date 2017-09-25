@@ -17,8 +17,6 @@ $habilidades = habilidades::getAllSkills();
 $idiomas = idiomas::getAllIdiomas();
 $habilidades_user = habilidades_usuario::getHabilidadesUsuario($usuario->id_usuario);
 $idiomas_user = idiomas_usuario::getIdiomasUsuario($usuario->id_usuario);
-pre_r($habilidades_user);
-die();  
 ?>
 <html lang="pt-br">
     <head>
@@ -41,6 +39,7 @@ die();
                 <div class="content">
                     <div class="container-fluid">
                         <form action="../../controller/usuario/edita_usuario.php" enctype="multipart/form-data" method="POST">
+                        <input type="hidden" value="<?= $usuario->id_usuario ?>" name="id_usuario">
                         <h4 class="title"><i class="ti-user"></i> Edita Usuário</h4>
                         <div class="row">
                             <div class="col-md-6">
@@ -70,7 +69,7 @@ die();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Foto</label>
-                                                    <input type="file" class="form-control" name="foto_usuario" value="<?= $usuario->foto_usuario ?>">
+                                                    <input type="file" disabled class="form-control" name="foto_usuario" value="<?= $usuario->foto_usuario ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -89,14 +88,14 @@ die();
                                                     <label class="block">Idiomas</label>
                                                     <?php foreach ($idiomas as $idioma):
                                                         $selected = '';
-                                                        foreach ($categorias_estrategias as $categoria_escolhida) {
-                                                            if($categoria->id_categoria == $categoria_escolhida->id_categoria){
-                                                                $selected = 'selected="selected"';
+                                                        foreach ($idiomas_user as $id_user) {
+                                                            if($idioma->id_idioma == $id_user->idiomas_id_idioma){
+                                                                $selected = 'checked="checked"';
                                                             }
                                                         }
                                                     ?>
                                                         <div class="checkbox checkbox-inline">
-                                                            <input id="checkIdioma<?= $idioma->id_idioma ?>" type="checkbox" value="<?= $idioma->id_idioma ?>" name="idioma[]">
+                                                            <input id="checkIdioma<?= $idioma->id_idioma ?>" <?= $selected ?> type="checkbox" value="<?= $idioma->id_idioma ?>" name="idioma[]">
                                                             <label for="checkIdioma<?= $idioma->id_idioma ?>">
                                                                 <?= $idioma->nome_idioma ?>
                                                             </label>
@@ -108,8 +107,15 @@ die();
                                                 <div class="form-group">
                                                     <label>Habilidade</label>
                                                     <select multiple title="Escolha as Habilidades" class="selectpicker" data-style="no-border" data-size="7" name="habilidade[]">
-                                                        <?php foreach($habilidades as $habilidade):?>
-                                                            <option value="<?= $habilidade->id_habilidade ?>"><?= $habilidade->nome_habilidade ?></option>
+                                                        <?php foreach($habilidades as $habilidade):
+                                                            $selected = '';
+                                                            foreach ($habilidades_user as $hab_user) {
+                                                                if($habilidade->id_habilidade == $hab_user->habilidades_id_habilidade){
+                                                                    $selected = 'selected="selected"';
+                                                                }
+                                                            }
+                                                        ?>
+                                                            <option value="<?= $habilidade->id_habilidade ?>" <?= $selected ?>><?= $habilidade->nome_habilidade ?></option>
                                                         <?php endforeach;?>
                                                     </select>
                                                 </div>
@@ -136,13 +142,13 @@ die();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Senha</label>
-                                                    <input type="text" class="form-control border-input" name="senha_usuario">
+                                                    <input type="text" disabled class="form-control border-input" name="senha_usuario">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Confirmar Senha</label>
-                                                    <input type="text" class="form-control border-input" name="confirmacao">
+                                                    <input type="text" disabled class="form-control border-input" name="confirmacao">
                                                 </div>
                                             </div>
 

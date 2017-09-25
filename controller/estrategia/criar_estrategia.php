@@ -2,6 +2,8 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/estrategias.php';
+require_once '../../model/linguagens_estrategia.php';
+require_once '../../model/categorias_estrategia.php';
 
 $estrategia = estrategias::getById(1);
 
@@ -17,19 +19,31 @@ $com_quem_falar = $_POST["com_quem_falar"];
 $com_quem_nao_falar = $_POST["com_quem_nao_falar"];
 $abordar = $_POST["abordar"];
 $evitar = $_POST["evitar"];
-$linguagem = $_POST["linguagem"];
-$categorias_conteudo = $_POST["categorias_conteudo"];
 $canais = $_POST["canais"];
+$links_ref = $_POST["links_ref"];
 $acoes = $_POST["acoes"];
 $consideracoes_gerais = $_POST["consideracoes_gerais"];
+$termos_proibidos = $_POST["termos_proibidos"];
+$mapeamentos = $_POST["mapeamentos"];
+//tratando os select
+$kpis_primario = empty($_POST["kpis_primario"]) ? 0 : $_POST["kpis_primario"];
+$kpis_secundario = empty($_POST["kpis_secundario"]) ? 0 : $_POST["kpis_secundario"] ;
+$objetivo_secundario = empty($_POST["objetivo_secundario"]) ? 0 : $_POST["objetivo_secundario"];
+$objetivo_primario = empty($_POST["objetivo_primario"]) ? 0 : $_POST["objetivo_primario"] ;
+$linguagem = empty($_POST["linguagem"]) ? 0 : $_POST["linguagem"] ;
+$categorias_conteudo = empty($_POST["categorias_conteudo"]) ? 0 : $_POST["categorias_conteudo"] ;
+
+//pre_r($_POST);
+
 
 if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) && 
     isset($blog) && isset($produtos_servicos) && isset($links) &&
     isset($concorrentes) && isset($com_quem_falar) && isset($com_quem_nao_falar) 
     && isset($abordar) && isset($evitar) && isset($linguagem)
-    && isset($categorias_conteudo) && isset($canais) && isset($acoes) && isset($consideracoes_gerais)) {
+	&& isset($categorias_conteudo) && isset($canais) && isset($acoes) && isset($consideracoes_gerais)
+	&& isset($termos_proibidos) && isset($mapeamentos) && isset($objetivo_primario)) {
 
-    if (!empty($id_projeto) && !empty($empresa) && !empty($projeto)) {
+    if (!empty($id_projeto) && !empty($projeto)) {
 	  
         $obj = new stdClass();
         
@@ -54,9 +68,11 @@ if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) &&
 		$obj->canais = $canais;
 		$obj->acoes = $acoes;
 		$obj->consideracoes_gerais = $consideracoes_gerais;
-		$obj->projetos_id_projeto = $id_projeto;         
+		$obj->projetos_id_projeto = $id_projeto; 
+		$obj->termos_proibidos = $termos_proibidos;
+		$obj->mapeamentos = $mapeamentos;         
 		
-		
+		pre_r($obj);
 		if(empty($estrategia)):
 			if(estrategias::insert($obj)){
 				header('Location: ../../view/adm/estrategia.php?retorno=ok');
@@ -67,6 +83,24 @@ if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) &&
 		else:
 			$obj->id_estrategia = $estrategia->id_estrategia;
 			if(estrategias::update($obj)){
+				if(!empty($linguagem)):
+					linguagens_estrategia::delete($estrategia->id_estrategia);
+					foreach ($linguagem as $lingua) {
+						$obj_lingua = new stdClass();
+						$obj_lingua->id_linguagem = $lingua;
+						$obj_lingua->id_estrategia = $estrategia->id_estrategia;
+						linguagens_estrategia::insert($obj_lingua);
+					}
+				endif;
+				if(!empty($categorias_conteudo)):
+					categorias_estrategia::delete($estrategia->id_estrategia);
+					foreach ($categorias_conteudo as $categ) {
+						$obj_categ = new stdClass();
+						$obj_categ->id_categoria = $categ;
+						$obj_categ->id_estrategia = $estrategia->id_estrategia;
+						categorias_estrategia::insert($obj_categ);
+					}
+				endif;
 				header('Location: ../../view/adm/estrategia.php?retorno=ok');
 			}
 			else{

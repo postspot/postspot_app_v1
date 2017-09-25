@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 23-Set-2017 às 07:22
+-- Generation Time: 25-Set-2017 às 04:37
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -587,6 +587,16 @@ ALTER TABLE `usuarios`
 ALTER TABLE `anexos`
   MODIFY `id_anexo` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id_categoria` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `categorias_estrategia`
+--
+ALTER TABLE `categorias_estrategia`
+  MODIFY `id_categoria_estrategia` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `comentarios`
 --
 ALTER TABLE `comentarios`
@@ -621,6 +631,16 @@ ALTER TABLE `idiomas`
 --
 ALTER TABLE `idiomas_usuario`
   MODIFY `id_idiomas_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `linguagens`
+--
+ALTER TABLE `linguagens`
+  MODIFY `id_linguagem` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `linguagens_estrategia`
+--
+ALTER TABLE `linguagens_estrategia`
+  MODIFY `id_linguagem_estrategia` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `log_tarefas`
 --

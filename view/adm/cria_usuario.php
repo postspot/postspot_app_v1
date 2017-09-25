@@ -76,7 +76,7 @@ $idiomas = idiomas::getAllIdiomas();
                                                     <label class="block">Idiomas</label>
                                                     <?php foreach ($idiomas as $idioma): ?>
                                                         <div class="checkbox checkbox-inline">
-                                                            <input id="checkIdioma<?= $idioma->id_idioma ?>" type="checkbox" value="<?= $idioma->nome_idioma ?>" name="idioma[]">
+                                                            <input id="checkIdioma<?= $idioma->id_idioma ?>" type="checkbox" value="<?= $idioma->id_idioma ?>" name="idioma[]">
                                                             <label for="checkIdioma<?= $idioma->id_idioma ?>">
                                                                 <?= $idioma->nome_idioma ?>
                                                             </label>

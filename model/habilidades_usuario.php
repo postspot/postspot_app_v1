@@ -13,10 +13,10 @@ class habilidades_usuario {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO habilidades_usuario (id_habilidade_usuario, habilidades_id_habilidade, usuarios_id_usuario)
- VALUES(:id_habilidade_usuario, :habilidades_id_habilidade, :usuarios_id_usuario);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO habilidades_usuario 
+                    (id_habilidade_usuario, habilidades_id_habilidade, usuarios_id_usuario)
+                VALUES(:habilidades_id_habilidade, :usuarios_id_usuario);");
 
-		$stmt->bindParam(":id_habilidade_usuario", $obj->id_habilidade_usuario);
 		$stmt->bindParam(":habilidades_id_habilidade", $obj->habilidades_id_habilidade);
 		$stmt->bindParam(":usuarios_id_usuario", $obj->usuarios_id_usuario);
 

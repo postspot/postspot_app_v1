@@ -50,7 +50,7 @@ class idiomas_usuario {
 
 
 
-	public static function getById($id) {
+	public static function getIdiomasUsuario($id) {
 
 	 try {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM idiomas_usuario WHERE usuarios_id_usuario = :id");

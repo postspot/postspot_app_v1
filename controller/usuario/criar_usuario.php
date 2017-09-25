@@ -52,7 +52,7 @@ $funcao_usuario = $_POST["funcao_usuario"];
 $email_usuario = $_POST["email_usuario"];
 $senha_usuario = $_POST["senha_usuario"];
 $idioma = $_POST["idioma"];
-$habilidade = $_POST["habilidade"];
+$habilidades = $_POST["habilidade"];
 
 //pre_r($_POST);
 //pre_r($_FILES);

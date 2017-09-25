@@ -79,13 +79,13 @@ class usuarios {
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
-			$colunas = array();
 			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-				array_push($colunas, $row);
+				unset($row->senha_usuario);
+				return $row;
 			}
-			return $colunas;
+			return false;
 		} catch(PDOException $ex) {
-		return false;
+		return $ex->getMessage();
 		}
 	}
 	public static function getAllTipo($id) {

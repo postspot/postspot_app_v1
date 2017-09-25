@@ -50,7 +50,7 @@ class habilidades_usuario {
 
 
 
-	public static function getById($id) {
+	public static function getHabilidadesUsuario($id) {
 
 	 try {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM habilidades_usuario WHERE usuarios_id_usuario = :id");

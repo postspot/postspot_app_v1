@@ -2,6 +2,9 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/tarefas.php';
+require_once '../../model/log_tarefas.php';
+
+session_start();
 
 $nome_tarefa = $_POST["nome_tarefa"];
 $tipo_tarefa = $_POST["tipo_tarefa"];
@@ -12,7 +15,8 @@ $referencias = $_POST["referencias"];
 $consideracoes_gerais = $_POST["consideracoes_gerais"];
 $id_persona = $_POST["id_persona"];
 $estagio_compra = $_POST["estagio_compra"];
-$id_projeto = $_POST["id_projeto"];
+$id_projeto = $_SESSION['id_projeto'];
+$id_usuario = $_SESSION['id_usuario'];
 
 
 if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) && 
@@ -37,11 +41,58 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         $obj->id_tipo = $tipo_tarefa;
 	$obj->id_equipe = 1;
         
-//        echo tarefas::insert($obj);
+        $id_tarefa = tarefas::getAutoInc();
 //        die();
         
+        
+        
         if(tarefas::insert($obj)){
-            header('Location: ../../view/adm/cria_pauta.php?retorno=ok');
+            $flag_log = 1;
+            date_default_timezone_set('America/Sao_Paulo');
+            $date = date('Y-m-d H:i');
+            for($aux = 0; $aux < 6;$aux ++){
+                
+                $novo_log = new stdClass();
+                $novo_log->status = 0;
+                $novo_log->etapa = $aux;
+                switch ($aux) {
+                    case 0:
+                        $novo_log->data_prevista = date('Y-m-d H:i:s', strtotime("+3 days",strtotime($date)));
+                        break;
+                    case 1:
+                        $novo_log->data_prevista = date('Y-m-d H:i:s', strtotime("+5 days",strtotime($date)));
+                        break;
+                    case 2:
+                        $novo_log->data_prevista = date('Y-m-d H:i:s', strtotime("+9 days",strtotime($date)));
+                        break;
+                    case 3:
+                        $novo_log->data_prevista = date('Y-m-d H:i:s', strtotime("+10 days",strtotime($date)));
+                        break;
+                    case 4:
+                        $novo_log->data_prevista = date('Y-m-d H:i:s', strtotime("+12 days",strtotime($date)));
+                        break;
+
+                    default:
+                        break;
+                }
+                
+                
+                $novo_log->data_entregue = "";
+                $novo_log->id_tarefa = $id_tarefa;
+                $novo_log->id_usuario = $id_usuario;
+                
+                if(log_tarefas::insert($novo_log)){
+                    $flag_log = 1;
+                }
+                else{
+                    $flag_log = 0;
+                    header('Location: ../../view/adm/cria_pauta.php?retorno=erro1');
+                }
+                
+            }
+            if($flag_log == 1){
+                header('Location: ../../view/adm/cria_pauta.php?retorno=ok');
+            }
         }
         else{
             header('Location: ../../view/adm/cria_pauta.php?retorno=erro');

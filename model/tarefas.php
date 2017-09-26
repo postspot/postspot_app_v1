@@ -8,7 +8,16 @@ class tarefas {
 
 
 //--------- function insert($obj) --------------//
+        public static function getAutoInc() {
+            $stmt = Conexao::getInstance()->prepare("SHOW TABLE STATUS LIKE '" . self::$tabela . "'");
 
+            if ($stmt->execute()) {
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    $cod_produto = $row->Auto_increment;
+                    return $cod_produto;
+                }
+            }
+        }
 
 
 	public static function insert($obj) {

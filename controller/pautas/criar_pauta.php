@@ -2,6 +2,7 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/tarefas.php';
+require_once '../../model/log_tarefas.php';
 
 $nome_tarefa = $_POST["nome_tarefa"];
 $tipo_tarefa = $_POST["tipo_tarefa"];
@@ -37,11 +38,49 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         $obj->id_tipo = $tipo_tarefa;
 	$obj->id_equipe = 1;
         
-//        echo tarefas::insert($obj);
+        $id_tarefa = tarefas::insert($obj);
 //        die();
         
+        
+        
         if(tarefas::insert($obj)){
-            header('Location: ../../view/adm/cria_pauta.php?retorno=ok');
+            $soma_dias = date('d/m/Y H:i:s', strtotime("+3 days",strtotime($date)));
+            $flag_log = 1;
+            for($aux = 0; $aux < 6;$aux ++){
+                $novo_log->status = 0;
+                $novo_log->etapa = $aux;
+                $novo_log->data_prevista = $soma_dias;
+                $novo_log->data_entregue = "";
+                $novo_log->id_tarefa = "";
+                $novo_log->id_usuario = 0;
+                if(log_tarefas::insert($obj)){
+                    $flag_log = 1;
+                }
+                else{
+                    $flag_log = 0;
+                    header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
+                }
+                switch ($aux) {
+                    case 1:
+                        date('d/m/Y H:i:s', strtotime("+5 days",strtotime($date)));
+                        break;
+                    case 2:
+                        date('d/m/Y H:i:s', strtotime("+9 days",strtotime($date)));
+                        break;
+                    case 3:
+                        date('d/m/Y H:i:s', strtotime("+10 days",strtotime($date)));
+                        break;
+                    case 4:
+                        date('d/m/Y H:i:s', strtotime("+12 days",strtotime($date)));
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            if($flag_log == 1){
+                header('Location: ../../view/adm/cria_pauta.php?retorno=ok');
+            }
         }
         else{
             header('Location: ../../view/adm/cria_pauta.php?retorno=erro');

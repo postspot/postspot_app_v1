@@ -13,13 +13,12 @@ class log_tarefas {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO log_tarefas (id_log, status, etapa, data_criacao, data_prevista, data_entregue, id_tarefa, id_usuario)
- VALUES(:id_log, :status, :etapa, :data_criacao, :data_prevista, :data_entregue, :id_tarefa, :id_usuario);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO log_tarefas 
+            (status, etapa, data_prevista, data_entregue, id_tarefa, id_usuario)
+ VALUES(:status, :etapa, :data_prevista, :data_entregue, :id_tarefa, :id_usuario);");
 
-		$stmt->bindParam(":id_log", $obj->id_log);
 		$stmt->bindParam(":status", $obj->status);
 		$stmt->bindParam(":etapa", $obj->etapa);
-		$stmt->bindParam(":data_criacao", $obj->data_criacao);
 		$stmt->bindParam(":data_prevista", $obj->data_prevista);
 		$stmt->bindParam(":data_entregue", $obj->data_entregue);
 		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
@@ -28,7 +27,7 @@ class log_tarefas {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+		return $ex;
 		}
 	}
 

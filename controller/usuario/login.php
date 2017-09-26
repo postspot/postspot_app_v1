@@ -31,7 +31,7 @@ else {
     $_SESSION['nome_usuario'] = $usuario->nome_usuario;
     
     
-    if ($usuario->funcao_usuario == 3) {
+    if ($usuario->funcao_usuario == 0) {
         $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
         header('location: ../../view/adm/lista_projetos.php');
     }else{

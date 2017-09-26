@@ -22,7 +22,7 @@ class membros_equipe {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
 		}
 	}
 

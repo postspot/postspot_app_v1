@@ -67,6 +67,27 @@ class anexos {
 		return false;
 		}
 	}
+	
+	public static function getAllByProjeto($id) {
+
+		try {
+		$stmt = Conexao::getInstance()->prepare("SELECT an.*, us.nome_usuario "
+		. " FROM anexos an"
+		. " INNER JOIN usuarios us"
+		. " ON(an.id_responsavel = us.id_usuario)"
+		. " WHERE id_projeto = :id");
+
+		$stmt->bindParam(":id", $id);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+		return false;
+		}
+	}
 
 
  //------------------ function delete($id)---------//

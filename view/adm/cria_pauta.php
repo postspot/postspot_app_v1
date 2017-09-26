@@ -3,6 +3,7 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
 require_once '../../model/tipo_tarefa.php';
+require_once 'includes/header_padrao.php';
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 ?>
 <html lang="pt-br">

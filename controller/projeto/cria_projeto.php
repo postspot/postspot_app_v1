@@ -24,28 +24,6 @@ if (isset($nome_projeto) && isset($responsavel_projeto) && isset($site_projeto))
         if(projetos::insert($obj)){
             
             $nova_estrategia = new stdClass();
-//            
-//            $nova_estrategia->empresa = "";
-//            $nova_estrategia->site = "";
-//            $nova_estrategia->projeto = "";
-//            $nova_estrategia->blog = "";
-//            $nova_estrategia->produtos_servicos = "";
-//            $nova_estrategia->links = "";
-//            $nova_estrategia->objetivo_primario = "";
-//            $nova_estrategia->kpis_primario = "";
-//            $nova_estrategia->objetivo_secundario = "";
-//            $nova_estrategia->kpis_secundario = "";
-//            $nova_estrategia->concorrentes = "";
-//            $nova_estrategia->com_quem_falar = "";
-//            $nova_estrategia->com_quem_nao_falar = "";
-//            $nova_estrategia->abordar = "";
-//            $nova_estrategia->evitar = "";
-//            $nova_estrategia->linguagem = "";
-//            $nova_estrategia->links_ref = "";
-//            $nova_estrategia->categorias_conteudo = "";
-//            $nova_estrategia->canais = "";
-//            $nova_estrategia->acoes = "";
-//            $nova_estrategia->consideracoes_gerais = "";
             $nova_estrategia->projetos_id_projeto = $id_projeto;
             
             if(estrategias::insert($nova_estrategia)){         

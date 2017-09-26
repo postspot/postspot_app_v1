@@ -2,6 +2,7 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/projetos.php';
+require_once 'includes/header_padrao.php';
 
 $projetos = projetos::getAll();
 ?>
@@ -22,7 +23,7 @@ $projetos = projetos::getAll();
                         <p>Selecione o projeto que deseja acompanhar</p>
                         <ul>
                             <?php foreach($projetos as $projeto): ?>
-                                <li class="<?= ($projeto->id_projeto == 1) ? 'active' : '' ?>"><a href="dashboard.php?p=<?= $projeto->id_projeto ?>"><?= $projeto->nome_projeto ?> <i class="fa fa-chevron-right"></i></a></li>
+                            <a href="dashboard.php?p=<?= $projeto->id_projeto ?>"><li class="<?= ($projeto->id_projeto == $_SESSION['id_projeto']) ? 'active' : '' ?>"><?= $projeto->nome_projeto ?> <i class="fa fa-chevron-right"></i></li></a>
                             <?php endforeach;?>
                         </ul>
                     </div>

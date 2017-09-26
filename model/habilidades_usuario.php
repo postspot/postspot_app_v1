@@ -53,7 +53,11 @@ class habilidades_usuario {
 	public static function getHabilidadesUsuario($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM habilidades_usuario WHERE usuarios_id_usuario = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT * "
+		. " FROM habilidades_usuario hu"
+		. " INNER JOIN habilidades ha"
+		. " ON(hu.habilidades_id_habilidade = ha.id_habilidade)"
+		. " WHERE usuarios_id_usuario = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();

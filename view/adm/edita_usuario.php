@@ -6,6 +6,7 @@ require_once '../../model/idiomas.php';
 require_once '../../model/usuarios.php';
 require_once '../../model/idiomas_usuario.php';
 require_once '../../model/habilidades_usuario.php';
+require_once 'includes/header_padrao.php';
 
 if(isset($_GET["u"])){
     $usuario = usuarios::getById($_GET["u"]);

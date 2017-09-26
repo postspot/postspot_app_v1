@@ -87,8 +87,13 @@ class usuarios {
 	public static function getAllTipo($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, email_usuario, foto_usuario, funcao_usuario"
-                . " FROM usuarios WHERE funcao_usuario = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT us.id_usuario, us.nome_usuario, us.email_usuario, us.foto_usuario, us.funcao_usuario"
+				. " FROM usuarios us"
+				/*. " INNER JOIN habilidades_usuario hu"
+				. " ON(us.id_usuario = hu.usuarios_id_usuario)"
+				. " INNER JOIN idiomas_usuario iu"
+				. " ON(us.id_usuario = iu.usuarios_id_usuario)"*/
+				. " WHERE us.funcao_usuario = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
@@ -98,10 +103,45 @@ class usuarios {
 			}
 			return $colunas;
 		} catch(PDOException $ex) {
-		return false;
+			$ex->getMessage();
+		}
+	}
+
+	public static function getAllEscritores($equipe) {
+
+	 try {
+		 $stmt = Conexao::getInstance()->prepare("select DISTINCT(u.id_usuario), u.nome_usuario from usuarios u inner join membros_equipe m WHERE
+		 u.funcao_usuario = 2 and u.id_usuario not in (SELECT me.id_usuario from membros_equipe me WHERE me.id_equipe = :id_equipe)");
+
+				$stmt->bindParam(":id_equipe", $equipe);
+		 $stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch(PDOException $ex) {
+			$ex->getMessage();
 		}
 	}
 	
+	public static function getAll() {
+		
+			 try {
+				$stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, email_usuario, foto_usuario, funcao_usuario"
+						. " FROM usuarios");
+		
+				 $stmt->execute();
+					$colunas = array();
+					while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+						array_push($colunas, $row);
+					}
+					return $colunas;
+				} catch(PDOException $ex) {
+				return false;
+				}
+			}
+
 	public static function getMenosEscritores() {
 		
 		try {

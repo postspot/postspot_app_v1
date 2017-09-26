@@ -18,6 +18,6 @@ if(!isset($_SESSION['id_usuario'])){
     header('location: ../../view/adm/index.php?erro=sessao3');
 }
 
-if( $_SESSION['funcao_usuario'] != 3){
+if( $_SESSION['funcao_usuario'] != 0){
     header('location: ../../view/adm/dashboard.php');
 }

@@ -27,7 +27,7 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
 
                 <a href="perfil.php">
                     <span>
-                        Andress Bento
+                        <?= $_SESSION['nome_usuario']?>
                     </span>
                 </a>
                 <div class="clearfix"></div>

@@ -53,8 +53,13 @@ class idiomas_usuario {
 	public static function getIdiomasUsuario($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM idiomas_usuario WHERE usuarios_id_usuario = :id");
+		//$stmt = Conexao::getInstance()->prepare("SELECT * FROM idiomas_usuario WHERE usuarios_id_usuario = :id");
 
+		$stmt = Conexao::getInstance()->prepare("SELECT * "
+		. " FROM idiomas_usuario iu"
+		. " INNER JOIN idiomas id"
+		. " ON(iu.idiomas_id_idioma = id.id_idioma)"
+		. " WHERE usuarios_id_usuario = :id");
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
 			$colunas = array();

@@ -1,7 +1,12 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/anexos.php';
 require_once 'includes/header_padrao.php';
+
+$anexos = anexos::getAllByProjeto($_SESSION['id_projeto']);
+/*pre_r($anexos);
+die();*/
 ?>
 <html lang="pt-br">
     <head>
@@ -28,27 +33,30 @@ require_once 'includes/header_padrao.php';
                             <div class="col-md-12">
                                 <div class="card">
                                     <div class="card-content">
-                                        <table id="bootstrap-table" class="table">
+                                        <table id="datatables" class="table">
                                             <thead>
-                                            <th data-sortable="true">Nome Documento</th>
-                                            <th data-sortable="true">Referência</th>
-                                            <th data-sortable="true">Responsável</th>
-                                            <th></th>
+                                                <tr>
+                                                    <th class="disabled-sorting"></th>
+                                                    <th>Nome Documento</th>
+                                                    <th>Referência</th>
+                                                    <th>Responsável</th>
+                                                    <th class="disabled-sorting"></th>
+                                                </tr>
                                             </thead>
                                             <tbody>
-
-                                                <?php for ($i = 0; $i < 9; $i++): ?>
+                                                <?php foreach($anexos as $anexo): ?>
                                                     <tr>
-                                                        <td>Mapa de conteúdo</td>
-                                                        <td><strong>Agosto de 2017</strong><br>Criado 11/10/2016 às 16:18</td>
-                                                        <td>São benedito</td>
+                                                        <td></td>
+                                                        <td><?= $anexo->nome_anexo ?></td>
+                                                        <td><strong><?= mesEscrito($anexo->data_criacao) ?> de <?= date("Y", strtotime($anexo->data_criacao)) ?></strong><br>Criado <?= date("d/m/Y", strtotime($anexo->data_criacao)) ?> às <?= date("H:i", strtotime($anexo->data_criacao)) ?></td>
+                                                        <td><?= $anexo->nome_usuario ?></td>
                                                         <td class="td-actions">
-                                                            <a href="#" rel="tooltip" title="Abrir" class="btn btn-info btn-simple btn-xs">
+                                                            <a href="#" rel="tooltip" title="Abrir" class="btn btn-info btn-simple btn-xs abrir-doc">
                                                                 <i class="ti-eye"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
-                                                <?php endfor; ?>
+                                                <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
@@ -66,61 +74,57 @@ require_once 'includes/header_padrao.php';
 
     <?php require_once './includes/footer_imports.php'; ?>
     <script type="text/javascript">
+	    $(document).ready(function() {
+        
+            <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
+                    funcoes.showNotification(0,1,'<b>Sucesso</b> - documento(s) enviado(s) corretamente.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+                   funcoes.showNotification(0,4,'<b>Erro</b> - documento(s) não enviado(s).');
+            <?php } ?>
 
-        var $table = $('#bootstrap-table');
+	        $('#datatables').DataTable({
+	            "pagingType": "full_numbers",
+	            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+	            responsive: true,
+				language: {
+					"sEmptyTable": "Nenhum documentos encontrado",
+					"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ documentos",
+					"sInfoEmpty": "Mostrando 0 até 0 de 0 documentos",
+					"sInfoFiltered": "(Filtrados de _MAX_ documentos)",
+					"sInfoPostFix": "",
+					"sInfoThousands": ".",
+					"sLengthMenu": "_MENU_ documentos por página",
+					"sLoadingRecords": "Carregando...",
+					"sProcessing": "Processando...",
+					"sZeroRecords": "Nenhum documento disponível",
+					"search": "Pesquisar",
+					"oPaginate": {
+						"sNext": "Próximo",
+						"sPrevious": "Anterior",
+						"sFirst": "Primeiro",
+						"sLast": "Último"
+					},
+					"oAria": {
+						"sSortAscending": ": Ordenar colunas de forma ascendente",
+						"sSortDescending": ": Ordenar colunas de forma descendente"
+					}
+				}
+	        });
 
-        function operateFormatter(value, row, index) {
-            return [
-                '<div class="table-icons">',
-                '<a rel="tooltip" title="View" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">',
-                '<i class="ti-image"></i>',
-                '</a>',
-                '<a rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon table-action edit" href="javascript:void(0)">',
-                '<i class="ti-pencil-alt"></i>',
-                '</a>',
-                '<a rel="tooltip" title="Remove" class="btn btn-simple btn-danger btn-icon table-action remove" href="javascript:void(0)">',
-                '<i class="ti-close"></i>',
-                '</a>',
-                '</div>',
-            ].join('');
-        }
 
-        $().ready(function () {
+	        var table = $('#datatables').DataTable();
+	         // Edit record
+	         table.on( 'click', '.abrir-doc', function () {
+	            $tr = $(this).closest('tr');
 
-            $table.bootstrapTable({
-                toolbar: ".toolbar",
-                clickToSelect: true,
-                showRefresh: false,
-                search: true,
-                showToggle: false,
-                showColumns: false,
-                pagination: true,
-                searchAlign: 'left',
-                pageSize: 8,
-                clickToSelect: false,
-                        pageList: [8, 10, 25, 50, 100],
-                formatShowingRows: function (pageFrom, pageTo, totalRows) {
-                    //do nothing here, we don't want to show the text "showing x of y from..."
-                },
-                formatRecordsPerPage: function (pageNumber) {
-                    return pageNumber + " rows visible";
-                },
-                icons: {
-                    refresh: 'fa fa-refresh',
-                    toggle: 'fa fa-th-list',
-                    columns: 'fa fa-columns',
-                    detailOpen: 'fa fa-plus-circle',
-                    detailClose: 'ti-close'
-                }
-            });
+	            var data = table.row($tr).data();
+				
+                var urlFile = "http://localhost/postspot/uploads/projetos/" + data[1];
+                var win = window.open(urlFile, '_blank');
+                win.focus();
+	         } );
 
-            //activate the tooltips after the data table is initialized
-            $('[rel="tooltip"]').tooltip();
 
-            $(window).resize(function () {
-                $table.bootstrapTable('resetView');
-            });
-        });
-
-    </script>
+	    });
+	</script>
 </html>

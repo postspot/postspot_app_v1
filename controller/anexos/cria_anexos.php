@@ -1,15 +1,13 @@
 <?php
-
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/anexos.php';
+session_start();
 
 //pre_r($_FILES);
 
-/*$id_responsavel = $_SESSION["id_usuario"];
-$id_projeto = $_SESSION['projeto_usuario'];*/
-$id_responsavel = 1;
-$id_projeto = 1;
+$id_responsavel = $_SESSION["id_usuario"];
+$id_projeto = $_SESSION['id_projeto'];
 $local = DIR_ROOT."/uploads/projetos/";
 $erros = 0;
 
@@ -58,13 +56,13 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
                 }
             }
         } else {
-           redireciona(SITE . 'view/adm/documentos.php?resp=error');
+           redireciona(SITE . 'view/adm/documentos.php?retorno=error');
         }
     }
 }
 
 if ($erros > 0) {
-    redireciona(SITE . 'view/adm/documentos.php?resp=error');
+    redireciona(SITE . 'view/adm/documentos.php?retorno=error');
 } else {
-    redireciona(SITE . 'view/adm/documentos.php?resp=ok');
+    redireciona(SITE . 'view/adm/documentos.php?retorno=ok');
 }

@@ -33,7 +33,7 @@ require_once 'includes/header_adm.php';
                                     <div class="card-content">
                                         <ul class="list-unstyled team-members">
                                             <?php
-                                            $users = usuarios::getAllTipo(0);
+                                            $users = usuarios::getAll();
                                             foreach ($users as $u) {
                                             ?>
                                             <li>

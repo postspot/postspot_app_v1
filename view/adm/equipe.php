@@ -8,6 +8,7 @@ require_once 'includes/header_padrao.php';
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $possiveis_menbros = usuarios::getMenosEscritores();
 $qtd_escritores = usuarios::countRedatores();
+
 ?>
 <html lang="pt-br">
     <head>

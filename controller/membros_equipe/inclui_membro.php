@@ -3,10 +3,9 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/membros_equipe.php';
+session_start();
 
-pre_r($_POST);
-
-$id_projeto = 1;
+$id_projeto = $_SESSION['id_projeto'];
 
 $usuarios = $_POST["usuarios"];
 

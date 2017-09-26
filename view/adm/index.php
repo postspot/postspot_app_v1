@@ -31,22 +31,22 @@
         <nav class="navbar navbar-transparent navbar-absolute">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                    </button>-->
                     <a class="navbar-brand" href="index.php">Post Spot</a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
+                    <!--<ul class="nav navbar-nav navbar-right">
                         <li>
                             <a href="register.html">
                                 Primeiro Acesso
                             </a>
                         </li>
-                    </ul>
+                    </ul>-->
                 </div>
             </div>
         </nav>
@@ -139,9 +139,17 @@
                                         $('.card').removeClass('card-hidden');
                                     }, 7000)
 
-                                    <?php if (isset($_GET['erro']) && $_GET['erro'] == 'loginerror') { ?>
+                                    <?php if (isset($_GET['erro']) && $_GET['erro'] == 'sessao1') { ?>
                                         $(document).ready(function() {
-                                            funcoes.showNotification(0,4,'<b>Dados incorretos</b> - verifique os campos e tente novamente.');
+                                            funcoes.showNotification(0,4,'<b>Sessão expirada</b> - faça login novamente.');
+                                        });
+                                    <?php }else if (isset($_GET['erro']) && $_GET['erro'] == 'sessao2') { ?>
+                                        $(document).ready(function() {
+                                            funcoes.showNotification(0,4,'<b>Sessão expirada</b> - faça login novamente.');
+                                        });
+                                    <?php }else if (isset($_GET['erro']) && $_GET['erro'] == 'sessao3') { ?>
+                                        $(document).ready(function() {
+                                            funcoes.showNotification(0,4,'<b>Dados Incorretos</b> - tente novamente.');
                                         });
                                     <?php } ?>
                                 });

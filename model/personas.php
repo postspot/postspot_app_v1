@@ -15,9 +15,9 @@ class personas {
         try{
         $stmt = Conexao::getInstance()->prepare("INSERT INTO personas 
         (nome, idade, sexo, caracteristicas, educacao, trabalho, segmento,
-        objetivos, descricao, resolucao, foto, id_projeto)VALUES
+        objetivos, descricao, resolucao, foto, id_projeto, aprendizado, reconhecimento, consideracao, decisao)VALUES
         (:nome, :idade, :sexo, :caracteristicas, :educacao, :trabalho, :segmento,
-        :objetivos, :descricao, :resolucao, :foto, :id_projeto);");
+        :objetivos, :descricao, :resolucao, :foto, :id_projeto, :aprendizado, :reconhecimento, :consideracao, :decisao);");
 
 		$stmt->bindParam(":nome", $obj->nome);
 		$stmt->bindParam(":idade", $obj->idade);
@@ -39,7 +39,7 @@ class personas {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
 		}
 	}
 
@@ -52,7 +52,7 @@ class personas {
                 . "nome = :nome , idade = :idade , sexo = :sexo , caracteristicas = :caracteristicas , "
                 . "educacao = :educacao , trabalho = :trabalho , segmento = :segmento , "
                 . "objetivos = :objetivos , descricao = :descricao , resolucao = :resolucao ,"
-                . " id_projeto = :id_projeto, foto =:foto  WHERE id_persona = :id_persona ");
+                . " foto =:foto  WHERE id_persona = :id_persona ");
 
 		$stmt->bindParam(":id_persona", $obj->id_persona);
 		$stmt->bindParam(":nome", $obj->nome);
@@ -66,12 +66,11 @@ class personas {
 		$stmt->bindParam(":descricao", $obj->descricao);
 		$stmt->bindParam(":resolucao", $obj->resolucao);
 		$stmt->bindParam(":foto", $obj->foto);
-		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+		 echo $ex->getMessage();
 		}
 	}
 

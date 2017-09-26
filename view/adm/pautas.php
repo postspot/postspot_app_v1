@@ -1,6 +1,7 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once 'includes/header_padrao.php';
 ?>
 <html lang="pt-br">
     <head>

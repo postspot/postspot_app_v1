@@ -2,8 +2,9 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
+session_start();
 
-$id_projeto = $_POST["id_projeto"]; 
+$id_projeto = $_SESSION['id_projeto'];
 $foto = $_POST["foto"];
 $nome = $_POST["nome"];
 $idade = $_POST["idade"];
@@ -21,8 +22,6 @@ $id_persona = $_POST["id_persona"];
 if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) && 
     isset($caracteristicas) && isset($educacao) && isset($trabalho) && isset($segmento) 
     && isset($objetivos) && isset($descricao) && isset($resolucao) && isset($id_persona)) {
-
-    if (!empty($id_projeto) && !empty($nome) && !empty($id_persona)) {
       
         $obj = new stdClass();
         
@@ -47,10 +46,6 @@ if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) &&
         else{
             header('Location: ../../view/adm/edita_persona.php?persona='.$id_persona.'&retorno=falha');
         }
-    }
-    else{
-        header('Location: ../../view/adm/edita_persona.php?persona='.$id_persona.'&retorno=falha');
-    }
 }
 else{
     header('Location: ../../view/adm/edita_persona.php?persona='.$id_persona.'&retorno=falha');

@@ -80,15 +80,14 @@ class projetos {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM projetos WHERE responsavel_projeto = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM projetos WHERE id_projeto = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
-			$colunas = array();
 			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-				array_push($colunas, $row);
+				return $row;
 			}
-			return $colunas;
+			return false;
 		} catch(PDOException $ex) {
 		return false;
 		}
@@ -101,9 +100,9 @@ class projetos {
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
-                    while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-                        return $colunas;
-                    }
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			return $row;
+		}
 			
 		} catch(PDOException $ex) {
 		return false;

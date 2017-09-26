@@ -2,9 +2,10 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
+require_once 'includes/header_padrao.php';
 
 if(isset($_GET["persona"])){
-    $persona = Personas::getById($_GET["persona"]);
+    $persona = personas::getById($_GET["persona"]);
 }
 
 //pre_r($persona);
@@ -35,7 +36,6 @@ if(isset($_GET["persona"])){
                         <div class="col-md-12">
                             <div class="card">
                                     <form action="../../controller/persona/edita_persona.php" method="POST">
-                                    <input type="hidden" name="id_projeto" value="<?= $persona->id_projeto ?>">
                                     <input type="hidden" name="id_persona" value="<?= $persona->id_persona ?>">
                                 <div class="card-content">
                                         <div class="row">
@@ -130,25 +130,25 @@ if(isset($_GET["persona"])){
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Aprendizado e Descoberta</label>
-                                                    <input type="text" class="form-control border-input" name="aprendizado">
+                                                    <input type="text" class="form-control border-input" name="aprendizado" value="<?= $persona->aprendizado ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Reconhecimento do Problema</label>
-                                                    <input type="text" class="form-control border-input" name="reconhecimento">
+                                                    <input type="text" class="form-control border-input" name="reconhecimento" value="<?= $persona->reconhecimento ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Consideração da Solução</label>
-                                                    <input type="text" class="form-control border-input" name="consideracao">
+                                                    <input type="text" class="form-control border-input" name="consideracao" value="<?= $persona->consideracao ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Decisão de Compra</label>
-                                                    <input type="text" class="form-control border-input" name="decisao">
+                                                    <input type="text" class="form-control border-input" name="decisao" value="<?= $persona->decisao ?>">
                                                 </div>
                                             </div>
                                         </div>

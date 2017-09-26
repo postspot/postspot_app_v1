@@ -2,7 +2,9 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
-$personas = Personas::getAllPersona();
+require_once 'includes/header_padrao.php';
+
+$personas = personas::getByProjeto($_SESSION['id_projeto']);
 /*pre_r($personas);
 die();*/
 ?>

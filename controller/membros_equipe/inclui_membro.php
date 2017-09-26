@@ -15,6 +15,8 @@ foreach ($usuarios as $cod_usuario) {
     $novo_usuario->id_equipe = $id_projeto; 
     $novo_usuario->id_usuario = $cod_usuario; 
     if(!membros_equipe::insert($novo_usuario)):
-        echo 'erro';
+        header('Location: ../../view/adm/equipe.php?retorno=erro');
     endif;
 }
+
+header('Location: ../../view/adm/equipe.php?retorno=ok');

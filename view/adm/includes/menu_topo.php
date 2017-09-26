@@ -10,7 +10,7 @@
                 <span class="icon-bar bar2"></span>
                 <span class="icon-bar bar3"></span>
             </button>
-            <a class="navbar-brand" href="#icons">Melhor Compra</a>
+            <a class="navbar-brand" href="#icons"><?= $_SESSION['nome_projeto'] ?></a>
         </div>
         <div class="collapse navbar-collapse">
 
@@ -42,7 +42,7 @@
 
                     <ul class="dropdown-menu">
                         <li><a href="lista_projetos.php" >Trocar Projeto</a></li>
-                        <li><a href="index.php">Sair</a></li>
+                        <li><a href="../../controller/usuario/logout.php">Sair</a></li>
                     </ul>
                 </li>
             </ul>

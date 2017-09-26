@@ -4,10 +4,10 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/estrategias.php';
 require_once '../../model/linguagens_estrategia.php';
 require_once '../../model/categorias_estrategia.php';
+session_start();
+$estrategia = estrategias::getById($_SESSION['id_projeto']);
 
-$estrategia = estrategias::getById(1);
-
-$id_projeto = $_POST["id_projeto"];
+$id_projeto = $_SESSION['id_projeto'];
 $empresa = $_POST["empresa"];
 $site = $_POST["site"];
 $projeto = $_POST["projeto"];
@@ -43,7 +43,7 @@ if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) &&
 	&& isset($categorias_conteudo) && isset($canais) && isset($acoes) && isset($consideracoes_gerais)
 	&& isset($termos_proibidos) && isset($mapeamentos) && isset($objetivo_primario)) {
 
-    if (!empty($id_projeto) && !empty($projeto)) {
+    if (!empty($id_projeto)) {
 	  
         $obj = new stdClass();
         
@@ -72,7 +72,6 @@ if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) &&
 		$obj->termos_proibidos = $termos_proibidos;
 		$obj->mapeamentos = $mapeamentos;         
 		
-		pre_r($obj);
 		if(empty($estrategia)):
 			if(estrategias::insert($obj)){
 				header('Location: ../../view/adm/estrategia.php?retorno=ok');

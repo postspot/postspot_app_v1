@@ -1,6 +1,7 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once 'includes/header_padrao.php';
 ?>
 <html lang="pt-br">
     <head>
@@ -27,14 +28,13 @@ require_once '../../lib/operacoes.php';
                             <div class="col-md-12">
                                 <div class="card">
                                         <form action="../../controller/persona/criar_persona.php" method="POST">
-                                        <input type="hidden" name="id_projeto" value="1">
                                     <div class="card-content">
                                             <div class="row">
 
                                                 <div class="col-md-2">
                                                     
                                                     <div class="form-group">
-                                                        <input type="hidden" name="foto" value="foto" class="form-control border-input" id="hiddenFotoPersona">
+                                                        <input type="hidden" name="foto" value="1-avatar-postspot.png" class="form-control border-input" id="hiddenFotoPersona">
                                                         <img id="fotoPersona" class="avatar border-white" src="assets/img/faces/1-avatar-postspot.png" alt="Foto Persona">                                                    
                                                     </div>
                                                     <button  type="button" class="btn btn-fill btn-success" onclick="funcoes.showSwal('personas')">Escolher Foto</button>
@@ -120,25 +120,25 @@ require_once '../../lib/operacoes.php';
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Aprendizado e Descoberta</label>
-                                                        <input type="text" class="form-control border-input" name="xxx">
+                                                        <input type="text" class="form-control border-input" name="aprendizado">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Reconhecimento do Problema</label>
-                                                        <input type="text" class="form-control border-input" name="xxx">
+                                                        <input type="text" class="form-control border-input" name="reconhecimento">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Consideração da Solução</label>
-                                                        <input type="text" class="form-control border-input" name="xxx">
+                                                        <input type="text" class="form-control border-input" name="consideracao">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Decisão de Compra</label>
-                                                        <input type="text" class="form-control border-input" name="xxx">
+                                                        <input type="text" class="form-control border-input" name="decisao">
                                                     </div>
                                                 </div>
                                             </div>

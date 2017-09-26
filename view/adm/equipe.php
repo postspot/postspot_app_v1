@@ -3,9 +3,9 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/membros_equipe.php';
 require_once '../../model/usuarios.php';
+require_once 'includes/header_padrao.php';
 
-$id_projeto = 1;
-$membros = membros_equipe::buscarPessoasDaEquipe($id_projeto);
+$membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $possiveis_menbros = usuarios::getMenosEscritores();
 $qtd_escritores = usuarios::countRedatores();
 ?>

@@ -2,8 +2,9 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
+session_start();
 
-$id_projeto = $_POST["id_projeto"];
+$id_projeto = $_SESSION['id_projeto'];
 $foto = $_POST["foto"];
 $nome = $_POST["nome"];
 $idade = $_POST["idade"];
@@ -23,8 +24,6 @@ $decisao = $_POST["decisao"];
 if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) && 
     isset($caracteristicas) && isset($educacao) && isset($trabalho) &&
     isset($segmento) && isset($objetivos) && isset($descricao) && isset($resolucao)) {
-
-    if (!empty($id_projeto) && !empty($nome) && !empty($idade)) {
       
         $obj = new stdClass();
         
@@ -46,16 +45,12 @@ if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) &&
 	$obj->id_projeto = $id_projeto;
          
         
-        if(personas::insert($obj)){
-            header('Location: ../../view/adm/personas.php?retorno=ok');
-        }
-        else{
-            header('Location: ../../view/adm/cria_persona.php?retorno=falha');
-            
-        }
+    if(personas::insert($obj)){
+        header('Location: ../../view/adm/personas.php?retorno=ok');
     }
-    else {
-        header('Location: ../../view/adm/cria_persona.php?retorno=falha');
+    else{
+        //header('Location: ../../view/adm/cria_persona.php?retorno=falha1');
+        
     }
 } 
 else {

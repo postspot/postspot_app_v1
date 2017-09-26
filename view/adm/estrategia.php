@@ -6,8 +6,9 @@ require_once '../../model/linguagens.php';
 require_once '../../model/categorias.php';
 require_once '../../model/linguagens_estrategia.php';
 require_once '../../model/categorias_estrategia.php';
+require_once 'includes/header_padrao.php';
 
-$estrategia = estrategias::getById(1);
+$estrategia = estrategias::getById($_SESSION['id_projeto']);
 $linguagens = linguagens::getAll();
 $categorias = categorias::getAll();
 $linguagens_estrategia = linguagens_estrategia::getById($estrategia->id_estrategia);
@@ -285,7 +286,6 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                         <textarea class="form-control" rows="3"  name="mapeamentos"><?= $estrategia->mapeamentos ?></textarea>
                                                     </div>
                                                     <hr>
-                                                    <input type="hidden" name="id_projeto" value="1" class="form-control border-input">
                                                     <button type="submit" class="btn btn-fill btn-success pull-right">Salvar</button>
                                                     <div class="clearfix"></div>
                                                     </form>

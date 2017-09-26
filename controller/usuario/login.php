@@ -1,6 +1,7 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../model/usuarios.php';
+require_once '../../lib/operacoes.php';
 require_once '../../model/projetos.php';
 
 session_start();
@@ -29,16 +30,21 @@ else {
     $_SESSION['funcao_usuario'] = $usuario->funcao_usuario;
     $_SESSION['nome_usuario'] = $usuario->nome_usuario;
     
-    if(projetos::getByUsuario($usuario->id_usuario)){
-        $_SESSION['projeto_usuario'] = $usuario->id_projeto;
-    }
-    else{
-        $_SESSION['projeto_usuario'] = "";
-    }
-    $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
     
-//    if ($usuario->funcao_usuario == 1) {
+    if ($usuario->funcao_usuario == 3) {
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+        header('location: ../../view/adm/lista_projetos.php');
+    }else{
+        $projeto = projetos::getByUsuario($usuario->id_usuario);
+        if(empty($projeto)){
+            $_SESSION['id_projeto'] = '';
+            $_SESSION['nome_projeto'] = '';
+        }else{
+            $_SESSION['id_projeto'] = $usuario->id_projeto;
+            $_SESSION['nome_projeto'] = $usuario->nome_projeto;
+        }
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
         header('location: ../../view/adm/dashboard.php');
-//    }
+    }
     
 }

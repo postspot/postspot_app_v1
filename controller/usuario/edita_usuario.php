@@ -20,7 +20,7 @@ $habilidades = $_POST["habilidade"];
 //die();
 
 if (isset($nome_usuario) && isset($sexo_usuario) && 
-    isset($funcao_usuario) && isset($email_usuario) && isset($senha_usuario) &&
+    isset($funcao_usuario) && isset($email_usuario) &&
     isset($idioma)) {
 
     if (!empty($nome_usuario)) {
@@ -61,17 +61,17 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
                 }
             }
             if($flag_idiomas == 0){ 
-                header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=ok');
+                header('Location: ../../view/adm/time.php?retorno=eok');
             }
         }
         else{
-            //header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
+            header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=erro');
         }
     }
     else {
-        //header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
+        header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=erro');
     }
-} 
+}
 else {
-    //header('Location: ../../view/cria_usuario.php?retorno=erro');
+    header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=erro');
 }

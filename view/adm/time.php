@@ -84,4 +84,19 @@ require_once 'includes/header_adm.php';
 
     <?php require_once './includes/footer_imports.php'; ?>
 
+    <script>
+        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - usuário criado corretamente.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'eok') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - usuário editado.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - usuário não criado.');
+            });
+        <?php } ?>
+    </script>
 </html>

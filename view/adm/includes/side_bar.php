@@ -10,7 +10,7 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
 <div class="sidebar" data-background-color="white" data-active-color="danger">
     <div class="logo">
         <a href="dashboard.php" class="simple-text logo-mini">
-            <img src="assets/img/cropped-postspot-agencia-de-marketing-de-conteúdo-favicon-32x32.png">
+            <img src="assets/img/favicon-32x32.png">
         </a>
 
         <a href="dashboard.php" class="simple-text logo-normal">

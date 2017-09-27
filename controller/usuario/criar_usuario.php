@@ -116,7 +116,7 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
                 }
                 else{
                     $flag_idiomas = 1;
-                    header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
+                    header('Location: ../../view/adm/time.php?retorno=erro');
                 }
             }
             if($flag_idiomas == 0){
@@ -134,24 +134,24 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
                     }
                     else{
                         $flag_idiomas = 1;
-                        header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
+                        header('Location: ../../view/adm/time.php?retorno=erro');
                     }
                 }
                 if($flag_idiomas == 0){ 
-                    header('Location: ../../view/adm/cria_usuario.php?retorno=ok');
+                    header('Location: ../../view/adm/time.php?retorno=ok');
                 }
             }
         }
         else{
-            header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
+            header('Location: ../../view/adm/time.php?retorno=erro');
         }
     }
     else {
-        header('Location: ../../view/adm/cria_usuario.php?retorno=erro');
+        header('Location: ../../view/adm/time.php?retorno=erro');
     }
 } 
 else {
-    header('Location: ../../view/cria_usuario.php?retorno=erro');
+    header('Location: ../../view/time.php?retorno=erro');
 }
 
 

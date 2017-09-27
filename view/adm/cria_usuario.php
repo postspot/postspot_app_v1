@@ -3,6 +3,7 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/habilidades.php';
 require_once '../../model/idiomas.php';
+require_once 'includes/header_adm.php';
 
 $habilidades = habilidades::getAllSkills();
 $idiomas = idiomas::getAllIdiomas();

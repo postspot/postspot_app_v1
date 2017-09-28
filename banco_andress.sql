@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 25-Set-2017 às 06:17
+-- Generation Time: 28-Set-2017 às 18:37
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -28,7 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `anexos` (
   `id_anexo` int(11) NOT NULL,
-  `data_criacao` timestamp NULL DEFAULT NULL,
+  `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `nome_anexo` varchar(45) DEFAULT NULL,
   `id_responsavel` int(11) NOT NULL,
   `id_projeto` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -115,7 +116,6 @@ CREATE TABLE `estrategias` (
   `evitar` varchar(45) DEFAULT NULL,
   `linguagem` varchar(45) DEFAULT NULL,
   `links_ref` varchar(45) DEFAULT NULL,
-  `categorias_conteudo` varchar(45) DEFAULT NULL,
   `canais` varchar(45) DEFAULT NULL,
   `acoes` varchar(45) DEFAULT NULL,
   `consideracoes_gerais` varchar(45) DEFAULT NULL,
@@ -128,8 +128,8 @@ CREATE TABLE `estrategias` (
 -- Extraindo dados da tabela `estrategias`
 --
 
-INSERT INTO `estrategias` (`id_estrategia`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `categorias_conteudo`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`, `termos_proibidos`, `mapeamentos`) VALUES
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL);
+INSERT INTO `estrategias` (`id_estrategia`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`, `termos_proibidos`, `mapeamentos`) VALUES
+(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -199,6 +199,22 @@ CREATE TABLE `habilidades_usuario` (
   `usuarios_id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Extraindo dados da tabela `habilidades_usuario`
+--
+
+INSERT INTO `habilidades_usuario` (`id_habilidade_usuario`, `habilidades_id_habilidade`, `usuarios_id_usuario`) VALUES
+(1, 4, 24),
+(2, 6, 24),
+(3, 1, 25),
+(4, 2, 25),
+(5, 1, 26),
+(6, 2, 26),
+(7, 1, 27),
+(8, 1, 28),
+(9, 1, 29),
+(10, 1, 30);
+
 -- --------------------------------------------------------
 
 --
@@ -238,8 +254,53 @@ CREATE TABLE `idiomas_usuario` (
 --
 
 INSERT INTO `idiomas_usuario` (`id_idiomas_usuario`, `idiomas_id_idioma`, `usuarios_id_usuario`) VALUES
-(1, 1, 4),
-(2, 1, 5);
+(18, 1, 17),
+(19, 3, 17),
+(20, 5, 17),
+(21, 1, 18),
+(22, 2, 18),
+(23, 5, 18),
+(24, 1, 19),
+(25, 2, 19),
+(26, 5, 19),
+(27, 1, 20),
+(28, 2, 20),
+(29, 3, 20),
+(30, 1, 21),
+(31, 2, 21),
+(32, 3, 21),
+(33, 1, 22),
+(34, 2, 22),
+(35, 5, 22),
+(36, 1, 23),
+(37, 2, 23),
+(38, 5, 23),
+(39, 2, 24),
+(40, 3, 24),
+(41, 4, 24),
+(42, 1, 25),
+(43, 2, 25),
+(44, 3, 25),
+(45, 1, 26),
+(46, 2, 26),
+(47, 3, 26),
+(48, 2, 27),
+(49, 3, 27),
+(50, 1, 28),
+(51, 2, 28),
+(52, 1, 29),
+(53, 2, 29),
+(54, 5, 29),
+(55, 2, 30),
+(56, 3, 30),
+(57, 1, 31),
+(58, 2, 31),
+(59, 1, 32),
+(60, 5, 32),
+(61, 1, 33),
+(62, 5, 33),
+(63, 1, 34),
+(64, 1, 35);
 
 -- --------------------------------------------------------
 
@@ -274,12 +335,24 @@ CREATE TABLE `log_tarefas` (
   `id_log` int(11) NOT NULL,
   `status` varchar(1) DEFAULT NULL,
   `etapa` varchar(1) DEFAULT NULL,
-  `data_criacao` timestamp NULL DEFAULT NULL,
+  `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `data_prevista` timestamp NULL DEFAULT NULL,
   `data_entregue` timestamp NULL DEFAULT NULL,
   `id_tarefa` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `log_tarefas`
+--
+
+INSERT INTO `log_tarefas` (`id_log`, `status`, `etapa`, `data_criacao`, `data_prevista`, `data_entregue`, `id_tarefa`, `id_usuario`) VALUES
+(1, '0', '0', '2017-09-26 04:47:01', '2017-09-29 04:47:00', '0000-00-00 00:00:00', 12, 1),
+(2, '0', '1', '2017-09-26 04:47:01', '2017-10-01 04:47:00', '0000-00-00 00:00:00', 12, 1),
+(3, '0', '2', '2017-09-26 04:47:01', '2017-10-05 04:47:00', '0000-00-00 00:00:00', 12, 1),
+(4, '0', '3', '2017-09-26 04:47:01', '2017-10-06 04:47:00', '0000-00-00 00:00:00', 12, 1),
+(5, '0', '4', '2017-09-26 04:47:01', '2017-10-08 04:47:00', '0000-00-00 00:00:00', 12, 1),
+(6, '0', '5', '2017-09-26 04:47:01', NULL, '0000-00-00 00:00:00', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -349,7 +422,7 @@ CREATE TABLE `projetos` (
 
 INSERT INTO `projetos` (`id_projeto`, `nome_projeto`, `cadastro_projeto`, `site_projeto`, `responsavel_projeto`) VALUES
 (1, 'projeto melhor compra', NULL, 'www', 6),
-(10, 'projeto', '2017-09-25 03:30:45', '13121', 5);
+(10, 'projeto', '2017-09-25 03:30:45', '13121', 1);
 
 -- --------------------------------------------------------
 
@@ -373,6 +446,7 @@ CREATE TABLE `publicacoes` (
 
 CREATE TABLE `tarefas` (
   `id_tarefa` int(11) NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `nome_tarefa` varchar(45) DEFAULT NULL,
   `palavra_chave` varchar(45) DEFAULT NULL,
   `briefing_tarefa` varchar(45) DEFAULT NULL,
@@ -380,6 +454,7 @@ CREATE TABLE `tarefas` (
   `tipo_cta` text,
   `referencias` text,
   `consideracoes_gerais` text,
+  `id_persona` int(11) NOT NULL,
   `id_projeto` int(11) NOT NULL,
   `id_equipe` int(11) NOT NULL,
   `id_tipo` int(11) NOT NULL
@@ -389,8 +464,17 @@ CREATE TABLE `tarefas` (
 -- Extraindo dados da tabela `tarefas`
 --
 
-INSERT INTO `tarefas` (`id_tarefa`, `nome_tarefa`, `palavra_chave`, `briefing_tarefa`, `estagio_compra`, `tipo_cta`, `referencias`, `consideracoes_gerais`, `id_projeto`, `id_equipe`, `id_tipo`) VALUES
-(2, 'titulo', 'palavra chave', 'brif', 'Decisão de Compra', 'tip', 'ref', 'consi', 1, 1, 1);
+INSERT INTO `tarefas` (`id_tarefa`, `data_criacao`, `nome_tarefa`, `palavra_chave`, `briefing_tarefa`, `estagio_compra`, `tipo_cta`, `referencias`, `consideracoes_gerais`, `id_persona`, `id_projeto`, `id_equipe`, `id_tipo`) VALUES
+(2, '2017-09-28 16:29:48', 'titulo', 'palavra chave', 'brif', 'Decisão de Compra', 'tip', 'ref', 'consi', 0, 1, 1, 1),
+(3, '2017-09-28 16:29:48', 'criar pauta', 'palavra', 'briefing', 'Consideração da Solução', 'cta', 'refs', 'consi', 0, 1, 1, 1),
+(5, '2017-09-28 16:29:48', 'criar pauta', 'palavra', 'briefing', 'Consideração da Solução', 'cta', 'refs', 'consi', 0, 10, 1, 1),
+(6, '2017-09-28 16:29:48', 'pauta', 'word', 'bri', 'Decisão de Compra', 'cta', 'ref', 'co', 0, 10, 1, 1),
+(7, '2017-09-28 16:29:48', 'pauta', 'word', 'bri', 'Decisão de Compra', 'cta', 'ref', 'co', 0, 10, 1, 1),
+(8, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
+(9, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
+(10, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
+(11, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
+(12, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -421,7 +505,6 @@ CREATE TABLE `usuarios` (
   `nome_usuario` varchar(45) DEFAULT NULL,
   `sexo_usuario` varchar(1) DEFAULT NULL,
   `foto_usuario` varchar(45) DEFAULT NULL,
-  `idiomas` varchar(45) DEFAULT NULL,
   `funcao_usuario` varchar(1) DEFAULT NULL,
   `email_usuario` varchar(45) DEFAULT NULL,
   `senha_usuario` varchar(45) DEFAULT NULL,
@@ -432,13 +515,42 @@ CREATE TABLE `usuarios` (
 -- Extraindo dados da tabela `usuarios`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usuario`, `idiomas`, `funcao_usuario`, `email_usuario`, `senha_usuario`, `cadastro_usuario`) VALUES
-(1, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '1', 'email', '202cb962ac59075b964b07152d234b70', '2017-09-14 06:28:45'),
-(2, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'email@email.com', 'senha', '2017-09-14 06:29:27'),
-(3, 'teste', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'email@email.com', 'senha', '2017-09-14 06:34:12'),
-(4, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '0', 'aaa@a.com', '123', '2017-09-14 06:37:28'),
-(5, 'aa', 'm', 'assets/img/faces/face-0.jpg', NULL, '3', 'aaa@a.com', '123', '2017-09-14 06:43:12'),
-(6, 'admin mc', '1', 'assets/img/faces/face-0.jpg', NULL, '1', 'email@mc.com.br', '123', '2017-09-17 06:03:28');
+INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usuario`, `funcao_usuario`, `email_usuario`, `senha_usuario`, `cadastro_usuario`) VALUES
+(1, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email', '202cb962ac59075b964b07152d234b70', '2017-09-14 06:28:45'),
+(2, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 06:29:27'),
+(3, 'teste', 'm', 'assets/img/faces/face-0.jpg', '0', 'email@email.com', 'senha', '2017-09-14 06:34:12'),
+(4, 'aa', 'm', 'assets/img/faces/face-0.jpg', '0', 'aaa@a.com', '123', '2017-09-14 06:37:28'),
+(5, 'aa', 'm', 'assets/img/faces/face-0.jpg', '3', 'aaa@a.com', '123', '2017-09-14 06:43:12'),
+(6, 'admin mc', '1', 'assets/img/faces/face-0.jpg', '1', 'email@mc.com.br', '123', '2017-09-17 06:03:28'),
+(7, 'nome', 'f', NULL, '1', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(8, 'nome321312', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(9, 'nome321312', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(10, 'nome321312', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(11, 'nome321312', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(12, 'nome321312', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(13, 'nome321312', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(14, 'user', 'm', NULL, '1', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(15, 'kkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(16, 'qq', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(17, 'toma', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(18, 'habi', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(19, 'adas', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(20, 'habilidouso', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(21, 'habilidouso', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(22, 'kkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(23, 'kkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(24, 'msdkamdlkasm', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(25, 'kkkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(26, 'nome', 'm', 'IMG-20160915-WA0008.jpg', '0', 'nome@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(27, 'asdas', 'm', 'IMG-20161119-WA0020.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(28, 'qweqw', 'm', 'IMG-20160915-WA0008.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(29, 'adsasda', 'm', 'IMG-20161119-WA0020.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(30, 'qweqwe', 'm', 'IMG-20160915-WA0008.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(31, 'dsdeqweqw', 'm', 'IMG-20161119-WA0020.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(32, 'wewqe', 'm', 'convite.png', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(33, 'wewqe', 'm', 'IMG-20160915-WA0008.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(34, 'ewqeqw', 'm', 'foto criança.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
+(35, 'kkkk', 'm', '16976381_1092393770865634_594438360_n.jpg', '0', 'email@email.com', 'c4ca4238a0b923820dcc509a6f75849b', NULL);
 
 --
 -- Indexes for dumped tables
@@ -631,7 +743,7 @@ ALTER TABLE `habilidades`
 -- AUTO_INCREMENT for table `habilidades_usuario`
 --
 ALTER TABLE `habilidades_usuario`
-  MODIFY `id_habilidade_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_habilidade_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `idiomas`
 --
@@ -641,7 +753,7 @@ ALTER TABLE `idiomas`
 -- AUTO_INCREMENT for table `idiomas_usuario`
 --
 ALTER TABLE `idiomas_usuario`
-  MODIFY `id_idiomas_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_idiomas_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 --
 -- AUTO_INCREMENT for table `linguagens`
 --
@@ -656,7 +768,7 @@ ALTER TABLE `linguagens_estrategia`
 -- AUTO_INCREMENT for table `log_tarefas`
 --
 ALTER TABLE `log_tarefas`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `membros_equipe`
 --
@@ -681,7 +793,7 @@ ALTER TABLE `publicacoes`
 -- AUTO_INCREMENT for table `tarefas`
 --
 ALTER TABLE `tarefas`
-  MODIFY `id_tarefa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_tarefa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tipo_tarefa`
 --
@@ -691,7 +803,7 @@ ALTER TABLE `tipo_tarefa`
 -- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 --
 -- Constraints for dumped tables
 --

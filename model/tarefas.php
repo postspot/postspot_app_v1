@@ -24,9 +24,9 @@ class tarefas {
             try{
             $stmt = Conexao::getInstance()->prepare("INSERT INTO tarefas 
             (nome_tarefa, id_tipo, palavra_chave, briefing_tarefa, estagio_compra, 
-            tipo_cta, referencias, consideracoes_gerais, id_projeto, id_equipe) VALUES
+            tipo_cta, referencias, consideracoes_gerais, id_persona, id_projeto, id_equipe) VALUES
             (:nome_tarefa, :id_tipo, :palavra_chave, :briefing_tarefa, :estagio_compra,
-            :tipo_cta, :referencias, :consideracoes_gerais, :id_projeto, :id_equipe);");
+            :tipo_cta, :referencias, :consideracoes_gerais, :id_persona, :id_projeto, :id_equipe);");
 
 		$stmt->bindParam(":nome_tarefa", $obj->nome_tarefa);
 		$stmt->bindParam(":id_tipo", $obj->id_tipo);
@@ -36,7 +36,7 @@ class tarefas {
 		$stmt->bindParam(":tipo_cta", $obj->tipo_cta);
 		$stmt->bindParam(":referencias", $obj->referencias);
 		$stmt->bindParam(":consideracoes_gerais", $obj->consideracoes_gerais);
-//		$stmt->bindParam(":id_persona", $obj->id_persona);
+		$stmt->bindParam(":id_persona", $obj->id_persona);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 		$stmt->bindParam(":id_equipe", $obj->id_equipe);
 

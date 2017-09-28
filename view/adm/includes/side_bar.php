@@ -22,7 +22,7 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
         <div class="user">
             <div class="info">
                 <div class="photo">
-                    <img src="assets/img/faces/face-2.jpg" />
+                    <img src="../../uploads/usuarios/<?= $_SESSION['foto_usuario']?>" />
                 </div>
 
                 <a href="perfil.php">

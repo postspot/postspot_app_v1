@@ -81,14 +81,13 @@ class tarefas {
 		$stmt = Conexao::getInstance()->prepare("SELECT * FROM tarefas WHERE id_equipe = :id");
 
 		$stmt->bindParam(":id", $id);
-		 $stmt->execute();
-			$colunas = array();
-			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-				array_push($colunas, $row);
-			}
-			return $colunas;
-		} catch(PDOException $ex) {
+		$stmt->execute();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			return $row;
+		}
 		return false;
+		} catch(PDOException $ex) {
+			return false;
 		}
 	}
 

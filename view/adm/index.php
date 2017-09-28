@@ -151,6 +151,10 @@
                                         $(document).ready(function() {
                                             funcoes.showNotification(0,4,'<b>Dados Incorretos</b> - tente novamente.');
                                         });
+                                    <?php }else if (isset($_GET['erro']) && $_GET['erro'] == 'sessao4') { ?>
+                                        $(document).ready(function() {
+                                            funcoes.showNotification(0,4,'<b>Projeto Inexistente</b> - fale com o administrador.');
+                                        });
                                     <?php } ?>
                                 });
     </script>

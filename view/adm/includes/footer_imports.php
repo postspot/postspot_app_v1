@@ -37,8 +37,8 @@
 <!-- Vector Map plugin -->
 <script src="assets/js/jquery-jvectormap.js"></script>
 
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--  Google Maps Plugin    
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>-->
 
 <!-- Wizard Plugin    -->
 <script src="assets/js/jquery.bootstrap.wizard.min.js"></script>

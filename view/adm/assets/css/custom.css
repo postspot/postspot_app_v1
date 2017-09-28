@@ -235,3 +235,12 @@ margin-top: 5px;
     color: #eb5e28;
     cursor: pointer;
 }
+.card-chat input.textarea {
+    width: calc(100% - 53px) !important;
+}
+.card-chat .btn {
+    padding: 7px 11px;
+}
+.card-chat .send-message .send-button{
+    width: 30px;
+}

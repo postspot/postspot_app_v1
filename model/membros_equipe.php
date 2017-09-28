@@ -81,6 +81,7 @@ class membros_equipe {
 		$stmt->execute();
 		$colunas = array();
 		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			unset($row->senha_usuario);
 			array_push($colunas, $row);
 		}
 		return $colunas;

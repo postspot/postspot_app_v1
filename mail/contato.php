@@ -13,7 +13,7 @@ $textoInformativo = isset($_GET['texto']) ? $_GET['texto'] : 'ErroParametro';
     </head>
 
     <body style="background-color: #efefef;font-family: sans-serif;">
-        <table cellspacing="0" cellpadding="10" border="0" width="600" style="margin: 0 auto;background-color: white;border-bottom: 2px solid #F8931E">
+        <table cellspacing="0" cellpadding="10" border="0" width="600" style="margin: 0 auto;background-color: white;border-bottom: 2px solid #63458A">
             <tr><td align="center"><img src="../view/adm/assets/img/logo-postspo.png" align="center"></td></tr>
             <tr>
                 <td height="40" style="vertical-align: bottom;font-weight: bold;">Olá <?= $nome_adm ?>.</td>

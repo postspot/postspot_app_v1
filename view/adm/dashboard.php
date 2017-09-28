@@ -208,7 +208,7 @@ die();*/
                                         <p>08/11/2015</p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="detalhes_conteudo.php" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                        <a href="detalhes_conteudo.php?t=1" class="btn btn-success btn-fill btn-wd">Detalhes</a>
                                     </div>
                                 </div>
                             </div>

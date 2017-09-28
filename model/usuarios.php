@@ -178,7 +178,7 @@ class usuarios {
 	}
         
         public static function login($login, $senha) {
-            $stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, "
+            $stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, foto_usuario, "
                     . "funcao_usuario "
                     . "FROM " . self::$tabela
                     . " WHERE email_usuario= :login_usuario "

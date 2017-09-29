@@ -24,6 +24,3 @@ if(isset($_GET["p"])){
     $_SESSION['id_projeto'] = $projeto->id_projeto;
     $_SESSION['nome_projeto'] = $projeto->nome_projeto;
 }
-
-/*pre_r($projeto);
-die();*/

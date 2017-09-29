@@ -177,7 +177,7 @@ die();*/
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill btn-wd">Buscar</button>
+                                            <button type="submit" class="btn btn-info btn-fill fill-up">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +208,7 @@ die();*/
                                         <p>08/11/2015</p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="detalhes_conteudo.php?t=1" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                        <a href="detalhes_conteudo.php?t=1" class="btn btn-success btn-fill fill-up">Detalhes</a>
                                     </div>
                                 </div>
                             </div>

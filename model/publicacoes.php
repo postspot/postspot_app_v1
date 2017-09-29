@@ -70,6 +70,25 @@ class publicacoes {
 		return false;
 		}
 	}
+	
+	public static function getUltimaPublicacao($id) {
+		
+			 try {
+				$stmt = Conexao::getInstance()->prepare("SELECT * "
+				. " FROM publicacoes WHERE id_tarefa = :id "
+				. " ORDER BY data_criacao");
+		
+				$stmt->bindParam(":id", $id);
+				 $stmt->execute();
+					$colunas = array();
+					while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+						return $row;
+					}
+					return false;
+				} catch(PDOException $ex) {
+				return false;
+				}
+			}
 
 
  //------------------ function delete($id)---------//

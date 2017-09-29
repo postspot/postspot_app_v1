@@ -90,55 +90,57 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
                     <p>Equipe</p>
                 </a>
             </li>
-            <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active": "" ?>">
-                <a data-toggle="collapse" href="#gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
-                    <i class="ti-panel"></i>
-                    <p>
-                        Gestão
-                        <b class="caret"></b>
-                    </p>
-                </a>
-                <div class="collapse <?= in_array($detalhe_pagina, $array_gestao) ? 'in': '' ?>" id="gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
-                    <ul class="nav">
-                        <li class="<?= $detalhe_pagina == "time.php" ? "active" : "" ?>">
-                            <a href="time.php">
-                                <span class="sidebar-mini">PF</span>
-                                <span class="sidebar-normal">Profissionais</span>
-                            </a>
-                        </li>
-                        <li class="<?= $detalhe_pagina == "projetos.php" ? "active" : "" ?>">
-                            <a href="projetos.php">
-                                <span class="sidebar-mini">PJ</span>
-                                <span class="sidebar-normal">Projetos</span>
-                            </a>
-                        </li>
-                        <li class="<?= $detalhe_pagina == "habilidades.php" ? "active" : "" ?>">
-                            <a href="habilidades.php">
-                                <span class="sidebar-mini">HB</span>
-                                <span class="sidebar-normal">Habilidades</span>
-                            </a>
-                        </li>
-                        <li class="<?= $detalhe_pagina == "tipo_conteudo.php" ? "active" : "" ?>">
-                            <a href="tipo_conteudo.php">
-                                <span class="sidebar-mini">TC</span>
-                                <span class="sidebar-normal">Tipo Conteúdo</span>
-                            </a>
-                        </li>
-                        <li class="<?= $detalhe_pagina == "idiomas.php" ? "active" : "" ?>">
-                            <a href="idiomas.php">
-                                <span class="sidebar-mini">ID</span>
-                                <span class="sidebar-normal">Idiomas</span>
-                            </a>
-                        </li>
-                        <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">
-                            <a href="categorias.php">
-                                <span class="sidebar-mini">CT</span>
-                                <span class="sidebar-normal">Categorias</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            <?php if($_SESSION['funcao_usuario'] == '0'):?>
+                <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active": "" ?>">
+                    <a data-toggle="collapse" href="#gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
+                        <i class="ti-panel"></i>
+                        <p>
+                            Gestão
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <?= in_array($detalhe_pagina, $array_gestao) ? 'in': '' ?>" id="gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
+                        <ul class="nav">
+                            <li class="<?= $detalhe_pagina == "time.php" ? "active" : "" ?>">
+                                <a href="time.php">
+                                    <span class="sidebar-mini">PF</span>
+                                    <span class="sidebar-normal">Profissionais</span>
+                                </a>
+                            </li>
+                            <li class="<?= $detalhe_pagina == "projetos.php" ? "active" : "" ?>">
+                                <a href="projetos.php">
+                                    <span class="sidebar-mini">PJ</span>
+                                    <span class="sidebar-normal">Projetos</span>
+                                </a>
+                            </li>
+                            <li class="<?= $detalhe_pagina == "habilidades.php" ? "active" : "" ?>">
+                                <a href="habilidades.php">
+                                    <span class="sidebar-mini">HB</span>
+                                    <span class="sidebar-normal">Habilidades</span>
+                                </a>
+                            </li>
+                            <li class="<?= $detalhe_pagina == "tipo_conteudo.php" ? "active" : "" ?>">
+                                <a href="tipo_conteudo.php">
+                                    <span class="sidebar-mini">TC</span>
+                                    <span class="sidebar-normal">Tipo Conteúdo</span>
+                                </a>
+                            </li>
+                            <li class="<?= $detalhe_pagina == "idiomas.php" ? "active" : "" ?>">
+                                <a href="idiomas.php">
+                                    <span class="sidebar-mini">ID</span>
+                                    <span class="sidebar-normal">Idiomas</span>
+                                </a>
+                            </li>
+                            <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">
+                                <a href="categorias.php">
+                                    <span class="sidebar-mini">CT</span>
+                                    <span class="sidebar-normal">Categorias</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            <?php endif;?>
         </ul>
     </div>
 </div>

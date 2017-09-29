@@ -14,7 +14,7 @@ class membros_equipe {
 	public static function insert($obj) {
 		 try{
 		$stmt = Conexao::getInstance()->prepare("INSERT INTO membros_equipe (id_equipe, id_usuario)
- VALUES(:id_equipe, :id_usuario);");
+                VALUES(:id_equipe, :id_usuario);");
 
 		$stmt->bindParam(":id_equipe", $obj->id_equipe);
 		$stmt->bindParam(":id_usuario", $obj->id_usuario);

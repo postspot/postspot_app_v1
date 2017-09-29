@@ -16,10 +16,10 @@ class estrategias {
         $stmt = Conexao::getInstance()->prepare("INSERT INTO estrategias 
         (empresa, site, projeto, blog, produtos_servicos, links, objetivo_primario, kpis_primario, objetivo_secundario, 
         kpis_secundario, concorrentes, com_quem_falar, com_quem_nao_falar, abordar, evitar, linguagem, links_ref,
-        categorias_conteudo, canais, acoes, consideracoes_gerais, projetos_id_projeto) VALUES
+        canais, acoes, consideracoes_gerais, projetos_id_projeto) VALUES
         (:empresa, :site, :projeto, :blog, :produtos_servicos, :links, :objetivo_primario, :kpis_primario, :objetivo_secundario,
         :kpis_secundario, :concorrentes, :com_quem_falar, :com_quem_nao_falar, :abordar, :evitar, :linguagem,
-        :links_ref, :categorias_conteudo, :canais, :acoes, :consideracoes_gerais, :projetos_id_projeto);");
+        :links_ref, :canais, :acoes, :consideracoes_gerais, :projetos_id_projeto);");
 
 		$stmt->bindParam(":empresa", $obj->empresa);
 		$stmt->bindParam(":site", $obj->site);
@@ -47,7 +47,7 @@ class estrategias {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+		return $ex;
 		}
 	}
 

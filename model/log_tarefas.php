@@ -75,6 +75,21 @@ class log_tarefas {
 		return false;
 		}
 	}
+	public static function getEtapaAtual($id) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT etapa, MAX(data_entregue) as data FROM "
+                . "log_tarefas WHERE id_tarefa = :id");
+
+		$stmt->bindParam(":id", $id);
+		 $stmt->execute();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				return $row;
+			}
+		} catch(PDOException $ex) {
+		return false;
+		}
+	}
 
 
  //------------------ function delete($id)---------//

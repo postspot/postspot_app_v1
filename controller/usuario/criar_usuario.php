@@ -54,14 +54,8 @@ $senha_usuario = $_POST["senha_usuario"];
 $idioma = $_POST["idioma"];
 $habilidades = $_POST["habilidade"];
 
-//pre_r($_POST);
-//pre_r($_FILES);
-//
-//die();
-
 if (isset($nome_usuario) && isset($sexo_usuario) && 
-    isset($funcao_usuario) && isset($email_usuario) && isset($senha_usuario) &&
-    isset($idioma)) {
+    isset($funcao_usuario) && isset($email_usuario) && isset($senha_usuario)) {
 
     if (!empty($nome_usuario)) {
       
@@ -77,20 +71,9 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
         $obj->id_usuario = usuarios::getAutoInc();
         $obj->id_idioma = $idioma;
         
-        mkdir(DIR_ROOT.'/uploads/usuarios/' . $obj->id_usuario . "-" . $obj->nome_usuario, 0777);
-        $uploads_dir = DIR_ROOT.'/uploads/usuarios/' . $obj->id_usuario . "-" . $obj->nome_usuario;
+        $uploads_dir = DIR_ROOT.'/uploads/usuarios';
         
         if ($_FILES['foto_usuario']['error'] != 4){
-            if (is_dir($uploads_dir)) {
-                $diretorio = dir($uploads_dir);
-                while ($arquivo = $diretorio->read()) {
-                chmod($uploads_dir . "/" . $arquivo, 0777);
-                    if (($arquivo != '.') && ($arquivo != '..')) {
-                        unlink($uploads_dir . "/" . $arquivo);
-                    }
-                }
-                $diretorio->close();
-            }
             
             
             if($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK){
@@ -100,6 +83,13 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
             }
             
             resizePersonal("$uploads_dir/$name", $uploads_dir);
+            
+            
+            
+            $obj->foto_usuario = $_FILES["foto_usuario"]["name"];
+        }
+        else{
+            $obj->foto_usuario = "sem_foto.png";
         }
             
         

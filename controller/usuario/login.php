@@ -36,19 +36,16 @@ else {
         header('location: ../../view/adm/lista_projetos.php');
     }else{
         $projeto = projetos::getByUsuario($usuario->id_usuario);
-        pre_r($projeto);
-        if(empty($projeto)){
-            echo 'Tem';
-            die();
+        /*pre_r($projeto);
+        die();*/
+        if ( empty($projeto)  ||  $projeto == "" ||  $projeto == NULL){
             header('location: ../../view/adm/index.php?erro=sessao4');
         }else{
-            echo 'opaaaa Tem';
-            die();
-            $_SESSION['id_projeto'] = $usuario->id_projeto;
-            $_SESSION['nome_projeto'] = $usuario->nome_projeto;
+            $_SESSION['id_projeto'] = $projeto->id_projeto;
+            $_SESSION['nome_projeto'] = $projeto->nome_projeto;
+            $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+            header('location: ../../view/adm/dashboard.php');
         }
-        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
-        header('location: ../../view/adm/dashboard.php');
     }
     
 }

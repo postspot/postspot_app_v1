@@ -96,7 +96,13 @@ class projetos {
         public static function getByUsuario($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM projetos WHERE responsavel_projeto = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT pr.* "
+		. " FROM projetos pr "
+		. " INNER JOIN equipes eq"
+		. " ON(pr.id_projeto = eq.id_projeto)"
+		. " INNER JOIN membros_equipe me"
+		. " ON(eq.id_equipe = me.id_equipe)"
+		. " WHERE me.id_usuario = :id");
 
 		$stmt->bindParam(":id", $id);
 		 $stmt->execute();
@@ -105,7 +111,7 @@ class projetos {
 		}
 			
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
 		}
 	}
 

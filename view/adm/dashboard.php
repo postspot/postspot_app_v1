@@ -180,7 +180,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill btn-wd">Buscar</button>
+                                            <button type="submit" class="btn btn-info btn-fill fill-up">Buscar</button>
                                         </div>
                                     </div>
                                 </div>

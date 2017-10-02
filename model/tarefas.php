@@ -90,6 +90,112 @@ class tarefas {
 			return false;
 		}
 	}
+	public static function getUltimasDez($id, $limit) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * FROM tarefas where id_projeto =:id_projeto "
+            . "order by data_criacao DESC limit $limit");
+
+		$stmt->bindParam(":id_projeto", $id);
+		$stmt->execute();
+		 $colunas = array();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    $row->data_criacao = date('d/m/Y', strtotime($row->data_criacao));
+                    array_push($colunas, $row);
+                }
+                return $colunas;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+	public static function getConteudosDez($id, $limit) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * from tarefas t inner join log_tarefas l ON "
+                . "( t.id_tarefa = l.id_tarefa) where t.id_projeto =:id_projeto and l.etapa = 3 and "
+                . "l.data_entregue = '0000-00-00 00:00:00' order by l.data_entregue DESC limit $limit");
+
+		$stmt->bindParam(":id_projeto", $id);
+		$stmt->execute();
+		 $colunas = array();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    $row->data_criacao = date('d/m/Y', strtotime($row->data_criacao));
+                    array_push($colunas, $row);
+                }
+                return $colunas;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+	public static function getPautasDez($id, $limit) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT * from tarefas t inner join log_tarefas l ON "
+                . "( t.id_tarefa = l.id_tarefa) where t.id_projeto =:id_projeto and l.etapa = 0 and "
+                . "l.data_entregue = '0000-00-00 00:00:00' order by t.data_criacao DESC limit $limit");
+
+		$stmt->bindParam(":id_projeto", $id);
+		$stmt->execute();
+		 $colunas = array();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    $row->data_criacao = date('d/m/Y', strtotime($row->data_criacao));
+                    array_push($colunas, $row);
+                }
+                return $colunas;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+        
+        public static function countTarefasProjeto($id) {
+
+            try {
+                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(id_tarefa) as cont FROM tarefas WHERE id_projeto =:id_projeto");
+
+                $stmt->bindParam(":id_projeto", $id);
+                $stmt->execute();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    return $row->cont;
+                }
+                return false;
+            } catch (PDOException $ex) {
+                return false;
+            }
+        }
+        public static function countTarefasProjetoStatus($id, $status) {
+
+            try {
+                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join "
+                . "log_tarefas l ON ( t.id_tarefa = l.id_tarefa) where t.id_projeto =:id_projeto and l.etapa = 5 and "
+                . "l.data_entregue $status '0000-00-00 00:00:00'");
+
+                $stmt->bindParam(":id_projeto", $id);
+                $stmt->execute();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    return $row->cont;
+                }
+                return false;
+            } catch (PDOException $ex) {
+                return false;
+            }
+        }
+        public static function countTarefasProjetoAtrasadas($id) {
+
+            try {
+                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join "
+                . "log_tarefas l ON ( t.id_tarefa = l.id_tarefa) where l.etapa = 5 and "
+                . "l.data_entregue = '0000-00-00 00:00:00' and l.data_prevista > now()");
+
+                $stmt->bindParam(":id_projeto", $id);
+                $stmt->execute();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    return $row->cont;
+                }
+                return false;
+            } catch (PDOException $ex) {
+                return false;
+            }
+        }
 
 
  //------------------ function delete($id)---------//

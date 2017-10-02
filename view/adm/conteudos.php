@@ -1,12 +1,15 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/tarefas.php';
 require_once 'includes/header_padrao.php';
+
+$conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10);
 ?>
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium - Pautas</title>
+        <title>Post Stadium - Conteudos</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -76,70 +79,40 @@ require_once 'includes/header_padrao.php';
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p class="title"><strong>Conteúdos</strong> para publicar</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <p>Aprovado em:</p>
+                            </div>
+                            <div class="col-lg-2">
+                                Recebido em:
+                            </div>
+                        </div>
 
+                        <?php 
+                        foreach ($conteudos as $value) {
+                        ?>
                         <div class="card-tarefa">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <p>[ESTENDER + 500] Quais as diferenças entre o marketing tradicionar e o marketing dital?</p>
+                                    <p><?= $value->nome_tarefa ?></p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <p>08/11/2015</p>
+                                    <p></p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <p>08/11/2015</p>
+                                    <p><?= $value->data_criacao ?></p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <button type="button" class="btn btn-success btn-fill btn-wd">
-                                        <span class="btn-label">
-                                            <i class="ti-search"></i>
-                                        </span>
-                                        Detalhes
-                                    </button>
-                                </div>
+                                    <a href="detalhes_conteudo.php?t=<?= $value->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                </div>  
                             </div>
                         </div>
-                        <div class="card-tarefa">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <p>[ESTENDER + 500] Quais as diferenças entre o marketing tradicionar e o marketing dital?</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <p>08/11/2015</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <p>08/11/2015</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="button" class="btn btn-success btn-fill btn-wd">
-                                        <span class="btn-label">
-                                            <i class="ti-search"></i>
-                                        </span>
-                                        Detalhes
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-tarefa">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <p>[ESTENDER + 500] Quais as diferenças entre o marketing tradicionar e o marketing dital?</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <p>08/11/2015</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <p>08/11/2015</p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <button type="button" class="btn btn-success btn-fill btn-wd">
-                                        <span class="btn-label">
-                                            <i class="ti-search"></i>
-                                        </span>
-                                        Detalhes
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <?php
+                        }
+                        ?>
                     </div>
 
                     <a href="cria_pauta.php" class="btn btn-icon btn-fixed">

@@ -1,9 +1,11 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/tarefas.php';
 require_once 'includes/header_padrao.php';
 /*pre_r($projeto);
 die();*/
+$tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
 ?>
 <html lang="pt-br">
     <head>
@@ -39,7 +41,7 @@ die();*/
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Pautas</p>
-                                                    5
+                                                    <?= tarefas::countTarefasProjeto($_SESSION['id_projeto']) ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -66,7 +68,8 @@ die();*/
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Produzindo</p>
-                                                    10
+                                                    <?= tarefas::countTarefasProjetoStatus($_SESSION['id_projeto'], "=") ?>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -92,7 +95,7 @@ die();*/
                                                 <div class="numbers">
                                                     <p>Atrasados
                                                     </p>
-                                                    5
+                                                    <?= tarefas::countTarefasProjetoAtrasadas($_SESSION['id_projeto']) ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -117,7 +120,7 @@ die();*/
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Publicados</p>
-                                                    5
+                                                    <?= tarefas::countTarefasProjetoStatus($_SESSION['id_projeto'], "!=") ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -186,7 +189,7 @@ die();*/
                         <!--Lista de Conteúdos-->
                         <div class="row">
                             <div class="col-lg-6">
-                                <p class="title"><strong>Conteúdos</strong> para publicar</p>
+                                <p class="title"><strong>Pautas em geral</strong></p>
                             </div>
                             <div class="col-lg-2">
                                 <p>Aprovado em:</p>
@@ -195,24 +198,25 @@ die();*/
                                 Recebido em:
                             </div>
                         </div>
-                        <?php for ($i = 0; $i < 5; $i++): ?>
+                        <?php 
+                            foreach ($tarefas as $value): ?>
                             <div class="card-tarefa">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p>[ESTENDER + 500] Quais as diferenças entre o marketing tradicionar e o marketing dital?</p>
+                                        <p> <?= $value->nome_tarefa ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p>08/11/2015</p>
+                                        <p></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p>08/11/2015</p>
+                                        <p><?= $value->data_criacao ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="detalhes_conteudo.php?t=1" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                        <a href="detalhes_conteudo.php?t=<?= $value->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
                                     </div>
                                 </div>
                             </div>
-                        <?php endfor; ?>
+                        <?php endforeach; ?>
                         <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
                             <i class="ti-plus"></i>
                         </a>

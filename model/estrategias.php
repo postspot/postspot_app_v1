@@ -38,7 +38,6 @@ class estrategias {
 		$stmt->bindParam(":evitar", $obj->evitar);
 		$stmt->bindParam(":linguagem", $obj->linguagem);
 		$stmt->bindParam(":links_ref", $obj->links_ref);
-		$stmt->bindParam(":categorias_conteudo", $obj->categorias_conteudo);
 		$stmt->bindParam(":canais", $obj->canais);
 		$stmt->bindParam(":acoes", $obj->acoes);
 		$stmt->bindParam(":consideracoes_gerais", $obj->consideracoes_gerais);
@@ -47,7 +46,7 @@ class estrategias {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return $ex;
+		return $ex->getMessage();
 		}
 	}
 

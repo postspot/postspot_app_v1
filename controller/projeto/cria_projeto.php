@@ -28,8 +28,10 @@ if (isset($nome_projeto) && isset($responsavel_projeto) && isset($site_projeto))
         if(projetos::insert($obj)){
             
             $nova_estrategia = new stdClass();
+            
             $nova_estrategia->projetos_id_projeto = $id_projeto;
-
+            
+          
             if(estrategias::insert($nova_estrategia)){         
                 
                 $id_equipe = equipes::getAutoInc();

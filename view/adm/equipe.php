@@ -30,7 +30,8 @@ $qtd_escritores = usuarios::countRedatores();
 
                 <div class="content">
                     <div class="container-fluid">
-                            <h4 class="title"><i class="ti-world"></i> Equipe</h4>
+                        <h4 class="title"><i class="ti-world"></i> Equipe</h4>
+                        <?php if( $_SESSION['funcao_usuario'] == 0): ?>
                         <div class="row">
                             <div class="col-md-9">
                                 <div class="card card-vincula-membro">
@@ -83,6 +84,7 @@ $qtd_escritores = usuarios::countRedatores();
                                 </div>
                             </div>
                         </div>
+                        <?php endif;?>
                         <div class="row">
                             <?php if(empty($membros)):?>
                                 <div class="col-md-12 text-center">

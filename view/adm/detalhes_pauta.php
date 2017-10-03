@@ -3,8 +3,17 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
 require_once '../../model/tipo_tarefa.php';
+require_once '../../model/tarefas.php';
 require_once 'includes/header_padrao.php';
+
+if(!isset($_GET["t"])){
+    header('location: ../../view/adm/dashboard.php?erro=te');
+}else{
+    $id_tarefa = $_GET["t"];
+}
+
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
+$tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getByProjeto($_SESSION['id_projeto']);
 ?>
 <html lang="pt-br">
@@ -32,26 +41,40 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                    <form class="form-horizontal" action="../../controller/pautas/criar_pauta.php" method="POST" id="formCriaPauta">
-                                        <input type="hidden" name="aprovacao" id="controlaAprovacao">
-                                        <div class="card-header">
-                                            <h4 class="card-title">
-                                                <!--Preencha as informações abaixo-->
-                                            </h4>
-                                        </div>
+                                    <form class="form-horizontal" action="../../controller/pautas/edita_pauta.php" method="POST" id="formEditaPauta">
+                                    <input type="hidden" name="aprovacao" id="controlaAprovacao">
+                                    <input type="hidden" name="id_tarefa" value="<?= $id_tarefa ?>">
                                         <div class="card-content">
-                                            <div class="form-group">
+                                            <div class="form-group column-sizing">
                                                 <label class="col-md-2 control-label">Título</label>
-                                                <div class="col-md-9">
-                                                    <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control">
+                                                <div class="col-md-5">
+                                                    <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control" value="<?= $tarefa->nome_tarefa ?>">
                                                 </div>
+                                                <?php if($tarefa->etapa == 1): ?>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right pull-right" id="reprovaPauta">
+                                                            Reprovar
+                                                            <span class="btn-label">
+                                                                <i class="ti-control-forward"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="aprovaPauta">
+                                                            Aprovar
+                                                            <span class="btn-label">
+                                                                <i class="ti-control-forward"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Tipo</label>
-                                                <div class="col-md-4">
+                                                <div class="col-md-5">
                                                     <select class="form-control" name="tipo_tarefa">
                                                         <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
-                                                            <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>" <?= ($tarefa->id_tipo == $tipoTarefa->id_tipo)? 'selected' : '' ?>><?= $tipoTarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -59,13 +82,13 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Palavra Chave</label>
                                                 <div class="col-md-9">
-                                                    <input required type="text" class="form-control" name="palavra_chave">
+                                                    <input required type="text" class="form-control" name="palavra_chave" value="<?= $tarefa->palavra_chave ?>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Briefing</label>
                                                 <div class="col-md-9">
-                                                    <textarea required rows="5" class="form-control border-input" placeholder="" name="briefing_tarefa"></textarea>
+                                                    <textarea required rows="5" class="form-control border-input" placeholder="" name="briefing_tarefa"><?= $tarefa->briefing_tarefa ?></textarea>
 
                                                 </div>
                                             </div>
@@ -74,26 +97,26 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 <div class="col-md-10">
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Aprendizado e Descoberta" checked="">
+                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Aprendizado e Descoberta" <?= ($tarefa->estagio_compra == 'Aprendizado e Descoberta')? 'checked' : '' ?>>
                                                         <label for="estagio1">
                                                             Aprendizado e Descoberta
                                                         </label>
                                                     </div>
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio2" value="Reconhecimento do Problema">
+                                                        <input type="radio" name="estagio_compra" id="estagio2" value="Reconhecimento do Problema" <?= ($tarefa->estagio_compra == 'Reconhecimento do Problema')? 'checked' : '' ?>>
                                                         <label for="estagio2">
                                                             Reconhecimento do Problema
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração da Solução">
+                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração da Solução" <?= ($tarefa->estagio_compra == 'Consideração da Solução')? 'checked' : '' ?>>
                                                         <label for="estagio3">
                                                             Consideração da Solução
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão de Compra">
+                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão de Compra" <?= ($tarefa->estagio_compra == 'Decisão de Compra')? 'checked' : '' ?>>
                                                         <label for="estagio4">
                                                             Decisão de Compra
                                                         </label>
@@ -111,7 +134,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                         foreach ($persona as $pers) {
                                                         ?>
                                                         
-                                                        <option value="<?= $pers->id_persona ?>"><?= $pers->nome ?></option>
+                                                        <option value="<?= $pers->id_persona ?>" <?= ($tarefa->id_persona == $pers->id_persona)? 'selected' : '' ?>><?= $pers->nome ?></option>
                                                         
                                                         <?php
                                                         } endif;
@@ -122,19 +145,19 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Tipo de CTA</label>
                                                 <div class="col-md-9">
-                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="tipo_cta"></textarea>
+                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="tipo_cta"><?= $tarefa->tipo_cta ?></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Referências</label>
                                                 <div class="col-md-9">
-                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="referencias"></textarea>
+                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="referencias"><?= $tarefa->referencias ?></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Considerações Gerais</label>
                                                 <div class="col-md-9">
-                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="consideracoes_gerais"></textarea>
+                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="consideracoes_gerais"><?= $tarefa->consideracoes_gerais ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -174,13 +197,25 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
     $(document).ready(function () {
         $("#salvaPauta").click(function (e) { 
             e.preventDefault();
+            $("#formEditaPauta").attr('action', '../../controller/pautas/edita_pauta.php');
             $("#controlaAprovacao").val('0');
-            $("#formCriaPauta").submit();
+            $("#formEditaPauta").submit();
         });
         $("#enviaAprovacaoPauta").click(function (e) { 
             e.preventDefault();
+            $("#formEditaPauta").attr('action', '../../controller/pautas/edita_pauta.php');
             $("#controlaAprovacao").val('1');
-            $("#formCriaPauta").submit();            
+            $("#formEditaPauta").submit();            
+        });
+        $("#aprovaPauta").click(function (e) { 
+            e.preventDefault();
+            $("#formEditaPauta").attr('action', '../../controller/pautas/aprova_pauta.php');
+            $("#formEditaPauta").submit();            
+        });
+        $("#reprovaPauta").click(function (e) { 
+            e.preventDefault();
+            $("#formEditaPauta").attr('action', '../../controller/pautas/reprova_pauta.php');
+            $("#formEditaPauta").submit();            
         });
     });
     </script>

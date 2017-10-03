@@ -6,6 +6,7 @@ require_once '../../model/log_tarefas.php';
 
 session_start();
 
+$id_tarefa = $_POST["id_tarefa"];
 $nome_tarefa = $_POST["nome_tarefa"];
 $tipo_tarefa = $_POST["tipo_tarefa"];
 $palavra_chave = $_POST["palavra_chave"];
@@ -29,6 +30,7 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
     
         // Prepara a Tarefa
         $nova_tarefa = new stdClass();
+        $nova_tarefa->id_tarefa = $id_tarefa;
         $nova_tarefa->nome_tarefa = $nome_tarefa;
         $nova_tarefa->palavra_chave = $palavra_chave;
         $nova_tarefa->briefing_tarefa = $briefing_tarefa;
@@ -39,10 +41,11 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         $nova_tarefa->id_persona = $id_persona;
         $nova_tarefa->id_projeto = $id_projeto;
         $nova_tarefa->id_tipo = $tipo_tarefa;
-        $nova_tarefa->id_equipe = $id_projeto; // É o mesmo que o projeto porque o ID da equipe é igual 
-        $id_tarefa = tarefas::getAutoInc();
-        if(tarefas::insert($nova_tarefa)){ // Insere a tarefa
-            
+        $nova_tarefa->id_equipe = $id_projeto;
+
+        
+        if(tarefas::update($nova_tarefa)){
+            resetStatusTarefa($id_tarefa);        
             if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
                 $date = date('Y-m-d H:i');
                 $novo_log_salvo = new stdClass();
@@ -57,13 +60,6 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                     header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
                 }
             }else{ // Senão, ja cria dois log´s
-                $date = date('Y-m-d H:i');
-                $novo_log_salvo = new stdClass();
-                $novo_log_salvo->etapa = 0;
-                $novo_log_salvo->status = 0;
-                $novo_log_salvo->data_prevista = retornaDataPrevista(0);
-                $novo_log_salvo->id_tarefa = $id_tarefa;
-                $novo_log_salvo->id_usuario = $id_usuario;
                 
                 $date = date('Y-m-d H:i');
                 $novo_log_aprovacao = new stdClass();
@@ -73,20 +69,20 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_aprovacao->id_tarefa = $id_tarefa;
                 $novo_log_aprovacao->id_usuario = $id_usuario;
             
-                if(log_tarefas::insert($novo_log_salvo) && log_tarefas::insert($novo_log_aprovacao)){
+                if(log_tarefas::insert($novo_log_aprovacao)){
                     header('Location: ../../view/adm/pautas.php?retorno=ok');
                 }else{
                     header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
                 }
             }
         }else{
-            header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
+
         }
     }
     else {
         header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
     }
-} 
+}
 else {
     header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
 }

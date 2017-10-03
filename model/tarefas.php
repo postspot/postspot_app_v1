@@ -43,7 +43,7 @@ class tarefas {
 		$stmt->execute(); 
                     return true;
 		} catch(PDOException $ex) {
-                    return $ex;
+			echo $ex->getMessage();
 		}
 	}
 
@@ -52,7 +52,19 @@ class tarefas {
 
 	public static function update($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("UPDATE tarefas SET id_tarefa = :id_tarefa , nome_tarefa = :nome_tarefa , id_tipo = :id_tipo , palavra_chave = :palavra_chave , briefing_tarefa = :briefing_tarefa , estagio_compra = :estagio_compra , id_projeto = :id_projeto , id_equipe = :id_equipe  WHERE id_tarefa = :id_tarefa ");
+			$stmt = Conexao::getInstance()->prepare("UPDATE tarefas SET "
+				. " nome_tarefa = :nome_tarefa ,"
+				. " id_tipo = :id_tipo ,"
+				. " palavra_chave = :palavra_chave ,"
+				. " briefing_tarefa = :briefing_tarefa ,"
+				. " estagio_compra = :estagio_compra ,"
+				. " id_projeto = :id_projeto ,"
+				. " tipo_cta = :tipo_cta ,"
+				. " referencias = :referencias ,"
+				. " consideracoes_gerais = :consideracoes_gerais ,"
+				. " id_persona = :id_persona ,"
+				. " id_equipe = :id_equipe"
+				. " WHERE id_tarefa = :id_tarefa ");
 
 		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
 		$stmt->bindParam(":nome_tarefa", $obj->nome_tarefa);
@@ -62,11 +74,15 @@ class tarefas {
 		$stmt->bindParam(":estagio_compra", $obj->estagio_compra);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
 		$stmt->bindParam(":id_equipe", $obj->id_equipe);
+		$stmt->bindParam(":tipo_cta", $obj->tipo_cta);
+		$stmt->bindParam(":referencias", $obj->referencias);
+		$stmt->bindParam(":consideracoes_gerais", $obj->consideracoes_gerais);
+		$stmt->bindParam(":id_persona", $obj->id_persona);
 
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			return false;
 		}
 	}
 
@@ -78,7 +94,11 @@ class tarefas {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * FROM tarefas WHERE id_equipe = :id");
+		$stmt = Conexao::getInstance()->prepare("SELECT * "
+        . " FROM tarefas t"
+        . " INNER JOIN log_tarefas lt"
+        . " ON(t.id_tarefa = lt.id_tarefa) "
+        . " WHERE t.id_tarefa = :id and lt.status = 1");
 
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();
@@ -87,7 +107,7 @@ class tarefas {
 		}
 		return false;
 		} catch(PDOException $ex) {
-			return false;
+			echo $ex->getMessage();
 		}
 	}
 	public static function getUltimasDez($id, $limit) {
@@ -130,15 +150,12 @@ class tarefas {
 	public static function getPautasDez($id, $limit) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * from tarefas t inner join log_tarefas l ON "
-                . "( t.id_tarefa = l.id_tarefa) where t.id_projeto =:id_projeto and l.etapa = 0 and "
-                . "l.data_entregue = '0000-00-00 00:00:00' order by t.data_criacao DESC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa < 4 order by t.data_criacao ASC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id);
 		$stmt->execute();
 		 $colunas = array();
                 while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-                    $row->data_criacao = date('d/m/Y', strtotime($row->data_criacao));
                     array_push($colunas, $row);
                 }
                 return $colunas;

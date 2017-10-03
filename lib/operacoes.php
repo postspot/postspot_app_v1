@@ -151,3 +151,82 @@ function dataBRparaPHP($data) {
         return date('Y-m-d', strtotime(implode("-", array_reverse(explode("/", $data)))));
     endif;
 }
+
+function retornaDataPrevista($aux){
+    $date = date('Y-m-d H:i');
+    switch ($aux) {
+        case 0: //Pauta salva
+            return date('Y-m-d H:i:s', strtotime("+3 days",strtotime($date)));
+            break;
+        case 1: // Pauta enviada para aprovação
+            return date('Y-m-d H:i:s', strtotime("+5 days",strtotime($date)));
+            break;
+        case 2: // Pauta Reprovada
+            return date('Y-m-d H:i:s', strtotime("+5 days",strtotime($date)));
+            break;
+        case 3: // Ajuste de Pauta
+            return date('Y-m-d H:i:s', strtotime("+7 days",strtotime($date)));
+            break;
+        case 4: // Criando conteudo
+            return date('Y-m-d H:i:s', strtotime("+11 days",strtotime($date)));
+            break;
+        case 5: // Conteúdo enviado para aprovação
+            return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
+            break;
+        case 6: // Conteúdo aprovado
+            return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
+            break;
+        case 7: // Conteúdo reprovado
+            return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
+            break;
+        case 8: // Ajustes do conteúdo
+            return date('Y-m-d H:i:s', strtotime("+15 days",strtotime($date)));
+            break;
+        case 9: // Conteúdo publicado
+            return date('Y-m-d H:i:s', strtotime("+17 days",strtotime($date)));
+            break;
+        default:
+            break;
+    }
+}
+
+function retornaStatusTarefa($status){
+    switch ($status) {
+        case 0: //Pauta salva
+            return 'Escrevendo';
+            break;
+        case 1: // Pauta enviada para aprovação
+            return 'Aguardando Aprovação';
+            break;
+        case 2: // Pauta Reprovada
+            return 'Pauta Reprovada';
+            break;
+        case 3: // Ajuste de Pauta
+            return 'Ajustando Pauta';
+            break;
+        case 4: // Criando conteudo
+            return 'Criando Conteúdo';
+            break;
+        case 5: // Conteúdo enviado para aprovação
+            return 'Aguardando Aprovação Conteúdo';
+            break;
+        case 6: // Conteúdo aprovado
+            return 'Conteúdo Aprovado';
+            break;
+        case 7: // Conteúdo reprovado
+            return 'Conteúdo Reprovado';
+            break;
+        case 8: // Ajustes do conteúdo
+            return 'Ajustando Conteúdo';
+            break;
+        case 9: // Conteúdo publicado
+            return 'Conteúdo Publicado';
+            break;
+        default:
+            break;
+    }
+}
+
+function resetStatusTarefa($tarefa){
+    log_tarefas::resetStatus($tarefa);
+}

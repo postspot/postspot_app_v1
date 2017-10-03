@@ -32,7 +32,7 @@ die();*/
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
-                                <?php if(empty($tarefas)):?>
+                                <?php if(empty($personas)):?>
                                     <div class="card-content">
                                         <div class="typo-line text-center">
                                             <h2>Nenhuma persona cadastrada <br><small>Toque no botão laranja "+" para criar</small> </h2>

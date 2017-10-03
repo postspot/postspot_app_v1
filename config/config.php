@@ -12,3 +12,4 @@ define('HOST','localhost');
 define('DIR_ROOT', 'C:\xampp\htdocs\postspot');
 
 define('SITE', 'http://localhost/postspot/');
+date_default_timezone_set('America/Sao_Paulo');

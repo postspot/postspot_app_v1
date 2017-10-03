@@ -158,7 +158,10 @@ if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
                                     </div>
                                     <div class="card-content">
                                         <ol class="chat" id="olChat">
-                                        <?php foreach($comentarios as $comentario):
+                                        <?php if(empty($comentarios)):?>
+                                            <li class="text-muted"><p class="text-center fill-up">Nenhum comentário</p></li>
+                                        <?php else:
+                                        foreach($comentarios as $comentario):
                                                 if($comentario->id_usuario != $_SESSION['id_usuario']):
                                             ?>
                                                 <li class="other">
@@ -187,7 +190,7 @@ if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
                                                     </div>
                                                 </li>
                                                 <?php endif;
-                                                endforeach;?>
+                                                endforeach;endif;?>
                                         </ol>
                                         <hr>
                                         <div class="send-message">

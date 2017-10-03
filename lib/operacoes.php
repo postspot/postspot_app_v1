@@ -93,7 +93,8 @@ function funcaoCliente($funcao){
     $funcoes = array('0' => 'Gerente de Projeto',
         '1' => 'Analista',
         '2' => 'Redator',
-        '3' => 'Cliente'
+        '3' => 'Cliente',
+        '4' => 'Designer'
     );
 
     return $funcoes[$funcao];

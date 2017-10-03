@@ -5,6 +5,7 @@ require_once '../../model/personas.php';
 require_once '../../model/tipo_tarefa.php';
 require_once 'includes/header_padrao.php';
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
+$persona = personas::getByProjeto($_SESSION['id_projeto']);
 ?>
 <html lang="pt-br">
     <head>
@@ -41,8 +42,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Título</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control">
-                                                    <input type="hidden" name="id_projeto" value="1" class="form-control">
+                                                    <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -58,13 +58,13 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Palavra Chave</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" class="form-control" name="palavra_chave">
+                                                    <input required type="text" class="form-control" name="palavra_chave">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Briefing</label>
                                                 <div class="col-md-9">
-                                                    <textarea rows="5" class="form-control border-input" placeholder="" name="briefing_tarefa"></textarea>
+                                                    <textarea required rows="5" class="form-control border-input" placeholder="" name="briefing_tarefa"></textarea>
 
                                                 </div>
                                             </div>
@@ -103,16 +103,17 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Persona</label>
                                                 <div class="col-md-4">
-                                                    <select class="form-control" name="id_persona">
-                                                        <?php
-                                                        $persona = personas::getByProjeto(1);
+                                                    <select class="form-control" name="id_persona" required>
+                                                        <?php if(empty($persona)): ?>
+                                                            <option value="" disabled selected>Nenhuma persona cadastrada!</option>
+                                                        <?php else:
                                                         foreach ($persona as $pers) {
                                                         ?>
                                                         
                                                         <option value="<?= $pers->id_persona ?>"><?= $pers->nome ?></option>
                                                         
                                                         <?php
-                                                        }
+                                                        } endif;
                                                         ?>
                                                     </select>
                                                 </div>
@@ -139,7 +140,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <div class="card-footer">
                                             <div class="form-group">
                                                 <div class="col-md-3 col-md-offset-2">
-                                                    <button type="submit" class="btn btn-wd btn-info btn-fill btn-magnify pull-left">
+                                                    <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify pull-left" id="salvaPauta">
                                                         <span class="btn-label">
                                                             <i class="ti-save"></i>
                                                         </span>
@@ -147,7 +148,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                                     </button>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right">
+                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="enviaAprovacaoPauta">
                                                         Enviar Aprovação
                                                         <span class="btn-label">
                                                             <i class="ti-control-forward"></i>
@@ -167,5 +168,5 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
-
+    
 </html>

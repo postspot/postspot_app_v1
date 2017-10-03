@@ -48,7 +48,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="#">
+                                        <a href="pautas.php">
                                             <div class="stats">
                                                 <i class="ti-eye"></i>  todas
                                             </div>
@@ -76,9 +76,11 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <div class="stats">
-                                            <i class="ti-eye"></i> Ver todos
-                                        </div>
+                                        <a href="conteudos.php">
+                                            <div class="stats">
+                                                <i class="ti-eye"></i> Ver todos
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -102,9 +104,11 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <div class="stats">
-                                            <i class="ti-timer"></i> Ver todos
-                                        </div>
+                                        <a href="conteudos.php">
+                                            <div class="stats">
+                                                <i class="ti-timer"></i> Ver todos
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -127,9 +131,11 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <div class="stats">
-                                            <i class="ti-eye"></i> Ver todos
-                                        </div>
+                                        <a href="conteudos.php">
+                                            <div class="stats">
+                                                <i class="ti-eye"></i> Ver todos
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -199,6 +205,15 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                             </div>
                         </div>
                         <?php 
+                            if(empty($tarefas)):?>
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="typo-line text-center">
+                                            <h2>Nenhuma pauta / conteúdo encontrado <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php else: 
                             foreach ($tarefas as $value): ?>
                             <div class="card-tarefa">
                                 <div class="row">
@@ -216,7 +231,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        <?php endforeach; endif;     ?>
                         <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
                             <i class="ti-plus"></i>
                         </a>
@@ -227,5 +242,11 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
-
+    
+    <script>
+    $(document).ready(function() {
+        
+    });
+    </script>
+    
 </html>

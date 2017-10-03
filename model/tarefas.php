@@ -105,7 +105,7 @@ class tarefas {
                 }
                 return $colunas;
 		} catch(PDOException $ex) {
-			return false;
+			echo $ex->getMessage();
 		}
 	}
 	public static function getConteudosDez($id, $limit) {

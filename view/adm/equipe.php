@@ -6,7 +6,7 @@ require_once '../../model/usuarios.php';
 require_once 'includes/header_padrao.php';
 
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
-$possiveis_menbros = usuarios::getMenosEscritores();
+$possiveis_menbros = usuarios::getMenosEscritores($_SESSION['id_projeto']);
 $qtd_escritores = usuarios::countRedatores();
 
 ?>
@@ -96,10 +96,10 @@ $qtd_escritores = usuarios::countRedatores();
                                                 <div class="row">
                                                     <div class="col-xs-4">
                                                         <div class="avatar">
-                                                            <img src="assets/img/faces/<?= $membro->foto_usuario ?>" alt="Foto do <?= $membro->nome_usuario ?>" class="img-circle img-no-padding img-responsive">
+                                                            <img src="../../uploads/usuarios/<?= $membro->foto_usuario ?>" alt="Foto do <?= $membro->nome_usuario ?>" class="img-circle img-no-padding img-responsive">
                                                         </div>
                                                     </div>
-                                                    <div class="col-xs-6">
+                                                    <div class="col-xs-8">
                                                         <h5><?= $membro->nome_usuario ?></h5>
                                                     </div>
                                                 </div>

@@ -79,14 +79,14 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
             if($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK){
                 $tmp_name = $_FILES["foto_usuario"]["tmp_name"];
                 $name = $_FILES["foto_usuario"]["name"];
-                move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                move_uploaded_file($tmp_name, "$uploads_dir/$obj->id_usuario-$name");
             }
             
-            resizePersonal("$uploads_dir/$name", $uploads_dir);
+            //resizePersonal("$uploads_dir/$obj->id_usuario-$name", $uploads_dir);
             
             
             
-            $obj->foto_usuario = $_FILES["foto_usuario"]["name"];
+            $obj->foto_usuario = $obj->id_usuario."-".$_FILES["foto_usuario"]["name"];
         }
         else{
             $obj->foto_usuario = "sem_foto.jpg";

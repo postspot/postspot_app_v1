@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 28-Set-2017 às 18:37
+-- Generation Time: 03-Out-2017 às 07:08
 -- Versão do servidor: 10.1.9-MariaDB
 -- PHP Version: 5.5.30
 
@@ -89,7 +89,11 @@ CREATE TABLE `equipes` (
 
 INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`, `id_projeto`) VALUES
 (1, '2017-09-23 03:00:00', 1),
-(2, '2017-09-23 03:00:00', 10);
+(2, '2017-09-23 03:00:00', 10),
+(3, '2017-09-29 05:00:47', 13),
+(4, '2017-10-03 04:11:38', 14),
+(5, '2017-10-03 04:18:18', 15),
+(6, '2017-10-03 04:25:18', 18);
 
 -- --------------------------------------------------------
 
@@ -99,6 +103,7 @@ INSERT INTO `equipes` (`id_equipe`, `cadastro_equipe`, `id_projeto`) VALUES
 
 CREATE TABLE `estrategias` (
   `id_estrategia` int(11) NOT NULL,
+  `data_criacao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `empresa` text,
   `site` varchar(45) DEFAULT NULL,
   `projeto` text,
@@ -128,8 +133,10 @@ CREATE TABLE `estrategias` (
 -- Extraindo dados da tabela `estrategias`
 --
 
-INSERT INTO `estrategias` (`id_estrategia`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`, `termos_proibidos`, `mapeamentos`) VALUES
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL);
+INSERT INTO `estrategias` (`id_estrategia`, `data_criacao`, `empresa`, `site`, `projeto`, `blog`, `produtos_servicos`, `links`, `objetivo_primario`, `kpis_primario`, `objetivo_secundario`, `kpis_secundario`, `concorrentes`, `com_quem_falar`, `com_quem_nao_falar`, `abordar`, `evitar`, `linguagem`, `links_ref`, `canais`, `acoes`, `consideracoes_gerais`, `projetos_id_projeto`, `termos_proibidos`, `mapeamentos`) VALUES
+(4, '2017-09-29 04:56:21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 10, NULL, NULL),
+(5, '2017-10-03 04:24:46', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 17, NULL, NULL),
+(6, '2017-10-03 04:25:18', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 18, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -204,12 +211,8 @@ CREATE TABLE `habilidades_usuario` (
 --
 
 INSERT INTO `habilidades_usuario` (`id_habilidade_usuario`, `habilidades_id_habilidade`, `usuarios_id_usuario`) VALUES
-(1, 4, 24),
-(2, 6, 24),
 (3, 1, 25),
 (4, 2, 25),
-(5, 1, 26),
-(6, 2, 26),
 (7, 1, 27),
 (8, 1, 28),
 (9, 1, 29),
@@ -275,15 +278,9 @@ INSERT INTO `idiomas_usuario` (`id_idiomas_usuario`, `idiomas_id_idioma`, `usuar
 (36, 1, 23),
 (37, 2, 23),
 (38, 5, 23),
-(39, 2, 24),
-(40, 3, 24),
-(41, 4, 24),
 (42, 1, 25),
 (43, 2, 25),
 (44, 3, 25),
-(45, 1, 26),
-(46, 2, 26),
-(47, 3, 26),
 (48, 2, 27),
 (49, 3, 27),
 (50, 1, 28),
@@ -337,22 +334,9 @@ CREATE TABLE `log_tarefas` (
   `etapa` varchar(1) DEFAULT NULL,
   `data_criacao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `data_prevista` timestamp NULL DEFAULT NULL,
-  `data_entregue` timestamp NULL DEFAULT NULL,
   `id_tarefa` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `log_tarefas`
---
-
-INSERT INTO `log_tarefas` (`id_log`, `status`, `etapa`, `data_criacao`, `data_prevista`, `data_entregue`, `id_tarefa`, `id_usuario`) VALUES
-(1, '0', '0', '2017-09-26 04:47:01', '2017-09-29 04:47:00', '0000-00-00 00:00:00', 12, 1),
-(2, '0', '1', '2017-09-26 04:47:01', '2017-10-01 04:47:00', '0000-00-00 00:00:00', 12, 1),
-(3, '0', '2', '2017-09-26 04:47:01', '2017-10-05 04:47:00', '0000-00-00 00:00:00', 12, 1),
-(4, '0', '3', '2017-09-26 04:47:01', '2017-10-06 04:47:00', '0000-00-00 00:00:00', 12, 1),
-(5, '0', '4', '2017-09-26 04:47:01', '2017-10-08 04:47:00', '0000-00-00 00:00:00', 12, 1),
-(6, '0', '5', '2017-09-26 04:47:01', NULL, '0000-00-00 00:00:00', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -365,6 +349,20 @@ CREATE TABLE `membros_equipe` (
   `id_equipe` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `membros_equipe`
+--
+
+INSERT INTO `membros_equipe` (`id_membros`, `id_equipe`, `id_usuario`) VALUES
+(1, 3, 5),
+(2, 3, 1),
+(3, 4, 5),
+(4, 4, 1),
+(5, 5, 5),
+(6, 5, 1),
+(7, 6, 5),
+(8, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -422,7 +420,13 @@ CREATE TABLE `projetos` (
 
 INSERT INTO `projetos` (`id_projeto`, `nome_projeto`, `cadastro_projeto`, `site_projeto`, `responsavel_projeto`) VALUES
 (1, 'projeto melhor compra', NULL, 'www', 6),
-(10, 'projeto', '2017-09-25 03:30:45', '13121', 1);
+(10, 'projeto', '2017-09-25 03:30:45', '13121', 1),
+(13, 'qwe', '2017-09-29 05:00:47', 'asd', 5),
+(14, '123', '2017-10-03 04:11:38', '321', 5),
+(15, 'projeto1', '2017-10-03 04:18:18', 'die', 5),
+(16, 'kkk', '2017-10-03 04:19:35', 'eqweqw', 5),
+(17, 'kkk', '2017-10-03 04:24:45', 'eqweqw', 5),
+(18, 'agora foi', '2017-10-03 04:25:18', 'chupa', 5);
 
 -- --------------------------------------------------------
 
@@ -460,22 +464,6 @@ CREATE TABLE `tarefas` (
   `id_tipo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `tarefas`
---
-
-INSERT INTO `tarefas` (`id_tarefa`, `data_criacao`, `nome_tarefa`, `palavra_chave`, `briefing_tarefa`, `estagio_compra`, `tipo_cta`, `referencias`, `consideracoes_gerais`, `id_persona`, `id_projeto`, `id_equipe`, `id_tipo`) VALUES
-(2, '2017-09-28 16:29:48', 'titulo', 'palavra chave', 'brif', 'Decisão de Compra', 'tip', 'ref', 'consi', 0, 1, 1, 1),
-(3, '2017-09-28 16:29:48', 'criar pauta', 'palavra', 'briefing', 'Consideração da Solução', 'cta', 'refs', 'consi', 0, 1, 1, 1),
-(5, '2017-09-28 16:29:48', 'criar pauta', 'palavra', 'briefing', 'Consideração da Solução', 'cta', 'refs', 'consi', 0, 10, 1, 1),
-(6, '2017-09-28 16:29:48', 'pauta', 'word', 'bri', 'Decisão de Compra', 'cta', 'ref', 'co', 0, 10, 1, 1),
-(7, '2017-09-28 16:29:48', 'pauta', 'word', 'bri', 'Decisão de Compra', 'cta', 'ref', 'co', 0, 10, 1, 1),
-(8, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
-(9, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
-(10, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
-(11, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1),
-(12, '2017-09-28 16:29:48', 'dasdas', 'adwdqd', 'weqeqw', 'Consideração da Solução', 'dasda', 'adsdas', 'sdads', 0, 10, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -492,7 +480,9 @@ CREATE TABLE `tipo_tarefa` (
 --
 
 INSERT INTO `tipo_tarefa` (`id_tipo`, `nome_tarefa`) VALUES
-(1, 'tipo1');
+(1, 'E-book'),
+(2, 'E-mail Marketing'),
+(3, 'Blog Post');
 
 -- --------------------------------------------------------
 
@@ -539,9 +529,7 @@ INSERT INTO `usuarios` (`id_usuario`, `nome_usuario`, `sexo_usuario`, `foto_usua
 (21, 'habilidouso', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
 (22, 'kkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
 (23, 'kkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
-(24, 'msdkamdlkasm', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
 (25, 'kkkk', 'm', NULL, '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
-(26, 'nome', 'm', 'IMG-20160915-WA0008.jpg', '0', 'nome@email.com', '202cb962ac59075b964b07152d234b70', NULL),
 (27, 'asdas', 'm', 'IMG-20161119-WA0020.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
 (28, 'qweqw', 'm', 'IMG-20160915-WA0008.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
 (29, 'adsasda', 'm', 'IMG-20161119-WA0020.jpg', '0', 'email@email.com', '202cb962ac59075b964b07152d234b70', NULL),
@@ -728,12 +716,12 @@ ALTER TABLE `comentarios`
 -- AUTO_INCREMENT for table `equipes`
 --
 ALTER TABLE `equipes`
-  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_equipe` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `estrategias`
 --
 ALTER TABLE `estrategias`
-  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_estrategia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `habilidades`
 --
@@ -768,12 +756,12 @@ ALTER TABLE `linguagens_estrategia`
 -- AUTO_INCREMENT for table `log_tarefas`
 --
 ALTER TABLE `log_tarefas`
-  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `membros_equipe`
 --
 ALTER TABLE `membros_equipe`
-  MODIFY `id_membros` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_membros` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `personas`
 --
@@ -783,7 +771,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT for table `projetos`
 --
 ALTER TABLE `projetos`
-  MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT for table `publicacoes`
 --
@@ -798,7 +786,7 @@ ALTER TABLE `tarefas`
 -- AUTO_INCREMENT for table `tipo_tarefa`
 --
 ALTER TABLE `tipo_tarefa`
-  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `usuarios`
 --
@@ -812,95 +800,95 @@ ALTER TABLE `usuarios`
 -- Limitadores para a tabela `anexos`
 --
 ALTER TABLE `anexos`
-  ADD CONSTRAINT `fk_anexos_membros_equipe1` FOREIGN KEY (`id_responsavel`) REFERENCES `membros_equipe` (`id_membros`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_anexos_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_anexos_membros_equipe1` FOREIGN KEY (`id_responsavel`) REFERENCES `membros_equipe` (`id_membros`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_anexos_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `categorias_estrategia`
 --
 ALTER TABLE `categorias_estrategia`
-  ADD CONSTRAINT `fk_categorias_estrategia_categorias1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_categorias_estrategia_estrategias1` FOREIGN KEY (`id_estrategia`) REFERENCES `estrategias` (`id_estrategia`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_categorias_estrategia_categorias1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias` (`id_categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_categorias_estrategia_estrategias1` FOREIGN KEY (`id_estrategia`) REFERENCES `estrategias` (`id_estrategia`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `comentarios`
 --
 ALTER TABLE `comentarios`
-  ADD CONSTRAINT `fk_comentarios_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_comentarios_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_comentarios_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_comentarios_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `equipes`
 --
 ALTER TABLE `equipes`
-  ADD CONSTRAINT `fk_equipes_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_equipes_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `estrategias`
 --
 ALTER TABLE `estrategias`
-  ADD CONSTRAINT `fk_estrategias_projetos1` FOREIGN KEY (`projetos_id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_estrategias_projetos1` FOREIGN KEY (`projetos_id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `habilidades_usuario`
 --
 ALTER TABLE `habilidades_usuario`
-  ADD CONSTRAINT `fk_habilidades_usuario_habilidades1` FOREIGN KEY (`habilidades_id_habilidade`) REFERENCES `habilidades` (`id_habilidade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_habilidades_usuario_usuarios1` FOREIGN KEY (`usuarios_id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_habilidades_usuario_habilidades1` FOREIGN KEY (`habilidades_id_habilidade`) REFERENCES `habilidades` (`id_habilidade`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_habilidades_usuario_usuarios1` FOREIGN KEY (`usuarios_id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `idiomas_usuario`
 --
 ALTER TABLE `idiomas_usuario`
-  ADD CONSTRAINT `fk_idiomas_usuario_idiomas1` FOREIGN KEY (`idiomas_id_idioma`) REFERENCES `idiomas` (`id_idioma`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_idiomas_usuario_usuarios1` FOREIGN KEY (`usuarios_id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_idiomas_usuario_idiomas1` FOREIGN KEY (`idiomas_id_idioma`) REFERENCES `idiomas` (`id_idioma`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_idiomas_usuario_usuarios1` FOREIGN KEY (`usuarios_id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `linguagens_estrategia`
 --
 ALTER TABLE `linguagens_estrategia`
-  ADD CONSTRAINT `fk_linguagens_estrategia_estrategias1` FOREIGN KEY (`id_estrategia`) REFERENCES `estrategias` (`id_estrategia`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_linguagens_estrategia_linguagens1` FOREIGN KEY (`id_linguagem`) REFERENCES `linguagens` (`id_linguagem`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_linguagens_estrategia_estrategias1` FOREIGN KEY (`id_estrategia`) REFERENCES `estrategias` (`id_estrategia`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_linguagens_estrategia_linguagens1` FOREIGN KEY (`id_linguagem`) REFERENCES `linguagens` (`id_linguagem`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `log_tarefas`
 --
 ALTER TABLE `log_tarefas`
-  ADD CONSTRAINT `fk_log_tarefas_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_log_tarefas_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_log_tarefas_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_log_tarefas_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `membros_equipe`
 --
 ALTER TABLE `membros_equipe`
-  ADD CONSTRAINT `fk_membro_equipe_equipes1` FOREIGN KEY (`id_equipe`) REFERENCES `equipes` (`id_equipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_membro_equipe_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_membro_equipe_equipes1` FOREIGN KEY (`id_equipe`) REFERENCES `equipes` (`id_equipe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_membro_equipe_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `personas`
 --
 ALTER TABLE `personas`
-  ADD CONSTRAINT `fk_personas_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_personas_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `projetos`
 --
 ALTER TABLE `projetos`
-  ADD CONSTRAINT `fk_projetos_usuarios` FOREIGN KEY (`responsavel_projeto`) REFERENCES `usuarios` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_projetos_usuarios` FOREIGN KEY (`responsavel_projeto`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `publicacoes`
 --
 ALTER TABLE `publicacoes`
-  ADD CONSTRAINT `fk_publicacoes_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_publicacoes_tarefas1` FOREIGN KEY (`id_tarefa`) REFERENCES `tarefas` (`id_tarefa`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Limitadores para a tabela `tarefas`
 --
 ALTER TABLE `tarefas`
-  ADD CONSTRAINT `fk_tarefas_equipes1` FOREIGN KEY (`id_equipe`) REFERENCES `equipes` (`id_equipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tarefas_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tarefas_tipo_tarefa1` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_tarefa` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tarefas_equipes1` FOREIGN KEY (`id_equipe`) REFERENCES `equipes` (`id_equipe`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_tarefas_projetos1` FOREIGN KEY (`id_projeto`) REFERENCES `projetos` (`id_projeto`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_tarefas_tipo_tarefa1` FOREIGN KEY (`id_tipo`) REFERENCES `tipo_tarefa` (`id_tipo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

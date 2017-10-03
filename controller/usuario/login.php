@@ -15,14 +15,14 @@ if (isset($_POST['campo_login']) && isset($_POST['campo_senha'])) {
 }
 else{
     session_destroy();
-    header('location: ../../view/adm/index.php?erro=loginerror');
+    header('location: ../../view/adm/index.php?erro=sessao3');
 }
 
 $usuario = usuarios::login($login_usuario, md5($senha_usuario));
 
 if ($usuario == null) {
     session_destroy();
-    header('location: ../../view/adm/index.php?erro=loginerror');
+    header('location: ../../view/adm/index.php?erro=sessao3');
 } 
 
 else {
@@ -36,8 +36,6 @@ else {
         header('location: ../../view/adm/lista_projetos.php');
     }else{
         $projeto = projetos::getByUsuario($usuario->id_usuario);
-        /*pre_r($projeto);
-        die();*/
         if ( empty($projeto)  ||  $projeto == "" ||  $projeto == NULL){
             header('location: ../../view/adm/index.php?erro=sessao4');
         }else{

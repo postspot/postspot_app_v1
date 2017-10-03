@@ -14,9 +14,8 @@ if (isset($_SESSION['HTTP_USER_AGENT'])) {
     header('location: ../../view/adm/index.php?erro=sessao2');
 }
     
-    
 if(!isset($_SESSION['id_usuario'])){
-    header('location: ../../view/adm/index.php?erro=sessao3');
+    header('location: ../../view/adm/index.php?erro=sessao2');
 }
 
 if(isset($_GET["p"])){

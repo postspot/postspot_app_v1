@@ -89,7 +89,7 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
             $obj->foto_usuario = $_FILES["foto_usuario"]["name"];
         }
         else{
-            $obj->foto_usuario = "sem_foto.png";
+            $obj->foto_usuario = "sem_foto.jpg";
         }
             
         

@@ -229,8 +229,8 @@ margin-top: 5px;
 }
 .card-membro i{
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
     font-size: 1.5em;
     color: #eb5e28;
     cursor: pointer;

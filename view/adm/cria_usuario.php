@@ -69,6 +69,7 @@ $idiomas = idiomas::getAllIdiomas();
                                                         <option value="1">Analista</option>
                                                         <option value="2">Redator</option>
                                                         <option value="3">Cliente</option>
+                                                        <option value="4">Designer</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -117,13 +118,13 @@ $idiomas = idiomas::getAllIdiomas();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Senha</label>
-                                                    <input type="text" class="form-control border-input" name="senha_usuario">
+                                                    <input type="password" class="form-control border-input" name="senha_usuario">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Confirmar Senha</label>
-                                                    <input type="text" class="form-control border-input" name="confirmacao">
+                                                    <input type="password" class="form-control border-input" name="confirmacao">
                                                 </div>
                                             </div>
 

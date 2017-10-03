@@ -142,15 +142,19 @@ class usuarios {
 				}
 			}
 
-	public static function getMenosEscritores() {
+	public static function getMenosEscritores($equipe) {
 		
 		try {
-		$stmt = Conexao::getInstance()->prepare("SELECT us.id_usuario, us.nome_usuario, us.funcao_usuario"
+		/*$stmt = Conexao::getInstance()->prepare("SELECT us.id_usuario, us.nome_usuario, us.funcao_usuario"
 				. " FROM usuarios us"
 				. " left JOIN membros_equipe me"
 				. " ON( us.id_usuario = me.id_usuario)"
-				. " WHERE us.funcao_usuario <> 2 AND me.id_usuario is null");
+				. " WHERE us.funcao_usuario <> 2 AND me.id_usuario is null");*/
 
+			$stmt = Conexao::getInstance()->prepare("select DISTINCT(u.id_usuario), u.nome_usuario from usuarios u inner join membros_equipe m WHERE
+			u.funcao_usuario != 2 and u.id_usuario not in (SELECT me.id_usuario from membros_equipe me WHERE me.id_equipe = :id_equipe)");
+
+			$stmt->bindParam(":id_equipe", $equipe);
 			$stmt->execute();
 			$colunas = array();
 			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
@@ -209,7 +213,8 @@ class usuarios {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
+			//return false;
 		}
 	}
 }

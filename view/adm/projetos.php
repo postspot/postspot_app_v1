@@ -53,7 +53,7 @@ foreach ($clientes as $cliente) {
                                                             <?= date("d", strtotime($projeto->cadastro_projeto)) ?>, <?= mesEscrito($projeto->cadastro_projeto) ?> <?= date("Y", strtotime($projeto->cadastro_projeto)) ?>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <a href="dashboard.php" class="btn btn-sm btn-info btn-icon">Acessar Projeto <i class="fa fa-search"></i></a>
+                                                            <a href="dashboard.php?p=<?= $projeto->id_projeto ?>" class="btn btn-sm btn-info btn-icon">Acessar Projeto <i class="fa fa-search"></i></a>
                                                             <btn type="button" onclick="deletaProjeto('<?= $projeto->id_projeto ?>',this);" class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></btn>
                                                         </div>
                                                     </div>

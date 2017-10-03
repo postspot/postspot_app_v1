@@ -92,9 +92,17 @@ $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10);
                         </div>
 
                         <?php 
-                        foreach ($conteudos as $value) {
-                        ?>
-                        <div class="card-tarefa">
+                            if(empty($tarefas)):?>
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="typo-line text-center">
+                                            <h2>Nenhum conteúdo encontrado! <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php else: 
+                            foreach ($tarefas as $value): ?>
+                            <div class="card-tarefa">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <p><?= $value->nome_tarefa ?></p>
@@ -110,9 +118,7 @@ $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10);
                                 </div>  
                             </div>
                         </div>
-                        <?php
-                        }
-                        ?>
+                        <?php endforeach; endif;     ?>
                     </div>
 
                     <a href="cria_pauta.php" class="btn btn-icon btn-fixed">

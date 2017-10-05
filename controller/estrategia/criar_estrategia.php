@@ -24,7 +24,10 @@ $links_ref = $_POST["links_ref"];
 $acoes = $_POST["acoes"];
 $consideracoes_gerais = $_POST["consideracoes_gerais"];
 $termos_proibidos = $_POST["termos_proibidos"];
-$mapeamentos = $_POST["mapeamentos"];
+$mapeamentos_aprendizado = $_POST["mapeamentos_aprendizado"];
+$mapeamentos_reconhecimento = $_POST["mapeamentos_reconhecimento"];
+$mapeamentos_consideracoes = $_POST["mapeamentos_consideracoes"];
+$mapeamentos_decisao = $_POST["mapeamentos_decisao"];
 //tratando os select
 $kpis_primario = empty($_POST["kpis_primario"]) ? 0 : $_POST["kpis_primario"];
 $kpis_secundario = empty($_POST["kpis_secundario"]) ? 0 : $_POST["kpis_secundario"] ;
@@ -70,7 +73,10 @@ if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) &&
 		$obj->consideracoes_gerais = $consideracoes_gerais;
 		$obj->projetos_id_projeto = $id_projeto; 
 		$obj->termos_proibidos = $termos_proibidos;
-		$obj->mapeamentos = $mapeamentos;         
+		$obj->mapeamentos_aprendizado = $mapeamentos_aprendizado;         
+		$obj->mapeamentos_reconhecimento = $mapeamentos_reconhecimento;         
+		$obj->mapeamentos_consideracoes = $mapeamentos_consideracoes;         
+		$obj->mapeamentos_decisao = $mapeamentos_decisao;         
 		
 		if(empty($estrategia)):
 			if(estrategias::insert($obj)){
@@ -111,7 +117,7 @@ if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) &&
     else {
         header('Location: ../../view/adm/estrategia.php?retorno=falha1');
     }
-} 
+}
 else {
     header('Location: ../../view/adm/estrategia.php?retorno=falha2');
 }

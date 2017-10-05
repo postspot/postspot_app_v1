@@ -6,6 +6,7 @@ require_once 'includes/header_padrao.php';
 /*pre_r($projeto);
 die();*/
 $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
+
 ?>
 <html lang="pt-br">
     <head>
@@ -41,7 +42,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Pautas</p>
-                                                    <?= tarefas::countTarefasProjeto($_SESSION['id_projeto']) ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 4') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,7 +69,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Produzindo</p>
-                                                    <?= tarefas::countTarefasProjetoStatus($_SESSION['id_projeto'], "=") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 4") ?>
                                                     
                                                 </div>
                                             </div>
@@ -124,7 +125,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Publicados</p>
-                                                    <?= tarefas::countTarefasProjetoStatus($_SESSION['id_projeto'], "!=") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 9") ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -198,10 +199,10 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                 <p class="title"><strong>Pautas em geral</strong></p>
                             </div>
                             <div class="col-lg-2">
-                                <p>Aprovado em:</p>
+                                <p>Status:</p>
                             </div>
                             <div class="col-lg-2">
-                                Recebido em:
+                                Data Previsão:
                             </div>
                         </div>
                         <?php 
@@ -214,20 +215,20 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                     </div>
                                 </div>
                             <?php else: 
-                            foreach ($tarefas as $value): ?>
+                            foreach ($tarefas as $tarefa): ?>
                             <div class="card-tarefa">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p> <?= $value->nome_tarefa ?></p>
+                                        <p> <?= $tarefa->nome_tarefa ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p></p>
+                                        <p><?= retornaStatusTarefa($tarefa->etapa) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p><?= $value->data_criacao ?></p>
+                                        <p><?= date('d/m/Y', strtotime($tarefa->data_prevista)) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="detalhes_conteudo.php?t=<?= $value->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                        <a href="detalhes_conteudo.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
                                     </div>
                                 </div>
                             </div>

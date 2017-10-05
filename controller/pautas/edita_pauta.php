@@ -55,9 +55,9 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_salvo->id_tarefa = $id_tarefa;
                 $novo_log_salvo->id_usuario = $id_usuario;
                 if(log_tarefas::insert($novo_log_salvo)){
-                    header('Location: ../../view/adm/pautas.php?retorno=ok');
+                    header('Location: ../../view/adm/pautas.php?retorno=nOk');
                 }else{
-                    header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
+                    header('Location: ../../view/adm/detalhes_pauta.php?t='.$id_tarefa.'&retorno=nErro');
                 }
             }else{ // Senão, ja cria dois log´s
                 
@@ -70,9 +70,9 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_aprovacao->id_usuario = $id_usuario;
             
                 if(log_tarefas::insert($novo_log_aprovacao)){
-                    header('Location: ../../view/adm/pautas.php?retorno=ok');
+                    header('Location: ../../view/adm/pautas.php?retorno=naOk');
                 }else{
-                    header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
+                    header('Location: ../../view/adm/detalhes_pauta.php?t='.$id_tarefa.'&retorno=nErro');
                 }
             }
         }else{
@@ -80,9 +80,9 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         }
     }
     else {
-        header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
+        header('Location: ../../view/adm/detalhes_pauta.php?t='.$id_tarefa.'&retorno=nErro');
     }
 }
 else {
-    header('Location: ../../view/adm/cria_pauta.php?retorno=erro');
+    header('Location: ../../view/adm/detalhes_pauta.php?t='.$id_tarefa.'&retorno=nErro');
 }

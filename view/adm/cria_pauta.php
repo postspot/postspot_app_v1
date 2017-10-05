@@ -172,6 +172,11 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
     
     <script>
     $(document).ready(function () {
+        
+        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'nErro') { ?>
+            funcoes.showNotification(0,4,'<b>Erro</b> - erro ao criar pauta.');
+        <?php } ?>
+
         $("#salvaPauta").click(function (e) { 
             e.preventDefault();
             $("#controlaAprovacao").val('0');

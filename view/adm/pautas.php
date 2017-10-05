@@ -129,4 +129,16 @@ $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
 
     <?php require_once './includes/footer_imports.php'; ?>
 
+    <script>
+        $(document).ready(function() {              
+            <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta aprovada.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta salva.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta enviada para aprovação.');
+            <?php } ?>
+        });
+         
+    </script>
 </html>

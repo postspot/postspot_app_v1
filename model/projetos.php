@@ -105,11 +105,12 @@ class projetos {
 		. " WHERE me.id_usuario = :id");
 
 		$stmt->bindParam(":id", $id);
-		 $stmt->execute();
+		$stmt->execute();
+		$colunas = array();
 		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-			return $row;
+			array_push($colunas, $row);
 		}
-			
+		return $colunas;	
 		} catch(PDOException $ex) {
 			echo $ex->getMessage();
 		}

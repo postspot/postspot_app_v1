@@ -13,13 +13,12 @@ class publicacoes {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO publicacoes (id_publicacao, texto_publicacao, status_publicacao, data_criacao, id_tarefa)
- VALUES(:id_publicacao, :texto_publicacao, :status_publicacao, :data_criacao, :id_tarefa);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO publicacoes (id_publicacao, texto_publicacao, status_publicacao, id_tarefa)
+ VALUES(:id_publicacao, :texto_publicacao, :status_publicacao, :id_tarefa);");
 
 		$stmt->bindParam(":id_publicacao", $obj->id_publicacao);
 		$stmt->bindParam(":texto_publicacao", $obj->texto_publicacao);
 		$stmt->bindParam(":status_publicacao", $obj->status_publicacao);
-		$stmt->bindParam(":data_criacao", $obj->data_criacao);
 		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
 
 		$stmt->execute(); 
@@ -76,17 +75,17 @@ class publicacoes {
 			 try {
 				$stmt = Conexao::getInstance()->prepare("SELECT * "
 				. " FROM publicacoes WHERE id_tarefa = :id "
-				. " ORDER BY data_criacao");
+				. " ORDER BY data_criacao DESC LIMIT 1");
 		
 				$stmt->bindParam(":id", $id);
-				 $stmt->execute();
-					$colunas = array();
-					while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
-						return $row;
-					}
-					return false;
-				} catch(PDOException $ex) {
+				$stmt->execute();
+				$colunas = array();
+				while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+					return $row->texto_publicacao;
+				}
 				return false;
+				} catch(PDOException $ex) {
+					echo $ex->getMessage();
 				}
 			}
 

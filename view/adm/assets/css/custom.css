@@ -247,3 +247,9 @@ margin-top: 5px;
 .fill-up{
     width: 100%;
 }
+.margem{
+    margin-bottom: 15px;
+}
+.min-height{
+    min-height: 500px;
+}

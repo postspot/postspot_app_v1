@@ -64,12 +64,14 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
                 </a>
             </li>
 
-            <li class="<?= $detalhe_pagina == "documentos.php" ? "active" : "" ?>">
-                <a href="documentos.php">
-                    <i class="ti-files"></i>
-                    <p>Documentos</p>
-                </a>
-            </li>
+            <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
+                <li class="<?= $detalhe_pagina == "documentos.php" ? "active" : "" ?>">
+                    <a href="documentos.php">
+                        <i class="ti-files"></i>
+                        <p>Documentos</p>
+                    </a>
+                </li>
+            <?php endif;?>
 
             <li class="<?= $detalhe_pagina == "estrategia.php" ? "active" : "" ?>">
                 <a href="estrategia.php">

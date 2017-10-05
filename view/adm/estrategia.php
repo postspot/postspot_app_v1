@@ -283,7 +283,23 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Mapeamentos de conteúdo</label>
-                                                        <textarea class="form-control" rows="3"  name="mapeamentos"><?= $estrategia->mapeamentos ?></textarea>
+                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Aprendizado</p>
+                                                        <textarea class="form-control" rows="3"  name="mapeamentos_aprendizado"><?= $estrategia->mapeamentos_aprendizado ?></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mapeamentos de conteúdo</label>
+                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Reconhecimento</p>
+                                                        <textarea class="form-control" rows="3"  name="mapeamentos_reconhecimento"><?= $estrategia->mapeamentos_reconhecimento ?></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mapeamentos de conteúdo</label>
+                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Considerações</p>
+                                                        <textarea class="form-control" rows="3"  name="mapeamentos_consideracoes"><?= $estrategia->mapeamentos_consideracoes ?></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Mapeamentos de conteúdo</label>
+                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Decisão</p>
+                                                        <textarea class="form-control" rows="3"  name="mapeamentos_decisao"><?= $estrategia->mapeamentos_decisao ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <button type="submit" class="btn btn-fill btn-success pull-right">Salvar</button>

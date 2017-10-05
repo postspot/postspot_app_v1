@@ -51,22 +51,24 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                     <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control" value="<?= $tarefa->nome_tarefa ?>">
                                                 </div>
                                                 <?php if($tarefa->etapa == 1): ?>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right pull-right" id="reprovaPauta">
-                                                            Reprovar
-                                                            <span class="btn-label">
-                                                                <i class="ti-control-forward"></i>
-                                                            </span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="aprovaPauta">
-                                                            Aprovar
-                                                            <span class="btn-label">
-                                                                <i class="ti-control-forward"></i>
-                                                            </span>
-                                                        </button>
-                                                    </div>
+                                                    <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right pull-right" id="reprovaPauta">
+                                                                Reprovar
+                                                                <span class="btn-label">
+                                                                    <i class="ti-control-forward"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="aprovaPauta">
+                                                                Aprovar
+                                                                <span class="btn-label">
+                                                                    <i class="ti-control-forward"></i>
+                                                                </span>
+                                                            </button>
+                                                        </div>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
                                             </div>
                                             <div class="form-group">
@@ -161,26 +163,28 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <div class="form-group">
-                                                <div class="col-md-3 col-md-offset-2">
-                                                    <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify pull-left" id="salvaPauta">
-                                                        <span class="btn-label">
-                                                            <i class="ti-save"></i>
-                                                        </span>
-                                                        Salvar
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="enviaAprovacaoPauta">
-                                                        Enviar Aprovação
-                                                        <span class="btn-label">
-                                                            <i class="ti-control-forward"></i>
-                                                        </span>
-                                                    </button>
+                                        <?php if($tarefa->etapa != 1): ?>
+                                            <div class="card-footer">
+                                                <div class="form-group">
+                                                    <div class="col-md-3 col-md-offset-2">
+                                                        <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify pull-left" id="salvaPauta">
+                                                            <span class="btn-label">
+                                                                <i class="ti-save"></i>
+                                                            </span>
+                                                            Salvar
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="enviaAprovacaoPauta">
+                                                            Enviar Aprovação
+                                                            <span class="btn-label">
+                                                                <i class="ti-control-forward"></i>
+                                                            </span>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                     </form>
                                 </div>
                             </div>
@@ -195,6 +199,11 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
     
     <script>
     $(document).ready(function () {
+
+        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'nErro') { ?>
+            funcoes.showNotification(0,4,'<b>Erro</b> - erro ao salvar pauta.');
+        <?php } ?>
+
         $("#salvaPauta").click(function (e) { 
             e.preventDefault();
             $("#formEditaPauta").attr('action', '../../controller/pautas/edita_pauta.php');

@@ -4,7 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/projetos.php';
 require_once 'includes/header_padrao.php';
 
-$projetos = projetos::getAll();
+$projetos = projetos::getByUsuario($_SESSION['id_usuario']);
 ?>
 <html lang="pt-br">
     <head>

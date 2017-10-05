@@ -31,19 +31,18 @@ else {
     $_SESSION['nome_usuario'] = $usuario->nome_usuario;
     $_SESSION['foto_usuario'] = $usuario->foto_usuario;
     
-    if ($usuario->funcao_usuario == 0) {
-        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
-        header('location: ../../view/adm/lista_projetos.php');
+    $projeto = projetos::getByUsuario($usuario->id_usuario);
+    if ( empty($projeto)  ||  $projeto == "" ||  $projeto == NULL){
+        header('location: ../../view/adm/index.php?erro=sessao4');
     }else{
-        $projeto = projetos::getByUsuario($usuario->id_usuario);
-        if ( empty($projeto)  ||  $projeto == "" ||  $projeto == NULL){
-            header('location: ../../view/adm/index.php?erro=sessao4');
-        }else{
-            $_SESSION['id_projeto'] = $projeto->id_projeto;
-            $_SESSION['nome_projeto'] = $projeto->nome_projeto;
-            $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+        $_SESSION['HTTP_USER_AGENT'] = md5($_SERVER['HTTP_USER_AGENT']);
+        if(count($projeto) > 1):
+            header('location: ../../view/adm/lista_projetos.php');
+        else:
+            $_SESSION['id_projeto'] = $projeto[0]->id_projeto;
+            $_SESSION['nome_projeto'] = $projeto[0]->nome_projeto;
             header('location: ../../view/adm/dashboard.php');
-        }
+        endif;
     }
     
 }

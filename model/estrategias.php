@@ -78,13 +78,19 @@ class estrategias {
 				   . " canais = :canais , "
 				   . " acoes = :acoes , "
 				   . " termos_proibidos = :termos_proibidos , "
-				   . " mapeamentos = :mapeamentos , "
+				   . " mapeamentos_aprendizado = :mapeamentos_aprendizado , "
+				   . " mapeamentos_reconhecimento = :mapeamentos_reconhecimento , "
+				   . " mapeamentos_consideracoes = :mapeamentos_consideracoes , "
+				   . " mapeamentos_decisao = :mapeamentos_decisao , "
 				   . " consideracoes_gerais = :consideracoes_gerais , "
 				   . " projetos_id_projeto = :projetos_id_projeto  "
 				   . " WHERE id_estrategia = :id_estrategia ");
 
+				   $stmt->bindParam(":mapeamentos_aprendizado", $obj->mapeamentos_aprendizado);
+				   $stmt->bindParam(":mapeamentos_reconhecimento", $obj->mapeamentos_reconhecimento);
+				   $stmt->bindParam(":mapeamentos_consideracoes", $obj->mapeamentos_consideracoes);
+				   $stmt->bindParam(":mapeamentos_decisao", $obj->mapeamentos_decisao);
 				   $stmt->bindParam(":termos_proibidos", $obj->termos_proibidos);
-				   $stmt->bindParam(":mapeamentos", $obj->mapeamentos);
 					$stmt->bindParam(":id_estrategia", $obj->id_estrategia);
 					$stmt->bindParam(":empresa", $obj->empresa);
 					$stmt->bindParam(":site", $obj->site);

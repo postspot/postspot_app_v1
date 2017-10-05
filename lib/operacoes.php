@@ -173,16 +173,13 @@ function retornaDataPrevista($aux){
         case 5: // Conteúdo enviado para aprovação
             return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
             break;
-        case 6: // Conteúdo aprovado
+        case 6: // Conteúdo reprovado
             return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
             break;
-        case 7: // Conteúdo reprovado
-            return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
-            break;
-        case 8: // Ajustes do conteúdo
+        case 7: // Ajustes do conteúdo
             return date('Y-m-d H:i:s', strtotime("+15 days",strtotime($date)));
             break;
-        case 9: // Conteúdo publicado
+        case 8: // Conteúdo publicado
             return date('Y-m-d H:i:s', strtotime("+17 days",strtotime($date)));
             break;
         default:
@@ -210,16 +207,13 @@ function retornaStatusTarefa($status){
         case 5: // Conteúdo enviado para aprovação
             return 'Aguardando Aprovação Conteúdo';
             break;
-        case 6: // Conteúdo aprovado
-            return 'Conteúdo Aprovado';
-            break;
-        case 7: // Conteúdo reprovado
+        case 6: // Conteúdo reprovado
             return 'Conteúdo Reprovado';
             break;
-        case 8: // Ajustes do conteúdo
+        case 7: // Ajustes do conteúdo
             return 'Ajustando Conteúdo';
             break;
-        case 9: // Conteúdo publicado
+        case 8: // Conteúdo publicado
             return 'Conteúdo Publicado';
             break;
         default:

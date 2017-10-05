@@ -17,19 +17,15 @@ if(!isset($_GET["t"])){
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa);
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $tarefa = tarefas::getById($id_tarefa);
-$persona = personas::getById(2);
+$persona = personas::getById($tarefa->id_persona);
 $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
+/*pre_r($conteudo);
+die();*/
 foreach ($referencias_banco as $referencia):
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
 endforeach;
-//etapa da tarefa
-$dados_tarefa = log_tarefas::getEtapaAtual($id_tarefa);
-$status_tarefa = $dados_tarefa->etapa;
-if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
-    $status_tarefa = $status_tarefa + 1; 
-}
 ?>
 <html lang="pt-br">
     <head>
@@ -73,19 +69,28 @@ if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
                                             <div class="nav-tabs-wrapper">
                                                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                                                     <li class="active"><a href="#conteudo" data-toggle="tab">Conteúdo</a></li>
-                                                    <li><a href="#ajuste" data-toggle="tab">Ajuste</a></li>
+                                                    <?php if($_SESSION['funcao_usuario'] != 3):?>
+                                                        <li><a href="#ajuste" data-toggle="tab">Ajuste</a></li>
+                                                    <?php endif;?>
                                                     <li><a href="#pauta" data-toggle="tab">Pauta</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div id="my-tab-content" class="tab-content text-center">
-                                            <div class="tab-pane pane-pauta active" id="conteudo">
-                                                <?= $conteudo->texto_publicacao?>
+                                            <div class="tab-pane pane-pauta min-height active" id="conteudo">
+                                                <?= (empty($conteudo)) ? '' : $conteudo?>
                                             </div>
-                                            <div class="tab-pane pane-pauta" id="ajuste">
-                                                <div id="summernote"><?= $conteudo->texto_publicacao?></div>
-                                                <button class="btn btn-success btn-fill" id="salvaConteudo">Salvar Conteúdo</button>
-                                            </div>
+                                            <?php if($_SESSION['funcao_usuario'] != 3):?>
+                                                <div class="tab-pane pane-pauta min-height" id="ajuste">
+                                                    <form action="../../controller/conteudo/envia_aprovacao.php" method="post" enctype="multipart/form-data" id="formConteudo">
+                                                        <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                        <input type="hidden" name="aprovacao" id="controleCriacao">
+                                                        <textarea name="texto_publicacao" id="summernote"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
+                                                        <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
+                                                        <button class="btn btn-success btn-fill" type="button" id="enviarAprovacao">Enviar Aprovação</button>
+                                                    </form>
+                                                </div>
+                                            <?php endif;?>
                                             <div class="tab-pane pane-pauta" id="pauta">
                                                 <h1><?= $tarefa->nome_tarefa ?></h1>
                                                 <hr>
@@ -152,6 +157,33 @@ if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
                             <!--Menu Lateral-->
                             <div class="col-md-4">
 
+                                <?php if(($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 3)
+                                        && ($tarefa->etapa == 5 || $tarefa->etapa == 6) ):?>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Ação necessaria <?= $tarefa->etapa?></h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <?php if($tarefa->etapa == 4 || $tarefa->etapa == 5):?>
+                                            <form id="formAprovaConteudo" action="" method="post">
+                                                <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnAprovaConteudo">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-check"></i>
+                                                    </span>
+                                                    Aprovar conteúdo
+                                                </button>
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnReprovaConteudo">
+                                                    <span class="btn-label">
+                                                        <i class="fa fa-check"></i>
+                                                    </span>
+                                                    Reprovar conteúdo
+                                                </button>
+                                            </form>
+                                        <?php endif;?>
+                                    </div>
+                                </div>
+                                <?php endif;?>
                                 <div class="card card-chat">
                                     <div class="card-header">
                                         <h4 class="card-title">Cometários</h4>
@@ -242,7 +274,7 @@ if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
     <script>
         $(document).ready(function () {
             $('#summernote').summernote({
-                height: 300,
+                height: 400,
                 toolbar: [
                     ['style', ['bold', 'italic', 'underline', 'clear']],
                     ['fontsize', ['fontsize', 'fontname']],
@@ -302,39 +334,29 @@ if($dados_tarefa->data != "0000-00-00 00:00:00" && $dados_tarefa->etapa < 6){
                     }
                 });
             });
-
+            
+            $("#enviarAprovacao").click(function (e) { 
+                e.preventDefault();
+                $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
+                $("#controleCriacao").val(1);
+                $("#formConteudo").submit();
+            });
             $("#salvaConteudo").click(function (e) { 
                 e.preventDefault();
-                var code = $("#summernote").summernote('code');
-                
-                var dados = {texto_publicacao: code, id_tarefa: <?= $id_tarefa ?>};
-
-                $.ajax({
-                    url: "../../controller/publicacoes/insere_publicacao.php",
-                    type: "POST",
-                    dataType: "json",
-                    async: true,
-                    data: dados,
-                    timeout: 15000,
-                    success: function (data) {
-                        console.log(JSON.stringify(data));
-                        if(data == 'true'){
-                            alert('Deu certo');
-                        }else{
-                            swal({
-                              title: 'Erro!',
-                              text: 'Comentário não enviado.',
-                              type: 'error',
-                              confirmButtonClass: "btn btn-info btn-fill",
-                              buttonsStyling: false
-                              })
-                        }
-                    },
-                    error: function (x, t, m) {
-                        alert('Tempo esgotado');
-                        console.log(JSON.stringify(x));
-                    }
-                });
+                $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
+                $("#controleCriacao").val(0);
+                $("#formConteudo").submit();
+            });
+            
+            $("#btnAprovaConteudo").click(function (e) { 
+                e.preventDefault();
+                $("#formAprovaConteudo").attr('action', '../../controller/conteudo/aprova_conteudo.php');
+                $("#formAprovaConteudo").submit();
+            });
+            $("#salvaConteudo").click(function (e) { 
+                e.preventDefault();
+                $("#formAprovaConteudo").attr('action', '../../controller/conteudo/reprova_conteudo.php');
+                $("#formAprovaConteudo").submit();
             });
         });
     </script>

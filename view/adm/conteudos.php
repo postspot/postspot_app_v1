@@ -84,15 +84,15 @@ $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10);
                                 <p class="title"><strong>Conteúdos</strong> para publicar</p>
                             </div>
                             <div class="col-lg-2">
-                                <p>Aprovado em:</p>
+                                <p>Status:</p>
                             </div>
                             <div class="col-lg-2">
-                                Recebido em:
+                                Data Previsão:
                             </div>
                         </div>
 
                         <?php 
-                            if(empty($tarefas)):?>
+                            if(empty($conteudos)):?>
                                 <div class="card">
                                     <div class="card-content">
                                         <div class="typo-line text-center">
@@ -101,20 +101,20 @@ $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10);
                                     </div>
                                 </div>
                             <?php else: 
-                            foreach ($tarefas as $value): ?>
+                            foreach ($conteudos as $conteudo): ?>
                             <div class="card-tarefa">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <p><?= $value->nome_tarefa ?></p>
+                                    <p><?= $conteudo->nome_tarefa ?></p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <p></p>
+                                    <p><?= retornaStatusTarefa($conteudo->etapa) ?></p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <p><?= $value->data_criacao ?></p>
+                                    <p><?= date('d/m/Y', strtotime($conteudo->data_prevista)) ?></p>
                                 </div>
                                 <div class="col-lg-2">
-                                    <a href="detalhes_conteudo.php?t=<?= $value->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                    <a href="detalhes_conteudo.php?t=<?= $conteudo->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
                                 </div>  
                             </div>
                         </div>

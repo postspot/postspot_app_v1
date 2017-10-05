@@ -8,22 +8,25 @@ session_start();
 
 $id_responsavel = $_SESSION["id_usuario"];
 $id_projeto = $_SESSION['id_projeto'];
-$local = DIR_ROOT."/uploads/projetos/";
+$local = DIR_ROOT."/uploads/projetos/".$id_projeto."-arquivos/";
 $erros = 0;
 
+//pre_r($_FILES);
 //die();
 
 foreach ($_FILES['anexos']['error'] as $key => $error) {
     if ($error == UPLOAD_ERR_OK) {
 
-
+        //echo ' entro';
         $obj = new stdClass();
         $obj->nome_anexo = $_FILES['anexos']["name"][$key];
         $obj->id_responsavel = $id_responsavel;
         $obj->id_projeto = $id_projeto;        
 
+        //pre_r($obj);
         if (anexos::insert($obj)) {
-
+            //echo 'entro';
+            //die();
             // Pasta onde o arquivo vai ser salvo
             $_UP['pasta'] = $local;
 
@@ -56,8 +59,10 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
                 }
             }
         } else {
-           redireciona(SITE . 'view/adm/documentos.php?retorno=error');
+           //redireciona(SITE . 'view/adm/documentos.php?retorno=error');
         }
+    }else{
+        //pre_r($error);
     }
 }
 

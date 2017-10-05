@@ -119,7 +119,7 @@ die();*/
 
 	            var data = table.row($tr).data();
 				
-                var urlFile = "http://localhost/postspot/uploads/projetos/" + data[1];
+                var urlFile = "http://localhost/postspot/uploads/projetos/<?=$_SESSION['id_projeto']?>-arquivos/" + data[1];
                 var win = window.open(urlFile, '_blank');
                 win.focus();
 	         } );

@@ -21,7 +21,7 @@ $persona = personas::getById($tarefa->id_persona);
 $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
-/*pre_r($conteudo);
+/*pre_r($tarefa);
 die();*/
 foreach ($referencias_banco as $referencia):
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
@@ -51,12 +51,11 @@ endforeach;
                             <div class="col-md-12">
                                 <div class="progress-stage">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default active">Pauta</button>
-                                        <button type="button" class="btn btn-default active">Produção</button>
-                                        <button type="button" class="btn btn-default">Revisão/Otimização</button>
-                                        <button type="button" class="btn btn-default">Correção/Adequação</button>
-                                        <button type="button" class="btn btn-default">Publicado</button>
-                                        
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 0)? 'active' : ''?>">Pauta</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 4)? 'active' : ''?>">Produção</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 5)? 'active' : ''?>">Aprovação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 7)? 'active' : ''?>">Correção/Adequação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 9)? 'active' : ''?>">Publicado</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -86,8 +85,10 @@ endforeach;
                                                         <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
                                                         <input type="hidden" name="aprovacao" id="controleCriacao">
                                                         <textarea name="texto_publicacao" id="summernote"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
-                                                        <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
-                                                        <button class="btn btn-success btn-fill" type="button" id="enviarAprovacao">Enviar Aprovação</button>
+                                                        <?php if($tarefa->etapa != 6 && $tarefa->etapa != 9 && $tarefa->etapa != 10):?>
+                                                            <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
+                                                            <button class="btn btn-success btn-fill" type="button" id="enviarAprovacao">Enviar Aprovação</button>
+                                                        <?php endif;?>
                                                     </form>
                                                 </div>
                                             <?php endif;?>
@@ -158,15 +159,17 @@ endforeach;
                             <div class="col-md-4">
 
                                 <?php if(($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 3)
-                                        && ($tarefa->etapa == 5 || $tarefa->etapa == 6) ):?>
+                                        && ($tarefa->etapa == 6 || $tarefa->etapa == 9) ):?>
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Ação necessaria <?= $tarefa->etapa?></h4>
+                                        <h4 class="card-title">Ação necessaria</h4>
                                     </div>
                                     <div class="card-content">
-                                        <?php if($tarefa->etapa == 4 || $tarefa->etapa == 5):?>
+                                        <?php //if($tarefa->etapa == 6 || $tarefa->etapa == 9):?>
                                             <form id="formAprovaConteudo" action="" method="post">
+                                                <input type="hidden" name="motivo" id="inputMotivo">
                                                 <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnAprovaConteudo">
                                                     <span class="btn-label">
                                                         <i class="fa fa-check"></i>
@@ -180,7 +183,7 @@ endforeach;
                                                     Reprovar conteúdo
                                                 </button>
                                             </form>
-                                        <?php endif;?>
+                                        <?php //endif;?>
                                     </div>
                                 </div>
                                 <?php endif;?>
@@ -273,6 +276,19 @@ endforeach;
 
     <script>
         $(document).ready(function () {
+           
+            <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo aprovado.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo salvo.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo enviado para aprovação.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo reprovado.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'cErro') { ?>
+                funcoes.showNotification(0,4,'<b>Erro</b> - entre em contato com o gerente.');
+            <?php } ?>
+
             $('#summernote').summernote({
                 height: 400,
                 toolbar: [
@@ -353,10 +369,24 @@ endforeach;
                 $("#formAprovaConteudo").attr('action', '../../controller/conteudo/aprova_conteudo.php');
                 $("#formAprovaConteudo").submit();
             });
-            $("#salvaConteudo").click(function (e) { 
+            $("#btnReprovaConteudo").click(function (e) {
                 e.preventDefault();
-                $("#formAprovaConteudo").attr('action', '../../controller/conteudo/reprova_conteudo.php');
-                $("#formAprovaConteudo").submit();
+                swal({
+                    title: 'Informe o motivo?',
+                    html: '<div class="form-group">' +
+                                '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
+                            '</div>',
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Reprovar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    $("#inputMotivo").val($("#inputMotivoModal").val());
+                    $("#formAprovaConteudo").attr('action', '../../controller/conteudo/reprova_conteudo.php');
+                    $("#formAprovaConteudo").submit();
+                });          
             });
         });
     </script>

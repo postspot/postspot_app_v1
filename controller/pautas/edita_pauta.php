@@ -19,6 +19,7 @@ $estagio_compra = $_POST["estagio_compra"];
 $id_projeto = $_SESSION['id_projeto'];
 $id_usuario = $_SESSION['id_usuario'];
 $aprovacao = ($_POST["aprovacao"] == 1) ? 1 : 0;
+$etapa = $_POST['etapa'];
 
 
 if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) && 
@@ -47,11 +48,11 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         if(tarefas::update($nova_tarefa)){
             resetStatusTarefa($id_tarefa);        
             if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
-                $date = date('Y-m-d H:i');
+                $nova_etapa = ($etapa == 0) ? 0 : 3;
                 $novo_log_salvo = new stdClass();
-                $novo_log_salvo->etapa = 0;
+                $novo_log_salvo->etapa = $nova_etapa;
                 $novo_log_salvo->status = 1;
-                $novo_log_salvo->data_prevista = retornaDataPrevista(0);
+                $novo_log_salvo->data_prevista = retornaDataPrevista($nova_etapa);
                 $novo_log_salvo->id_tarefa = $id_tarefa;
                 $novo_log_salvo->id_usuario = $id_usuario;
                 if(log_tarefas::insert($novo_log_salvo)){
@@ -61,11 +62,11 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 }
             }else{ // Senão, ja cria dois log´s
                 
-                $date = date('Y-m-d H:i');
+                $nova_etapa = ($etapa == 0) ? 1 : 4;
                 $novo_log_aprovacao = new stdClass();
-                $novo_log_aprovacao->etapa = 1;
+                $novo_log_aprovacao->etapa = $nova_etapa;
                 $novo_log_aprovacao->status = 1;
-                $novo_log_aprovacao->data_prevista = retornaDataPrevista(1);
+                $novo_log_aprovacao->data_prevista = retornaDataPrevista($nova_etapa);
                 $novo_log_aprovacao->id_tarefa = $id_tarefa;
                 $novo_log_aprovacao->id_usuario = $id_usuario;
             

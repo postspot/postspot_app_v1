@@ -36,88 +36,75 @@ $objetivo_primario = empty($_POST["objetivo_primario"]) ? 0 : $_POST["objetivo_p
 $linguagem = empty($_POST["linguagem"]) ? 0 : $_POST["linguagem"] ;
 $categorias_conteudo = empty($_POST["categorias_conteudo"]) ? 0 : $_POST["categorias_conteudo"] ;
 
-//pre_r($_POST);
 
+if (!empty($id_projeto)) {
+	
+	$obj = new stdClass();
+	
+	$obj->empresa = $empresa;
+	$obj->site = $site;
+	$obj->projeto = $projeto;
+	$obj->blog = $blog;
+	$obj->produtos_servicos = $produtos_servicos;
+	$obj->links = $links;
+	$obj->objetivo_primario = $objetivo_primario;
+	$obj->kpis_primario = $kpis_primario;
+	$obj->objetivo_secundario = $objetivo_secundario;
+	$obj->kpis_secundario = $kpis_secundario;
+	$obj->concorrentes = $concorrentes;
+	$obj->com_quem_falar = $com_quem_falar;
+	$obj->com_quem_nao_falar = $com_quem_nao_falar;
+	$obj->abordar = $abordar;
+	$obj->evitar = $evitar;
+	$obj->linguagem = $linguagem;
+	$obj->links_ref = $links_ref;
+	$obj->categorias_conteudo = $categorias_conteudo;
+	$obj->canais = $canais;
+	$obj->acoes = $acoes;
+	$obj->consideracoes_gerais = $consideracoes_gerais;
+	$obj->projetos_id_projeto = $id_projeto; 
+	$obj->termos_proibidos = $termos_proibidos;
+	$obj->mapeamentos_aprendizado = $mapeamentos_aprendizado;         
+	$obj->mapeamentos_reconhecimento = $mapeamentos_reconhecimento;         
+	$obj->mapeamentos_consideracoes = $mapeamentos_consideracoes;         
+	$obj->mapeamentos_decisao = $mapeamentos_decisao;         
+	
+	if(empty($estrategia)):
+		if(estrategias::insert($obj)){
+			header('Location: ../../view/adm/estrategia.php?retorno=ok');
+		}
+		else{
+			header('Location: ../../view/adm/estrategia.php?retorno=erro');
+		}
+	else:
+		$obj->id_estrategia = $estrategia->id_estrategia;
+		if(estrategias::update($obj)){
+			if(!empty($linguagem)):
+				linguagens_estrategia::delete($estrategia->id_estrategia);
+				foreach ($linguagem as $lingua) {
+					$obj_lingua = new stdClass();
+					$obj_lingua->id_linguagem = $lingua;
+					$obj_lingua->id_estrategia = $estrategia->id_estrategia;
+					linguagens_estrategia::insert($obj_lingua);
+				}
+			endif;
+			if(!empty($categorias_conteudo)):
+				categorias_estrategia::delete($estrategia->id_estrategia);
+				foreach ($categorias_conteudo as $categ) {
+					$obj_categ = new stdClass();
+					$obj_categ->id_categoria = $categ;
+					$obj_categ->id_estrategia = $estrategia->id_estrategia;
+					categorias_estrategia::insert($obj_categ);
+				}
+			endif;
+			header('Location: ../../view/adm/estrategia.php?retorno=ok');
+		}
+		else{
+			header('Location: ../../view/adm/estrategia.php?retorno=erro');
+		}
+	endif;
 
-if (isset($id_projeto) && isset($empresa) && isset($site) && isset($projeto) && 
-    isset($blog) && isset($produtos_servicos) && isset($links) &&
-    isset($concorrentes) && isset($com_quem_falar) && isset($com_quem_nao_falar) 
-    && isset($abordar) && isset($evitar) && isset($linguagem)
-	&& isset($categorias_conteudo) && isset($canais) && isset($acoes) && isset($consideracoes_gerais)
-	&& isset($termos_proibidos) && isset($mapeamentos) && isset($objetivo_primario)) {
-
-    if (!empty($id_projeto)) {
-	  
-        $obj = new stdClass();
-        
-        $obj->empresa = $empresa;
-        $obj->site = $site;
-		$obj->projeto = $projeto;
-		$obj->blog = $blog;
-		$obj->produtos_servicos = $produtos_servicos;
-		$obj->links = $links;
-		$obj->objetivo_primario = $objetivo_primario;
-		$obj->kpis_primario = $kpis_primario;
-		$obj->objetivo_secundario = $objetivo_secundario;
-		$obj->kpis_secundario = $kpis_secundario;
-		$obj->concorrentes = $concorrentes;
-		$obj->com_quem_falar = $com_quem_falar;
-		$obj->com_quem_nao_falar = $com_quem_nao_falar;
-		$obj->abordar = $abordar;
-		$obj->evitar = $evitar;
-		$obj->linguagem = $linguagem;
-		$obj->links_ref = $links_ref;
-		$obj->categorias_conteudo = $categorias_conteudo;
-		$obj->canais = $canais;
-		$obj->acoes = $acoes;
-		$obj->consideracoes_gerais = $consideracoes_gerais;
-		$obj->projetos_id_projeto = $id_projeto; 
-		$obj->termos_proibidos = $termos_proibidos;
-		$obj->mapeamentos_aprendizado = $mapeamentos_aprendizado;         
-		$obj->mapeamentos_reconhecimento = $mapeamentos_reconhecimento;         
-		$obj->mapeamentos_consideracoes = $mapeamentos_consideracoes;         
-		$obj->mapeamentos_decisao = $mapeamentos_decisao;         
-		
-		if(empty($estrategia)):
-			if(estrategias::insert($obj)){
-				header('Location: ../../view/adm/estrategia.php?retorno=ok');
-			}
-			else{
-				header('Location: ../../view/adm/estrategia.php?retorno=erro');
-			}
-		else:
-			$obj->id_estrategia = $estrategia->id_estrategia;
-			if(estrategias::update($obj)){
-				if(!empty($linguagem)):
-					linguagens_estrategia::delete($estrategia->id_estrategia);
-					foreach ($linguagem as $lingua) {
-						$obj_lingua = new stdClass();
-						$obj_lingua->id_linguagem = $lingua;
-						$obj_lingua->id_estrategia = $estrategia->id_estrategia;
-						linguagens_estrategia::insert($obj_lingua);
-					}
-				endif;
-				if(!empty($categorias_conteudo)):
-					categorias_estrategia::delete($estrategia->id_estrategia);
-					foreach ($categorias_conteudo as $categ) {
-						$obj_categ = new stdClass();
-						$obj_categ->id_categoria = $categ;
-						$obj_categ->id_estrategia = $estrategia->id_estrategia;
-						categorias_estrategia::insert($obj_categ);
-					}
-				endif;
-				header('Location: ../../view/adm/estrategia.php?retorno=ok');
-			}
-			else{
-				header('Location: ../../view/adm/estrategia.php?retorno=erro');
-			}
-		endif;
-
-    }
-    else {
-        header('Location: ../../view/adm/estrategia.php?retorno=falha1');
-    }
 }
 else {
-    header('Location: ../../view/adm/estrategia.php?retorno=falha2');
+	header('Location: ../../view/adm/estrategia.php?retorno=falha1');
 }

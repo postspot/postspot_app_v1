@@ -114,7 +114,7 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                     <h3>Considerações gerais de freelancers</h3>
                                                     <?= $estrategia->consideracoes_gerais ?>
                                                 </div>
-                                                <div class="tab-pane" id="editar">
+                                                <div class="tab-pane pane-pauta" id="editar">
                                                     <form class="" action="../../controller/estrategia/criar_estrategia.php" method="POST">
                                                     <div class="form-group">
                                                         <label>Sobre a empresa</label>

@@ -137,6 +137,8 @@ $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta salva.');
             <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta enviada para aprovação.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta reprovada.');
             <?php } ?>
         });
          

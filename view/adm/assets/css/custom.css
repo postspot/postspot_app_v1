@@ -253,3 +253,8 @@ margin-top: 5px;
 .min-height{
     min-height: 500px;
 }
+div.dataTables_wrapper div.dataTables_length select {
+    width: 80px;
+    height: 35px;
+    display: inline-block;
+}

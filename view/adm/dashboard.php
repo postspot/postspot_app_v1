@@ -125,7 +125,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Publicados</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 9") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 8") ?>
                                                 </div>
                                             </div>
                                         </div>

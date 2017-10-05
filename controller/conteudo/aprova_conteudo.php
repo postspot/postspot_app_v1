@@ -11,16 +11,16 @@ $id_tarefa = $_POST["id_tarefa"];
 if (isset($id_tarefa)){
     resetStatusTarefa($id_tarefa); 
     $novo_log_aprovado = new stdClass();
-    $novo_log_aprovado->etapa = 8;
+    $novo_log_aprovado->etapa = 10;
     $novo_log_aprovado->status = 1;
-    $novo_log_aprovado->data_prevista = retornaDataPrevista(8);
+    $novo_log_aprovado->data_prevista = retornaDataPrevista(10);
     $novo_log_aprovado->id_tarefa = $id_tarefa;
     $novo_log_aprovado->id_usuario = $id_usuario;
     if(log_tarefas::insert($novo_log_aprovado)){
-        header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=ok');
+        header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=apOk');
     }else{
-        header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=erro');
+        header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=cErro');
     }
 }else{
-    header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=erro');
+    header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=cErro');
 }

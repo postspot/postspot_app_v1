@@ -25,6 +25,7 @@ if (isset($nome_projeto) && isset($responsavel_projeto) && isset($site_projeto))
 
         $id_projeto = projetos::getAutoInc();
         
+        mkdir(DIR_ROOT."/uploads/projetos/".$id_projeto."-arquivos/");
         if(projetos::insert($obj)){
             
             $nova_estrategia = new stdClass();

@@ -23,7 +23,7 @@ class anexos {
 		$stmt->execute(); 
 		return true;
 		} catch(PDOException $ex) {
-		echo $ex->getMessage();
+			echo $ex->getMessage();
 		}
 	}
 

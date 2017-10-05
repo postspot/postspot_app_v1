@@ -44,13 +44,15 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                     <form class="form-horizontal" action="../../controller/pautas/edita_pauta.php" method="POST" id="formEditaPauta">
                                     <input type="hidden" name="aprovacao" id="controlaAprovacao">
                                     <input type="hidden" name="id_tarefa" value="<?= $id_tarefa ?>">
+                                    <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
+                                    <input type="hidden" name="motivo" id="inputMotivo">
                                         <div class="card-content">
                                             <div class="form-group column-sizing">
                                                 <label class="col-md-2 control-label">Título</label>
                                                 <div class="col-md-5">
                                                     <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control" value="<?= $tarefa->nome_tarefa ?>">
                                                 </div>
-                                                <?php if($tarefa->etapa == 1): ?>
+                                                <?php if($tarefa->etapa == 1 || $tarefa->etapa == 4): ?>
                                                     <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
                                                         <div class="col-md-2">
                                                             <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right pull-right" id="reprovaPauta">
@@ -163,7 +165,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php if($tarefa->etapa != 1): ?>
+                                        <?php if($tarefa->etapa != 1 && $tarefa->etapa != 4): ?>
                                             <div class="card-footer">
                                                 <div class="form-group">
                                                     <div class="col-md-3 col-md-offset-2">
@@ -223,8 +225,23 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
         });
         $("#reprovaPauta").click(function (e) { 
             e.preventDefault();
-            $("#formEditaPauta").attr('action', '../../controller/pautas/reprova_pauta.php');
-            $("#formEditaPauta").submit();            
+            
+            swal({
+                title: 'Informe o motivo?',
+                html: '<div class="form-group">' +
+                            '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
+                        '</div>',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonClass: 'btn btn-danger btn-fill',
+                confirmButtonClass: 'btn btn-success btn-fill',
+                confirmButtonText: 'Reprovar!',
+                buttonsStyling: false
+                }).then(function() {
+                    $("#inputMotivo").val($("#inputMotivoModal").val());
+                    $("#formEditaPauta").attr('action', '../../controller/pautas/reprova_pauta.php');
+                    $("#formEditaPauta").submit();
+                });          
         });
     });
     </script>

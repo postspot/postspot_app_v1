@@ -12,6 +12,7 @@ $id_usuario = $_SESSION['id_usuario'];
 $aprovacao = ($_POST["aprovacao"] == 1) ? 1 : 0;
 $etapa = $_POST['etapa'];
 
+
 if (!empty($id_tarefa) && !empty($texto_publicacao)) {
     
     // Prepara o conteúdo
@@ -24,7 +25,7 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
         
         resetStatusTarefa($id_tarefa);    
         if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
-            $nova_etapa = ($etapa == 5) ? 6 : 9;
+            $nova_etapa = ($etapa == 5) ? 5 : 8;
             $novo_log_conteudo = new stdClass();
             $novo_log_conteudo->etapa = $nova_etapa;
             $novo_log_conteudo->status = 1;

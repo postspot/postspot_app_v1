@@ -130,7 +130,7 @@ class tarefas {
 	public static function getConteudosDez($id, $limit) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa > 3 order by t.data_criacao ASC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa > 4 order by t.data_criacao ASC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id);
 		$stmt->execute();
@@ -144,10 +144,10 @@ class tarefas {
 			return false;
 		}
 	}
-	public static function getPautasDez($id, $limit) {
+	public static function getPautasDez($id, $limit, $etapa) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa < 5 order by t.data_criacao ASC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao ASC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id);
 		$stmt->execute();
@@ -179,9 +179,9 @@ class tarefas {
         public static function countTarefasProjetoEtapa($id, $etapa) {
 
             try {
-                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join "
-                . " log_tarefas l ON ( t.id_tarefa = l.id_tarefa) where t.id_projeto =:id_projeto and l.status = 1 and "
-                . " l.etapa $etapa");
+					$stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join "
+					. " log_tarefas l ON ( t.id_tarefa = l.id_tarefa) where t.id_projeto =:id_projeto and l.status = 1 and "
+					. " ( l.etapa $etapa )");
 
                 $stmt->bindParam(":id_projeto", $id);
                 $stmt->execute();
@@ -196,7 +196,7 @@ class tarefas {
         public static function countTarefasProjetoAtrasadas($id) {
 
             try {
-                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.data_prevista < now()");
+                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 10 AND l.data_prevista < now()");
 
                 $stmt->bindParam(":id_projeto", $id);
                 $stmt->execute();
@@ -206,6 +206,7 @@ class tarefas {
                 return false;
             } catch (PDOException $ex) {
                 return false;
+              	//echo $ex->getMessage();
             }
         }
 

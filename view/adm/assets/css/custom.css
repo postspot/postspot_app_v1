@@ -258,3 +258,32 @@ div.dataTables_wrapper div.dataTables_length select {
     height: 35px;
     display: inline-block;
 }
+.card-resumo-tarefas .card-content{
+    padding: 0 !important;
+}
+.card-resumo-tarefas ol .count{
+    width: 40px;
+    height: 35px;
+    padding-top: 8px;
+    text-align: center;
+    background-color: #ccc;
+    border-radius: 43px;
+    color: #66615b;
+    display: inline-block;
+    margin-right: 10px;
+}
+.card-resumo-tarefas ol li{
+    margin-bottom: 10px;
+    padding: 15px 15px 10px 15px;
+}
+.card-resumo-tarefas ol li.active{
+    background-color: rgba(152, 41, 189, 0.15);
+}
+.card-resumo-tarefas ol .text{
+    display: inline-block;
+}
+.card-resumo-tarefas small{
+    display: block;
+}
+.card-resumo-tarefasli{margin-bottom: 10px;
+}

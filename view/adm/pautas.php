@@ -2,9 +2,38 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/tarefas.php';
+require_once '../../model/tipo_tarefa.php';
 require_once 'includes/header_padrao.php';
 
-$pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
+if (isset($_GET["s"])) {
+    $filtro = $_GET["s"];
+    switch ($filtro) {
+        case '1':
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= 0');
+            break;
+        case '2':
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = 1 OR l.etapa = 4)');
+            break;
+        case '3':
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = 3');
+            break;
+        case '4':
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa > 4');
+            break;
+        case '5':
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = 0');
+            break;
+    }
+} else {
+    $filtro = 0;
+    $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, '');
+}
+$totalPautas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], ">= 0");
+$escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 0");
+$aprovando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 1 OR l.etapa = 4");
+$ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 3");
+$aprovadas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "> 4");
+$tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 ?>
 <html lang="pt-br">
     <head>
@@ -32,21 +61,10 @@ $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
                             <div class="col-lg-12">
                                 <div class="col-lg-12 fundo-campos-busca">
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Buscar" class="form-control">
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option value="" selected>Ciclo</option>
-                                                        <option value="">Ciclo 1</option>
-                                                        <option value="">Ciclo 2</option>
-                                                    </select>
+                                                    <input type="text" placeholder="Buscar pelo nome..." class="form-control">
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -55,8 +73,9 @@ $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
                                                 <div class="form-group">
                                                     <select class="form-control">
                                                         <option value="" selected>Tipo</option>
-                                                        <option value="">Tipo 1</option>
-                                                        <option value="">Tipo 2</option>
+                                                        <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </fieldset>
@@ -66,58 +85,77 @@ $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
                                                 <div class="form-group">
                                                     <select class="form-control">
                                                         <option value="" selected>Status</option>
-                                                        <option value="">Status 1</option>
-                                                        <option value="">Status 2</option>
+                                                        <option value="">Pautas Produzindo</option>
+                                                        <option value="">Pautas Aprovando</option>
+                                                        <option value="">Pautas Ajustando</option>
+                                                        <option value="">Reaprovando Pauta</option>
+                                                        <option value="">Conteúdos Produzindo</option>
+                                                        <option value="">Conteúdos Aprovando</option>
+                                                        <option value="">Conteúdos Ajustando</option>
+                                                        <option value="">Conteúdos Aprovação Final</option>
+                                                        <option value="">Conteúdos Publicados</option>
                                                     </select>
                                                 </div>
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill btn-wd">Buscar</button>
+                                            <button type="submit" class="btn btn-info btn-fill fill-up">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-lg-6">
-                                <p class="title"><strong>Pautas</strong> em geral</p>
-                            </div>
-                            <div class="col-lg-2">
-                                <p>Status:</p>
-                            </div>
-                            <div class="col-lg-2">
-                                Data Previsão:
-                            </div>
-                        </div>
-                        <?php 
-                            if(empty($pautas)):?>
-                                <div class="card">
+                            <div class="col-lg-3">
+                                <div class="card card-resumo-tarefas">
                                     <div class="card-content">
-                                        <div class="typo-line text-center">
-                                            <h2>Nenhuma pauta encontrada! <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
-                                        </div>
+                                        <ol class="list-unstyled">
+                                            <a href="pautas.php?s=1"><li class="<?= ($filtro == '1') ? 'active' : '' ?>"><div class="count"><?= $totalPautas ?></div><div class="text">Todas as Pautas</div></li></a>
+                                            <a href="pautas.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count"><?= $escrevendo ?></div><div class="text"><small>pautas</small>Em Produção</div></li></a>
+                                            <a href="pautas.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count"><?= $aprovando ?></div><div class="text"><small>pautas</small>Em aprovação</div></li></a>
+                                            <a href="pautas.php?s=3"><li class="<?= ($filtro == '3') ? 'active' : '' ?>"><div class="count"><?= $ajustando ?></div><div class="text"><small>pautas</small>Em ajustes</div></li></a>
+                                            <a href="pautas.php?s=4"><li class="<?= ($filtro == '4') ? 'active' : '' ?>"><div class="count"><?= $aprovadas ?></div><div class="text"><small>pautas</small>Aprovadas</div></li></a>
+                                        </ol>
                                     </div>
                                 </div>
-                            <?php else: 
-                            foreach ($pautas as $pauta): ?>
-                            <div class="card-tarefa">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <p><?= $pauta->nome_tarefa ?></p>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <p class="title"><strong>Pautas</strong> em geral</p>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <p>Status:</p>
+                                    </div>
                                 </div>
-                                <div class="col-lg-2">
-                                    <p><?= retornaStatusTarefa($pauta->etapa) ?></p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <p><?= date('d/m/Y', strtotime($pauta->data_prevista)) ?></p>
-                                </div>
-                                <div class="col-lg-2">
-                                    <a href="detalhes_pauta.php?t=<?= $pauta->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
-                                </div>  
+                                <?php if (empty($pautas)): ?>
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="typo-line text-center">
+                                                <h2>Nenhuma pauta encontrada! <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php else:
+                                    foreach ($pautas as $pauta):
+                                        ?>
+                                        <div class="card-tarefa">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <p><?= $pauta->nome_tarefa ?></p>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <p><?= retornaStatusTarefa($pauta->etapa) ?></p>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                    <a href="detalhes_pauta.php?t=<?= $pauta->id_tarefa ?>" class="btn btn-success btn-fill fill-up btn-wd">Detalhes</a>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                    <?php endforeach;
+                                endif; ?>
                             </div>
                         </div>
-                        <?php endforeach; endif;     ?>
                     </div>
                     <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
                         <i class="ti-plus"></i>
@@ -127,20 +165,20 @@ $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10);
         </div>
     </body>
 
-    <?php require_once './includes/footer_imports.php'; ?>
+<?php require_once './includes/footer_imports.php'; ?>
 
     <script>
-        $(document).ready(function() {              
-            <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta aprovada.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta salva.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta enviada para aprovação.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Pauta reprovada.');
-            <?php } ?>
+        $(document).ready(function () {
+<?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
+                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta aprovada.');
+<?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
+                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta salva.');
+<?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
+                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta enviada para aprovação.');
+<?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
+                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta reprovada.');
+<?php } ?>
         });
-         
+
     </script>
 </html>

@@ -4,6 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
 require_once '../../model/tipo_tarefa.php';
 require_once '../../model/tarefas.php';
+require_once '../../model/comentarios.php';
 require_once 'includes/header_padrao.php';
 
 if(!isset($_GET["t"])){
@@ -15,6 +16,7 @@ if(!isset($_GET["t"])){
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getByProjeto($_SESSION['id_projeto']);
+$comentarios = comentarios::getAllComentariosByTarefa($id_tarefa);
 ?>
 <html lang="pt-br">
     <head>
@@ -39,7 +41,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                         
                         <h4 class="title"><i class="ti-light-bulb"></i> Criar Pauta</h4>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-8">
                                 <div class="card">
                                     <form class="form-horizontal" action="../../controller/pautas/edita_pauta.php" method="POST" id="formEditaPauta">
                                     <input type="hidden" name="aprovacao" id="controlaAprovacao">
@@ -52,26 +54,6 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 <div class="col-md-5">
                                                     <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control" value="<?= $tarefa->nome_tarefa ?>">
                                                 </div>
-                                                <?php if($tarefa->etapa == 1 || $tarefa->etapa == 4): ?>
-                                                    <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
-                                                        <div class="col-md-2">
-                                                            <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right pull-right" id="reprovaPauta">
-                                                                Reprovar
-                                                                <span class="btn-label">
-                                                                    <i class="ti-control-forward"></i>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="aprovaPauta">
-                                                                Aprovar
-                                                                <span class="btn-label">
-                                                                    <i class="ti-control-forward"></i>
-                                                                </span>
-                                                            </button>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Tipo</label>
@@ -165,31 +147,94 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php if($tarefa->etapa != 1 && $tarefa->etapa != 4): ?>
-                                            <div class="card-footer">
-                                                <div class="form-group">
-                                                    <div class="col-md-3 col-md-offset-2">
-                                                        <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify pull-left" id="salvaPauta">
-                                                            <span class="btn-label">
-                                                                <i class="ti-save"></i>
-                                                            </span>
-                                                            Salvar
-                                                        </button>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="enviaAprovacaoPauta">
-                                                            Enviar Aprovação
+                                    </form>
+                                </div>
+                            </div>
+                                <?php if($tarefa->etapa != 2 && $tarefa->etapa < 5): ?>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4 class="card-title">Ação necessaria</h4>
+                                            </div>
+                                            <div class="card-content">
+                                                <?php if($tarefa->etapa == 0 || $tarefa->etapa == 3 ): ?>
+                                                    <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify fill-up margem" id="salvaPauta">
+                                                        <span class="btn-label">
+                                                            <i class="ti-save"></i>
+                                                        </span>
+                                                        Salvar
+                                                    </button>
+                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
+                                                        Enviar Aprovação
+                                                        <span class="btn-label">
+                                                            <i class="ti-control-forward"></i>
+                                                        </span>
+                                                    </button>
+                                                <?php endif; ?>
+                                                <?php if($tarefa->etapa == 1 || $tarefa->etapa == 4): ?>
+                                                    <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
+                                                        <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right fill-up margem" id="reprovaPauta">
+                                                            Reprovar
                                                             <span class="btn-label">
                                                                 <i class="ti-control-forward"></i>
                                                             </span>
                                                         </button>
-                                                    </div>
-                                                </div>
+                                                        <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="aprovaPauta">
+                                                            Aprovar
+                                                            <span class="btn-label">
+                                                                <i class="ti-control-forward"></i>
+                                                            </span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
                                             </div>
-                                        <?php endif; ?>
-                                    </form>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <div class="col-md-4">
+                                    <div class="card card-chat">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Comentários Pauta</h4>
+                                        </div>
+                                        <div class="card-content">
+                                        <ol class="chat" id="olChat">
+                                        <?php if(empty($comentarios)):?>
+                                            <li class="text-muted"><p class="text-center fill-up">Nenhum comentário</p></li>
+                                        <?php else:
+                                        foreach($comentarios as $comentario):
+                                                if($comentario->id_usuario != $_SESSION['id_usuario']):
+                                            ?>
+                                                <li class="other">
+                                                    <div class="avatar">
+                                                        <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
+                                                    </div>
+                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario?>" >
+                                                        <p><?= $comentario->comentario?></p>
+                                                        <div class="card-footer">
+                                                            <i class="ti-calendar"></i>
+                                                            <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("h:i", strtotime($comentario->data_criacao)) ?></h6>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            <?php else:?>
+                                                <li class="self">
+                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario?>" >
+                                                        <p><?= $comentario->comentario?></p>
+                                                        <div class="card-footer">
+                                                            <i class="ti-calendar"></i>
+                                                            <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("h:i", strtotime($comentario->data_criacao)) ?></h6>
+                                                        </div>
+                                                    </div>
+                                                    <div class="avatar">
+                                                    <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
+                                                    </div>
+                                                </li>
+                                                <?php endif;
+                                                endforeach;endif;?>
+                                        </ol>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>

@@ -2,10 +2,12 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/tarefas.php';
+require_once '../../model/tipo_tarefa.php';
 require_once 'includes/header_padrao.php';
 /*pre_r($projeto);
 die();*/
 $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
+$tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 
 ?>
 <html lang="pt-br">
@@ -42,7 +44,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Pautas</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 4') ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 5') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +71,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Produzindo</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 4") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 5 or l.etapa = 8") ?>
                                                     
                                                 </div>
                                             </div>
@@ -125,7 +127,7 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Publicados</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 8") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 10") ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,21 +148,10 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                             <div class="col-lg-12">
                                 <div class="col-lg-12 fundo-campos-busca">
                                     <div class="row">
-                                        <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Buscar" class="form-control">
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option value="" selected>Ciclo</option>
-                                                        <option value="">Ciclo 1</option>
-                                                        <option value="">Ciclo 2</option>
-                                                    </select>
+                                                    <input type="text" placeholder="Buscar pelo nome..." class="form-control">
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -169,8 +160,9 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                                 <div class="form-group">
                                                     <select class="form-control">
                                                         <option value="" selected>Tipo</option>
-                                                        <option value="">Tipo 1</option>
-                                                        <option value="">Tipo 2</option>
+                                                        <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
+                                                        <?php endforeach; ?>
                                                     </select>
                                                 </div>
                                             </fieldset>
@@ -180,8 +172,15 @@ $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
                                                 <div class="form-group">
                                                     <select class="form-control">
                                                         <option value="" selected>Status</option>
-                                                        <option value="">Status 1</option>
-                                                        <option value="">Status 2</option>
+                                                        <option value="">Pautas Produzindo</option>
+                                                        <option value="">Pautas Aprovando</option>
+                                                        <option value="">Pautas Ajustando</option>
+                                                        <option value="">Reaprovando Pauta</option>
+                                                        <option value="">Conteúdos Produzindo</option>
+                                                        <option value="">Conteúdos Aprovando</option>
+                                                        <option value="">Conteúdos Ajustando</option>
+                                                        <option value="">Conteúdos Aprovação Final</option>
+                                                        <option value="">Conteúdos Publicados</option>
                                                     </select>
                                                 </div>
                                             </fieldset>

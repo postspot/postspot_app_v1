@@ -21,7 +21,7 @@ $persona = personas::getById($tarefa->id_persona);
 $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
-/*pre_r($tarefa);
+/*echo $tarefa->etapa;
 die();*/
 foreach ($referencias_banco as $referencia):
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
@@ -53,8 +53,9 @@ endforeach;
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 0)? 'active' : ''?>">Pauta</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 4)? 'active' : ''?>">Produção</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 5)? 'active' : ''?>">Aprovação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 6)? 'active' : ''?>">Aprovação</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 7)? 'active' : ''?>">Correção/Adequação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 8)? 'active' : ''?>">Aprovação Final</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 9)? 'active' : ''?>">Publicado</button>
                                     </div>
                                 </div>
@@ -69,7 +70,7 @@ endforeach;
                                                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                                                     <li class="active"><a href="#conteudo" data-toggle="tab">Conteúdo</a></li>
                                                     <?php if($_SESSION['funcao_usuario'] != 3):?>
-                                                        <li><a href="#ajuste" data-toggle="tab">Ajuste</a></li>
+                                                        <li><a href="#ajuste" data-toggle="tab">Editar</a></li>
                                                     <?php endif;?>
                                                     <li><a href="#pauta" data-toggle="tab">Pauta</a></li>
                                                 </ul>
@@ -84,6 +85,7 @@ endforeach;
                                                     <form action="../../controller/conteudo/envia_aprovacao.php" method="post" enctype="multipart/form-data" id="formConteudo">
                                                         <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
                                                         <input type="hidden" name="aprovacao" id="controleCriacao">
+                                                        <input type="hidden" name="etapa" value="<?=$tarefa->etapa?>">
                                                         <textarea name="texto_publicacao" id="summernote"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
                                                         <?php if($tarefa->etapa != 6 && $tarefa->etapa != 9 && $tarefa->etapa != 10):?>
                                                             <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>

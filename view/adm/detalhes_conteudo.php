@@ -14,15 +14,15 @@ if(!isset($_GET["t"])){
 }else{
     $id_tarefa = $_GET["t"];
 }
-$comentarios = comentarios::getAllComentariosByTarefa($id_tarefa);
+$condicaoComentario = ($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : '';
+$comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 1, $condicaoComentario);
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getById($tarefa->id_persona);
 $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
-/*echo $tarefa->etapa;
-die();*/
+/*die();*/
 foreach ($referencias_banco as $referencia):
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
 endforeach;
@@ -237,6 +237,27 @@ endforeach;
                                                 <div class="send-button">
                                                     <button class="btn btn-primary btn-fill" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                                 </div>
+                                                <?php if(($_SESSION['funcao_usuario'] != 3)): ?>
+                                                <fieldset>
+                                                    <div class="form-group">
+                                                        <div class="col-sm-12">
+                                                            <div class="radio radio-inline">
+                                                                <input id="checkbox50" type="radio" value="0" name="equipe" checked>
+                                                                <label for="checkbox50">
+                                                                    Todos
+                                                                </label>
+                                                            </div>
+                                                        <div class="radio radio-inline">
+                                                            <input id="checkbox51" type="radio" value="1" name="equipe">
+                                                            <label for="checkbox51">
+                                                                Equipe
+                                                            </label>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                
+                                                <?php endif;?>
                                             </form>
                                         </div>
                                     </div>
@@ -293,8 +314,9 @@ endforeach;
 
             $('#summernote').summernote({
                 height: 400,
+                styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
                 toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['style', ['bold', 'italic', 'underline', 'clear', 'style']],
                     ['fontsize', ['fontsize', 'fontname']],
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],

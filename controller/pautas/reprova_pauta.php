@@ -31,6 +31,7 @@ if (isset($id_tarefa)){
     $comentario->comentario = $motivo;
     $comentario->id_tarefa = $id_tarefa;
     $comentario->id_usuario = $id_usuario;
+    $comentario->status = 0;
 
     if(log_tarefas::insert($novo_log_reprovado) && log_tarefas::insert($log_ajuste)){
         if(comentarios::insert($comentario)){

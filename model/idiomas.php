@@ -23,6 +23,7 @@ class idiomas {
 			return true;
 		} catch(PDOException $ex) {
 		return false;
+		//echo $ex->getMessage();
 		}
 	}
 

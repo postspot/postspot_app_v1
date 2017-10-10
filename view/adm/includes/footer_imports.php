@@ -52,6 +52,9 @@
 <!--  Full Calendar Plugin    -->
 <script src="assets/js/fullcalendar.min.js"></script>
 
+<!--  Select Personalizado    -->
+<script src="assets/js/select.min.js"></script>
+
 <!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->
 <script src="assets/js/paper-dashboard.js"></script>
 <script src="assets/js/custom.js"></script>

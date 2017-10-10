@@ -34,6 +34,7 @@ $aprovando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 1 OR 
 $ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 3");
 $aprovadas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "> 4");
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
+$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= 0');
 ?>
 <html lang="pt-br">
     <head>
@@ -64,7 +65,12 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <div class="col-lg-6">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Buscar pelo nome..." class="form-control">
+                                                    <select class="form-control select-customizado" name="titulo_noticia">
+                                                        <option selected disabled>Buscar pelo nome...</option>
+                                                        <?php foreach ($totasTarefas as $tarefa):?>
+                                                            <option value="<?= $tarefa->id_tarefa ?>"><?= $tarefa->nome_tarefa ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -180,5 +186,6 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 <?php } ?>
         });
 
+        $(".select-customizado").select2();
     </script>
 </html>

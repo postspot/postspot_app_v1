@@ -16,7 +16,7 @@ if(!isset($_GET["t"])){
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getByProjeto($_SESSION['id_projeto']);
-$comentarios = comentarios::getAllComentariosByTarefa($id_tarefa);
+$comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
 ?>
 <html lang="pt-br">
     <head>

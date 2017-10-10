@@ -6,7 +6,7 @@ require_once '../../model/usuarios.php';
 require_once 'includes/header_padrao.php';
 
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
-$possiveis_menbros = usuarios::getMenosEscritores($_SESSION['id_projeto']);
+$possiveis_membros = usuarios::getMenosEscritores($_SESSION['id_projeto']);
 $qtd_escritores = usuarios::countRedatores();
 
 ?>
@@ -45,8 +45,8 @@ $qtd_escritores = usuarios::countRedatores();
                                                     <div class="form-group">
                                                         <label>Membro</label>
                                                         <select multiple title="Escolha um membro" class="selectpicker form-control border-input" data-style="no-border" data-size="7" name="usuarios[]">
-                                                            <?php foreach($possiveis_menbros as $membro): ?>
-                                                                <option value="<?= $membro->id_usuario ?>"><?= $membro->nome_usuario ?></option>
+                                                            <?php foreach($possiveis_membros as $membro): ?>
+                                                                <option value="<?= $membro->id_usuario ?>"><?= $membro->nome_usuario ?> - <?= funcaoCliente($membro->funcao_usuario) ?></option>
                                                             <?php endforeach;?>
                                                         </select>
                                                     </div>

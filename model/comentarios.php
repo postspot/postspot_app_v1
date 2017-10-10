@@ -13,12 +13,14 @@ class comentarios {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO comentarios (comentario, id_usuario, id_tarefa)
- VALUES(:comentario, :id_usuario, :id_tarefa);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO comentarios (comentario, id_usuario, id_tarefa, status, equipe)
+ VALUES(:comentario, :id_usuario, :id_tarefa, :status, :equipe);");
 
 		$stmt->bindParam(":comentario", $obj->comentario);
 		$stmt->bindParam(":id_usuario", $obj->id_usuario);
 		$stmt->bindParam(":id_tarefa", $obj->id_tarefa);
+		$stmt->bindParam(":status", $obj->status);
+		$stmt->bindParam(":equipe", $obj->equipe);
 
 		$stmt->execute(); 
 			return true;
@@ -69,16 +71,17 @@ class comentarios {
 		}
 	}
 
-	public static function getAllComentariosByTarefa($id) {
+	public static function getAllComentariosByTarefa($id, $status, $condicao) {
 
 	 try {
 		$stmt = Conexao::getInstance()->prepare("SELECT co.*, us.nome_usuario, us.foto_usuario "
 		 . " FROM comentarios co"
 		 . " INNER JOIN usuarios us"
 		 . " ON(co.id_usuario = us.id_usuario)"
-		 . " WHERE co.id_tarefa = :id ORDER BY co.data_criacao");
+		 . " WHERE co.id_tarefa = :id AND co.visivel = 1 AND co.status = :status $condicao ORDER BY co.data_criacao");
 
 		$stmt->bindParam(":id", $id);
+		$stmt->bindParam(":status", $status);
 		 $stmt->execute();
 			$colunas = array();
 			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {

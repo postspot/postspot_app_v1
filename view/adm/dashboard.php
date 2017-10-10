@@ -8,7 +8,7 @@ require_once 'includes/header_padrao.php';
 die();*/
 $tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
-
+$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
 ?>
 <html lang="pt-br">
     <head>
@@ -151,7 +151,12 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <div class="col-lg-6">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <input type="text" placeholder="Buscar pelo nome..." class="form-control">
+                                                    <select class="form-control select-customizado" name="titulo_noticia">
+                                                        <option selected disabled>Buscar pelo nome...</option>
+                                                        <?php foreach ($totasTarefas as $tarefa):?>
+                                                            <option value="<?= $tarefa->id_tarefa ?>"><?= $tarefa->nome_tarefa ?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
                                                 </div>
                                             </fieldset>
                                         </div>
@@ -227,7 +232,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <p><?= date('d/m/Y', strtotime($tarefa->data_prevista)) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="detalhes_conteudo.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-fill btn-wd">Detalhes</a>
+                                        <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta'?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-fill btn-wd fill-up">Detalhes</a>
                                     </div>
                                 </div>
                             </div>
@@ -245,7 +250,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
     
     <script>
     $(document).ready(function() {
-        
+        $(".select-customizado").select2();
     });
     </script>
     

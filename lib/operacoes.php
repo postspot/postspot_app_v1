@@ -223,7 +223,7 @@ function retornaStatusTarefa($status){
             return 'Ajustando Conteúdo';
             break;
         case 9: // Reaprovando
-            return 'Reaprovando Conteúdo';
+            return 'Aprovação Final';
             break;
         case 10: // Conteúdo publicado
             return 'Conteúdo Publicado';

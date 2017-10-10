@@ -151,7 +151,7 @@ class usuarios {
 				. " ON( us.id_usuario = me.id_usuario)"
 				. " WHERE us.funcao_usuario <> 2 AND me.id_usuario is null");*/
 
-			$stmt = Conexao::getInstance()->prepare("select DISTINCT(u.id_usuario), u.nome_usuario from usuarios u inner join membros_equipe m WHERE
+			$stmt = Conexao::getInstance()->prepare("select DISTINCT(u.id_usuario), u.nome_usuario, u.funcao_usuario from usuarios u inner join membros_equipe m WHERE
 			u.funcao_usuario != 2 and u.id_usuario not in (SELECT me.id_usuario from membros_equipe me WHERE me.id_equipe = :id_equipe)");
 
 			$stmt->bindParam(":id_equipe", $equipe);

@@ -62,6 +62,37 @@ class usuarios {
 			return $ex->getMessage();
 		}
 	}
+	
+	public static function updatePerfil($obj) {
+		 try{
+		$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET foto_usuario = :foto_usuario, nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario , email_usuario = :email_usuario  WHERE id_usuario = :id_usuario ");
+
+		$stmt->bindParam(":id_usuario", $obj->id_usuario);
+		$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
+		$stmt->bindParam(":sexo_usuario", $obj->sexo_usuario);
+		$stmt->bindParam(":email_usuario", $obj->email_usuario);
+		$stmt->bindParam(":foto_usuario", $obj->foto_usuario);
+
+		$stmt->execute(); 
+			return true;
+		} catch(PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+
+	public static function trocaSenha($id, $senha) {
+		 try{
+		$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET senha_usuario = :senha_usuario  WHERE id_usuario = :id_usuario ");
+
+		$stmt->bindParam(":id_usuario", $id);
+		$stmt->bindParam(":senha_usuario", $senha);
+
+		$stmt->execute(); 
+			return true;
+		} catch(PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
 
 
  //------------------ function select($id)---------//

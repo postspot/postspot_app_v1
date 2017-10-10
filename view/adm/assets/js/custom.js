@@ -214,21 +214,17 @@ funcoes = {
                     confirmButtonText: 'Trocar',
                     html:
                             '<div class="row">' +
+                                '<form id="formTrocarSenha" action="../../controller/usuario/trocar_senha.php" method="post"enctype="multipart/form-data">' +                            
                                     '<div class="col-md-12">' +
                                          '<div class="form-group">' +
                                             '<label>Nova Senha</label>' +
-                                            '<input type="text" class="form-control border-input">' +
+                                            '<input type="password" class="form-control border-input" name="senha_usuario">' +
                                         '</div>' +
                                     '</div>' +
-                                    '<div class="col-md-12">' +
-                                        '<label>Confirmar Nova Senha</label>' +
-                                        '<div class="form-group">' +
-                                            '<input type="text" class="form-control"/>' +
-                                        '</div>' +
-	                            '</div>'+
-                                '</div>'
+                                '</form>' +
+                            '</div>'
                 }).then(function() {
-                    alert('Vamos trocar a senha');
+                    $('#formTrocarSenha').trigger('submit');
                 });
                 break;
             case 'tipoConteudo':

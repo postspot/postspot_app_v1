@@ -237,9 +237,11 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                 </div>
                             </div>
                         <?php endforeach; endif;     ?>
-                        <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
-                            <i class="ti-plus"></i>
-                        </a>
+                        <?php if($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1'):?>
+                            <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
+                                <i class="ti-plus"></i>
+                            </a>
+                        <?php endif;?>
                     </div>
                 </div>
             </div>

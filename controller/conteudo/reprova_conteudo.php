@@ -9,6 +9,7 @@ $id_tarefa = $_POST["id_tarefa"];
 $id_usuario = $_SESSION['id_usuario'];
 $id_tarefa = $_POST["id_tarefa"];
 $motivo = $_POST["motivo"];
+$equipe = $_SESSION['id_projeto'];
 
 if (isset($id_tarefa)){
     resetStatusTarefa($id_tarefa); 
@@ -31,6 +32,7 @@ if (isset($id_tarefa)){
     $comentario->comentario = $motivo;
     $comentario->id_tarefa = $id_tarefa;
     $comentario->id_usuario = $id_usuario;
+    $comentario->equipe = ($_SESSION['funcao_usuario'] == '3') ? 0 : 1;
     $comentario->status = 1;
     
     if(log_tarefas::insert($novo_log_reprovado) && log_tarefas::insert($log_ajuste)){

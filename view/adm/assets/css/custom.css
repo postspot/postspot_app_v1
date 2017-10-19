@@ -244,6 +244,11 @@ margin-top: 5px;
 .card-chat .send-message .send-button{
     width: 30px;
 }
+.card-chat .ti-trash{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
 .fill-up{
     width: 100%;
 }

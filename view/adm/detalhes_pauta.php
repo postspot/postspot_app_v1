@@ -150,7 +150,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                     </form>
                                 </div>
                             </div>
-                                <?php if($tarefa->etapa != 2 && $tarefa->etapa < 5): ?>
+                                <?php if($tarefa->etapa != 2 && $tarefa->etapa < 5 && $_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'): ?>
                                     <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header">

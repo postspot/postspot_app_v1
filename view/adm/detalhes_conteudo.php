@@ -14,7 +14,7 @@ if(!isset($_GET["t"])){
 }else{
     $id_tarefa = $_GET["t"];
 }
-$condicaoComentario = ($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : '';
+$condicaoComentario = (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : (($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 1, $condicaoComentario);
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $tarefa = tarefas::getById($id_tarefa);
@@ -22,7 +22,9 @@ $persona = personas::getById($tarefa->id_persona);
 $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
-/*die();*/
+$historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
+// pre_r($historicos);
+// die();
 foreach ($referencias_banco as $referencia):
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
 endforeach;
@@ -73,12 +75,13 @@ endforeach;
                                                         <li><a href="#ajuste" data-toggle="tab">Editar</a></li>
                                                     <?php endif;?>
                                                     <li><a href="#pauta" data-toggle="tab">Pauta</a></li>
+                                                    <li><a href="#historico" data-toggle="tab">Histórico</a></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div id="my-tab-content" class="tab-content text-center">
                                             <div class="tab-pane pane-pauta min-height active" id="conteudo">
-                                                <?= (empty($conteudo)) ? '' : $conteudo?>
+                                                <?= (empty($conteudo)) ? '<h1>Nenhum conteúdo escrito até o momento :(</h1>' : $conteudo?>
                                             </div>
                                             <?php if($_SESSION['funcao_usuario'] != 3):?>
                                                 <div class="tab-pane pane-pauta min-height" id="ajuste">
@@ -153,6 +156,30 @@ endforeach;
                                                 <!--<hr>
                                                 <span>Criado por: por Arthur Guedes. Última atualização: 08/11/2016 por Arthur Guedes.</span>-->
                                             </div>
+                                            <div class="tab-pane pane-pauta min-height" id="historico">
+                                            <?php if(empty($historicos)):?>
+                                                <h1>Histórico inexistente :(</h1>
+                                            <?php else: ?>
+                                                
+                                                <table class="table">
+                                                    <tbody>
+                                                    <?php foreach($historicos as $historico):?>
+	                                                    <tr>
+	                                                        <td><?= date("d/m/Y H:i", strtotime($historico->data_criacao)) ?></td>
+	                                                        <td class="text-right">
+                                                                <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" onclick="mostraHistorico(<?=$historico->id_publicacao?>)">
+                                                                    <span class="btn-label">
+                                                                        <i class="ti-search"></i>
+                                                                    </span>
+                                                                    Ver Publicação
+                                                                </button>
+	                                                        </td>
+	                                                    </tr>
+                                                    <?php endforeach; ?> 
+                                                    </tbody>
+	                                            </table>
+                                            <?php endif;?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +236,7 @@ endforeach;
                                                         <p><?= $comentario->comentario?></p>
                                                         <div class="card-footer">
                                                             <i class="ti-calendar"></i>
-                                                            <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("h:i", strtotime($comentario->data_criacao)) ?></h6>
+                                                            <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("H:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -219,8 +246,9 @@ endforeach;
                                                         <p><?= $comentario->comentario?></p>
                                                         <div class="card-footer">
                                                             <i class="ti-calendar"></i>
-                                                            <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("h:i", strtotime($comentario->data_criacao)) ?></h6>
+                                                            <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("H:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
+                                                            <i class="ti-trash" onclick="excluiComentario(<?= $comentario->id_comentario?>, this)"></i>
                                                     </div>
                                                     <div class="avatar">
                                                     <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
@@ -237,14 +265,14 @@ endforeach;
                                                 <div class="send-button">
                                                     <button class="btn btn-primary btn-fill" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                                 </div>
-                                                <?php if(($_SESSION['funcao_usuario'] != 3)): ?>
+                                                <?php if(($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1')){ ?>
                                                 <fieldset>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
                                                             <div class="radio radio-inline">
                                                                 <input id="checkbox50" type="radio" value="0" name="equipe" checked>
                                                                 <label for="checkbox50">
-                                                                    Todos
+                                                                    Cliente
                                                                 </label>
                                                             </div>
                                                         <div class="radio radio-inline">
@@ -256,8 +284,11 @@ endforeach;
                                                         </div>
                                                     </div>
                                                 </fieldset>
-                                                
-                                                <?php endif;?>
+                                                <?php }else if($_SESSION['funcao_usuario'] == '3'){?>
+                                                    <input type="hidden" name="equipe" value="0">
+                                            <?php }else{?>
+                                                    <input type="hidden" name="equipe" value="1">
+                                            <?php } ?>
                                             </form>
                                         </div>
                                     </div>
@@ -298,6 +329,63 @@ endforeach;
     <?php require_once './includes/footer_imports.php'; ?>
 
     <script>
+            function mostraHistorico(codHistorico){
+                var dados = {id_publicacao: codHistorico};
+
+                $.ajax({
+                    url: "../../controller/publicacoes/consulta_publicacao.php",
+                    type: "POST",
+                    dataType: "json",
+                    async: true,
+                    data: dados,
+                    timeout: 15000,
+                    success: function (data) {
+
+                        swal({
+                            html: data,
+                            width: 900,
+                            showCancelButton: false,
+                            confirmButtonClass: 'btn btn-success btn-fill',
+                            confirmButtonText: 'Fechar!',
+                            buttonsStyling: false
+                        }).then(function() {});  
+                    },
+                    error: function (x, t, m) {
+                        alert('Tempo esgotado');
+                        console.log(JSON.stringify(x));
+                    }
+                });
+            }
+
+            function excluiComentario(codComentario, elem){
+                var dados = {id_comentario: codComentario};
+                swal({
+                    title: 'Tem certeza?',
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Excluir',
+                    buttonsStyling: false
+                }).then(function() {
+                    $.ajax({
+                        url: "../../controller/comentarios/exclui_comentario.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            $(elem).parents('li').remove();
+                            swal('Comentário Excluido!');  
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });  
+            }
         $(document).ready(function () {
            
             <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
@@ -354,7 +442,9 @@ endforeach;
                     success: function (data) {
                         console.log(JSON.stringify(data));
                         if(data == 'true'){
-                            var msg = '<div class="msg"><p>'+dados['comentario']+'</p><div class="card-footer"><i class="ti-check"></i><h6>11:22</h6></div></div>';
+                            var d = new Date();
+                            $('#formComentario input[type=text]').val('');
+                            var msg = '<div class="msg"><p>'+dados['comentario']+'</p><div class="card-footer"><i class="ti-calendar"></i><h6>'+d.getDate()+'/'+(d.getMonth() + 1)+' '+d.getHours()+':'+d.getMinutes()+'</h6></div></div>';
                             var img = '<div class="avatar"><img src="../../uploads/usuarios/<?= $_SESSION['foto_usuario'] ?>" alt="Foto de <?= $_SESSION['nome_usuario'] ?>"/></div>';
                             var content = '<li class="self">'+msg+ img+'</li>';
                             $("#olChat").append(content);

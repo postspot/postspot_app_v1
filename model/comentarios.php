@@ -25,7 +25,7 @@ class comentarios {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
 		}
 	}
 
@@ -45,7 +45,7 @@ class comentarios {
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
 		}
 	}
 
@@ -100,7 +100,7 @@ class comentarios {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM comentarios WHERE id_tarefa = :id");
+		$stmt = Conexao::getInstance()->prepare("UPDATE comentarios SET visivel = 0  WHERE id_comentario = :id ");
 
 		$stmt->bindParam(":id", $id);
 

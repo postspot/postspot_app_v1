@@ -90,6 +90,39 @@ class publicacoes {
 			}
 
 
+			public static function getHistoricoPublicacao($id) {
+				
+					 try {
+						$stmt = Conexao::getInstance()->prepare("SELECT * "
+						. " FROM publicacoes WHERE id_tarefa = :id "
+						. " ORDER BY data_criacao DESC");
+				
+						$stmt->bindParam(":id", $id);
+						$stmt->execute();
+						$colunas = array();
+						while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+							array_push($colunas, $row);
+						}
+						return $colunas;
+						} catch(PDOException $ex) {
+							echo $ex->getMessage();
+						}
+					}
+
+					public static function retornaPublicacao($id) {
+						
+							 try {
+								$stmt = Conexao::getInstance()->prepare("SELECT texto_publicacao FROM publicacoes WHERE id_tarefa = :id");
+						
+								$stmt->bindParam(":id", $id);
+								$stmt->execute();
+								while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+									return $row->texto_publicacao;
+								}
+								} catch(PDOException $ex) {
+									echo $ex->getMessage();
+								}
+							}
  //------------------ function delete($id)---------//
 
 

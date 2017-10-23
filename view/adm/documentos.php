@@ -46,13 +46,16 @@ die();*/
                                             <tbody>
                                                 <?php foreach($anexos as $anexo): ?>
                                                     <tr>
-                                                        <td></td>
+                                                        <td><?= $anexo->id_anexo ?></td>
                                                         <td><?= $anexo->nome_anexo ?></td>
                                                         <td><strong><?= mesEscrito($anexo->data_criacao) ?> de <?= date("Y", strtotime($anexo->data_criacao)) ?></strong><br>Criado <?= date("d/m/Y", strtotime($anexo->data_criacao)) ?> às <?= date("H:i", strtotime($anexo->data_criacao)) ?></td>
                                                         <td><?= $anexo->nome_usuario ?></td>
                                                         <td class="td-actions">
                                                             <a href="#" rel="tooltip" title="Abrir" class="btn btn-info btn-simple btn-xs abrir-doc">
                                                                 <i class="ti-eye"></i>
+                                                            </a>
+                                                            <a href="#" rel="tooltip" title="Deletar" class="btn btn-danger btn-simple btn-xs del-doc">
+                                                                <i class="ti-close"></i>
                                                             </a>
                                                         </td>
                                                     </tr>
@@ -113,7 +116,6 @@ die();*/
 
 
 	        var table = $('#datatables').DataTable();
-	         // Edit record
 	         table.on( 'click', '.abrir-doc', function () {
 	            $tr = $(this).closest('tr');
 
@@ -124,6 +126,45 @@ die();*/
                 win.focus();
 	         } );
 
+	         table.on( 'click', '.del-doc', function () {
+	            $tr = $(this).closest('tr');
+
+	            var data = table.row($tr).data();
+                
+                
+				var dados = {id_anexo: data[0], nome_anexo: data[1]}
+				$.ajax({
+					url: "../../controller/anexos/remove_anexo.php",
+					type: "POST",
+					dataType: "json",
+					async: true,
+					data: dados,
+					timeout: 15000,
+					success: function (data) {
+						if(data == 'true'){
+							table.row($tr).remove().draw();
+							swal({
+								title: 'Sucesso!',
+								text: 'O anexo foi removido.',
+								type: 'success',
+								confirmButtonClass: "btn btn-success btn-fill",
+								buttonsStyling: false
+								})
+						}else{
+							swal({
+								title: 'Erro!',
+								text: 'O anexo não foi removido.',
+								type: 'error',
+								confirmButtonClass: "btn btn-info btn-fill",
+								buttonsStyling: false
+								})
+						}
+					},
+					error: function (x, t, m) {
+						console.log(JSON.stringify(x));
+					}
+				});
+	         } );
 
 	    });
 	</script>

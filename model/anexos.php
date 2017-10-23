@@ -96,14 +96,14 @@ class anexos {
 
 	public static function delete($id) {
 		 try{ 
-		$stmt = Conexao::getInstance()->prepare("DELETE FROM anexos WHERE membros_equipe_id_membros = :id");
+		$stmt = Conexao::getInstance()->prepare("DELETE FROM anexos WHERE id_anexo = :id");
 
 		$stmt->bindParam(":id", $id);
 
 		$stmt->execute(); 
 			return true;
 		} catch(PDOException $ex) {
-		return false;
+			echo $ex->getMessage();
 		}
 	}
 }

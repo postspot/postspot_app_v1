@@ -6,7 +6,7 @@ require_once 'includes/header_padrao.php';
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -117,30 +117,34 @@ require_once 'includes/header_padrao.php';
                                             </div>
                                             <hr>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
+                                                    <h5>ESTÁGIO DO CICLO DE VIDA DA PERSONA</h5>
                                                     <div class="form-group">
-                                                        <label>Aprendizado e Descoberta</label>
-                                                        <input type="text" class="form-control border-input" name="aprendizado">
+                                                        <label>Conhecimento</label>
+                                                        <p class="text-muted">Realizou ou expressou sintomas de um potencial problema ou oportunidade.</p>
+                                                        <textarea rows="5" name="aprendizado" class="form-control border-input" placeholder=""></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Reconhecimento do Problema</label>
-                                                        <input type="text" class="form-control border-input" name="reconhecimento">
+                                                        <label>Consideração</label>
+                                                        <p class="text-muted">Tem com clareza a definição e sabe qual é o seu problema ou oportunidade.</p>
+                                                        <textarea rows="5" name="reconhecimento" class="form-control border-input" placeholder=""></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Consideração da Solução</label>
-                                                        <input type="text" class="form-control border-input" name="consideracao">
+                                                        <label>Decisão</label>
+                                                        <p class="text-muted">Já tem definido a estratégia, método ou abordagem para solucionar o seu problema.</p>
+                                                        <textarea rows="5" name="consideracao" class="form-control border-input" placeholder=""></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <!--<div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Decisão de Compra</label>
-                                                        <input type="text" class="form-control border-input" name="decisao">
+                                                        <textarea rows="5" name="decisao" class="form-control border-input" placeholder=""></textarea>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                             </div>
                                             <hr>
                                             <div class="row">

@@ -35,10 +35,10 @@ if (isset($usuario_banco)) {
             if($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK){
                 $tmp_name = $_FILES["foto_usuario"]["tmp_name"];
                 $name = $_FILES["foto_usuario"]["name"];
-                move_uploaded_file($tmp_name, "$uploads_dir/$usuario_atualizado->id_usuario-$name");
+                move_uploaded_file($tmp_name, "$uploads_dir/$usuario_banco->id_usuario-$name");
             }
 
-            $usuario_atualizado->foto_usuario = $usuario_atualizado->id_usuario."-".$_FILES["foto_usuario"]["name"];
+            $usuario_atualizado->foto_usuario = $usuario_banco->id_usuario."-".$_FILES["foto_usuario"]["name"];
         }
         else{
             $usuario_atualizado->foto_usuario = $usuario_banco->foto_usuario;

@@ -86,6 +86,38 @@ class tarefas {
 		}
 	}
 
+	public static function classificaConteudo($id, $nota) {
+		 try{
+			$stmt = Conexao::getInstance()->prepare("UPDATE tarefas SET "
+				. " nota_tarefa = :nota_tarefa"
+				. " WHERE id_tarefa = :id_tarefa ");
+
+		$stmt->bindParam(":id_tarefa", $id);
+		$stmt->bindParam(":nota_tarefa", $nota);
+
+		$stmt->execute(); 
+			return true;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+
+	public static function atualizaLink($id, $link) {
+		 try{
+			$stmt = Conexao::getInstance()->prepare("UPDATE tarefas SET "
+				. " link_publicado = :link_publicado"
+				. " WHERE id_tarefa = :id_tarefa ");
+
+		$stmt->bindParam(":id_tarefa", $id);
+		$stmt->bindParam(":link_publicado", $link);
+
+		$stmt->execute(); 
+			return true;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+
 
  //------------------ function select($id)---------//
 

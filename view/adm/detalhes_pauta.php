@@ -21,7 +21,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -265,8 +265,22 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
         });
         $("#aprovaPauta").click(function (e) { 
             e.preventDefault();
-            $("#formEditaPauta").attr('action', '../../controller/pautas/aprova_pauta.php');
-            $("#formEditaPauta").submit();            
+            swal({
+                title: 'Alguma Observção?',
+                html: '<div class="form-group">' +
+                            '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
+                        '</div>',
+                type: 'info',
+                showCancelButton: true,
+                cancelButtonClass: 'btn btn-danger btn-fill',
+                confirmButtonClass: 'btn btn-success btn-fill',
+                confirmButtonText: 'Aprovar!',
+                buttonsStyling: false
+                }).then(function() {
+                    $("#inputMotivo").val($("#inputMotivoModal").val());
+                    $("#formEditaPauta").attr('action', '../../controller/pautas/aprova_pauta.php');
+                    $("#formEditaPauta").submit();   
+                });           
         });
         $("#reprovaPauta").click(function (e) { 
             e.preventDefault();

@@ -13,11 +13,20 @@ $linguagens = linguagens::getAll();
 $categorias = categorias::getAll();
 $linguagens_estrategia = linguagens_estrategia::getById($estrategia->id_estrategia);
 $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrategia);
+$linksReferenciasBanco = explode("\n", $estrategia->links); 
+$linksSociaisBanco = explode("\n", $estrategia->links_ref);
+$linksSociais = '';$linksReferencias = '';
+foreach ($linksSociaisBanco as $linkSocial):
+    $linksSociais .= '<li><a href="' . $linkSocial . '" target="_blank">' . $linkSocial . '</a></li>';
+endforeach;
+foreach ($linksReferenciasBanco as $linkReferencia):
+    $linksReferencias .= '<li><a href="' . $linkReferencia . '" target="_blank">' . $linkReferencia . '</a></li>';
+endforeach;
 ?>
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -45,7 +54,7 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                 <div class="nav-tabs-wrapper">
                                                     <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                                                         <li class="active"><a href="#estrategia" data-toggle="tab">Estratégia</a></li>
-                                                        <li><a href="#editar" data-toggle="tab">Editar</a></li>
+                                                        <?= ($_SESSION['funcao_usuario'] == 0)? '<li><a href="#editar" data-toggle="tab">Editar</a></li>' : '' ?>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -63,7 +72,9 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                     <?= $estrategia->produtos_servicos ?>
                                                     <hr>
                                                     <h3>Links de Midia Sociais</h3>
-                                                    <?= $estrategia->links ?>
+                                                    <ol>
+                                                        <?= $linksSociais ?>
+                                                    </ol>
                                                     <hr>
                                                     <h3>Objetivo primário</h3>
                                                     <?= $estrategia->objetivo_primario ?>
@@ -98,14 +109,16 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                     <?php endforeach;?>
                                                     <hr>
                                                     <h3>Links para Referências</h3>
-                                                    <?= $estrategia->links_ref ?>
+                                                    <ol>
+                                                        <?= $linksReferencias ?>
+                                                    </ol>
                                                     <hr>
                                                     <h3>Categorias de conteúdo</h3>
                                                     <?php foreach($categorias_estrategias as $categ):?>
                                                         <p><?=  $categ->nome_categoria ?></p> 
                                                     <?php endforeach;?>
                                                     <hr>
-                                                    <h3>Canais de aquisição de tráfeco</h3>
+                                                    <h3>Canais de aquisição de tráfego</h3>
                                                     <?= $estrategia->canais ?>
                                                     <hr>
                                                     <h3>Ações de marketing levantadas</h3>
@@ -245,7 +258,7 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
-                                                        <p class="text-muted">Selecione as duas ou três principaiis</p>                                              
+                                                        <p class="text-muted">Selecione as duas ou três principais</p>                                              
                                                         <select require multiple title="Escolha as Categorias" class="selectpicker" data-style="no-border" data-size="7" name="categorias_conteudo[]">
                                                             <?php foreach($categorias as $categoria):
                                                                 $selected = '';
@@ -260,7 +273,7 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Canais de aquisição de tráfeco</label>
+                                                        <label>Canais de aquisição de tráfego</label>
                                                         <p class="text-muted">Liste os principais canais de aquisição de tráfego</p>
                                                         <input type="text"  class="form-control" name="canais" value="<?= $estrategia->canais ?>">
                                                     </div>
@@ -280,26 +293,6 @@ $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrate
                                                         <label>Termos proibidos</label>
                                                         <p class="text-muted">Liste os termos proibidos para a estratégia do cliente, separados por vírgula</p>
                                                         <input type="text"  class="form-control" name="termos_proibidos" value="<?= $estrategia->termos_proibidos ?>">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Mapeamentos de conteúdo</label>
-                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Aprendizado</p>
-                                                        <textarea class="form-control" rows="3"  name="mapeamentos_aprendizado"><?= $estrategia->mapeamentos_aprendizado ?></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Mapeamentos de conteúdo</label>
-                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Reconhecimento</p>
-                                                        <textarea class="form-control" rows="3"  name="mapeamentos_reconhecimento"><?= $estrategia->mapeamentos_reconhecimento ?></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Mapeamentos de conteúdo</label>
-                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Considerações</p>
-                                                        <textarea class="form-control" rows="3"  name="mapeamentos_consideracoes"><?= $estrategia->mapeamentos_consideracoes ?></textarea>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label>Mapeamentos de conteúdo</label>
-                                                        <p class="text-muted">Liste o mapeamento de conteúdo, separado por vírgula, no estágio de Decisão</p>
-                                                        <textarea class="form-control" rows="3"  name="mapeamentos_decisao"><?= $estrategia->mapeamentos_decisao ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <button type="submit" class="btn btn-fill btn-success pull-right">Salvar</button>

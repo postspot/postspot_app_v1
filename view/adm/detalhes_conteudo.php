@@ -23,7 +23,7 @@ $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
 $historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
-// pre_r($historicos);
+// pre_r($tarefa->etapa);
 // die();
 foreach ($referencias_banco as $referencia):
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
@@ -32,7 +32,7 @@ endforeach;
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -55,7 +55,7 @@ endforeach;
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 0)? 'active' : ''?>">Pauta</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 4)? 'active' : ''?>">Produção</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 6)? 'active' : ''?>">Aprovação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 5)? 'active' : ''?>">Aprovação</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 7)? 'active' : ''?>">Correção/Adequação</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 8)? 'active' : ''?>">Aprovação Final</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > 9)? 'active' : ''?>">Publicado</button>
@@ -197,6 +197,7 @@ endforeach;
                                         <?php //if($tarefa->etapa == 6 || $tarefa->etapa == 9):?>
                                             <form id="formAprovaConteudo" action="" method="post">
                                                 <input type="hidden" name="motivo" id="inputMotivo">
+                                                <input type="hidden" name="nota_tarefa" id="inputNota">
                                                 <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnAprovaConteudo">
@@ -215,6 +216,62 @@ endforeach;
                                         <?php //endif;?>
                                     </div>
                                 </div>
+                                <?php elseif($tarefa->etapa != 6 && $tarefa->etapa != 9 && $tarefa->etapa != 10):?>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Ação necessaria</h4>
+                                        </div>
+                                        <div class="card-content">
+                                        <?php if($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1): ?>
+                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaAprovacaoConteudo">
+                                                <span class="btn-label">
+                                                    <i class="ti-control-forward"></i>
+                                                </span>
+                                                Enviar Aprovação
+                                            </button>
+                                        <?php endif;?>
+                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnLatSalvaConteudo">
+                                                <span class="btn-label">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+                                                Salvar Conteúdo
+                                            </button>
+                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaAprovacaoConteudo">
+                                                <span class="btn-label">
+                                                    <i class="ti-control-forward"></i>
+                                                </span>
+                                                Notifica Gestor
+                                            </button>
+                                        </div>
+                                    </div>
+                                <?php elseif($tarefa->etapa == 10):?>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Link Publicação</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <form action="../../controller/conteudo/atualiza_link.php" method="post">
+                                                <input type="hidden" name="id_tarefa" value="<?=$id_tarefa?>">
+                                                <fieldset>
+                                                    <?php if($_SESSION['funcao_usuario'] == 0):?>
+                                                    <div class="form-group">
+                                                        <input type="text" name="link_publicado" class="form-control" value="<?= $tarefa->link_publicado ?>" placeholder="Informe o link">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-lg fill-up  btn-wd btn-success margem">
+                                                        <span class="btn-label">
+                                                            <i class="fa fa-check"></i>
+                                                        </span>
+                                                        Salvar Link
+                                                    </button>
+                                                    <?php else:?>
+                                                    <div class="form-group">
+                                                        <input type="text" disabled="disabled" class="form-control" value="<?= $tarefa->link_publicado ?>" placeholder="Informe o link">
+                                                    </div>
+                                                    <?php endif;?>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
                                 <?php endif;?>
                                 <div class="card card-chat">
                                     <div class="card-header">
@@ -293,31 +350,6 @@ endforeach;
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Integrantes</h4>
-                                    </div>
-                                    <div class="card-content">
-                                        <ul class="list-unstyled team-members">
-                                        <?php foreach ($membros as $membro): ?>
-                                            <li>
-                                                <div class="row">
-                                                    <div class="col-xs-3">
-                                                        <div class="avatar">
-                                                            <img src="../../uploads/usuarios/<?= $membro->foto_usuario ?>" alt="foto <?= $membro->nome_usuario ?>" class="img-circle img-no-padding img-responsive">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xs-6 col-xs-offset-1">
-                                                        <?= $membro->nome_usuario ?>
-                                                        <br>
-                                                        <span class="text-muted"><small><?= funcaoCliente($membro->funcao_usuario) ?></small></span>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        <?php endforeach;?>
-                                        </ul>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -392,6 +424,8 @@ endforeach;
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo aprovado.');
             <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo salvo.');
+            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'lOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Link salvo.');
             <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo enviado para aprovação.');
             <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
@@ -465,23 +499,49 @@ endforeach;
                 });
             });
             
-            $("#enviarAprovacao").click(function (e) { 
-                e.preventDefault();
+            function enviaAprovacao(){
                 $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
                 $("#controleCriacao").val(1);
                 $("#formConteudo").submit();
-            });
-            $("#salvaConteudo").click(function (e) { 
-                e.preventDefault();
+            }
+            
+            function salvaConteudo(){
                 $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
                 $("#controleCriacao").val(0);
                 $("#formConteudo").submit();
-            });
+            }
             
             $("#btnAprovaConteudo").click(function (e) { 
                 e.preventDefault();
-                $("#formAprovaConteudo").attr('action', '../../controller/conteudo/aprova_conteudo.php');
-                $("#formAprovaConteudo").submit();
+                swal({
+                    html: '<div class="form-group">' +
+                                '<label>Avalie este conteúdo sendo 1 para muito ruim e 10 para muito bom</label>'+
+                                '<select class="form-control" id="inputNotaModal">'+
+                                    '<option selected disabled>Escolha de 1 a 10</option>'+
+                                    '<option value="1">1</option>'+
+                                    '<option value="2">2</option>'+
+                                    '<option value="3">3</option>'+
+                                    '<option value="4">4</option>'+
+                                    '<option value="5">5</option>'+
+                                    '<option value="6">6</option>'+
+                                    '<option value="7">7</option>'+
+                                    '<option value="8">8</option>'+
+                                    '<option value="9">9</option>'+
+                                    '<option value="10">10</option>'+
+                                '</select>'+
+                            '</div>',
+                    type: 'info',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Aprovar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    $("#inputNota").val($("#inputNotaModal").val());
+                    $("#formAprovaConteudo").attr('action', '../../controller/conteudo/aprova_conteudo.php');
+                    $("#formAprovaConteudo").submit();
+                    $("#formAprovaConteudo").submit();
+                });
             });
             $("#btnReprovaConteudo").click(function (e) {
                 e.preventDefault();
@@ -501,6 +561,12 @@ endforeach;
                     $("#formAprovaConteudo").attr('action', '../../controller/conteudo/reprova_conteudo.php');
                     $("#formAprovaConteudo").submit();
                 });          
+            });
+            $("#btnLatSalvaConteudo").click(function (e) { 
+                salvaConteudo();
+            });
+            $("#btnLatEnviaAprovacaoConteudo").click(function (e) { 
+                enviaAprovacao();
             });
         });
     </script>

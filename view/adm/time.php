@@ -7,7 +7,7 @@ $users = usuarios::getAll();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -154,7 +154,7 @@ $users = usuarios::getAll();
 						}else{
 							swal({
 								title: 'Erro!',
-								text: 'O usuário não foi adicionado.',
+								text: 'O usuário não foi deletado.',
 								type: 'error',
 								confirmButtonClass: "btn btn-info btn-fill",
 								buttonsStyling: false

@@ -11,7 +11,7 @@ die();*/
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -71,7 +71,7 @@ die();*/
                                                         </div>
                                                         <div class="col-xs-3 text-right">
                                                             <a href="edita_persona.php?persona=<?= $persona->id_persona ?>" class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></a>
-                                                            <a href="#" onclick="deletaPersona(event,'<?= $persona->id_persona ?>',this);" class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></a>
+                                                            <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="#" onclick="deletaPersona(event,'. $persona->id_persona .',this);" class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></a>' : '' ?>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -95,6 +95,7 @@ die();*/
 
     <script>
     var codDeletado;
+    var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - persona foi criada corretamente.');
@@ -105,11 +106,9 @@ die();*/
             });
         <?php } ?>
         function deletaPersona(e,cod_persona,btn) { 
-            e.preventDefault();
-            var id = '#personaId' + cod_persona;
-            $(id).fadeOut();
+            elem = '#personaId' + cod_persona;
             codDeletado = cod_persona;
-            funcoes.showSwal('deletaProjeto');
+            funcoes.showSwal('deletaPersona');
          }
     </script>
 </html>

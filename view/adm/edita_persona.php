@@ -8,13 +8,14 @@ if(isset($_GET["persona"])){
     $persona = personas::getById($_GET["persona"]);
 }
 
+$disabled = ($_SESSION['funcao_usuario'] != 0)? 'disabled="disabled"' : '';
 //pre_r($persona);
 //die();
 ?>
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -46,24 +47,24 @@ if(isset($_GET["persona"])){
                                                     <input type="hidden" name="foto" value="<?= $persona->foto ?>" class="form-control border-input" id="hiddenFotoPersona">
                                                     <img id="fotoPersona" class="avatar border-white" src="assets/img/faces/<?= $persona->foto ?>" alt="Foto Persona">                                                    
                                                 </div>
-                                                <button  type="button" class="btn btn-fill btn-success" onclick="funcoes.showSwal('personas')">Escolher Foto</button>
+                                                <button  type="button" class="btn btn-fill btn-success" onclick="funcoes.showSwal('personas')" <?=$disabled?>>Escolher Foto</button>
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <input type="text" name="nome" class="form-control border-input" value="<?= $persona->nome ?>">
+                                                    <input type="text" name="nome" class="form-control border-input" value="<?= $persona->nome ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label>Idade</label>
-                                                    <input type="number" name="idade" class="form-control border-input" value="<?= $persona->idade ?>">
+                                                    <input type="number" name="idade" class="form-control border-input" value="<?= $persona->idade ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label>Sexo</label>
-                                                    <select class="form-control border-input" name="sexo">
+                                                    <select class="form-control border-input" name="sexo" <?=$disabled?>>
                                                         <option value="m" <?= ($persona->sexo == 'm') ? 'selected' : ''?>>Masculino</option>
                                                         <option value="f" <?= ($persona->sexo == 'f') ? 'selected' : ''?>>Feminino</option>
                                                     </select>
@@ -76,7 +77,7 @@ if(isset($_GET["persona"])){
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Características</label>
-                                                    <textarea rows="5" name="caracteristicas" class="form-control border-input"><?= $persona->caracteristicas ?></textarea>
+                                                    <textarea rows="5" name="caracteristicas" class="form-control border-input" <?=$disabled?>><?= $persona->caracteristicas ?></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -85,19 +86,19 @@ if(isset($_GET["persona"])){
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Educação</label>
-                                                    <input type="text" class="form-control border-input" name="educacao" value="<?= $persona->educacao ?>">
+                                                    <input type="text" class="form-control border-input" name="educacao" value="<?= $persona->educacao ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Trabalho</label>
-                                                    <input type="text" class="form-control border-input" name="trabalho" value="<?= $persona->trabalho ?>">
+                                                    <input type="text" class="form-control border-input" name="trabalho" value="<?= $persona->trabalho ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Segmento</label>
-                                                    <input type="text" class="form-control border-input" name="segmento" value="<?= $persona->segmento ?>">
+                                                    <input type="text" class="form-control border-input" name="segmento" value="<?= $persona->segmento ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +108,7 @@ if(isset($_GET["persona"])){
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Seus objetivos são:</label>
-                                                    <textarea rows="5" class="form-control border-input" name="objetivos"><?= $persona->objetivos ?></textarea>
+                                                    <textarea rows="5" class="form-control border-input" name="objetivos" <?=$disabled?>><?= $persona->objetivos ?></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -130,32 +131,32 @@ if(isset($_GET["persona"])){
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Aprendizado e Descoberta</label>
-                                                    <input type="text" class="form-control border-input" name="aprendizado" value="<?= $persona->aprendizado ?>">
+                                                    <input type="text" class="form-control border-input" name="aprendizado" value="<?= $persona->aprendizado ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Reconhecimento do Problema</label>
-                                                    <input type="text" class="form-control border-input" name="reconhecimento" value="<?= $persona->reconhecimento ?>">
+                                                    <input type="text" class="form-control border-input" name="reconhecimento" value="<?= $persona->reconhecimento ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Consideração da Solução</label>
-                                                    <input type="text" class="form-control border-input" name="consideracao" value="<?= $persona->consideracao ?>">
+                                                    <input type="text" class="form-control border-input" name="consideracao" value="<?= $persona->consideracao ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Decisão de Compra</label>
-                                                    <input type="text" class="form-control border-input" name="decisao" value="<?= $persona->decisao ?>">
+                                                    <input type="text" class="form-control border-input" name="decisao" value="<?= $persona->decisao ?>" <?=$disabled?>>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-fill btn-info pull-right">Salvar</button>                                               
+                                                <button type="submit" class="btn btn-fill btn-info pull-right" <?=$disabled?>>Salvar</button>                                               
                                             </div>
                                             </div>
                                 </div>

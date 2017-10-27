@@ -3,8 +3,8 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/personas.php';
 
-//$id_persona = $_POST["id_persona"];
-$id_persona = 1;
+$id_persona = $_POST["id_persona"];
+//$id_persona = 1;
 
 if(isset($id_persona)){
     

@@ -10,7 +10,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -30,9 +30,9 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                         
                         <h4 class="title"><i class="ti-light-bulb"></i> Criar Pauta</h4>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <form class="form-horizontal" action="../../controller/pautas/criar_pauta.php" method="POST" id="formCriaPauta">
+                            <form class="form-horizontal" action="../../controller/pautas/criar_pauta.php" method="POST" id="formCriaPauta">
+                                <div class="col-md-8">
+                                    <div class="card">
                                         <input type="hidden" name="aprovacao" id="controlaAprovacao">
                                         <div class="card-header">
                                             <h4 class="card-title">
@@ -70,7 +70,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Estágio de Compra</label>
+                                                <label class="col-md-2 control-label">Estágio da Jornada de Compra</label>
                                                 <div class="col-md-10">
 
                                                     <div class="radio">
@@ -138,29 +138,30 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <div class="form-group">
-                                                <div class="col-md-3 col-md-offset-2">
-                                                    <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify pull-left" id="salvaPauta">
-                                                        <span class="btn-label">
-                                                            <i class="ti-save"></i>
-                                                        </span>
-                                                        Salvar
-                                                    </button>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right pull-right" id="enviaAprovacaoPauta">
-                                                        Enviar Aprovação
-                                                        <span class="btn-label">
-                                                            <i class="ti-control-forward"></i>
-                                                        </span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-4">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Ação necessaria</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify fill-up margem" id="salvaPauta">
+                                                <span class="btn-label">
+                                                    <i class="ti-save"></i>
+                                                </span>
+                                                Salvar
+                                            </button>
+                                            <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
+                                                Enviar Aprovação
+                                                <span class="btn-label">
+                                                    <i class="ti-control-forward"></i>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>                            
                         </div>
                     </div>
                 </div>

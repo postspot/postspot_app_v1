@@ -13,7 +13,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium</title>
+        <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 

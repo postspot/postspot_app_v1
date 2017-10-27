@@ -19,7 +19,7 @@ $projetos = projetos::getByUsuario($_SESSION['id_usuario']);
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3 lista-projetos">
                         <img src="assets/img/logo-postspo.png" alt="Logo PostSpot">
-                        <h1>Bem vindo novamente, Andress!</h1>
+                        <h1>Bem vindo novamente, <?=$_SESSION['nome_usuario']?>!</h1>
                         <p>Selecione o projeto que deseja acompanhar</p>
                         <ul>
                             <?php foreach($projetos as $projeto): ?>

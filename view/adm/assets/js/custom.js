@@ -603,6 +603,52 @@ funcoes = {
                     });
                 });
             break;
+            case 'deletaPersona':
+                swal({
+                    title: 'Deseja deletar?',
+                    text: "Depois de confirmar, esta persona não poderá ser recuperada!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Sim, deletar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    dados = {id_persona: codDeletado}
+                    $.ajax({
+                        url: "../../controller/persona/deleta_persona.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                $(elem).remove();
+                                swal({
+                                  title: 'Sucesso!',
+                                  text: 'A persona foi deletada.',
+                                  type: 'success',
+                                  confirmButtonClass: "btn btn-success btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }else{
+                                swal({
+                                  title: 'Erro!',
+                                  text: 'A persona não foi deletada.',
+                                  type: 'error',
+                                  confirmButtonClass: "btn btn-info btn-fill",
+                                  buttonsStyling: false
+                                  })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            break;
         }
     },
     

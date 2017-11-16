@@ -15,9 +15,9 @@ $equipe = $_SESSION['id_projeto'];
 if (isset($id_tarefa)){
     resetStatusTarefa($id_tarefa); 
     $novo_log_aprovado = new stdClass();
-    $novo_log_aprovado->etapa = 10;
+    $novo_log_aprovado->etapa = CONTEUDO_PARA_PUBLICAR;
     $novo_log_aprovado->status = 1;
-    $novo_log_aprovado->data_prevista = retornaDataPrevista(10);
+    $novo_log_aprovado->data_prevista = retornaDataPrevista(CONTEUDO_PARA_PUBLICAR);
     $novo_log_aprovado->id_tarefa = $id_tarefa;
     $novo_log_aprovado->id_usuario = $id_usuario;
     

@@ -48,7 +48,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Tipo</label>
-                                                <div class="col-md-4">
+                                                <div class="col-md-9">
                                                     <select class="form-control" name="tipo_tarefa">
                                                         <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
                                                             <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
@@ -71,31 +71,24 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Estágio da Jornada de Compra</label>
-                                                <div class="col-md-10">
+                                                <div class="col-md-9">
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Aprendizado e Descoberta" checked="">
+                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Conhecimento" checked="">
                                                         <label for="estagio1">
-                                                            Aprendizado e Descoberta
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio2" value="Reconhecimento do Problema">
-                                                        <label for="estagio2">
-                                                            Reconhecimento do Problema
+                                                            Conhecimento
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração da Solução">
+                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração">
                                                         <label for="estagio3">
-                                                            Consideração da Solução
+                                                            Consideração
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão de Compra">
+                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão">
                                                         <label for="estagio4">
-                                                            Decisão de Compra
+                                                            Decisão
                                                         </label>
                                                     </div>
                                                 </div>
@@ -103,7 +96,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
 
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Persona</label>
-                                                <div class="col-md-4">
+                                                <div class="col-md-9">
                                                     <select class="form-control" name="id_persona" required>
                                                         <?php if(empty($persona)): ?>
                                                             <option value="" disabled selected>Nenhuma persona cadastrada!</option>
@@ -153,7 +146,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 Salvar
                                             </button>
                                             <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
-                                                Enviar Aprovação
+                                                Enviar Moderador
                                                 <span class="btn-label">
                                                     <i class="ti-control-forward"></i>
                                                 </span>

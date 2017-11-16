@@ -292,3 +292,6 @@ div.dataTables_wrapper div.dataTables_length select {
 }
 .card-resumo-tarefasli{margin-bottom: 10px;
 }
+.modal-backdrop{
+    z-index: 0 !important;
+}

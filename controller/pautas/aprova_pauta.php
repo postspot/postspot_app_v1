@@ -13,9 +13,9 @@ $id_usuario = $_SESSION['id_usuario'];
 if (isset($id_tarefa)){
     resetStatusTarefa($id_tarefa);
     $novo_log_aprovado = new stdClass();
-    $novo_log_aprovado->etapa = 5;
+    $novo_log_aprovado->etapa = CONTEUDO_ESCREVENDO;
     $novo_log_aprovado->status = 1;
-    $novo_log_aprovado->data_prevista = retornaDataPrevista(5);
+    $novo_log_aprovado->data_prevista = retornaDataPrevista(CONTEUDO_ESCREVENDO);
     $novo_log_aprovado->id_tarefa = $id_tarefa;
     $novo_log_aprovado->id_usuario = $id_usuario;
     

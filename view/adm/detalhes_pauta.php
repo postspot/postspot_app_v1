@@ -51,13 +51,13 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                         <div class="card-content">
                                             <div class="form-group column-sizing">
                                                 <label class="col-md-2 control-label">Título</label>
-                                                <div class="col-md-5">
+                                                <div class="col-md-9">
                                                     <input required type="text" placeholder="Título da Pauta" name="nome_tarefa" class="form-control" value="<?= $tarefa->nome_tarefa ?>">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="col-md-2 control-label">Tipo</label>
-                                                <div class="col-md-5">
+                                                <div class="col-md-9">
                                                     <select class="form-control" name="tipo_tarefa">
                                                         <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
                                                             <option value="<?= $tipoTarefa->id_tipo ?>" <?= ($tarefa->id_tipo == $tipoTarefa->id_tipo)? 'selected' : '' ?>><?= $tipoTarefa->nome_tarefa ?></option>
@@ -83,28 +83,21 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 <div class="col-md-10">
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Aprendizado e Descoberta" <?= ($tarefa->estagio_compra == 'Aprendizado e Descoberta')? 'checked' : '' ?>>
+                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Conhecimento" <?= ($tarefa->estagio_compra == 'Conhecimento')? 'checked' : '' ?>>
                                                         <label for="estagio1">
-                                                            Aprendizado e Descoberta
-                                                        </label>
-                                                    </div>
-
-                                                    <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio2" value="Reconhecimento do Problema" <?= ($tarefa->estagio_compra == 'Reconhecimento do Problema')? 'checked' : '' ?>>
-                                                        <label for="estagio2">
-                                                            Reconhecimento do Problema
+                                                            Conhecimento
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração da Solução" <?= ($tarefa->estagio_compra == 'Consideração da Solução')? 'checked' : '' ?>>
+                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração" <?= ($tarefa->estagio_compra == 'Consideração')? 'checked' : '' ?>>
                                                         <label for="estagio3">
-                                                            Consideração da Solução
+                                                            Consideração
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão de Compra" <?= ($tarefa->estagio_compra == 'Decisão de Compra')? 'checked' : '' ?>>
+                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão" <?= ($tarefa->estagio_compra == 'Decisão')? 'checked' : '' ?>>
                                                         <label for="estagio4">
-                                                            Decisão de Compra
+                                                            Decisão
                                                         </label>
                                                     </div>
                                                 </div>
@@ -150,29 +143,43 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                     </form>
                                 </div>
                             </div>
-                                <?php if($tarefa->etapa != 2 && $tarefa->etapa < 5 && $_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'): ?>
+                                <?php if($tarefa->etapa < CONTEUDO_ESCREVENDO && $_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'): ?>
                                     <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h4 class="card-title">Ação necessaria</h4>
                                             </div>
                                             <div class="card-content">
-                                                <?php if($tarefa->etapa == 0 || $tarefa->etapa == 3 ): ?>
+                                                <?php if($tarefa->etapa == PAUTA_ESCREVENDO || $tarefa->etapa == PAUTA_AJUSTANDO ): ?>
                                                     <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify fill-up margem" id="salvaPauta">
                                                         <span class="btn-label">
                                                             <i class="ti-save"></i>
                                                         </span>
                                                         Salvar
                                                     </button>
-                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
-                                                        Enviar Aprovação
+                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaPautaModeracao">
+                                                        Enviar Moderador
                                                         <span class="btn-label">
                                                             <i class="ti-control-forward"></i>
                                                         </span>
                                                     </button>
                                                 <?php endif; ?>
-                                                <?php if($tarefa->etapa == 1 || $tarefa->etapa == 4): ?>
-                                                    <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
+                                                <?php if($_SESSION['funcao_usuario'] == '0' && ($tarefa->etapa == PAUTA_APROVACAO_MODERADOR || $tarefa->etapa == PAUTA_REAPROVACAO_MODERADOR) ): ?>
+                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
+                                                        Enviar Cliente
+                                                        <span class="btn-label">
+                                                            <i class="ti-control-forward"></i>
+                                                        </span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right fill-up margem" id="reprovaPautaModeracao">
+                                                            Reprovar
+                                                            <span class="btn-label">
+                                                                <i class="ti-control-forward"></i>
+                                                            </span>
+                                                        </button>
+                                                <?php endif; ?>
+                                                <?php if($tarefa->etapa == PAUTA_APROVACAO_CLIENTE || $tarefa->etapa == PAUTA_REAPROVACAO_CLIENTE): ?>
+                                                    <?php if($_SESSION['funcao_usuario'] == '0' && $_SESSION['funcao_usuario'] != '3'):?>
                                                         <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right fill-up margem" id="reprovaPauta">
                                                             Reprovar
                                                             <span class="btn-label">
@@ -257,6 +264,12 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
             $("#controlaAprovacao").val('0');
             $("#formEditaPauta").submit();
         });
+        $("#enviaPautaModeracao").click(function (e) { 
+            e.preventDefault();
+            $("#formEditaPauta").attr('action', '../../controller/pautas/edita_pauta.php');
+            $("#controlaAprovacao").val('2');
+            $("#formEditaPauta").submit();            
+        });
         $("#enviaAprovacaoPauta").click(function (e) { 
             e.preventDefault();
             $("#formEditaPauta").attr('action', '../../controller/pautas/edita_pauta.php');
@@ -282,7 +295,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                     $("#formEditaPauta").submit();   
                 });           
         });
-        $("#reprovaPauta").click(function (e) { 
+        $("#reprovaPauta").click(function (e) {
             e.preventDefault();
             
             swal({
@@ -299,6 +312,27 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());
                     $("#formEditaPauta").attr('action', '../../controller/pautas/reprova_pauta.php');
+                    $("#formEditaPauta").submit();
+                });          
+        });
+
+        $("#reprovaPautaModeracao").click(function (e) {
+            e.preventDefault();
+            
+            swal({
+                title: 'Informe o motivo?',
+                html: '<div class="form-group">' +
+                            '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
+                        '</div>',
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonClass: 'btn btn-danger btn-fill',
+                confirmButtonClass: 'btn btn-success btn-fill',
+                confirmButtonText: 'Reprovar!',
+                buttonsStyling: false
+                }).then(function() {
+                    $("#inputMotivo").val($("#inputMotivoModal").val());
+                    $("#formEditaPauta").attr('action', '../../controller/pautas/reprova_pauta_moderador.php');
                     $("#formEditaPauta").submit();
                 });          
         });

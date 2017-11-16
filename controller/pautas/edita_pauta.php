@@ -18,7 +18,7 @@ $id_persona = $_POST["id_persona"];
 $estagio_compra = $_POST["estagio_compra"];
 $id_projeto = $_SESSION['id_projeto'];
 $id_usuario = $_SESSION['id_usuario'];
-$aprovacao = ($_POST["aprovacao"] == 1) ? 1 : 0;
+$aprovacao = $_POST["aprovacao"];
 $etapa = $_POST['etapa'];
 
 
@@ -47,8 +47,8 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         
         if(tarefas::update($nova_tarefa)){
             resetStatusTarefa($id_tarefa);        
-            if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
-                $nova_etapa = ($etapa == 0) ? 0 : 3;
+            if($aprovacao == '0'){ // Senão for para aprovação, apenas cria o log de salvo
+                $nova_etapa = ($etapa == PAUTA_ESCREVENDO) ? PAUTA_ESCREVENDO : PAUTA_AJUSTANDO;
                 $novo_log_salvo = new stdClass();
                 $novo_log_salvo->etapa = $nova_etapa;
                 $novo_log_salvo->status = 1;
@@ -60,9 +60,24 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 }else{
                     header('Location: ../../view/adm/detalhes_pauta.php?t='.$id_tarefa.'&retorno=nErro');
                 }
-            }else{ // Senão, ja cria dois log´s
+            }else if($aprovacao == '1'){ // Senão, Pode ser enviado para aprovação do cliente
                 
-                $nova_etapa = ($etapa == 0) ? 1 : 4;
+                $nova_etapa = ($etapa == PAUTA_APROVACAO_MODERADOR) ? PAUTA_APROVACAO_CLIENTE : PAUTA_REAPROVACAO_CLIENTE;
+                $novo_log_aprovacao = new stdClass();
+                $novo_log_aprovacao->etapa = $nova_etapa;
+                $novo_log_aprovacao->status = 1;
+                $novo_log_aprovacao->data_prevista = retornaDataPrevista($nova_etapa);
+                $novo_log_aprovacao->id_tarefa = $id_tarefa;
+                $novo_log_aprovacao->id_usuario = $id_usuario;
+            
+                if(log_tarefas::insert($novo_log_aprovacao)){
+                    header('Location: ../../view/adm/pautas.php?retorno=naOk');
+                }else{
+                    header('Location: ../../view/adm/detalhes_pauta.php?t='.$id_tarefa.'&retorno=nErro');
+                }
+            }else if($aprovacao == '2'){// Senão, Pode ser enviado para aprovação do moderador
+                
+                $nova_etapa = ($etapa == PAUTA_ESCREVENDO) ? PAUTA_APROVACAO_MODERADOR : PAUTA_REAPROVACAO_MODERADOR;
                 $novo_log_aprovacao = new stdClass();
                 $novo_log_aprovacao->etapa = $nova_etapa;
                 $novo_log_aprovacao->status = 1;

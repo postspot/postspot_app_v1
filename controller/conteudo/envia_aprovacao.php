@@ -9,7 +9,7 @@ session_start();
 $texto_publicacao = $_POST["texto_publicacao"];
 $id_tarefa = $_POST["id_tarefa"];
 $id_usuario = $_SESSION['id_usuario'];
-$aprovacao = ($_POST["aprovacao"] == 1) ? 1 : 0;
+$aprovacao = $_POST["aprovacao"];
 $etapa = $_POST['etapa'];
 
 
@@ -24,8 +24,8 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
     if(publicacoes::insert($conteudo_texto)){ // Insere a tarefa
         
         resetStatusTarefa($id_tarefa);    
-        if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
-            $nova_etapa = ($etapa == 5) ? 5 : 8;
+        if($aprovacao == '0'){ // apenas cria o log de salvo
+            $nova_etapa = ($etapa == CONTEUDO_ESCREVENDO) ? CONTEUDO_ESCREVENDO : CONTEUDO_AJUSTANDO;
             $novo_log_conteudo = new stdClass();
             $novo_log_conteudo->etapa = $nova_etapa;
             $novo_log_conteudo->status = 1;
@@ -37,23 +37,29 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             }else{
                 header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=cErro');
             }
-        }else{ // Senão, ja cria dois log´s
-            $nova_etapa = ($etapa == 5) ? 6 : 9;
-            $novo_log_conteudo = new stdClass();
-            $novo_log_conteudo->etapa = 5;
-            $novo_log_conteudo->status = 0;
-            $novo_log_conteudo->data_prevista = retornaDataPrevista(5);
-            $novo_log_conteudo->id_tarefa = $id_tarefa;
-            $novo_log_conteudo->id_usuario = $id_usuario;
-            
+        }else if($aprovacao == '1'){ // Pode enviar para aprovação do cliente            
             $novo_log_aprovacao = new stdClass();
-            $novo_log_aprovacao->etapa = $nova_etapa;
+            $novo_log_aprovacao->etapa = CONTEUDO_APROVACAO_CLIENTE;
             $novo_log_aprovacao->status = 1;
-            $novo_log_aprovacao->data_prevista = retornaDataPrevista($nova_etapa);
+            $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_CLIENTE);
             $novo_log_aprovacao->id_tarefa = $id_tarefa;
             $novo_log_aprovacao->id_usuario = $id_usuario;
         
-            if(log_tarefas::insert($novo_log_conteudo) && log_tarefas::insert($novo_log_aprovacao)){
+            if(log_tarefas::insert($novo_log_aprovacao)){
+                header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=naOk');
+            }else{
+                header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=cErro');
+            }
+        }else if($aprovacao == '2'){ // Pode enviar para aprovação do Moderador
+            
+            $novo_log_aprovacao = new stdClass();
+            $novo_log_aprovacao->etapa = CONTEUDO_APROVACAO_MODERADOR;
+            $novo_log_aprovacao->status = 1;
+            $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_MODERADOR);
+            $novo_log_aprovacao->id_tarefa = $id_tarefa;
+            $novo_log_aprovacao->id_usuario = $id_usuario;
+        
+            if(log_tarefas::insert($novo_log_aprovacao)){
                 header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=naOk');
             }else{
                 header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=cErro');

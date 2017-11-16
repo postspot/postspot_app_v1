@@ -101,49 +101,6 @@ function funcaoCliente($funcao){
 }
 
 
-/**
- * 
- * Envia notificação OneSignal para todos registrados
- * @access public 
- * @param type $titulo
- * @param type $mensagem
- * @param type $pagina estabelecimento/listaProd/carrinho/ofertas/pedido
- * @return 0 errado e 1 pra certo
- */
-function enviaNotificacao($titulo, $mensagem, $pagina, $codParam, $arrayHash) {
-    $msg = array(
-        'message' => $mensagem,
-        'title' => $titulo,
-        'image' => 'www/img/icones/android-icon-48x48.png',
-        'vibrate' => 1,
-        'sound' => 1,
-        'pagina' => $pagina,
-        'codParam' => $codParam
-    );
-    $fields = array(
-        'registration_ids' => $arrayHash,
-        'data' => $msg
-    );
-    $headers = array(
-        'Authorization: key=' . API_ACCESS_KEY,
-        'Content-Type: application/json'
-    );
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://android.googleapis.com/gcm/send');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    $response = curl_exec($ch);
-    curl_close($ch);
-    if (strpos($response, 'errors') !== false):
-        return 0;
-    else:
-        return 1;
-    endif;
-}
-
 function dataBRparaPHP($data) {
     if ($data == null):
         return null;
@@ -155,37 +112,52 @@ function dataBRparaPHP($data) {
 function retornaDataPrevista($aux){
     $date = date('Y-m-d H:i');
     switch ($aux) {
-        case 0: //Pauta salva
+        case 0: // Pauta salva / escrevendo
             return date('Y-m-d H:i:s', strtotime("+3 days",strtotime($date)));
             break;
-        case 1: // Pauta enviada para aprovação
+        case 1: // Pauta enviada para aprovação do moderador
+            return date('Y-m-d H:i:s', strtotime("+3 days",strtotime($date)));
+            break;
+        case 2: // Pauta enviada para aprovação do cliente
             return date('Y-m-d H:i:s', strtotime("+5 days",strtotime($date)));
             break;
-        case 2: // Pauta Reprovada
+        case 3: // Pauta Reprovada
             return date('Y-m-d H:i:s', strtotime("+5 days",strtotime($date)));
             break;
-        case 3: // Ajuste de Pauta
+        case 4: // Ajuste de Pauta
             return date('Y-m-d H:i:s', strtotime("+7 days",strtotime($date)));
             break;
-        case 4: // Reaprovando Pauta
+        case 5: // Pauta enviada para aprovação do moderador
             return date('Y-m-d H:i:s', strtotime("+7 days",strtotime($date)));
             break;
-        case 5: // Criando conteudo
+        case 6: // Reaprovando Pauta
+            return date('Y-m-d H:i:s', strtotime("+7 days",strtotime($date)));
+            break;
+        case 7: // Criando conteudo
             return date('Y-m-d H:i:s', strtotime("+11 days",strtotime($date)));
             break;
-        case 6: // Conteúdo enviado para aprovação
+        case 8: // Conteúdo enviado para aprovação do moderador
+            return date('Y-m-d H:i:s', strtotime("+11 days",strtotime($date)));
+            break;
+        case 9: // Conteúdo enviado para aprovação
             return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
             break;
-        case 7: // Conteúdo reprovado
+        case 10: // Conteúdo reprovado
             return date('Y-m-d H:i:s', strtotime("+13 days",strtotime($date)));
             break;
-        case 8: // Ajustes do conteúdo
+        case 11: // Ajustes do conteúdo
             return date('Y-m-d H:i:s', strtotime("+15 days",strtotime($date)));
             break;
-        case 9: // Reaprovação do conteúdo
+        case 12: // Conteúdo enviado para aprovação do moderador
+            return date('Y-m-d H:i:s', strtotime("+15 days",strtotime($date)));
+            break;
+        case 13: // Reaprovação do conteúdo
         return date('Y-m-d H:i:s', strtotime("+15 days",strtotime($date)));
             break;
-        case 10: // Conteúdo publicado
+        case 14: // Conteúdo para publicar
+            return date('Y-m-d H:i:s', strtotime("+17 days",strtotime($date)));
+            break;
+        case 15: // Conteúdo publicado
             return date('Y-m-d H:i:s', strtotime("+17 days",strtotime($date)));
             break;
         default:
@@ -195,37 +167,52 @@ function retornaDataPrevista($aux){
 
 function retornaStatusTarefa($status){
     switch ($status) {
-        case 0: //Pauta salva
+        case 0: 
             return 'Escrevendo';
             break;
-        case 1: // Pauta enviada para aprovação
-            return 'Aguardando Aprovação';
+        case 1: 
+            return 'Aguardando Aprovação Moderador';
             break;
-        case 2: // Pauta Reprovada
+        case 2: 
+            return 'Aguardando Aprovação Cliente';
+            break;
+        case 3: 
             return 'Pauta Reprovada';
             break;
-        case 3: // Ajuste de Pauta
+        case 4: 
             return 'Ajustando Pauta';
             break;
-        case 4: // Reaprovando Pauta
+        case 5: 
+            return 'Reaprovação do moderador';
+            break;
+        case 6: 
             return 'Reaprovando Pauta';
             break;
-        case 5: // Criando conteudo
+        case 7: 
             return 'Criando Conteúdo';
             break;
-        case 6: // Conteúdo enviado para aprovação
-            return 'Aguardando Aprovação Conteúdo';
+        case 8: 
+            return 'Aguardando Aprovação Moderador';
             break;
-        case 7: // Conteúdo reprovado
+        case 9: 
+            return 'Aguardando Aprovação Cliente';
+            break;
+        case 10: 
             return 'Conteúdo Reprovado';
             break;
-        case 8: // Ajustes do conteúdo
+        case 11: 
             return 'Ajustando Conteúdo';
             break;
-        case 9: // Reaprovando
+        case 12: 
+            return 'Aguardando Aprovação Moderador';
+            break;
+        case 13: 
             return 'Aprovação Final';
             break;
-        case 10: // Conteúdo publicado
+        case 14: 
+            return 'Conteúdo para Publicar';
+            break;
+        case 15: 
             return 'Conteúdo Publicado';
             break;
         default:

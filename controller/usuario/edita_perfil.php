@@ -15,10 +15,6 @@ $email_usuario = $_POST["email_usuario"];
 $idioma = $_POST["idioma"];
 $habilidades = $_POST["habilidade"];
 
-pre_r($_POST);
-pre_r($_FILES);
-pre_r($usuario_banco);
-
 
 if (isset($usuario_banco)) {
 
@@ -35,6 +31,7 @@ if (isset($usuario_banco)) {
             if($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK){
                 $tmp_name = $_FILES["foto_usuario"]["tmp_name"];
                 $name = $_FILES["foto_usuario"]["name"];
+                echo "$uploads_dir/$usuario_banco->id_usuario-$name";
                 move_uploaded_file($tmp_name, "$uploads_dir/$usuario_banco->id_usuario-$name");
             }
 

@@ -179,7 +179,7 @@ class tarefas {
 	public static function getPautasDez($id, $limit, $etapa) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao ASC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao DESC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id);
 		$stmt->execute();

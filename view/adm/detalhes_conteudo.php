@@ -53,12 +53,12 @@ endforeach;
                             <div class="col-md-12">
                                 <div class="progress-stage">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 0)? 'active' : ''?>">Pauta</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 4)? 'active' : ''?>">Produção</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 5)? 'active' : ''?>">Aprovação</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 7)? 'active' : ''?>">Correção/Adequação</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 8)? 'active' : ''?>">Aprovação Final</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > 9)? 'active' : ''?>">Publicado</button>
+                                        <button type="button" class="btn btn-default active">Pauta</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE)? 'active' : ''?>">Produção</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_APROVACAO_MODERADOR)? 'active' : ''?>">Aprovação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REPROVADO)? 'active' : ''?>">Correção/Adequação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR)? 'active' : ''?>">Aprovação Final</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR)? 'active' : ''?>">Publicado</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -89,11 +89,11 @@ endforeach;
                                                         <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
                                                         <input type="hidden" name="aprovacao" id="controleCriacao">
                                                         <input type="hidden" name="etapa" value="<?=$tarefa->etapa?>">
+                                                        <input type="text" class="form-control" value="<?=$tarefa->nome_tarefa?>">
                                                         <textarea name="texto_publicacao" id="summernote"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
-                                                        <?php if($tarefa->etapa != 6 && $tarefa->etapa != 9 && $tarefa->etapa != 10):?>
-                                                            <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
-                                                            <button class="btn btn-success btn-fill" type="button" id="enviarAprovacao">Enviar Aprovação</button>
-                                                        <?php endif;?>
+                                                        <span id="total-caracteres"></span>
+                                                            <!-- <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
+                                                            <button class="btn btn-success btn-fill" type="button" id="enviarAprovacao">Enviar Aprovação</button> -->
                                                     </form>
                                                 </div>
                                             <?php endif;?>
@@ -188,7 +188,7 @@ endforeach;
                             <div class="col-md-4">
 
                                 <?php if(($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 3)
-                                        && ($tarefa->etapa == 6 || $tarefa->etapa == 9) ):?>
+                                        && ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa == CONTEUDO_REAPROVACAO_CLIENTE) ):?>
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="card-title">Ação necessaria</h4>
@@ -216,38 +216,58 @@ endforeach;
                                         <?php //endif;?>
                                     </div>
                                 </div>
-                                <?php elseif($tarefa->etapa != 6 && $tarefa->etapa != 9 && $tarefa->etapa != 10):?>
+                                <?php elseif($tarefa->etapa == CONTEUDO_ESCREVENDO || $tarefa->etapa == CONTEUDO_AJUSTANDO):?>
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Ação necessaria</h4>
                                         </div>
                                         <div class="card-content">
-                                        <?php if($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1): ?>
-                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaAprovacaoConteudo">
-                                                <span class="btn-label">
-                                                    <i class="ti-control-forward"></i>
-                                                </span>
-                                                Enviar Aprovação
-                                            </button>
-                                        <?php endif;?>
                                             <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnLatSalvaConteudo">
                                                 <span class="btn-label">
                                                     <i class="fa fa-check"></i>
                                                 </span>
                                                 Salvar Conteúdo
                                             </button>
-                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaAprovacaoConteudo">
-                                                <span class="btn-label">
-                                                    <i class="ti-control-forward"></i>
-                                                </span>
-                                                Notifica Gestor
-                                            </button>
+                                            <?php if($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1): ?>
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaModeradorConteudo">
+                                                    <span class="btn-label">
+                                                        <i class="ti-control-forward"></i>
+                                                    </span>
+                                                    Enviar Moderador
+                                                </button>
+                                            <?php endif;?>
                                         </div>
                                     </div>
-                                <?php elseif($tarefa->etapa == 10):?>
+                                <?php elseif(($tarefa->etapa == CONTEUDO_APROVACAO_MODERADOR || $tarefa->etapa == CONTEUDO_REAPROVACAO_MODERADOR) && $_SESSION['funcao_usuario'] == 0) :?>
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title">Link Publicação</h4>
+                                            <h4 class="card-title">Ação necessaria</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <form id="formAprovaConteudo" action="" method="post">
+                                                <input type="hidden" name="motivo" id="inputMotivo">
+                                                <input type="hidden" name="nota_tarefa" id="inputNota">
+                                                <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-info margem" id="btnLatEnviaAprovacaoConteudo">
+                                                    <span class="btn-label">
+                                                        <i class="ti-control-forward"></i>
+                                                    </span>
+                                                    Enviar Cliente
+                                                </button>
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatReprovaModerador">
+                                                    <span class="btn-label">
+                                                        <i class="ti-control-forward"></i>
+                                                    </span>
+                                                    Reprovar Conteúdo
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                <?php elseif($tarefa->etapa == CONTEUDO_PARA_PUBLICAR):?>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
                                         </div>
                                         <div class="card-content">
                                             <form action="../../controller/conteudo/atualiza_link.php" method="post">
@@ -261,7 +281,7 @@ endforeach;
                                                         <span class="btn-label">
                                                             <i class="fa fa-check"></i>
                                                         </span>
-                                                        Salvar Link
+                                                        Publicar Conteúdo
                                                     </button>
                                                     <?php else:?>
                                                     <div class="form-group">
@@ -270,6 +290,17 @@ endforeach;
                                                     <?php endif;?>
                                                 </fieldset>
                                             </form>
+                                        </div>
+                                    </div>
+                                    <?php elseif($tarefa->etapa == CONTEUDO_PUBLICADO):?>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="form-group">
+                                                <input type="text" name="link_publicado" class="form-control" disabled value="<?= $tarefa->link_publicado ?>" placeholder="Informe o link">
+                                            </div>
                                         </div>
                                     </div>
                                 <?php endif;?>
@@ -443,8 +474,19 @@ endforeach;
                     ['color', ['color']],
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['Misc', ['fullscreen']],
-                    ['Insert', ['table']]
-                ]
+                    ['Insert', ['table','link']]
+                ],
+                callbacks: {
+                    onInit: function() {
+                        contaCaracteres();
+                    },
+                    onKeyup: function(e) {
+                        contaCaracteres();
+                    },
+                    onPaste: function(e) {
+                        contaCaracteres();
+                    }
+                }
             });
 
             // Evento de click no botao fullscreen
@@ -568,6 +610,36 @@ endforeach;
             $("#btnLatEnviaAprovacaoConteudo").click(function (e) { 
                 enviaAprovacao();
             });
+            $("#btnLatReprovaModerador").click(function (e) { 
+                e.preventDefault();
+                swal({
+                    title: 'Informe o motivo?',
+                    html: '<div class="form-group">' +
+                                '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
+                            '</div>',
+                    type: 'warning',
+                    showCancelButton: true,
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    confirmButtonText: 'Reprovar!',
+                    buttonsStyling: false
+                }).then(function() {
+                    $("#inputMotivo").val($("#inputMotivoModal").val());
+                    $("#formAprovaConteudo").attr('action', '../../controller/conteudo/reprova_conteudo_moderador.php');
+                    $("#formAprovaConteudo").submit();
+                });  
+            });
+            $("#btnLatEnviaModeradorConteudo").click(function (e) { 
+                $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
+                $("#controleCriacao").val(2);
+                $("#formConteudo").submit();
+            });
+
+            function contaCaracteres() { 
+                var caracteres = $('#summernote').text().replace(/(<([^>]+)>)/ig, "").replace(/( )/, " ").length;
+                //Update Count value
+	            $("#total-caracteres").text(caracteres);
+             }
         });
     </script>
 </html>

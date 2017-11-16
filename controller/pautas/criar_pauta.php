@@ -19,9 +19,6 @@ $id_projeto = $_SESSION['id_projeto'];
 $id_usuario = $_SESSION['id_usuario'];
 $aprovacao = ($_POST["aprovacao"] == 1) ? 1 : 0;
 
-pre_r($_POST);
-//die();
-
 if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) && 
     isset($briefing_tarefa) && isset($estagio_compra) && isset($id_persona) &&
     isset($tipo_cta) && isset($referencias) && isset($consideracoes_gerais) && isset($id_projeto)) {
@@ -48,7 +45,7 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
             if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
                 $date = date('Y-m-d H:i');
                 $novo_log_salvo = new stdClass();
-                $novo_log_salvo->etapa = 0;
+                $novo_log_salvo->etapa = PAUTA_ESCREVENDO;
                 $novo_log_salvo->status = 1;
                 $novo_log_salvo->data_prevista = retornaDataPrevista(0);
                 $novo_log_salvo->id_tarefa = $id_tarefa;
@@ -63,31 +60,27 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
             }else{ // Senão, ja cria dois log´s
                 $date = date('Y-m-d H:i');
                 $novo_log_salvo = new stdClass();
-                $novo_log_salvo->etapa = 0;
+                $novo_log_salvo->etapa = PAUTA_ESCREVENDO;
                 $novo_log_salvo->status = 0;
-                $novo_log_salvo->data_prevista = retornaDataPrevista(0);
+                $novo_log_salvo->data_prevista = retornaDataPrevista(PAUTA_ESCREVENDO);
                 $novo_log_salvo->id_tarefa = $id_tarefa;
                 $novo_log_salvo->id_usuario = $id_usuario;
                 
                 $date = date('Y-m-d H:i');
                 $novo_log_aprovacao = new stdClass();
-                $novo_log_aprovacao->etapa = 1;
+                $novo_log_aprovacao->etapa = PAUTA_APROVACAO_MODERADOR;
                 $novo_log_aprovacao->status = 1;
-                $novo_log_aprovacao->data_prevista = retornaDataPrevista(1);
+                $novo_log_aprovacao->data_prevista = retornaDataPrevista(PAUTA_APROVACAO_MODERADOR);
                 $novo_log_aprovacao->id_tarefa = $id_tarefa;
                 $novo_log_aprovacao->id_usuario = $id_usuario;
             
                 if(log_tarefas::insert($novo_log_salvo) && log_tarefas::insert($novo_log_aprovacao)){
                     header('Location: ../../view/adm/pautas.php?retorno=naOk');
                 }else{
-                    echo 'ultimooo';
-                    die();
                     header('Location: ../../view/adm/cria_pauta.php?retorno=nErro');
                 }
             }
         }else{
-            echo 'ultimo';
-            die();
             header('Location: ../../view/adm/cria_pauta.php?retorno=nErro');
         }
     }

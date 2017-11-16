@@ -9,30 +9,34 @@ if (isset($_GET["s"])) {
     $filtro = $_GET["s"];
     switch ($filtro) {
         case '1':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= 0');
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= ' . PAUTA_ESCREVENDO);
             break;
         case '2':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = 1 OR l.etapa = 4)');
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '. PAUTA_APROVACAO_CLIENTE .' OR l.etapa = '. PAUTA_REAPROVACAO_CLIENTE .')');
             break;
         case '3':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = 3');
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_AJUSTANDO);
             break;
         case '4':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa > 4');
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa > ' . PAUTA_REAPROVACAO_CLIENTE);
             break;
         case '5':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = 0');
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_ESCREVENDO);
+            break;
+        case '6':
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . PAUTA_APROVACAO_MODERADOR.' OR l.etapa = '. PAUTA_REAPROVACAO_MODERADOR .')');
             break;
     }
 } else {
     $filtro = 0;
     $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, '');
 }
-$totalPautas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], ">= 0");
-$escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 0");
-$aprovando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 1 OR l.etapa = 4");
-$ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 3");
-$aprovadas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "> 4");
+$totalPautas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '>= '. PAUTA_ESCREVENDO);
+$escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '= '.PAUTA_ESCREVENDO);
+$aprovando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '= '.PAUTA_APROVACAO_CLIENTE.' OR l.etapa = '.PAUTA_REAPROVACAO_CLIENTE);
+$ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '= ' .PAUTA_AJUSTANDO);
+$aprovadas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '> '. PAUTA_REAPROVACAO_CLIENTE);
+$aprovando_moderador = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '= '. PAUTA_APROVACAO_MODERADOR. ' OR l.etapa = ' . PAUTA_REAPROVACAO_MODERADOR);
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= 0');
 ?>
@@ -118,7 +122,8 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                         <ol class="list-unstyled">
                                             <a href="pautas.php?s=1"><li class="<?= ($filtro == '1') ? 'active' : '' ?>"><div class="count"><?= $totalPautas ?></div><div class="text">Todas as Pautas</div></li></a>
                                             <a href="pautas.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count"><?= $escrevendo ?></div><div class="text"><small>pautas</small>Em Produção</div></li></a>
-                                            <a href="pautas.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count"><?= $aprovando ?></div><div class="text"><small>pautas</small>Em aprovação</div></li></a>
+                                            <a href="pautas.php?s=6"><li class="<?= ($filtro == '6') ? 'active' : '' ?>"><div class="count"><?= $aprovando_moderador ?></div><div class="text"><small>pautas</small>Aprovação moderador</div></li></a>
+                                            <a href="pautas.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count"><?= $aprovando ?></div><div class="text"><small>pautas</small>Aprovação cliente</div></li></a>
                                             <a href="pautas.php?s=3"><li class="<?= ($filtro == '3') ? 'active' : '' ?>"><div class="count"><?= $ajustando ?></div><div class="text"><small>pautas</small>Em ajustes</div></li></a>
                                             <a href="pautas.php?s=4"><li class="<?= ($filtro == '4') ? 'active' : '' ?>"><div class="count"><?= $aprovadas ?></div><div class="text"><small>pautas</small>Aprovadas</div></li></a>
                                         </ol>

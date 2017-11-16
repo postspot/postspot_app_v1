@@ -9,32 +9,40 @@ if(isset($_GET["s"])){
     $filtro = $_GET["s"];
     switch ($filtro) {
         case '1':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= 5');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= '.CONTEUDO_ESCREVENDO);
             break;
         case '2':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = 6 OR l.etapa = 9)');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '.CONTEUDO_APROVACAO_CLIENTE.' OR l.etapa = '.CONTEUDO_REAPROVACAO_CLIENTE.')');
             break;
         case '3':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = 8');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_AJUSTANDO);
             break;
         case '4':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = 10');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = '.CONTEUDO_PUBLICADO);
             break;
         case '5':
-        $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = 5');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_ESCREVENDO.' OR l.etapa = '.CONTEUDO_AJUSTANDO.')');
+            break;
+        case '6':
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_APROVACAO_MODERADOR.' OR l.etapa = '.CONTEUDO_REAPROVACAO_MODERADOR.')');
+            break;
+        case '7':
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR);
             break;
     }
 }else{
     $filtro = 0;
     $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10, '');
 }
-$totalConteudos = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], ">= 5");
-$escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 5");
-$aprovando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 6 OR l.etapa = 9");
-$ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 8");
-$publicados = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 10");
+$totalConteudos = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], ">= ". CONTEUDO_ESCREVENDO);
+$escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= " . CONTEUDO_ESCREVENDO);
+$aprovando_moderador = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= ". CONTEUDO_APROVACAO_MODERADOR ." OR l.etapa = ". CONTEUDO_REAPROVACAO_MODERADOR);
+$aprovando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= ".CONTEUDO_APROVACAO_CLIENTE." OR l.etapa = ".CONTEUDO_REAPROVACAO_CLIENTE);
+$ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= " . CONTEUDO_AJUSTANDO);
+$para_publicar = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= ".CONTEUDO_PARA_PUBLICAR);
+$publicados = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= ".CONTEUDO_PUBLICADO);
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
-$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= 5');
+$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= '.CONTEUDO_ESCREVENDO);
 ?>
 <html lang="pt-br">
     <head>
@@ -116,10 +124,12 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                 <div class="card card-resumo-tarefas">
                                     <div class="card-content">
                                         <ol class="list-unstyled">
-                                            <a href="conteudos.php?s=1"><li class="<?= ($filtro == '1') ? 'active' : '' ?>"><div class="count"><?= $totalConteudos ?></div><div class="text">Todo Conteúdo</div></li></a>
-                                            <a href="conteudos.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count"><?= $escrevendo ?></div><div class="text"><small>Conteúdos</small>Em Aberto</div></li></a>
-                                            <a href="conteudos.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count"><?= $aprovando ?></div><div class="text"><small>Conteúdos</small>Em Aprovação</div></li></a>
+                                            <a href="conteudos.php?s=1"><li class="<?= ($filtro == '1') ? 'active' : '' ?>"><div class="count"><?= $totalConteudos ?></div><div class="text">Todos Conteúdo</div></li></a>
+                                            <a href="conteudos.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count"><?= $escrevendo ?></div><div class="text"><small>Conteúdos</small>Em Produção</div></li></a>
+                                            <a href="conteudos.php?s=6"><li class="<?= ($filtro == '6') ? 'active' : '' ?>"><div class="count"><?= $aprovando_moderador ?></div><div class="text"><small>Conteúdos</small>Aprovação Moderador</div></li></a>
+                                            <a href="conteudos.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count"><?= $aprovando ?></div><div class="text"><small>Conteúdos</small>Aprovação Cliente</div></li></a>
                                             <a href="conteudos.php?s=3"><li class="<?= ($filtro == '3') ? 'active' : '' ?>"><div class="count"><?= $ajustando ?></div><div class="text"><small>Conteúdos</small>Em Ajustes</div></li></a>
+                                            <a href="conteudos.php?s=7"><li class="<?= ($filtro == '7') ? 'active' : '' ?>"><div class="count"><?= $para_publicar ?></div><div class="text"><small>Conteúdos</small>Para Publicar</div></li></a>
                                             <a href="conteudos.php?s=4"><li class="<?= ($filtro == '4') ? 'active' : '' ?>"><div class="count"><?= $publicados ?></div><div class="text"><small>Conteúdos</small>Publicados</div></li></a>
                                         </ol>
                                     </div>

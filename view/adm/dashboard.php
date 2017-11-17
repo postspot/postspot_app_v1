@@ -44,7 +44,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Pautas</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 5') ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 7') ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,7 +71,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Produzindo</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 5 or l.etapa = 8") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 7 or l.etapa = 11") ?>
                                                     
                                                 </div>
                                             </div>
@@ -127,7 +127,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Publicados</p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 10") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 15") ?>
                                                 </div>
                                             </div>
                                         </div>

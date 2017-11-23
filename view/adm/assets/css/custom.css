@@ -115,6 +115,7 @@ h4.title{
     padding: 10px 20px;
     border-right: 1px solid #F1EAE0;
     border-bottom: 1px solid #F1EAE0;
+    word-wrap: break-word;
 }
 .pane-pauta h1{
     font-size: 28px;
@@ -294,4 +295,14 @@ div.dataTables_wrapper div.dataTables_length select {
 }
 .modal-backdrop{
     z-index: 0 !important;
+}
+.modal.link-dialog.in div.checkbox{
+    display: none !important;
+}
+#conteudo .form-control{
+margin-bottom: 10px;
+}
+.numbers span{
+    display: block;
+    font-size: 12px;
 }

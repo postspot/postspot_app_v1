@@ -11,6 +11,7 @@ $id_tarefa = $_POST["id_tarefa"];
 $id_usuario = $_SESSION['id_usuario'];
 $aprovacao = $_POST["aprovacao"];
 $etapa = $_POST['etapa'];
+$titulo = $_POST['novo_titulo_tarefa'];
 
 
 if (!empty($id_tarefa) && !empty($texto_publicacao)) {
@@ -32,7 +33,7 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             $novo_log_conteudo->data_prevista = retornaDataPrevista($nova_etapa);
             $novo_log_conteudo->id_tarefa = $id_tarefa;
             $novo_log_conteudo->id_usuario = $id_usuario;
-            if(log_tarefas::insert($novo_log_conteudo)){
+            if(log_tarefas::insert($novo_log_conteudo) && tarefas::atualizaTitulo($titulo,$id_tarefa)){
                 header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=nOk');
             }else{
                 header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=cErro');

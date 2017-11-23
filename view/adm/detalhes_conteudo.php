@@ -81,6 +81,8 @@ endforeach;
                                         </div>
                                         <div id="my-tab-content" class="tab-content text-center">
                                             <div class="tab-pane pane-pauta min-height active" id="conteudo">
+                                            <!-- <input type="text" class="form-control" value="<?=$tarefa->nome_tarefa?>">    -->
+                                            <h1><?=$tarefa->nome_tarefa?></h1>                                         
                                                 <?= (empty($conteudo)) ? '<h1>Nenhum conteúdo escrito até o momento :(</h1>' : $conteudo?>
                                             </div>
                                             <?php if($_SESSION['funcao_usuario'] != 3):?>
@@ -89,7 +91,7 @@ endforeach;
                                                         <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
                                                         <input type="hidden" name="aprovacao" id="controleCriacao">
                                                         <input type="hidden" name="etapa" value="<?=$tarefa->etapa?>">
-                                                        <input type="text" class="form-control" value="<?=$tarefa->nome_tarefa?>">
+                                                        <input type="text" class="form-control" value="<?=$tarefa->nome_tarefa?>" name="novo_titulo_tarefa">
                                                         <textarea name="texto_publicacao" id="summernote"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
                                                         <span id="total-caracteres"></span>
                                                             <!-- <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
@@ -228,7 +230,7 @@ endforeach;
                                                 </span>
                                                 Salvar Conteúdo
                                             </button>
-                                            <?php if($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1): ?>
+                                            <?php if($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 2): ?>
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaModeradorConteudo">
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
@@ -253,7 +255,7 @@ endforeach;
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
                                                     </span>
-                                                    Enviar Cliente
+                                                    Enviar para o cliente
                                                 </button>
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatReprovaModerador">
                                                     <span class="btn-label">
@@ -403,7 +405,7 @@ endforeach;
                     data: dados,
                     timeout: 15000,
                     success: function (data) {
-
+                        console.log(JSON.stringify(data));
                         swal({
                             html: data,
                             width: 900,
@@ -464,7 +466,7 @@ endforeach;
             <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'cErro') { ?>
                 funcoes.showNotification(0,4,'<b>Erro</b> - entre em contato com o gerente.');
             <?php } ?>
-
+            var totalCaracteres = 0;
             $('#summernote').summernote({
                 height: 400,
                 styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
@@ -481,10 +483,14 @@ endforeach;
                         contaCaracteres();
                     },
                     onKeyup: function(e) {
-                        contaCaracteres();
+                        // totalCaracteres++;
+                        totalCaracteres = $('#summernote').text().replace(/(<([^>]+)>)/ig, "").replace(/( )/, " ").length;
+	                    $("#total-caracteres").text(totalCaracteres);
+                        // alert('Total Caracteres KeyUp: '+ totalCaracteres + '. Caracter = '+ JSON.stringify(e));
                     },
                     onPaste: function(e) {
-                        contaCaracteres();
+                        totalCaracteres++;
+                        alert('Total Caracteres Paste: '+ totalCaracteres);
                     }
                 }
             });
@@ -636,9 +642,9 @@ endforeach;
             });
 
             function contaCaracteres() { 
-                var caracteres = $('#summernote').text().replace(/(<([^>]+)>)/ig, "").replace(/( )/, " ").length;
+                totalCaracteres = $('#summernote').text().replace(/(<([^>]+)>)/ig, "").replace(/( )/, " ").length;
                 //Update Count value
-	            $("#total-caracteres").text(caracteres);
+	            $("#total-caracteres").text(totalCaracteres);
              }
         });
     </script>

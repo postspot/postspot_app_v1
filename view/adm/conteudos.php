@@ -5,34 +5,42 @@ require_once '../../model/tarefas.php';
 require_once '../../model/tipo_tarefa.php';
 require_once 'includes/header_padrao.php';
 
+if (isset($_GET["t"])) {
+    $codFiltroDesejado = $_GET["t"];
+    $filtroTipo = ' AND t.id_tipo = '. $codFiltroDesejado ;
+}else{
+    $codFiltroDesejado = '0';
+    $filtroTipo = '';
+}
+
 if(isset($_GET["s"])){  
     $filtro = $_GET["s"];
     switch ($filtro) {
         case '1':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= '.CONTEUDO_ESCREVENDO);
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= '.CONTEUDO_ESCREVENDO . $filtroTipo);
             break;
         case '2':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '.CONTEUDO_APROVACAO_CLIENTE.' OR l.etapa = '.CONTEUDO_REAPROVACAO_CLIENTE.')');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '.CONTEUDO_APROVACAO_CLIENTE.' OR l.etapa = '.CONTEUDO_REAPROVACAO_CLIENTE.')' . $filtroTipo);
             break;
         case '3':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_AJUSTANDO);
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_AJUSTANDO . $filtroTipo);
             break;
         case '4':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = '.CONTEUDO_PUBLICADO);
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = '.CONTEUDO_PUBLICADO . $filtroTipo);
             break;
         case '5':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_ESCREVENDO.' OR l.etapa = '.CONTEUDO_AJUSTANDO.')');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_ESCREVENDO.' OR l.etapa = '.CONTEUDO_AJUSTANDO.')' . $filtroTipo);
             break;
         case '6':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_APROVACAO_MODERADOR.' OR l.etapa = '.CONTEUDO_REAPROVACAO_MODERADOR.')');
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_APROVACAO_MODERADOR.' OR l.etapa = '.CONTEUDO_REAPROVACAO_MODERADOR.')' . $filtroTipo);
             break;
         case '7':
-            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR);
+            $conteudos = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR . $filtroTipo);
             break;
     }
 }else{
     $filtro = 0;
-    $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10, '');
+    $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10, $filtroTipo);
 }
 $totalConteudos = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], ">= ". CONTEUDO_ESCREVENDO);
 $escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= " . CONTEUDO_ESCREVENDO);
@@ -82,32 +90,14 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                                 </div>
                                             </fieldset>
                                         </div>
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option value="" selected>Tipo</option>
+                                                    <select class="form-control" id="filtroTipoTarefa">
+                                                        <option value="0" >Tipos de Conteúdos</option>
                                                         <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
-                                                            <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>" <?= ($tipoTarefa->id_tipo == $codFiltroDesejado) ? 'selected' : '' ?>><?= $tipoTarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            </fieldset>
-                                        </div>
-                                        <div class="col-lg-2">
-                                            <fieldset>
-                                                <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option value="" selected>Status</option>
-                                                        <option value="">Pautas Produzindo</option>
-                                                        <option value="">Pautas Aprovando</option>
-                                                        <option value="">Pautas Ajustando</option>
-                                                        <option value="">Reaprovando Pauta</option>
-                                                        <option value="">Conteúdos Produzindo</option>
-                                                        <option value="">Conteúdos Aprovando</option>
-                                                        <option value="">Conteúdos Ajustando</option>
-                                                        <option value="">Conteúdos Aprovação Final</option>
-                                                        <option value="">Conteúdos Publicados</option>
                                                     </select>
                                                 </div>
                                             </fieldset>
@@ -187,5 +177,18 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
     <script>
         $(document).ready(function () {
             $(".select-customizado").select2();
+
+            
+            $('.select-customizado').on("change", function(e) {
+                var siteBase = '<?= SITE ?>';
+                window.location.href = siteBase + 'view/adm/detalhes_conteudo.php?t='+$(this).val();
+            });
+
+            $('#filtroTipoTarefa').on("change", function(e) {
+                var siteBase = '<?= SITE ?>';
+                var statusPautasParam = (<?= $filtro ?> > 0) ? <?= $filtro ?> : '';
+                window.location.href = siteBase + 'view/adm/conteudos.php?t='+$(this).val()+'&s=' + statusPautasParam;
+            });
+        });
     </script>
 </html>

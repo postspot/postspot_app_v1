@@ -105,7 +105,7 @@ $qtd_escritores = usuarios::countRedatores();
                                                         <h5><?= $membro->nome_usuario ?></h5>
                                                     </div>
                                                 </div>
-                                                <i class="fa fa-trash" aria-hidden="true" onclick="deletaMembro('<?= $membro->id_membros ?>');"></i>
+                                                <?= ($_SESSION['funcao_usuario'] == 0) ? '<i class="fa fa-trash" aria-hidden="true" onclick="deletaMembro(' . $membro->id_membros . ');"></i>' : ''?>
                                             </div>
                                             <div class="card-footer">
                                                 <hr>

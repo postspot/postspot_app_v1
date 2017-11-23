@@ -12,7 +12,9 @@ if (isset($id_usuario)){
     $dados_user = usuarios::getById($id_usuario);
     if (!empty($dados_user)){
         // tem que deletar a foto / habilidades e idioma
-        unlink($uploads_dir.'/'.$dados_user->foto_usuario);
+        if($dados_user->foto_usuario != 'sem_foto.jpg'){
+            unlink($uploads_dir.'/'.$dados_user->foto_usuario);
+        }
 
         if(usuarios::delete($id_usuario)){
             echo json_encode('true');

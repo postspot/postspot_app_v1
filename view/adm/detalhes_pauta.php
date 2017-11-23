@@ -150,7 +150,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 <h4 class="card-title">Ação necessaria</h4>
                                             </div>
                                             <div class="card-content">
-                                                <?php if($tarefa->etapa == PAUTA_ESCREVENDO || $tarefa->etapa == PAUTA_AJUSTANDO ): ?>
+                                                <?php if(($tarefa->etapa == PAUTA_ESCREVENDO || $tarefa->etapa == PAUTA_AJUSTANDO) && (  $_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1' )): ?>
                                                     <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify fill-up margem" id="salvaPauta">
                                                         <span class="btn-label">
                                                             <i class="ti-save"></i>
@@ -166,7 +166,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 <?php endif; ?>
                                                 <?php if($_SESSION['funcao_usuario'] == '0' && ($tarefa->etapa == PAUTA_APROVACAO_MODERADOR || $tarefa->etapa == PAUTA_REAPROVACAO_MODERADOR) ): ?>
                                                     <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
-                                                        Enviar Cliente
+                                                        Enviar para o cliente
                                                         <span class="btn-label">
                                                             <i class="ti-control-forward"></i>
                                                         </span>
@@ -179,7 +179,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                         </button>
                                                 <?php endif; ?>
                                                 <?php if($tarefa->etapa == PAUTA_APROVACAO_CLIENTE || $tarefa->etapa == PAUTA_REAPROVACAO_CLIENTE): ?>
-                                                    <?php if($_SESSION['funcao_usuario'] == '0' && $_SESSION['funcao_usuario'] != '3'):?>
+                                                    <?php if($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '3'):?>
                                                         <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right fill-up margem" id="reprovaPauta">
                                                             Reprovar
                                                             <span class="btn-label">

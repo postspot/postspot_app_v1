@@ -13,8 +13,8 @@ $linguagens = linguagens::getAll();
 $categorias = categorias::getAll();
 $linguagens_estrategia = linguagens_estrategia::getById($estrategia->id_estrategia);
 $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrategia);
-$linksReferenciasBanco = explode("\n", $estrategia->links); 
-$linksSociaisBanco = explode("\n", $estrategia->links_ref);
+$linksReferenciasBanco = explode("\n", $estrategia->links_ref); 
+$linksSociaisBanco = explode("\n", $estrategia->links);
 $linksSociais = '';$linksReferencias = '';
 foreach ($linksSociaisBanco as $linkSocial):
     $linksSociais .= '<li><a href="' . $linkSocial . '" target="_blank">' . $linkSocial . '</a></li>';

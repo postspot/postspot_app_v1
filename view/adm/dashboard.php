@@ -6,9 +6,58 @@ require_once '../../model/tipo_tarefa.php';
 require_once 'includes/header_padrao.php';
 /*pre_r($projeto);
 die();*/
-$tarefas = tarefas::getUltimasDez($_SESSION['id_projeto'], 10);
+
+$filtroStatus = '0';
+$filtroTipo = '0';
+if (isset($_GET["t"]) || isset($_GET["s"])) {
+    $filtroTipo = (($_GET["t"] != '0') ? ' AND t.id_tipo = '. $_GET["t"] : '');
+    $filtroStatus = $_GET["s"];
+
+    switch ($filtroStatus) {
+        case '0':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 , $filtroTipo);
+            break;
+        case '1':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_ESCREVENDO.' OR l.etapa = '.CONTEUDO_AJUSTANDO.')' . $filtroTipo);
+            break;
+        case '2':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '. PAUTA_APROVACAO_CLIENTE .' OR l.etapa = '. PAUTA_REAPROVACAO_CLIENTE .')' . $filtroTipo);
+            break;
+        case '3':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_AJUSTANDO . $filtroTipo);
+            break;
+        case '4':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND (l.etapa = '.CONTEUDO_APROVACAO_MODERADOR.' OR l.etapa = '.CONTEUDO_REAPROVACAO_MODERADOR.')' . $filtroTipo);
+            break;
+        case '5':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_ESCREVENDO . $filtroTipo);
+            break;
+        case '6':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . PAUTA_APROVACAO_MODERADOR.' OR l.etapa = '. PAUTA_REAPROVACAO_MODERADOR .')' . $filtroTipo);
+            break;
+        case '7':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '.CONTEUDO_APROVACAO_CLIENTE.' OR l.etapa = '.CONTEUDO_REAPROVACAO_CLIENTE.')' . $filtroTipo);
+            break;
+        case '8':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_AJUSTANDO . $filtroTipo);
+            break;
+        case '9':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR . $filtroTipo);
+            break;
+        case '10':
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = '.CONTEUDO_PUBLICADO . $filtroTipo);
+            break;
+    }
+}else if (isset($_GET["a"])) {
+    $tarefas = tarefas::tarefasProjetoAtrasadas($_SESSION['id_projeto']);
+}else{
+    $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR);
+}
+$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= 0');
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
-$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
+$textoTitulo = 'Conteúdos para Publicar';
+// pre_r($tarefas);
+// die();
 ?>
 <html lang="pt-br">
     <head>
@@ -43,7 +92,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             </div>
                                             <div class="col-xs-7">
                                                 <div class="numbers">
-                                                    <p>Pautas</p>
+                                                    <p>Pautas <span>para aprovar</span></p>
                                                     <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 7') ?>
                                                 </div>
                                             </div>
@@ -70,7 +119,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             </div>
                                             <div class="col-xs-7">
                                                 <div class="numbers">
-                                                    <p>Produzindo</p>
+                                                    <p>Conteúdos<span>para aprovar</span></p>
                                                     <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 7 or l.etapa = 11") ?>
                                                     
                                                 </div>
@@ -79,7 +128,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="conteudos.php">
+                                        <a href="conteudos.php?s=5">
                                             <div class="stats">
                                                 <i class="ti-eye"></i> Ver todos
                                             </div>
@@ -98,7 +147,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             </div>
                                             <div class="col-xs-7">
                                                 <div class="numbers">
-                                                    <p>Atrasados
+                                                    <p>Atrasados<span>Conteúdos / Pautas</span>
                                                     </p>
                                                     <?= tarefas::countTarefasProjetoAtrasadas($_SESSION['id_projeto']) ?>
                                                 </div>
@@ -107,7 +156,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="conteudos.php">
+                                        <a href="dashboard.php?a=1">
                                             <div class="stats">
                                                 <i class="ti-timer"></i> Ver todos
                                             </div>
@@ -126,7 +175,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                             </div>
                                             <div class="col-xs-7">
                                                 <div class="numbers">
-                                                    <p>Publicados</p>
+                                                    <p>Conteúdos<span>publicados</span></p>
                                                     <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 15") ?>
                                                 </div>
                                             </div>
@@ -134,7 +183,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="conteudos.php">
+                                        <a href="conteudos.php?s=4">
                                             <div class="stats">
                                                 <i class="ti-eye"></i> Ver todos
                                             </div>
@@ -163,10 +212,10 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                         <div class="col-lg-2">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option value="" selected>Tipo</option>
+                                                    <select class="form-control" id="filtroTipoTarefa">
+                                                        <option value="0" >Tipos</option>
                                                         <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
-                                                            <option value="<?= $tipoTarefa->id_tipo ?>"><?= $tipoTarefa->nome_tarefa ?></option>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>" <?= ($tipoTarefa->id_tipo == $filtroTipo) ? 'selected' : '' ?>><?= $tipoTarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -175,23 +224,25 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                         <div class="col-lg-2">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <select class="form-control">
-                                                        <option value="" selected>Status</option>
-                                                        <option value="">Pautas Produzindo</option>
-                                                        <option value="">Pautas Aprovando</option>
-                                                        <option value="">Pautas Ajustando</option>
-                                                        <option value="">Reaprovando Pauta</option>
-                                                        <option value="">Conteúdos Produzindo</option>
-                                                        <option value="">Conteúdos Aprovando</option>
-                                                        <option value="">Conteúdos Ajustando</option>
-                                                        <option value="">Conteúdos Aprovação Final</option>
-                                                        <option value="">Conteúdos Publicados</option>
+                                                    <select class="form-control" id="filtroStatusTarefa">
+                                                        <option value="0" <?= ($filtroStatus == '0') ? 'selected' : ''?>>Status</option>
+                                                        <option value="5" <?= ($filtroStatus == '5') ? 'selected' : ''?>>Pautas Produzindo</option>
+                                                        <option value="6" <?= ($filtroStatus == '6') ? 'selected' : ''?>>Pautas Aprovando Moderador</option>
+                                                        <option value="2" <?= ($filtroStatus == '2') ? 'selected' : ''?>>Pautas Aprovando Cliente</option>
+                                                        <option value="3" <?= ($filtroStatus == '3') ? 'selected' : ''?>>Pautas Ajustando</option>
+                                                        <!-- Ate aqui foi -->
+                                                        <option value="1" <?= ($filtroStatus == '1') ? 'selected' : ''?>>Conteúdos Produzindo</option>
+                                                        <option value="4" <?= ($filtroStatus == '4') ? 'selected' : ''?>>Conteúdos Aprovando Moderador</option>
+                                                        <option value="7" <?= ($filtroStatus == '7') ? 'selected' : ''?>>Conteúdos Aprovando Cliente</option>
+                                                        <option value="8" <?= ($filtroStatus == '8') ? 'selected' : ''?>>Conteúdos Ajustando</option>
+                                                        <option value="9" <?= ($filtroStatus == '9') ? 'selected' : ''?>>Conteúdos Publicar</option>
+                                                        <option value="10" <?= ($filtroStatus == '10') ? 'selected' : ''?>>Conteúdos Publicados</option>
                                                     </select>
                                                 </div>
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill fill-up">Buscar</button>
+                                            <button type="submit" class="btn btn-info btn-fill fill-up" id="btnBuscarFiltro">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -200,13 +251,13 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                         <!--Lista de Conteúdos-->
                         <div class="row">
                             <div class="col-lg-6">
-                                <p class="title"><strong>Pautas em geral</strong></p>
+                                <p class="title"><strong><?= $textoTitulo ?></strong></p>
                             </div>
                             <div class="col-lg-2">
-                                <p>Status:</p>
+                                <p>Aprovado em:</p>
                             </div>
                             <div class="col-lg-2">
-                                Data Previsão:
+                                Recebido em:
                             </div>
                         </div>
                         <?php 
@@ -214,7 +265,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                 <div class="card">
                                     <div class="card-content">
                                         <div class="typo-line text-center">
-                                            <h2>Nenhuma pauta / conteúdo encontrado <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                            <h2>Nenhum conteúdo encontrado <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
                                         </div>
                                     </div>
                                 </div>
@@ -226,10 +277,10 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
                                         <p> <?= $tarefa->nome_tarefa ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p><?= retornaStatusTarefa($tarefa->etapa) ?></p>
+                                        <p><?= date('d/m/Y', strtotime(tarefas::dataAprovacao($tarefa->id_tarefa))) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p><?= date('d/m/Y', strtotime($tarefa->data_prevista)) ?></p>
+                                        <p><?= date('d/m/Y', strtotime($tarefa->criacao_log)) ?></p>
                                     </div>
                                     <div class="col-lg-2">
                                         <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta'?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-fill btn-wd fill-up">Detalhes</a>
@@ -253,6 +304,13 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, '');
     <script>
     $(document).ready(function() {
         $(".select-customizado").select2();
+
+        $("#btnBuscarFiltro").click(function (e) { 
+            var siteBase = '<?= SITE ?>';
+            var tipo = $("#filtroTipoTarefa").val();
+            var status = $("#filtroStatusTarefa").val();
+            window.location.href = siteBase + 'view/adm/dashboard.php?t='+tipo+'&s=' + status;
+        });
     });
     </script>
     

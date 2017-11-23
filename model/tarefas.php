@@ -118,6 +118,22 @@ class tarefas {
 		}
 	}
 
+	public static function atualizaTitulo($titulo, $id) {
+		 try{
+			$stmt = Conexao::getInstance()->prepare("UPDATE tarefas SET "
+				. " nome_tarefa = :nome_tarefa"
+				. " WHERE id_tarefa = :id_tarefa ");
+
+		$stmt->bindParam(":id_tarefa", $id);
+		$stmt->bindParam(":nome_tarefa", $titulo);
+
+		$stmt->execute(); 
+			return true;
+		} catch(PDOException $ex) {
+			return false;
+		}
+	}
+
 
  //------------------ function select($id)---------//
 
@@ -162,7 +178,7 @@ class tarefas {
 	public static function getConteudosDez($id, $limit) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa > 4 order by t.data_criacao ASC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa > 6 order by t.data_criacao ASC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id);
 		$stmt->execute();
@@ -176,12 +192,12 @@ class tarefas {
 			return false;
 		}
 	}
-	public static function getPautasDez($id, $limit, $etapa) {
+	public static function getPautasDez($id_projeto, $limit, $etapa) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao DESC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log  from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao DESC limit $limit");
 
-		$stmt->bindParam(":id_projeto", $id);
+		$stmt->bindParam(":id_projeto", $id_projeto);
 		$stmt->execute();
 		 $colunas = array();
                 while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
@@ -189,6 +205,7 @@ class tarefas {
                 }
                 return $colunas;
 		} catch(PDOException $ex) {
+			// return $ex->getMessage();
 			return false;
 		}
 	}
@@ -228,12 +245,47 @@ class tarefas {
         public static function countTarefasProjetoAtrasadas($id) {
 
             try {
-                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 10 AND l.data_prevista < now()");
+                $stmt = Conexao::getInstance()->prepare("SELECT COUNT(t.id_tarefa) as cont FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 15 AND l.data_prevista < now()");
 
                 $stmt->bindParam(":id_projeto", $id);
                 $stmt->execute();
                 while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
                     return $row->cont;
+                }
+                return false;
+            } catch (PDOException $ex) {
+                return false;
+              	//echo $ex->getMessage();
+            }
+        }
+        public static function tarefasProjetoAtrasadas($id) {
+
+            try {
+                $stmt = Conexao::getInstance()->prepare("SELECT * FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 15 AND l.data_prevista < now()");
+
+                $stmt->bindParam(":id_projeto", $id);
+                $stmt->execute();
+				$colunas = array();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    array_push($colunas, $row);
+                }
+                return $colunas;
+            } catch (PDOException $ex) {
+                return false;
+              	//echo $ex->getMessage();
+            }
+		}
+		
+        public static function dataAprovacao($id) {
+
+            try {
+                $stmt = Conexao::getInstance()->prepare("SELECT * FROM log_tarefas where id_tarefa = :id_tarefa AND (etapa = 9 OR etapa = 13) ORDER BY data_criacao LIMIT 1");
+
+                $stmt->bindParam(":id_tarefa", $id);
+                $stmt->execute();
+				$colunas = array();
+                while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                    return $row->data_criacao;
                 }
                 return false;
             } catch (PDOException $ex) {

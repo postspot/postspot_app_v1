@@ -9,12 +9,12 @@ require_once '../../model/log_tarefas.php';
 require_once '../../model/publicacoes.php';
 require_once 'includes/header_padrao.php';
 
-if(!isset($_GET["t"])){
+if (!isset($_GET["t"])) {
     header('location: ../../view/adm/dashboard.php?erro=te');
-}else{
+} else {
     $id_tarefa = $_GET["t"];
 }
-$condicaoComentario = (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : (($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
+$condicaoComentario = ( ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : ( ($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 1, $condicaoComentario);
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $tarefa = tarefas::getById($id_tarefa);
@@ -25,7 +25,7 @@ $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
 $historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
 // pre_r($tarefa->etapa);
 // die();
-foreach ($referencias_banco as $referencia):
+foreach ($referencias_banco as $referencia) :
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
 endforeach;
 ?>
@@ -34,6 +34,8 @@ endforeach;
         <?php require_once './includes/header_includes.php'; ?>
         <title>PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
+        <script src="ckeditor/ckeditor.js"></script>
+        <script src="ckeditor/sample.js"></script>
     </head>
 
     <body>
@@ -54,11 +56,11 @@ endforeach;
                                 <div class="progress-stage">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default active">Pauta</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE)? 'active' : ''?>">Produção</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_APROVACAO_MODERADOR)? 'active' : ''?>">Aprovação</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REPROVADO)? 'active' : ''?>">Correção/Adequação</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR)? 'active' : ''?>">Aprovação Final</button>
-                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR)? 'active' : ''?>">Publicado</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE) ? 'active' : '' ?>">Produção</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_APROVACAO_MODERADOR) ? 'active' : '' ?>">Aprovação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REPROVADO) ? 'active' : '' ?>">Correção/Adequação</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? 'active' : '' ?>">Aprovação Final</button>
+                                        <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR) ? 'active' : '' ?>">Publicado</button>
                                     </div>
                                 </div>
                                 <hr>
@@ -71,9 +73,9 @@ endforeach;
                                             <div class="nav-tabs-wrapper">
                                                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
                                                     <li class="active"><a href="#conteudo" data-toggle="tab">Conteúdo</a></li>
-                                                    <?php if($_SESSION['funcao_usuario'] != 3):?>
+                                                    <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
                                                         <li><a href="#ajuste" data-toggle="tab">Editar</a></li>
-                                                    <?php endif;?>
+                                                    <?php endif; ?>
                                                     <li><a href="#pauta" data-toggle="tab">Pauta</a></li>
                                                     <li><a href="#historico" data-toggle="tab">Histórico</a></li>
                                                 </ul>
@@ -81,24 +83,38 @@ endforeach;
                                         </div>
                                         <div id="my-tab-content" class="tab-content text-center">
                                             <div class="tab-pane pane-pauta min-height active" id="conteudo">
-                                            <!-- <input type="text" class="form-control" value="<?=$tarefa->nome_tarefa?>">    -->
-                                            <h1><?=$tarefa->nome_tarefa?></h1>                                         
-                                                <?= (empty($conteudo)) ? '<h1>Nenhum conteúdo escrito até o momento :(</h1>' : $conteudo?>
+                                            <!-- <input type="text" class="form-control" value="<?= $tarefa->nome_tarefa ?>">    -->
+                                            <h1><?= $tarefa->nome_tarefa ?></h1>                                         
+                                                <?= (empty($conteudo)) ? '<h1>Nenhum conteúdo escrito até o momento :(</h1>' : $conteudo ?>
+                                                <hr>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title">Imagens</h4>
+                                                        <p class="category">Clique sobre as imagens para fazer o download</p>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <form action="../../controller/anexos/cria_fotos.php" method="post"enctype="multipart/form-data">                        
+                                                        <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
+                                                                <div class="form-group">
+                                                                    <label>Arquivo(s)</label>
+                                                                    <input type="file" class="form-control border-input" name="anexos[]" multiple>
+                                                                </div>
+                                                                <input type="submit" value="Enviar Fotos">
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <?php if($_SESSION['funcao_usuario'] != 3):?>
+                                            <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
                                                 <div class="tab-pane pane-pauta min-height" id="ajuste">
                                                     <form action="../../controller/conteudo/envia_aprovacao.php" method="post" enctype="multipart/form-data" id="formConteudo">
-                                                        <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                        <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                         <input type="hidden" name="aprovacao" id="controleCriacao">
-                                                        <input type="hidden" name="etapa" value="<?=$tarefa->etapa?>">
-                                                        <input type="text" class="form-control" value="<?=$tarefa->nome_tarefa?>" name="novo_titulo_tarefa">
-                                                        <textarea name="texto_publicacao" id="summernote"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
-                                                        <span id="total-caracteres"></span>
-                                                            <!-- <button class="btn btn-success btn-fill" type="button" id="salvaConteudo">Salvar Conteúdo</button>
-                                                            <button class="btn btn-success btn-fill" type="button" id="enviarAprovacao">Enviar Aprovação</button> -->
+                                                        <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
+                                                        <input type="text" class="form-control" value="<?= $tarefa->nome_tarefa ?>" name="novo_titulo_tarefa">
+                                                        <textarea name="texto_publicacao" id="editor"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
                                                     </form>
                                                 </div>
-                                            <?php endif;?>
+                                            <?php endif; ?>
                                             <div class="tab-pane pane-pauta" id="pauta">
                                                 <h1><?= $tarefa->nome_tarefa ?></h1>
                                                 <hr>
@@ -159,17 +175,17 @@ endforeach;
                                                 <span>Criado por: por Arthur Guedes. Última atualização: 08/11/2016 por Arthur Guedes.</span>-->
                                             </div>
                                             <div class="tab-pane pane-pauta min-height" id="historico">
-                                            <?php if(empty($historicos)):?>
+                                            <?php if (empty($historicos)) : ?>
                                                 <h1>Histórico inexistente :(</h1>
-                                            <?php else: ?>
+                                            <?php else : ?>
                                                 
                                                 <table class="table">
                                                     <tbody>
-                                                    <?php foreach($historicos as $historico):?>
+                                                    <?php foreach ($historicos as $historico) : ?>
 	                                                    <tr>
 	                                                        <td><?= date("d/m/Y H:i", strtotime($historico->data_criacao)) ?></td>
 	                                                        <td class="text-right">
-                                                                <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" onclick="mostraHistorico(<?=$historico->id_publicacao?>)">
+                                                                <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" onclick="mostraHistorico(<?= $historico->id_publicacao ?>)">
                                                                     <span class="btn-label">
                                                                         <i class="ti-search"></i>
                                                                     </span>
@@ -180,7 +196,7 @@ endforeach;
                                                     <?php endforeach; ?> 
                                                     </tbody>
 	                                            </table>
-                                            <?php endif;?>
+                                            <?php endif; ?>
                                             </div>
                                         </div>
                                     </div>
@@ -189,8 +205,8 @@ endforeach;
                             <!--Menu Lateral-->
                             <div class="col-md-4">
 
-                                <?php if(($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 3)
-                                        && ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa == CONTEUDO_REAPROVACAO_CLIENTE) ):?>
+                                <?php if ( ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 3)
+                                    && ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa == CONTEUDO_REAPROVACAO_CLIENTE)) : ?>
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="card-title">Ação necessaria</h4>
@@ -200,7 +216,7 @@ endforeach;
                                             <form id="formAprovaConteudo" action="" method="post">
                                                 <input type="hidden" name="motivo" id="inputMotivo">
                                                 <input type="hidden" name="nota_tarefa" id="inputNota">
-                                                <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnAprovaConteudo">
                                                     <span class="btn-label">
@@ -218,7 +234,7 @@ endforeach;
                                         <?php //endif;?>
                                     </div>
                                 </div>
-                                <?php elseif($tarefa->etapa == CONTEUDO_ESCREVENDO || $tarefa->etapa == CONTEUDO_AJUSTANDO):?>
+                                <?php elseif ($tarefa->etapa == CONTEUDO_ESCREVENDO || $tarefa->etapa == CONTEUDO_AJUSTANDO) : ?>
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Ação necessaria</h4>
@@ -230,27 +246,29 @@ endforeach;
                                                 </span>
                                                 Salvar Conteúdo
                                             </button>
-                                            <?php if($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 2): ?>
+                                            <?php if ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 2) : ?>
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaModeradorConteudo">
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
                                                     </span>
                                                     Enviar Moderador
                                                 </button>
-                                            <?php endif;?>
+                                            <?php endif; ?>
                                         </div>
                                     </div>
-                                <?php elseif(($tarefa->etapa == CONTEUDO_APROVACAO_MODERADOR || $tarefa->etapa == CONTEUDO_REAPROVACAO_MODERADOR) && $_SESSION['funcao_usuario'] == 0) :?>
+                                <?php elseif ( ($tarefa->etapa == CONTEUDO_APROVACAO_MODERADOR || $tarefa->etapa == CONTEUDO_REAPROVACAO_MODERADOR) && $_SESSION['funcao_usuario'] == 0) : ?>
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Ação necessaria</h4>
                                         </div>
                                         <div class="card-content">
                                             <form id="formAprovaConteudo" action="" method="post">
+                                                <input type="hidden" name="texto_publicacao" id="refacoes">
                                                 <input type="hidden" name="motivo" id="inputMotivo">
                                                 <input type="hidden" name="nota_tarefa" id="inputNota">
-                                                <input type="hidden" value="<?=$id_tarefa?>" name="id_tarefa">
+                                                <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
+                                                
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-info margem" id="btnLatEnviaAprovacaoConteudo">
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
@@ -266,16 +284,16 @@ endforeach;
                                             </form>
                                         </div>
                                     </div>
-                                <?php elseif($tarefa->etapa == CONTEUDO_PARA_PUBLICAR):?>
+                                <?php elseif ($tarefa->etapa == CONTEUDO_PARA_PUBLICAR) : ?>
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
                                         </div>
                                         <div class="card-content">
                                             <form action="../../controller/conteudo/atualiza_link.php" method="post">
-                                                <input type="hidden" name="id_tarefa" value="<?=$id_tarefa?>">
+                                                <input type="hidden" name="id_tarefa" value="<?= $id_tarefa ?>">
                                                 <fieldset>
-                                                    <?php if($_SESSION['funcao_usuario'] == 0):?>
+                                                    <?php if ($_SESSION['funcao_usuario'] == 0) : ?>
                                                     <div class="form-group">
                                                         <input type="text" name="link_publicado" class="form-control" value="<?= $tarefa->link_publicado ?>" placeholder="Informe o link">
                                                     </div>
@@ -285,16 +303,16 @@ endforeach;
                                                         </span>
                                                         Publicar Conteúdo
                                                     </button>
-                                                    <?php else:?>
+                                                    <?php else : ?>
                                                     <div class="form-group">
                                                         <input type="text" disabled="disabled" class="form-control" value="<?= $tarefa->link_publicado ?>" placeholder="Informe o link">
                                                     </div>
-                                                    <?php endif;?>
+                                                    <?php endif; ?>
                                                 </fieldset>
                                             </form>
                                         </div>
                                     </div>
-                                    <?php elseif($tarefa->etapa == CONTEUDO_PUBLICADO):?>
+                                    <?php elseif ($tarefa->etapa == CONTEUDO_PUBLICADO) : ?>
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
@@ -305,57 +323,58 @@ endforeach;
                                             </div>
                                         </div>
                                     </div>
-                                <?php endif;?>
+                                <?php endif; ?>
                                 <div class="card card-chat">
                                     <div class="card-header">
                                         <h4 class="card-title">Cometários</h4>
                                     </div>
                                     <div class="card-content">
                                         <ol class="chat" id="olChat">
-                                        <?php if(empty($comentarios)):?>
+                                        <?php if (empty($comentarios)) : ?>
                                             <li class="text-muted"><p class="text-center fill-up">Nenhum comentário</p></li>
-                                        <?php else:
-                                        foreach($comentarios as $comentario):
-                                                if($comentario->id_usuario != $_SESSION['id_usuario']):
-                                            ?>
+                                        <?php else :
+                                            foreach ($comentarios as $comentario) :
+                                            if ($comentario->id_usuario != $_SESSION['id_usuario']) :
+                                        ?>
                                                 <li class="other">
                                                     <div class="avatar">
-                                                        <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
+                                                        <img src="../../uploads/usuarios/<?= $comentario->foto_usuario ?>" alt="Foto <?= $comentario->nome_usuario ?>" title="Foto <?= $comentario->nome_usuario ?>"/>
                                                     </div>
-                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario?>" >
-                                                        <p><?= $comentario->comentario?></p>
+                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
+                                                        <p><?= $comentario->comentario ?></p>
                                                         <div class="card-footer">
                                                             <i class="ti-calendar"></i>
                                                             <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("H:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
                                                     </div>
                                                 </li>
-                                            <?php else:?>
+                                            <?php else : ?>
                                                 <li class="self">
-                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario?>" >
-                                                        <p><?= $comentario->comentario?></p>
+                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
+                                                        <p><?= $comentario->comentario ?></p>
                                                         <div class="card-footer">
                                                             <i class="ti-calendar"></i>
                                                             <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("H:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
-                                                            <i class="ti-trash" onclick="excluiComentario(<?= $comentario->id_comentario?>, this)"></i>
+                                                            <i class="ti-trash" onclick="excluiComentario(<?= $comentario->id_comentario ?>, this)"></i>
                                                     </div>
                                                     <div class="avatar">
-                                                    <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
+                                                    <img src="../../uploads/usuarios/<?= $comentario->foto_usuario ?>" alt="Foto <?= $comentario->nome_usuario ?>" title="Foto <?= $comentario->nome_usuario ?>"/>
                                                     </div>
                                                 </li>
                                                 <?php endif;
-                                                endforeach;endif;?>
+                                                endforeach;
+                                                endif; ?>
                                         </ol>
                                         <hr>
                                         <div class="send-message">
                                             <form id="formComentario" action="#" method="post">
-                                                <input type="hidden" name="id_tarefa" value="<?=$id_tarefa?>">
+                                                <input type="hidden" name="id_tarefa" value="<?= $id_tarefa ?>">
                                                 <input class="form-control textarea" type="text" placeholder="Comente aqui!" name="comentario"/>
                                                 <div class="send-button">
                                                     <button class="btn btn-primary btn-fill" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                                 </div>
-                                                <?php if(($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1')){ ?>
+                                                <?php if ( ($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1')) { ?>
                                                 <fieldset>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
@@ -374,11 +393,14 @@ endforeach;
                                                         </div>
                                                     </div>
                                                 </fieldset>
-                                                <?php }else if($_SESSION['funcao_usuario'] == '3'){?>
+                                                <?php 
+                                            } else if ($_SESSION['funcao_usuario'] == '3') { ?>
                                                     <input type="hidden" name="equipe" value="0">
-                                            <?php }else{?>
+                                            <?php 
+                                        } else { ?>
                                                     <input type="hidden" name="equipe" value="1">
-                                            <?php } ?>
+                                            <?php 
+                                        } ?>
                                             </form>
                                         </div>
                                     </div>
@@ -406,14 +428,20 @@ endforeach;
                     timeout: 15000,
                     success: function (data) {
                         console.log(JSON.stringify(data));
+                        var html = '<textarea name="texto_publicacao" id="editorHistorico">' + data+ '</textarea>';
                         swal({
-                            html: data,
+                            html: html,
                             width: 900,
                             showCancelButton: false,
                             confirmButtonClass: 'btn btn-success btn-fill',
                             confirmButtonText: 'Fechar!',
                             buttonsStyling: false
                         }).then(function() {});  
+                            CKEDITOR.replace( 'editorHistorico', {
+                                toolbarGroups : [
+		                            { "name": "clipboard", "groups": [ "Copy"] }
+                                ]                            
+                            });
                     },
                     error: function (x, t, m) {
                         alert('Tempo esgotado');
@@ -455,60 +483,29 @@ endforeach;
            
             <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo aprovado.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
+            <?php 
+        } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo salvo.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'lOk') { ?>
+            <?php 
+        } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'lOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Link salvo.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
+            <?php 
+        } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo enviado para aprovação.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
+            <?php 
+        } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo reprovado.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'cErro') { ?>
+            <?php 
+        } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'imgOk') { ?>
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Foto adicionada.');
+            <?php 
+        } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'cErro') { ?>
                 funcoes.showNotification(0,4,'<b>Erro</b> - entre em contato com o gerente.');
-            <?php } ?>
-            var totalCaracteres = 0;
-            $('#summernote').summernote({
-                height: 400,
-                styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-                toolbar: [
-                    ['style', ['bold', 'italic', 'underline', 'clear', 'style']],
-                    ['fontsize', ['fontsize', 'fontname']],
-                    ['color', ['color']],
-                    ['para', ['ul', 'ol', 'paragraph']],
-                    ['Misc', ['fullscreen']],
-                    ['Insert', ['table','link']]
-                ],
-                callbacks: {
-                    onInit: function() {
-                        contaCaracteres();
-                    },
-                    onKeyup: function(e) {
-                        // totalCaracteres++;
-                        totalCaracteres = $('#summernote').text().replace(/(<([^>]+)>)/ig, "").replace(/( )/, " ").length;
-	                    $("#total-caracteres").text(totalCaracteres);
-                        // alert('Total Caracteres KeyUp: '+ totalCaracteres + '. Caracter = '+ JSON.stringify(e));
-                    },
-                    onPaste: function(e) {
-                        totalCaracteres++;
-                        alert('Total Caracteres Paste: '+ totalCaracteres);
-                    }
-                }
-            });
+            <?php 
+        } ?>
+        var totalCaracteres = 0;
 
-            // Evento de click no botao fullscreen
-            $('body').on('click', '.btn-fullscreen', function (event) {
-
-                // Modal que esta sendo exibido
-                var btn = $('.btn-fullscreen');
-                var sideBar = $('.sidebar');
-//
-//                // Verifica se modal possui a classe bodyFullscreen, se possuir a remove, caso contrario insere
-                if (!btn.hasClass('active')) {
-                    sideBar.removeClass('menu-fechado');
-                } else {
-                    sideBar.addClass('menu-fechado');
-                }
-            });
+        iniciaCkeditor();
 
             $("#formComentario").submit(function (e) { 
                 e.preventDefault();
@@ -548,13 +545,13 @@ endforeach;
             });
             
             function enviaAprovacao(){
-                $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
+                $('textarea[name="texto_publicacao"]').html(CKEDITOR.instances.editor.getData());
                 $("#controleCriacao").val(1);
                 $("#formConteudo").submit();
             }
             
             function salvaConteudo(){
-                $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
+                $('textarea[name="texto_publicacao"]').html(CKEDITOR.instances.editor.getData());
                 $("#controleCriacao").val(0);
                 $("#formConteudo").submit();
             }
@@ -587,7 +584,6 @@ endforeach;
                 }).then(function() {
                     $("#inputNota").val($("#inputNotaModal").val());
                     $("#formAprovaConteudo").attr('action', '../../controller/conteudo/aprova_conteudo.php');
-                    $("#formAprovaConteudo").submit();
                     $("#formAprovaConteudo").submit();
                 });
             });
@@ -631,12 +627,15 @@ endforeach;
                     buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());
+                    var content = CKEDITOR.instances.editor.getData();
+                    console.log(content);
+                    $("#refacoes").val(content);
                     $("#formAprovaConteudo").attr('action', '../../controller/conteudo/reprova_conteudo_moderador.php');
                     $("#formAprovaConteudo").submit();
                 });  
             });
             $("#btnLatEnviaModeradorConteudo").click(function (e) { 
-                $('textarea[name="texto_publicacao"]').html($('#summernote').summernote('code'));
+                $('textarea[name="texto_publicacao"]').html(CKEDITOR.instances.editor.getData());
                 $("#controleCriacao").val(2);
                 $("#formConteudo").submit();
             });

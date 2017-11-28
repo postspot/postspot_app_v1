@@ -13,17 +13,19 @@ class anexos {
 
 	public static function insert($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("INSERT INTO anexos (nome_anexo, id_responsavel, id_projeto)
- VALUES(:nome_anexo, :id_responsavel, :id_projeto);");
+		$stmt = Conexao::getInstance()->prepare("INSERT INTO anexos (nome_anexo, id_responsavel, id_projeto, link_tarefa)
+ VALUES(:nome_anexo, :id_responsavel, :id_projeto, :link_tarefa);");
 
 		$stmt->bindParam(":nome_anexo", $obj->nome_anexo);
 		$stmt->bindParam(":id_responsavel", $obj->id_responsavel);
 		$stmt->bindParam(":id_projeto", $obj->id_projeto);
+		$stmt->bindParam(":link_tarefa", $obj->link_tarefa);
 
 		$stmt->execute(); 
 		return true;
 		} catch(PDOException $ex) {
 			echo $ex->getMessage();
+			die();
 		}
 	}
 
@@ -75,7 +77,7 @@ class anexos {
 		. " FROM anexos an"
 		. " INNER JOIN usuarios us"
 		. " ON(an.id_responsavel = us.id_usuario)"
-		. " WHERE id_projeto = :id");
+		. " WHERE an.id_projeto = :id AND an.link_tarefa IS NULL");
 
 		$stmt->bindParam(":id", $id);
 			$stmt->execute();

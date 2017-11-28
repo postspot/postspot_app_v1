@@ -21,7 +21,7 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
         $obj = new stdClass();
         $obj->nome_anexo = $_FILES['anexos']["name"][$key];
         $obj->id_responsavel = $id_responsavel;
-        $obj->id_projeto = $id_projeto;        
+        $obj->id_projeto = $id_projeto;    
 
         //pre_r($obj);
         if (anexos::insert($obj)) {

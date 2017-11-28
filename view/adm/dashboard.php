@@ -48,14 +48,20 @@ if (isset($_GET["t"]) || isset($_GET["s"])) {
             $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = '.CONTEUDO_PUBLICADO . $filtroTipo);
             break;
     }
+    $textoTitulo = 'Materiais encontrados';
+    $param = true;
 }else if (isset($_GET["a"])) {
     $tarefas = tarefas::tarefasProjetoAtrasadas($_SESSION['id_projeto']);
+    $textoTitulo = 'Conteúdos atrasados';
+    $param = true;
 }else{
     $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR);
+    $textoTitulo = 'Conteúdos para Publicar';
+    $param = false;
 }
 $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= 0');
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
-$textoTitulo = 'Conteúdos para Publicar';
+
 // pre_r($tarefas);
 // die();
 ?>
@@ -254,10 +260,10 @@ $textoTitulo = 'Conteúdos para Publicar';
                                 <p class="title"><strong><?= $textoTitulo ?></strong></p>
                             </div>
                             <div class="col-lg-2">
-                                <p>Aprovado em:</p>
+                                <?= (!$param) ? '<p>Aprovado em:</p>' : '' ?>
                             </div>
                             <div class="col-lg-2">
-                                Recebido em:
+                                Iniciado em:
                             </div>
                         </div>
                         <?php 
@@ -277,7 +283,7 @@ $textoTitulo = 'Conteúdos para Publicar';
                                         <p> <?= $tarefa->nome_tarefa ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <p><?= date('d/m/Y', strtotime(tarefas::dataAprovacao($tarefa->id_tarefa))) ?></p>
+                                        <p><?= (!$param) ? date('d/m/Y', strtotime(tarefas::dataAprovacao($tarefa->id_tarefa))) : '' ?></p>
                                     </div>
                                     <div class="col-lg-2">
                                         <p><?= date('d/m/Y', strtotime($tarefa->criacao_log)) ?></p>

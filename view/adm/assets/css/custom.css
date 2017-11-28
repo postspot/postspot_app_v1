@@ -299,7 +299,8 @@ div.dataTables_wrapper div.dataTables_length select {
 .modal.link-dialog.in div.checkbox{
     display: none !important;
 }
-#conteudo .form-control{
+#conteudo .form-control,
+#ajuste .form-control{
 margin-bottom: 10px;
 }
 .numbers span{

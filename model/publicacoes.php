@@ -112,7 +112,7 @@ class publicacoes {
 					public static function retornaPublicacao($id) {
 						
 							 try {
-								$stmt = Conexao::getInstance()->prepare("SELECT texto_publicacao FROM publicacoes WHERE id_tarefa = :id");
+								$stmt = Conexao::getInstance()->prepare("SELECT texto_publicacao FROM publicacoes WHERE id_publicacao = :id");
 						
 								$stmt->bindParam(":id", $id);
 								$stmt->execute();

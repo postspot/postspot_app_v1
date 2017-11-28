@@ -4,6 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/comentarios.php';
 require_once '../../model/membros_equipe.php';
 require_once '../../model/tarefas.php';
+require_once '../../model/anexos.php';
 require_once '../../model/personas.php';
 require_once '../../model/log_tarefas.php';
 require_once '../../model/publicacoes.php';
@@ -23,7 +24,8 @@ $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
 $historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
-// pre_r($tarefa->etapa);
+$fotos = anexos::getAllByProjeto($_SESSION['id_projeto'],$id_tarefa);
+// pre_r($fotos);
 // die();
 foreach ($referencias_banco as $referencia) :
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
@@ -93,7 +95,16 @@ endforeach;
                                                         <p class="category">Clique sobre as imagens para fazer o download</p>
                                                     </div>
                                                     <div class="card-content">
-                                                        <form action="../../controller/anexos/cria_fotos.php" method="post"enctype="multipart/form-data">                        
+                                                        <div class="row">
+                                                            <?php if(empty($fotos)):?>
+                                                                <h2>Nenhuma foto</h2>
+                                                            <?php else: foreach ($fotos as $foto): ?>
+                                                                <div class="col-md-3">
+                                                                    <a href="<?= SITE ?>uploads/projetos/1-arquivos/logoAndroid.png" download><img src="<?= SITE ?>uploads/projetos/1-arquivos/logoAndroid.png" alt=""></a>
+                                                                </div>
+                                                            <?php endforeach; endif?>
+                                                        </div>
+                                                        <form action="../../controller/anexos/cria_fotos.php" method="post" enctype="multipart/form-data">                        
                                                         <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                                 <div class="form-group">
                                                                     <label>Arquivo(s)</label>

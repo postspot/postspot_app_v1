@@ -4,15 +4,15 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/anexos.php';
 session_start();
 
-//pre_r($_FILES);
+pre_r($_FILES);
 
 $id_responsavel = $_SESSION["id_usuario"];
 $id_projeto = $_SESSION['id_projeto'];
 $local = DIR_ROOT."/uploads/projetos/".$id_projeto."-arquivos/";
 $erros = 0;
 
-//pre_r($_FILES);
-//die();
+// pre_r($_FILES);
+// die();
 
 foreach ($_FILES['anexos']['error'] as $key => $error) {
     if ($error == UPLOAD_ERR_OK) {

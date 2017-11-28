@@ -54,6 +54,8 @@ if (isset($_GET["t"]) || isset($_GET["s"])) {
     $tarefas = tarefas::tarefasProjetoAtrasadas($_SESSION['id_projeto']);
     $textoTitulo = 'Conteúdos atrasados';
     $param = true;
+    // pre_r($tarefas);
+    // die();
 }else{
     $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10 ,'AND l.etapa = '.CONTEUDO_PARA_PUBLICAR);
     $textoTitulo = 'Conteúdos para Publicar';
@@ -99,14 +101,14 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Pautas <span>para aprovar</span></p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'],'< 7') ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], 'AND (l.etapa = '. PAUTA_APROVACAO_CLIENTE .' OR l.etapa = '. PAUTA_REAPROVACAO_CLIENTE .')'); ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="pautas.php">
+                                        <a href="pautas.php?s=2">
                                             <div class="stats">
                                                 <i class="ti-eye"></i>  todas
                                             </div>
@@ -126,7 +128,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <div class="col-xs-7">
                                                 <div class="numbers">
                                                     <p>Conteúdos<span>para aprovar</span></p>
-                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= 7 or l.etapa = 11") ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], 'AND (l.etapa = '.CONTEUDO_APROVACAO_CLIENTE.' OR l.etapa = '.CONTEUDO_REAPROVACAO_CLIENTE.')') ?>
                                                     
                                                 </div>
                                             </div>
@@ -134,7 +136,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="conteudos.php?s=5">
+                                        <a href="conteudos.php?s=2">
                                             <div class="stats">
                                                 <i class="ti-eye"></i> Ver todos
                                             </div>
@@ -263,7 +265,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                 <?= (!$param) ? '<p>Aprovado em:</p>' : '' ?>
                             </div>
                             <div class="col-lg-2">
-                                Iniciado em:
+                                Atualizado em:
                             </div>
                         </div>
                         <?php 

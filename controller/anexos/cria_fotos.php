@@ -14,6 +14,7 @@ $local = DIR_ROOT."/uploads/projetos/".$id_projeto."-arquivos/";
 $erros = 0;
 
 // pre_r($_FILES);
+// pre_r($_POST);
 // die();
 
 foreach ($_FILES['anexos']['error'] as $key => $error) {
@@ -26,7 +27,8 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
         $obj->id_projeto = $id_projeto;        
         $obj->link_tarefa = $id_tarefa;        
 
-        //pre_r($obj);
+        // pre_r($obj);
+        // die();
         if (anexos::insert($obj)) {
             //echo 'entro';
             //die();
@@ -65,12 +67,14 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
            //redireciona(SITE . 'view/adm/documentos.php?retorno=error');
         }
     }else{
-        //pre_r($error);
+        // pre_r('Erro: ' . $error);
     }
 }
 
 if ($erros > 0) {
-    redireciona(SITE . 'view/adm/detalhes_conteudo.php?retorno=cErro');
+    // echo 'Erro';
+    redireciona(SITE . 'view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=retorno=cErro');
 } else {
-    redireciona(SITE . 'view/adm/detalhes_conteudo.php?retorno=imgOk');
+    // echo 'Sucesso';
+    redireciona(SITE . 'view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=imgOk');
 }

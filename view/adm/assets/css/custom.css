@@ -307,3 +307,13 @@ margin-bottom: 10px;
     display: block;
     font-size: 12px;
 }
+.card-chat .msg p {
+    font-size: 13px;
+    word-wrap: break-word;
+}
+.card-chat .other .msg {
+    border-radius: 5px;
+}
+.card-chat i.ti-calendar {
+    font-size: 12px;
+}

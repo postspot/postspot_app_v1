@@ -261,7 +261,7 @@ class tarefas {
         public static function tarefasProjetoAtrasadas($id) {
 
             try {
-                $stmt = Conexao::getInstance()->prepare("SELECT * FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 15 AND l.data_prevista < now()");
+                $stmt = Conexao::getInstance()->prepare("select t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 15 AND l.data_prevista < now()");
 
                 $stmt->bindParam(":id_projeto", $id);
                 $stmt->execute();

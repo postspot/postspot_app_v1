@@ -1,21 +1,21 @@
 <?php
 //Desenvolvimento
-// define('USER','root');
-// define('PASS','');
-// define('BANCO','banco_andress_n');
-// define('HOST','localhost');
+define('USER','root');
+define('PASS','');
+define('BANCO','banco_andress_n');
+define('HOST','localhost');
 
-// define('DIR_ROOT', 'C:\xampp\htdocs\postspot');
-// define('SITE', 'http://localhost/postspot/');
+define('DIR_ROOT', 'C:\xampp\htdocs\postspot');
+define('SITE', 'http://localhost/postspot/');
 
 //Produção
- define('USER','root_n');
- define('PASS','#Apppostspot');
- define('BANCO','banco_andress_n');
- define('HOST','mysql857.umbler.com');
+//  define('USER','root_n');
+//  define('PASS','#Apppostspot');
+//  define('BANCO','banco_andress_n');
+//  define('HOST','mysql857.umbler.com');
 
- define('DIR_ROOT', '/home/app.postspot.com.br/public/postspot');
- define('SITE', 'http://app-postspot-com-br.umbler.net/postspot/');
+//  define('DIR_ROOT', '/home/app.postspot.com.br/public/postspot');
+//  define('SITE', 'http://app-postspot-com-br.umbler.net/postspot/');
 
 
 

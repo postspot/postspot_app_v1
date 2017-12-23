@@ -142,8 +142,8 @@ die();*/
                                                     </div>
 
                                                 <div>
-                                                    <button type="button" class="btn btn-warning btn-fill btn-wd" onclick="funcoes.showSwal('trocarSenha')">Trocar Senha</button>
-                                                    <button type="submit" class="btn btn-info btn-fill btn-wd pull-right">Atualizar Perfil</button>
+                                                    <button type="button" class="btn btn-warning btn-fill btn-wd fundo-roxo-escuro" onclick="funcoes.showSwal('trocarSenha')">Trocar Senha</button>
+                                                    <button type="submit" class="btn btn-info btn-fill btn-wd pull-right fundo-rosa">Atualizar Perfil</button>
                                                 </div>
                                                 <div class="clearfix"></div>
                                             </form>

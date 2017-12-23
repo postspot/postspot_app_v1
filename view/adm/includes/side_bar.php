@@ -5,7 +5,7 @@ $detalhe_pagina = explode("/", $_SERVER['PHP_SELF']);
 
 $detalhe_pagina = end($detalhe_pagina);
 
-$array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo.php','idiomas.php','categorias.php');
+$array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conteudo.php', 'idiomas.php', 'categorias.php');
 ?>
 <div class="sidebar" data-background-color="white" data-active-color="danger">
     <div class="logo">
@@ -14,7 +14,7 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
         </a>
 
         <a href="dashboard.php" class="simple-text logo-normal">
-            <img src="assets/img/logo-postspo.png">
+            POSTSPOT
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -22,12 +22,12 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
         <div class="user">
             <div class="info">
                 <div class="photo">
-                    <img src="../../uploads/usuarios/<?= $_SESSION['foto_usuario']?>" />
+                    <img src="../../uploads/usuarios/<?= $_SESSION['foto_usuario'] ?>" />
                 </div>
 
                 <a href="perfil.php">
                     <span>
-                        <?= $_SESSION['nome_usuario']?>
+                        <?= $_SESSION['nome_usuario'] ?>
                     </span>
                 </a>
                 <div class="clearfix"></div>
@@ -37,7 +37,7 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
         <ul class="nav">
             <li class="<?= $detalhe_pagina == "dashboard.php" ? "active" : "" ?>">
                 <a href="dashboard.php">
-                    <i class="ti-home"></i>
+                <i class="material-icons">dashboard</i>
                     <p>Dashboard
                     </p>
                 </a>
@@ -45,63 +45,63 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
 
             <li class="<?= $detalhe_pagina == "pautas.php" ? "active" : "" ?>">
                 <a href="pautas.php">
-                    <i class="ti-light-bulb"></i>
+                <i class="material-icons">list</i>
                     <p>Pautas</p>
                 </a>
             </li>
 
             <li class="<?= $detalhe_pagina == "conteudos.php" ? "active" : "" ?>">
                 <a href="conteudos.php">
-                    <i class="ti-bookmark"></i>
+                <i class="material-icons">description</i>
                     <p>Conteúdos</p>
                 </a>
             </li>
 
-            <li class="<?= $detalhe_pagina == "calendario.php" ? "active" : "" ?>">
+            <!-- <li class="<?= $detalhe_pagina == "calendario.php" ? "active" : "" ?>">
                 <a href="calendario.php">
-                    <i class="ti-calendar"></i>
+                <i class="material-icons">event</i>
                     <p>Calendário</p>
                 </a>
-            </li>
+            </li> -->
 
-            <?php if($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'):?>
+            <?php if ($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4') : ?>
                 <li class="<?= $detalhe_pagina == "documentos.php" ? "active" : "" ?>">
                     <a href="documentos.php">
-                        <i class="ti-files"></i>
+                    <i class="material-icons">folder</i>
                         <p>Documentos</p>
                     </a>
                 </li>
-            <?php endif;?>
+            <?php endif; ?>
 
             <li class="<?= $detalhe_pagina == "estrategia.php" ? "active" : "" ?>">
                 <a href="estrategia.php">
-                    <i class="ti-direction-alt"></i>
+                <i class="material-icons">store</i>
                     <p>Estratégia</p>
                 </a>
             </li>
             <li class="<?= $detalhe_pagina == "personas.php" ? "active" : "" ?>">
                 <a href="personas.php">
-                    <i class="ti-user"></i>
+                <i class="material-icons md-18">person</i>
                     <p>Personas</p>
                 </a>
             </li>
 
             <li class="<?= $detalhe_pagina == "equipe.php" ? "active" : "" ?>">
                 <a href="equipe.php">
-                    <i class="ti-world"></i>
+                <i class="material-icons">group</i>
                     <p>Equipe</p>
                 </a>
             </li>
-            <?php if($_SESSION['funcao_usuario'] == '0'):?>
-                <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active": "" ?>">
-                    <a data-toggle="collapse" href="#gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
-                        <i class="ti-panel"></i>
+            <?php if ($_SESSION['funcao_usuario'] == '0') : ?>
+                <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active" : "" ?>">
+                    <a data-toggle="collapse" href="#gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"' : '' ?>>
+                    <i class="material-icons">settings</i>
                         <p>
-                            Gestão
+                            Configurações
                             <b class="caret"></b>
                         </p>
                     </a>
-                    <div class="collapse <?= in_array($detalhe_pagina, $array_gestao) ? 'in': '' ?>" id="gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"': '' ?>>
+                    <div class="collapse <?= in_array($detalhe_pagina, $array_gestao) ? 'in' : '' ?>" id="gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"' : '' ?>>
                         <ul class="nav">
                             <li class="<?= $detalhe_pagina == "time.php" ? "active" : "" ?>">
                                 <a href="time.php">
@@ -133,16 +133,16 @@ $array_gestao = array('time.php','projetos.php','habilidades.php','tipo_conteudo
                                     <span class="sidebar-normal">Idiomas</span>
                                 </a>
                             </li>
-                            <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">
+                            <!-- <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">
                                 <a href="categorias.php">
                                     <span class="sidebar-mini">CT</span>
                                     <span class="sidebar-normal">Categorias</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                 </li>
-            <?php endif;?>
+            <?php endif; ?>
         </ul>
     </div>
 </div>

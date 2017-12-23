@@ -142,10 +142,11 @@ class tarefas {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * "
+		$stmt = Conexao::getInstance()->prepare("SELECT * , tp.nome_tarefa as nome_tipo"
         . " FROM tarefas t"
         . " INNER JOIN log_tarefas lt"
         . " ON(t.id_tarefa = lt.id_tarefa) "
+        . " INNER JOIN tipo_tarefa tp on (t.id_tipo = tp.id_tipo)"
         . " WHERE t.id_tarefa = :id and lt.status = 1");
 
 		$stmt->bindParam(":id", $id);
@@ -178,7 +179,7 @@ class tarefas {
 	public static function getConteudosDez($id, $limit) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select * from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa > 6 order by t.data_criacao ASC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select tp.nome_tarefa as nome_tipo, t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log  from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) inner join tipo_tarefa tp on (t.id_tipo = tp.id_tipo) where t.id_projeto = :id_projeto and l.status = 1 and l.etapa > 6 order by t.data_criacao ASC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id);
 		$stmt->execute();
@@ -195,7 +196,7 @@ class tarefas {
 	public static function getPautasDez($id_projeto, $limit, $etapa) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("select t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log  from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao DESC limit $limit");
+		$stmt = Conexao::getInstance()->prepare("select tp.nome_tarefa as nome_tipo, t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log  from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) inner join tipo_tarefa tp on (t.id_tipo = tp.id_tipo) where t.id_projeto = :id_projeto and l.status = 1 $etapa order by t.data_criacao DESC limit $limit");
 
 		$stmt->bindParam(":id_projeto", $id_projeto);
 		$stmt->execute();
@@ -261,7 +262,7 @@ class tarefas {
         public static function tarefasProjetoAtrasadas($id) {
 
             try {
-                $stmt = Conexao::getInstance()->prepare("select t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 15 AND l.data_prevista < now()");
+                $stmt = Conexao::getInstance()->prepare("select tp.nome_tarefa as nome_tipo, t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log FROM tarefas t inner join log_tarefas l ON ( t.id_tarefa = l.id_tarefa) inner join tipo_tarefa tp on (t.id_tipo = tp.id_tipo) WHERE  t.id_projeto = :id_projeto and l.status = 1 AND l.etapa != 15 AND l.data_prevista < now()");
 
                 $stmt->bindParam(":id_projeto", $id);
                 $stmt->execute();

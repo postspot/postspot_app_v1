@@ -19,6 +19,7 @@
 
         <!--  Paper Dashboard core CSS    -->
         <link href="assets/css/paper-dashboard.css" rel="stylesheet"/>
+        <link href="assets/css/custom.css" rel="stylesheet"/>
 
 
         <!--  Fonts and icons     -->
@@ -28,28 +29,6 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-transparent navbar-absolute">
-            <div class="container">
-                <div class="navbar-header">
-                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>-->
-                    <a class="navbar-brand" href="index.php">Post Spot</a>
-                </div>
-                <div class="collapse navbar-collapse">
-                    <!--<ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a href="register.html">
-                                Primeiro Acesso
-                            </a>
-                        </li>
-                    </ul>-->
-                </div>
-            </div>
-        </nav>
 
         <div class="wrapper wrapper-full-page">
             <div class="full-page login-page" data-color="" data-image="assets/img/background/background-5.png">
@@ -58,26 +37,24 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
+                            <img src="assets/img/logo-postspo.png" alt="">
                                 <form class="l" action="../../controller/usuario/login.php" method="POST">
                                     <div class="card card-hidden" data-background="color" data-color="blue">
-                                        <div class="card-header">
-                                            <h3 class="card-title">Login</h3>
-                                        </div>
                                         <div class="card-content">
                                             <div class="form-group">
-                                                <label>Email</label>
+                                                <label>Seu email</label>
                                                 <input type="text" name="campo_login" placeholder="Informe o email" class="form-control input-no-border">
                                             </div>
                                             <div class="form-group">
-                                                <label>Senha</label>
+                                                <label>Sua senha</label>
                                                 <input type="password" name="campo_senha" placeholder="Informe a senha" class="form-control input-no-border">
                                             </div>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <button type="submit" class="btn btn-fill btn-wd ">Entrar</button>
-                                            <div class="forgot" style="margin-top: 15px;">
+                                            <button type="submit" class="btn btn-success btn-fill btn-wd fill-up fundo-roxo-padrao">Entrar</button>
+                                            <!-- <div class="forgot" style="margin-top: 15px;">
                                                 <a href="#pablo">Esqueceu sua senha?</a>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </form>

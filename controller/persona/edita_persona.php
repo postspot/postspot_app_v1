@@ -17,6 +17,10 @@ $objetivos = $_POST["objetivos"];
 $descricao = $_POST["descricao"];
 $resolucao = $_POST["resolucao"];
 $id_persona = $_POST["id_persona"];
+$aprendizado = $_POST["aprendizado"];
+$reconhecimento = $_POST["reconhecimento"];
+$consideracao = $_POST["consideracao"];
+$decisao = $_POST["decisao"];
 
  
 if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) && 
@@ -35,6 +39,10 @@ if (isset($id_projeto) && isset($nome) && isset($idade) && isset($sexo) &&
 	$obj->objetivos = $objetivos;
 	$obj->descricao = $descricao;
 	$obj->resolucao = $resolucao;
+	$obj->aprendizado = $aprendizado;
+	$obj->reconhecimento = $reconhecimento;
+	$obj->consideracao = $consideracao;
+	$obj->decisao = $decisao;
 	$obj->foto = $foto;
 	$obj->id_projeto = $id_projeto;
 	$obj->id_persona = $id_persona;

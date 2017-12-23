@@ -24,7 +24,7 @@ $users = usuarios::getAll();
 
                 <div class="content">
                     <div class="container-fluid">
-                            <h4 class="title"><i class="ti-panel"></i> Gestão - Usuários</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Usuários</h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
@@ -62,7 +62,7 @@ $users = usuarios::getAll();
                                                     <td><?= funcaoCliente($user->funcao_usuario) ?></td>
                                                     <td>
                                                         <a href="#" class="btn btn-simple btn-danger btn-icon del-usuario"><i class="ti-trash"></i></a>
-                                                        <a href="edita_usuario.php?u=<?= $user->id_usuario?>" class="btn btn-simple btn-info btn-icon add-search"><i class="ti-search"></i></a>
+                                                        <a href="edita_usuario.php?u=<?= $user->id_usuario?>" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="ti-search"></i></a>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

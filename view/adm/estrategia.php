@@ -114,9 +114,7 @@ endforeach;
                                                     </ol>
                                                     <hr>
                                                     <h3>Categorias de conteúdo</h3>
-                                                    <?php foreach($categorias_estrategias as $categ):?>
-                                                        <p><?=  $categ->nome_categoria ?></p> 
-                                                    <?php endforeach;?>
+                                                    <?=  $estrategia->categorias ?> 
                                                     <hr>
                                                     <h3>Canais de aquisição de tráfego</h3>
                                                     <?= $estrategia->canais ?>
@@ -258,19 +256,8 @@ endforeach;
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Categorias de conteúdo</label>
-                                                        <p class="text-muted">Selecione as duas ou três principais</p>                                              
-                                                        <select require multiple title="Escolha as Categorias" class="selectpicker" data-style="no-border" data-size="7" name="categorias_conteudo[]">
-                                                            <?php foreach($categorias as $categoria):
-                                                                $selected = '';
-                                                                foreach ($categorias_estrategias as $categoria_escolhida) {
-                                                                    if($categoria->id_categoria == $categoria_escolhida->id_categoria){
-                                                                        $selected = 'selected="selected"';
-                                                                    }
-                                                                }
-                                                                ?>
-                                                                <option value="<?= $categoria->id_categoria ?>" <?= $selected ?>><?= $categoria->nome_categoria ?></option>
-                                                            <?php endforeach;?>
-                                                        </select>
+                                                        <p class="text-muted">Informe duas ou três categorias principais</p>                                              
+                                                        <textarea class="form-control" rows="3"  name="categorias"><?= $estrategia->categorias ?></textarea>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>Canais de aquisição de tráfego</label>

@@ -52,6 +52,7 @@ class personas {
                 . "nome = :nome , idade = :idade , sexo = :sexo , caracteristicas = :caracteristicas , "
                 . "educacao = :educacao , trabalho = :trabalho , segmento = :segmento , "
                 . "objetivos = :objetivos , descricao = :descricao , resolucao = :resolucao ,"
+                . "aprendizado = :aprendizado , reconhecimento = :reconhecimento , consideracao = :consideracao , decisao = :decisao ,"
                 . " foto =:foto  WHERE id_persona = :id_persona ");
 
 		$stmt->bindParam(":id_persona", $obj->id_persona);
@@ -65,6 +66,10 @@ class personas {
 		$stmt->bindParam(":objetivos", $obj->objetivos);
 		$stmt->bindParam(":descricao", $obj->descricao);
 		$stmt->bindParam(":resolucao", $obj->resolucao);
+		$stmt->bindParam(":aprendizado", $obj->aprendizado);
+		$stmt->bindParam(":reconhecimento", $obj->reconhecimento);
+		$stmt->bindParam(":consideracao", $obj->consideracao);
+		$stmt->bindParam(":decisao", $obj->decisao);
 		$stmt->bindParam(":foto", $obj->foto);
 
 		$stmt->execute(); 

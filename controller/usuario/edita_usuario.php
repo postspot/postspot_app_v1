@@ -9,19 +9,19 @@ $id_usuario = $_POST["id_usuario"];
 $nome_usuario = $_POST["nome_usuario"];
 $sexo_usuario = $_POST["sexo_usuario"];
 $funcao_usuario = $_POST["funcao_usuario"];
+$obs = $_POST["obs"];
 $email_usuario = $_POST["email_usuario"];
 $senha_usuario = $_POST["senha_usuario"];
 $idioma = $_POST["idioma"];
 $habilidades = $_POST["habilidade"];
 
-//pre_r($_POST);
-//pre_r($_FILES);
-//
-//die();
+// pre_r($_POST);
+// pre_r($_FILES);
+
+// die();
 
 if (isset($nome_usuario) && isset($sexo_usuario) && 
-    isset($funcao_usuario) && isset($email_usuario) &&
-    isset($idioma)) {
+    isset($funcao_usuario) && isset($email_usuario)) {
 
     if (!empty($nome_usuario)) {
       
@@ -30,9 +30,12 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
         $obj->nome_usuario = $nome_usuario;
         $obj->id_usuario = $id_usuario.
         $obj->sexo_usuario = $sexo_usuario;
+        $obj->obs = $obs;
         $obj->funcao_usuario = $funcao_usuario;
         $obj->email_usuario = $email_usuario;
         
+        // pre_r($obj);
+        // die();
         if(usuarios::update($obj)){
             idiomas_usuario::delete($id_usuario);
             foreach ($idioma as $value) {
@@ -65,13 +68,13 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
             }
         }
         else{
-            header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=erro');
+            header('Location: ../../view/adm/edita_usuario.php?u='.$id_usuario.'&retorno=erro1');
         }
     }
     else {
-        header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=erro');
+        header('Location: ../../view/adm/edita_usuario.php?u='.$id_usuario.'&retorno=erro2');
     }
 }
 else {
-    header('Location: ../../view/adm/edita_usuario.php?u='.$obj->id_usuario.'&retorno=erro');
+    header('Location: ../../view/adm/edita_usuario.php?u='.$id_usuario.'&retorno=erro3');
 }

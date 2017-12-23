@@ -42,6 +42,8 @@ if(isset($_GET["s"])){
     $filtro = 0;
     $conteudos = tarefas::getConteudosDez($_SESSION['id_projeto'], 10, $filtroTipo);
 }
+// pre_r($conteudos);
+// die();
 $totalConteudos = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], ">= ". CONTEUDO_ESCREVENDO);
 $escrevendo = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= " . CONTEUDO_ESCREVENDO);
 $aprovando_moderador = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= ". CONTEUDO_APROVACAO_MODERADOR ." OR l.etapa = ". CONTEUDO_REAPROVACAO_MODERADOR);
@@ -72,7 +74,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-light-bulb"></i> Conteúdos</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">description</i> Conteúdos</h4>
 
                         <div class="row">
                             <div class="col-lg-12">
@@ -103,7 +105,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill fill-up">Buscar</button>
+                                            <button type="submit" class="btn btn-info btn-fill fill-up fundo-roxo-escuro">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -115,12 +117,12 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                     <div class="card-content">
                                         <ol class="list-unstyled">
                                             <a href="conteudos.php?s=1"><li class="<?= ($filtro == '1') ? 'active' : '' ?>"><div class="count"><?= $totalConteudos ?></div><div class="text">Todos Conteúdo</div></li></a>
-                                            <a href="conteudos.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count"><?= $escrevendo ?></div><div class="text"><small>Conteúdos</small>Em Produção</div></li></a>
-                                            <a href="conteudos.php?s=6"><li class="<?= ($filtro == '6') ? 'active' : '' ?>"><div class="count"><?= $aprovando_moderador ?></div><div class="text"><small>Conteúdos</small>Aprovação Moderador</div></li></a>
-                                            <a href="conteudos.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count"><?= $aprovando ?></div><div class="text"><small>Conteúdos</small>Aprovação Cliente</div></li></a>
-                                            <a href="conteudos.php?s=3"><li class="<?= ($filtro == '3') ? 'active' : '' ?>"><div class="count"><?= $ajustando ?></div><div class="text"><small>Conteúdos</small>Em Ajustes</div></li></a>
-                                            <a href="conteudos.php?s=7"><li class="<?= ($filtro == '7') ? 'active' : '' ?>"><div class="count"><?= $para_publicar ?></div><div class="text"><small>Conteúdos</small>Para Publicar</div></li></a>
-                                            <a href="conteudos.php?s=4"><li class="<?= ($filtro == '4') ? 'active' : '' ?>"><div class="count"><?= $publicados ?></div><div class="text"><small>Conteúdos</small>Publicados</div></li></a>
+                                            <a href="conteudos.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count azul-um"><?= $escrevendo ?></div><div class="text"><small>Conteúdos</small>Em Produção</div></li></a>
+                                            <a href="conteudos.php?s=6"><li class="<?= ($filtro == '6') ? 'active' : '' ?>"><div class="count azul-dois"><?= $aprovando_moderador ?></div><div class="text"><small>Conteúdos</small>Aprovação Moderador</div></li></a>
+                                            <a href="conteudos.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count azul-tres"><?= $aprovando ?></div><div class="text"><small>Conteúdos</small>Aprovação Cliente</div></li></a>
+                                            <a href="conteudos.php?s=3"><li class="<?= ($filtro == '3') ? 'active' : '' ?>"><div class="count azul-quatro"><?= $ajustando ?></div><div class="text"><small>Conteúdos</small>Em Ajustes</div></li></a>
+                                            <a href="conteudos.php?s=7"><li class="<?= ($filtro == '7') ? 'active' : '' ?>"><div class="count azul-cinco"><?= $para_publicar ?></div><div class="text"><small>Conteúdos</small>Para Publicar</div></li></a>
+                                            <a href="conteudos.php?s=4"><li class="<?= ($filtro == '4') ? 'active' : '' ?>"><div class="count azul-seis"><?= $publicados ?></div><div class="text"><small>Conteúdos</small>Publicados</div></li></a>
                                         </ol>
                                     </div>
                                 </div>
@@ -128,7 +130,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                             <div class="col-lg-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p class="title"><strong>Conteúdos</strong> em geral</p>
+                                        <p class="title"><strong>Todos os Conteúdos</strong></p>
                                     </div>
                                     <div class="col-lg-2">
                                         <p>Status:</p>
@@ -139,7 +141,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                         <div class="card">
                                             <div class="card-content">
                                                 <div class="typo-line text-center">
-                                                    <h2>Nenhum conteúdo encontrado! <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                                <h2 class"cor-roxo-escuro">Nenhum conteúdo encontrado! <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
                                                 </div>
                                             </div>
                                         </div>
@@ -154,9 +156,10 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                             <p><?= retornaStatusTarefa($conteudo->etapa) ?></p>
                                         </div>
                                         <div class="col-lg-3">
-                                            <a href="detalhes_conteudo.php?t=<?= $conteudo->id_tarefa ?>" class="btn btn-success btn-fill fill-up btn-wd">Detalhes</a>
+                                            <a href="detalhes_conteudo.php?t=<?= $conteudo->id_tarefa ?>" class="btn btn-success btn-fill fill-up btn-wd fundo-roxo-padrao">Ver Conteúdo</a>
                                         </div>  
                                     </div>
+                                            <div class="badge"><?= $conteudo->nome_tipo ?></div>
                                 </div>
                                 <?php endforeach; endif;     ?>
                         </div>

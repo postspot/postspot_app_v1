@@ -13,7 +13,8 @@ $aprovacao = $_POST["aprovacao"];
 $etapa = $_POST['etapa'];
 $titulo = $_POST['novo_titulo_tarefa'];
 
-
+// pre_r($_POST);
+// die();
 if (!empty($id_tarefa) && !empty($texto_publicacao)) {
     
     // Prepara o conteúdo

@@ -26,7 +26,7 @@ $habilidades = habilidades::getAllSkills();
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-panel"></i> Gestão - Habilidades</h4>
+                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Habilidades</h4>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="card">
@@ -39,7 +39,7 @@ $habilidades = habilidades::getAllSkills();
                                                             <?= $habilidade->nome_habilidade ?>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaHabilidade('<?= $habilidade->id_habilidade ?>',this);">Deletar <i class="fa fa-times"></i></btn>
+                                                            <btn class="btn btn-sm btn-icon fundo-roxo-padrao" onclick="deletaHabilidade('<?= $habilidade->id_habilidade ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                         </div>
                                                     </div>
                                                 </li>

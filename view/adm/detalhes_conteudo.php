@@ -15,7 +15,7 @@ if (!isset($_GET["t"])) {
 } else {
     $id_tarefa = $_GET["t"];
 }
-$condicaoComentario = ( ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : ( ($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
+$condicaoComentario = (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : (($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 1, $condicaoComentario);
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
 $tarefa = tarefas::getById($id_tarefa);
@@ -24,7 +24,7 @@ $referencias_banco = explode("\n", $tarefa->referencias);
 $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
 $historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
-$fotos = anexos::getAllByProjeto($_SESSION['id_projeto'],$id_tarefa);
+$fotos = anexos::getAllByProjeto($_SESSION['id_projeto'], $id_tarefa);
 // pre_r($fotos);
 // die();
 foreach ($referencias_banco as $referencia) :
@@ -55,7 +55,7 @@ endforeach;
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="progress-stage">
+                                <!-- <div class="progress-stage">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default active">Pauta</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE) ? 'active' : '' ?>">Produção</button>
@@ -64,56 +64,96 @@ endforeach;
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? 'active' : '' ?>">Aprovação Final</button>
                                         <button type="button" class="btn btn-default <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR) ? 'active' : '' ?>">Publicado</button>
                                     </div>
+                                </div> -->
+                                <?php
+                                $dataAvaliacao = log_tarefas::gatDataLogAvaliacao($id_tarefa);
+                                $dataAprovacao = log_tarefas::gatDataLogAprovacao($id_tarefa);
+                                // pre_r($dataAvaliacao);
+                                // pre_r($dataAprovacao);
+                                // die();
+                                ?>
+                                <ul class="textosProgressBar">
+                                    <li>Produção</li>
+                                    <li>Avaliação</li>
+                                    <li class="data"><?= ($dataAvaliacao == '') ? '' : 'Entregue em '. date("d/m/Y", strtotime($dataAvaliacao)) ?></li>
+                                    <li>Aprovação</li>
+                                    <li class="data"><?= ($dataAprovacao == '') ? '' : 'Aprovado em '. date("d/m/Y", strtotime($dataAprovacao)) ?></li>
+                                    <li>Adequação</li>
+                                    <li>Publicação</li>
+                                    <li>Publicado</li>
+                                </ul>
+                                <div class="clearfix"></div>
+                                <div class="progress">
+                                    <div class="progress-bar azul-um" style="width: <?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE) ? '10' : '0' ?>%">
+                                        <span class="sr-only">35% Complete (success)</span>
+                                    </div>
+                                    <div class="progress-bar azul-dois" style="width: <?= ($tarefa->etapa > CONTEUDO_APROVACAO_MODERADOR) ? '10' : '0' ?>%">
+                                        <span class="sr-only">35% Complete (success)</span>
+                                    </div>
+                                    <div class="progress-bar azul-tres" style="width: <?= ($tarefa->etapa > CONTEUDO_REPROVADO) ? '17' : '0' ?>%">
+                                        <span class="sr-only">35% Complete (success)</span>
+                                    </div>
+                                    <div class="progress-bar azul-quatro" style="width: <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? '17' : '0' ?>%">
+                                        <span class="sr-only">35% Complete (success)</span>
+                                    </div>
+                                    <div class="progress-bar azul-cinco" style="width: <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR) ? '17' : '0' ?>%">
+                                        <span class="sr-only">35% Complete (success)</span>
+                                    </div>
+                                    <div class="progress-bar azul-seis" style="width: <?= ($tarefa->etapa >= CONTEUDO_PUBLICADO) ? '29' : '0' ?>%">
+                                        <span class="sr-only">35% Complete (success)</span>
+                                    </div>
                                 </div>
                                 <hr>
                             </div>
                             <!--Conteudo Central-->
                             <div class="col-md-8">
-                                <div class="card">
+                                <div class="card card-conteudo">
                                     <div class="card-content">
                                         <div class="nav-tabs-navigation">
-                                            <div class="nav-tabs-wrapper">
+                                            <!-- <div class="nav-tabs-wrapper"> -->
                                                 <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                                                    <li class="active"><a href="#conteudo" data-toggle="tab">Conteúdo</a></li>
+                                                    <li class="active"><a href="#conteudo" data-toggle="tab"><i class="material-icons">description</i> Conteúdo</a></li>
                                                     <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
-                                                        <li><a href="#ajuste" data-toggle="tab">Editar</a></li>
+                                                        <li><a href="#ajuste" data-toggle="tab"><i class="material-icons">border_color</i> Editar</a></li>
                                                     <?php endif; ?>
-                                                    <li><a href="#pauta" data-toggle="tab">Pauta</a></li>
-                                                    <li><a href="#historico" data-toggle="tab">Histórico</a></li>
+                                                    <li><a href="#pauta" data-toggle="tab"><i class="material-icons">list</i> Pauta</a></li>
+                                                    <li><a href="#historico" data-toggle="tab"><i class="material-icons">history</i> Histórico</a></li>
                                                 </ul>
-                                            </div>
+                                            <!-- </div> -->
                                         </div>
                                         <div id="my-tab-content" class="tab-content text-center">
                                             <div class="tab-pane pane-pauta min-height active" id="conteudo">
                                             <!-- <input type="text" class="form-control" value="<?= $tarefa->nome_tarefa ?>">    -->
-                                            <h1><?= $tarefa->nome_tarefa ?></h1>                                         
-                                                <?= (empty($conteudo)) ? '<h1>Nenhum conteúdo escrito até o momento :(</h1>' : $conteudo ?>
-                                                <hr>
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <h4 class="card-title">Imagens</h4>
-                                                        <p class="category">Clique sobre as imagens para fazer o download</p>
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <div class="row">
-                                                            <?php if(empty($fotos)):?>
-                                                                <h2>Nenhuma foto</h2>
-                                                            <?php else: foreach ($fotos as $foto): ?>
-                                                                <div class="col-md-3">
-                                                                    <a href="<?= SITE ?>uploads/projetos/1-arquivos/logoAndroid.png" download><img src="<?= SITE ?>uploads/projetos/1-arquivos/logoAndroid.png" alt=""></a>
-                                                                </div>
-                                                            <?php endforeach; endif?>
+                                            <h1 class="titulo-pauta"><?= $tarefa->nome_tarefa ?></h1>   
+                                            <img class="img-capa" src="<?= SITE ?>uploads/projetos/<?= $fotos[0]->id_projeto ?>-arquivos/<?= $fotos[0]->nome_anexo ?>" alt="">                                      
+                                                <div class="sem-estilo"><?= $conteudo ?></div>
+                                                <?php if ($_SESSION['funcao_usuario'] == 0) : ?>
+                                                    <hr>
+                                                    <div class="card">
+                                                        <div class="card-content">
+                                                            
+                                                            <h4 class="title cor-roxo-escuro"><i class="material-icons">insert_photo</i> Imagem Destaque</h4>
+                                                            <div class="row">
+                                                                <?php if (empty($fotos)) : ?>
+                                                                <h2 class"cor-roxo-escuro">Nenhuma foto</h2>
+                                                                <?php else : foreach ($fotos as $foto) : ?>
+                                                                    <div class="col-md-3">
+                                                                        <a href="<?= SITE ?>uploads/projetos/<?= $foto->id_projeto ?>-arquivos/<?= $foto->nome_anexo ?>" download><img src="<?= SITE ?>uploads/projetos/<?= $foto->id_projeto ?>-arquivos/<?= $foto->nome_anexo ?>" alt=""></a>
+                                                                    </div>
+                                                                <?php endforeach;
+                                                                endif ?>
+                                                            </div>
+                                                            <form action="../../controller/anexos/cria_fotos.php" method="post" enctype="multipart/form-data">                        
+                                                            <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
+                                                                    <div class="form-group">
+                                                                        <label>Arquivo</label>
+                                                                        <input type="file" class="form-control border-input" name="anexos[]" multiple>
+                                                                    </div>
+                                                                    <input type="submit" value="Enviar Fotos" class="btn btn-info btn-fill fill-up fundo-roxo-escuro">
+                                                            </form>
                                                         </div>
-                                                        <form action="../../controller/anexos/cria_fotos.php" method="post" enctype="multipart/form-data">                        
-                                                        <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
-                                                                <div class="form-group">
-                                                                    <label>Arquivo(s)</label>
-                                                                    <input type="file" class="form-control border-input" name="anexos[]" multiple>
-                                                                </div>
-                                                                <input type="submit" value="Enviar Fotos">
-                                                        </form>
                                                     </div>
-                                                </div>
+                                                <?php endif; ?>
                                             </div>
                                             <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
                                                 <div class="tab-pane pane-pauta min-height" id="ajuste">
@@ -136,7 +176,7 @@ endforeach;
                                                 <p><?= $tarefa->palavra_chave ?></p>
                                                 <hr>
                                                 <h5>Tipo de Conteúdo</h5>
-                                                <p><?= $tarefa->tipo_cta ?></p>
+                                                <p><?= $tarefa->nome_tipo ?></p>
                                                 <hr>
                                                 <h5>Projeto</h5>
                                                 <p><?= $_SESSION['nome_projeto'] ?></p>
@@ -216,12 +256,12 @@ endforeach;
                             <!--Menu Lateral-->
                             <div class="col-md-4">
 
-                                <?php if ( ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 3)
+                                <?php if (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 3)
                                     && ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa == CONTEUDO_REAPROVACAO_CLIENTE)) : ?>
-                                <div class="card">
-                                    <div class="card-header">
+                                <div class="card card-acoes">
+                                    <!-- <div class="card-header">
                                         <h4 class="card-title">Ação necessaria</h4>
-                                    </div>
+                                    </div> -->
                                     <div class="card-content">
                                         <?php //if($tarefa->etapa == 6 || $tarefa->etapa == 9):?>
                                             <form id="formAprovaConteudo" action="" method="post">
@@ -229,13 +269,13 @@ endforeach;
                                                 <input type="hidden" name="nota_tarefa" id="inputNota">
                                                 <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
-                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnAprovaConteudo">
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="btnAprovaConteudo">
                                                     <span class="btn-label">
                                                         <i class="fa fa-check"></i>
                                                     </span>
                                                     Aprovar conteúdo
                                                 </button>
-                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnReprovaConteudo">
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem fundo-rosa-claro" id="btnReprovaConteudo">
                                                     <span class="btn-label">
                                                         <i class="fa fa-check"></i>
                                                     </span>
@@ -245,20 +285,21 @@ endforeach;
                                         <?php //endif;?>
                                     </div>
                                 </div>
-                                <?php elseif ($tarefa->etapa == CONTEUDO_ESCREVENDO || $tarefa->etapa == CONTEUDO_AJUSTANDO) : ?>
-                                    <div class="card">
-                                        <div class="card-header">
+                                <?php elseif (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 2)
+                                    && ($tarefa->etapa == CONTEUDO_ESCREVENDO || $tarefa->etapa == CONTEUDO_AJUSTANDO)) : ?>
+                                    <div class="card card-acoes">
+                                        <!-- <div class="card-header">
                                             <h4 class="card-title">Ação necessaria</h4>
-                                        </div>
+                                        </div> -->
                                         <div class="card-content">
-                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem" id="btnLatSalvaConteudo">
+                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="btnLatSalvaConteudo">
                                                 <span class="btn-label">
                                                     <i class="fa fa-check"></i>
                                                 </span>
                                                 Salvar Conteúdo
                                             </button>
                                             <?php if ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 2) : ?>
-                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatEnviaModeradorConteudo">
+                                                <button type="button" class="btn btn-lg fill-up btn-wd btn-danger margem fundo-rosa-claro" id="btnLatEnviaModeradorConteudo">
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
                                                     </span>
@@ -267,11 +308,11 @@ endforeach;
                                             <?php endif; ?>
                                         </div>
                                     </div>
-                                <?php elseif ( ($tarefa->etapa == CONTEUDO_APROVACAO_MODERADOR || $tarefa->etapa == CONTEUDO_REAPROVACAO_MODERADOR) && $_SESSION['funcao_usuario'] == 0) : ?>
-                                    <div class="card">
-                                        <div class="card-header">
+                                <?php elseif (($tarefa->etapa == CONTEUDO_APROVACAO_MODERADOR || $tarefa->etapa == CONTEUDO_REAPROVACAO_MODERADOR) && $_SESSION['funcao_usuario'] == 0) : ?>
+                                    <div class="card card-acoes">
+                                        <!-- <div class="card-header">
                                             <h4 class="card-title">Ação necessaria</h4>
-                                        </div>
+                                        </div> -->
                                         <div class="card-content">
                                             <form id="formAprovaConteudo" action="" method="post">
                                                 <input type="hidden" name="texto_publicacao" id="refacoes">
@@ -280,13 +321,13 @@ endforeach;
                                                 <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 
-                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-info margem" id="btnLatEnviaAprovacaoConteudo">
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-info margem azul-cinco" id="btnLatEnviaAprovacaoConteudo">
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
                                                     </span>
                                                     Enviar para o cliente
                                                 </button>
-                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem" id="btnLatReprovaModerador">
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem fundo-rosa-claro" id="btnLatReprovaModerador">
                                                     <span class="btn-label">
                                                         <i class="ti-control-forward"></i>
                                                     </span>
@@ -295,8 +336,8 @@ endforeach;
                                             </form>
                                         </div>
                                     </div>
-                                <?php elseif ($tarefa->etapa == CONTEUDO_PARA_PUBLICAR) : ?>
-                                    <div class="card">
+                                <?php elseif ($tarefa->etapa == CONTEUDO_PARA_PUBLICAR && $_SESSION['funcao_usuario'] == 0) : ?>
+                                    <div class="card card-acoes">
                                         <div class="card-header">
                                             <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
                                         </div>
@@ -308,7 +349,7 @@ endforeach;
                                                     <div class="form-group">
                                                         <input type="text" name="link_publicado" class="form-control" value="<?= $tarefa->link_publicado ?>" placeholder="Informe o link">
                                                     </div>
-                                                    <button type="submit" class="btn btn-lg fill-up  btn-wd btn-success margem">
+                                                    <button type="submit" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco">
                                                         <span class="btn-label">
                                                             <i class="fa fa-check"></i>
                                                         </span>
@@ -324,7 +365,7 @@ endforeach;
                                         </div>
                                     </div>
                                     <?php elseif ($tarefa->etapa == CONTEUDO_PUBLICADO) : ?>
-                                    <div class="card">
+                                    <div class="card card-acoes">
                                         <div class="card-header">
                                             <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
                                         </div>
@@ -354,7 +395,6 @@ endforeach;
                                                     <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
                                                         <p><?= $comentario->comentario ?></p>
                                                         <div class="card-footer">
-                                                            <i class="ti-calendar"></i>
                                                             <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("H:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
                                                     </div>
@@ -364,7 +404,6 @@ endforeach;
                                                     <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
                                                         <p><?= $comentario->comentario ?></p>
                                                         <div class="card-footer">
-                                                            <i class="ti-calendar"></i>
                                                             <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("H:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
                                                             <i class="ti-trash" onclick="excluiComentario(<?= $comentario->id_comentario ?>, this)"></i>
@@ -383,9 +422,9 @@ endforeach;
                                                 <input type="hidden" name="id_tarefa" value="<?= $id_tarefa ?>">
                                                 <input class="form-control textarea" type="text" placeholder="Comente aqui!" name="comentario"/>
                                                 <div class="send-button">
-                                                    <button class="btn btn-primary btn-fill" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                                    <button class="btn btn-primary btn-fill fundo-roxo-padrao" type="submit"><i class="material-icons">send</i></button>
                                                 </div>
-                                                <?php if ( ($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1')) { ?>
+                                                <?php if (($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1')) { ?>
                                                 <fieldset>
                                                     <div class="form-group">
                                                         <div class="col-sm-12">
@@ -517,7 +556,6 @@ endforeach;
         var totalCaracteres = 0;
 
         iniciaCkeditor();
-
             $("#formComentario").submit(function (e) { 
                 e.preventDefault();
                 var dados = $("#formComentario").formatFormToJson();

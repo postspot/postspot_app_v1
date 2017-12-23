@@ -96,6 +96,12 @@ $idiomas = idiomas::getAllIdiomas();
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Descrição usuário</label>
+                                                    <textarea rows="5" name="obs" class="form-control border-input" placeholder=""></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div> <!-- end col-md-12 -->

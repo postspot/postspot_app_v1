@@ -34,7 +34,7 @@ $kpis_secundario = empty($_POST["kpis_secundario"]) ? 0 : $_POST["kpis_secundari
 $objetivo_secundario = empty($_POST["objetivo_secundario"]) ? 0 : $_POST["objetivo_secundario"];
 $objetivo_primario = empty($_POST["objetivo_primario"]) ? 0 : $_POST["objetivo_primario"] ;
 $linguagem = empty($_POST["linguagem"]) ? 0 : $_POST["linguagem"] ;
-$categorias_conteudo = empty($_POST["categorias_conteudo"]) ? 0 : $_POST["categorias_conteudo"] ;
+$categorias = empty($_POST["categorias"]) ? 0 : $_POST["categorias"] ;
 
 
 if (!empty($id_projeto)) {
@@ -58,7 +58,7 @@ if (!empty($id_projeto)) {
 	$obj->evitar = $evitar;
 	$obj->linguagem = $linguagem;
 	$obj->links_ref = $links_ref;
-	$obj->categorias_conteudo = $categorias_conteudo;
+	$obj->categorias = $categorias;
 	$obj->canais = $canais;
 	$obj->acoes = $acoes;
 	$obj->consideracoes_gerais = $consideracoes_gerais;
@@ -88,15 +88,15 @@ if (!empty($id_projeto)) {
 					linguagens_estrategia::insert($obj_lingua);
 				}
 			endif;
-			if(!empty($categorias_conteudo)):
-				categorias_estrategia::delete($estrategia->id_estrategia);
-				foreach ($categorias_conteudo as $categ) {
-					$obj_categ = new stdClass();
-					$obj_categ->id_categoria = $categ;
-					$obj_categ->id_estrategia = $estrategia->id_estrategia;
-					categorias_estrategia::insert($obj_categ);
-				}
-			endif;
+			// if(!empty($categorias_conteudo)):
+			// 	categorias_estrategia::delete($estrategia->id_estrategia);
+			// 	foreach ($categorias_conteudo as $categ) {
+			// 		$obj_categ = new stdClass();
+			// 		$obj_categ->id_categoria = $categ;
+			// 		$obj_categ->id_estrategia = $estrategia->id_estrategia;
+			// 		categorias_estrategia::insert($obj_categ);
+			// 	}
+			// endif;
 			header('Location: ../../view/adm/estrategia.php?retorno=ok');
 		}
 		else{

@@ -28,14 +28,14 @@ die();*/
 
                 <div class="content">
                     <div class="container-fluid">
-                            <h4 class="title"><i class="ti-user"></i> Personas</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">person</i> Personas</h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
                                 <?php if(empty($personas)):?>
                                     <div class="card-content">
                                         <div class="typo-line text-center">
-                                            <h2>Nenhuma persona cadastrada <br><small>Toque no botão laranja "+" para criar</small> </h2>
+                                        <h2 class"cor-roxo-escuro">Nenhuma persona cadastrada <br><small>Toque no botão laranja "+" para criar</small> </h2>
                                         </div>
                                     </div>
                                 <?php else: ?>
@@ -70,8 +70,8 @@ die();*/
                                                             <span class="text-muted"><small><?= $persona->segmento ?></small></span>
                                                         </div>
                                                         <div class="col-xs-3 text-right">
-                                                            <a href="edita_persona.php?persona=<?= $persona->id_persona ?>" class="btn btn-sm btn-info btn-icon">Detalhes <i class="fa fa-search"></i></a>
-                                                            <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="#" onclick="deletaPersona(event,'. $persona->id_persona .',this);" class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></a>' : '' ?>
+                                                            <a href="edita_persona.php?persona=<?= $persona->id_persona ?>" class="btn btn-sm btn-icon fundo-roxo-escuro"><i class="fa fa-search"></i> ver persona</a>
+                                                            <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="#" onclick="deletaPersona(event,'. $persona->id_persona .',this);" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="fa fa-times"></i> Deletar</a>' : '' ?>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -84,9 +84,7 @@ die();*/
                         </div>
                     </div>
                 </div>
-                <a href="cria_persona.php" class="btn btn-icon btn-fixed">
-                    <i class="ti-plus"></i>
-                </a>
+                <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="cria_persona.php" class="btn btn-icon btn-fixed"><i class="ti-plus"></i></a>' : '' ?>
             </div>
         </div>
     </body>

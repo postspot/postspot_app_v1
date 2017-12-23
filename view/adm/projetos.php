@@ -31,7 +31,7 @@ foreach ($clientes as $cliente) {
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-panel"></i> Gestão - Projetos</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Projetos</h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">
@@ -42,19 +42,24 @@ foreach ($clientes as $cliente) {
                                             <?php foreach($projetos as $projeto): ?>
                                                 <li id="projetoId<?= $projeto->id_projeto ?>">
                                                     <div class="row">
+                                                        <div class="col-xs-2">
+                                                            <span class="text-muted"><small>Cod Projeto</small></span>
+                                                            <br>
+                                                            <?= $projeto->id_projeto ?>
+                                                        </div>
                                                         <div class="col-xs-4">
                                                             <span class="text-muted"><small>Nome Projeto</small></span>
                                                             <br>
                                                             <?= $projeto->nome_projeto ?>
                                                         </div>
-                                                        <div class="col-xs-4">
+                                                        <div class="col-xs-2">
                                                             <span class="text-muted"><small>Data Criação</small></span>
                                                             <br>
                                                             <?= date("d", strtotime($projeto->cadastro_projeto)) ?>, <?= mesEscrito($projeto->cadastro_projeto) ?> <?= date("Y", strtotime($projeto->cadastro_projeto)) ?>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <a href="dashboard.php?p=<?= $projeto->id_projeto ?>" class="btn btn-sm btn-info btn-icon">Acessar Projeto <i class="fa fa-search"></i></a>
-                                                            <btn type="button" onclick="deletaProjeto('<?= $projeto->id_projeto ?>',this);" class="btn btn-sm btn-danger btn-icon">Deletar <i class="fa fa-times"></i></btn>
+                                                            <a href="dashboard.php?p=<?= $projeto->id_projeto ?>" class="btn btn-sm btn-info btn-icon fundo-roxo-escuro"><i class="fa fa-search"></i> Acessar Projeto</a>
+                                                            <btn type="button" onclick="deletaProjeto('<?= $projeto->id_projeto ?>',this);" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="fa fa-times"></i> Deletar</btn>
                                                         </div>
                                                     </div>
                                                 </li>

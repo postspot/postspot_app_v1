@@ -26,7 +26,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-panel"></i> Gestão - Tipo de Conteúdo</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Tipo de Conteúdo</h4>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="card">
@@ -39,7 +39,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                                     <?= $tipoTarefa->nome_tarefa ?>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);">Deletar <i class="fa fa-times"></i></btn>
+                                                        <btn class="btn btn-sm btn-icon fundo-roxo-padrao" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                     </div>
                                                 </div>
                                             </li>

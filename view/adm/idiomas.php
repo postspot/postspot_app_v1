@@ -26,7 +26,7 @@ $idiomas = idiomas::getAllIdiomas();
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-panel"></i> Gestão - Idiomas</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Idiomas</h4>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="card">
@@ -39,7 +39,7 @@ $idiomas = idiomas::getAllIdiomas();
                                                     <?= $idioma->nome_idioma ?>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-danger btn-icon" onclick="deletaIdioma('<?= $idioma->id_idioma ?>',this);">Deletar <i class="fa fa-times"></i></btn>
+                                                        <btn class="btn btn-sm btn-icon fundo-roxo-padrao" onclick="deletaIdioma('<?= $idioma->id_idioma ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                     </div>
                                                 </div>
                                             </li>

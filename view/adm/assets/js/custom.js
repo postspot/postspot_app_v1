@@ -238,7 +238,7 @@ funcoes = {
                                     '<div class="col-md-12">' +
                                         '<div class="form-group">' +
                                             '<label>Nome</label>' +
-                                            '<input type="text" class="form-control border-input" name="nome_tarefa">' +
+                                            '<input type="text" class="form-control border-input" name="nome_tarefa" required>' +
                                         '</div>' +
                                     '</div>' +
                                 '</form>'+

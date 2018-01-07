@@ -95,7 +95,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <div class="row">
                                             <div class="col-xs-5">
                                                 <div class="icon-big icon-warning text-center">
-                                                <i class="material-icons cor-azul-quatro">mode_edit</i>
+                                                <i class="material-icons cor-azul-quatro">list</i>
                                                 </div>
                                             </div>
                                             <div class="col-xs-7">
@@ -265,7 +265,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                 <?= (!$param) ? '<p>Aprovado em:</p>' : '' ?>
                             </div>
                             <div class="col-lg-2">
-                                Atualizado em:
+                                Recebido em:
                             </div>
                         </div>
                         <?php 
@@ -273,7 +273,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                 <div class="card">
                                     <div class="card-content">
                                         <div class="typo-line text-center">
-                                            <h2 class"cor-roxo-escuro">Nenhum conteúdo encontrado <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                            <h2 class="cor-roxo-escuro empty-title">Nenhum conteúdo encontrado</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +291,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <p><?= date('d/m/Y', strtotime($tarefa->criacao_log)) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-fill btn-wd fill-up fundo-roxo-padrao">Detalhes</a>
+                                        <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-wd fill-up fundo-roxo-escuro">Detalhes</a>
                                     </div>
                                 </div>
                                 <div class="badge"><?= $tarefa->nome_tipo ?></div>

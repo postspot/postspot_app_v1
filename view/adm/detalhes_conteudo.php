@@ -25,7 +25,7 @@ $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
 $historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
 $fotos = anexos::getAllByProjeto($_SESSION['id_projeto'], $id_tarefa);
-// pre_r($fotos);
+// pre_r($tarefa);
 // die();
 foreach ($referencias_banco as $referencia) :
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
@@ -125,17 +125,17 @@ endforeach;
                                             <div class="tab-pane pane-pauta min-height active" id="conteudo">
                                             <!-- <input type="text" class="form-control" value="<?= $tarefa->nome_tarefa ?>">    -->
                                             <h1 class="titulo-pauta"><?= $tarefa->nome_tarefa ?></h1>   
-                                            <img class="img-capa" src="<?= SITE ?>uploads/projetos/<?= $fotos[0]->id_projeto ?>-arquivos/<?= $fotos[0]->nome_anexo ?>" alt="">                                      
-                                                <div class="sem-estilo"><?= $conteudo ?></div>
+                                            <img class="img-capa" src="<?= SITE ?>uploads/projetos/<?= $fotos[0]->id_projeto ?>-arquivos/<?= $fotos[0]->nome_anexo ?>" alt=""> 
+                                                <div class="sem-estilo"><?= (empty($conteudo)) ? '<p>não há nenhum conteúdo escrito até o momento</p>' : $conteudo ?> </div>
                                                 <?php if ($_SESSION['funcao_usuario'] == 0) : ?>
                                                     <hr>
                                                     <div class="card">
-                                                        <div class="card-content">
+                                                        <div class="card-content no-padding">
                                                             
                                                             <h4 class="title cor-roxo-escuro"><i class="material-icons">insert_photo</i> Imagem Destaque</h4>
                                                             <div class="row">
                                                                 <?php if (empty($fotos)) : ?>
-                                                                <h2 class"cor-roxo-escuro">Nenhuma foto</h2>
+                                                                <div class="col-md-12"><p>Nenhuma imagem</p></div>
                                                                 <?php else : foreach ($fotos as $foto) : ?>
                                                                     <div class="col-md-3">
                                                                         <a href="<?= SITE ?>uploads/projetos/<?= $foto->id_projeto ?>-arquivos/<?= $foto->nome_anexo ?>" download><img src="<?= SITE ?>uploads/projetos/<?= $foto->id_projeto ?>-arquivos/<?= $foto->nome_anexo ?>" alt=""></a>
@@ -149,7 +149,7 @@ endforeach;
                                                                         <label>Arquivo</label>
                                                                         <input type="file" class="form-control border-input" name="anexos[]" multiple>
                                                                     </div>
-                                                                    <input type="submit" value="Enviar Fotos" class="btn btn-info btn-fill fill-up fundo-roxo-escuro">
+                                                                    <input type="submit" value="Enviar Imagem" class="btn btn-info btn-fill fill-up fundo-roxo-escuro">
                                                             </form>
                                                         </div>
                                                     </div>
@@ -236,7 +236,7 @@ endforeach;
 	                                                    <tr>
 	                                                        <td><?= date("d/m/Y H:i", strtotime($historico->data_criacao)) ?></td>
 	                                                        <td class="text-right">
-                                                                <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify" onclick="mostraHistorico(<?= $historico->id_publicacao ?>)">
+                                                                <button type="button" class="btn btn-wd btn-warning btn-fill btn-magnify fundo-roxo-escuro" onclick="mostraHistorico(<?= $historico->id_publicacao ?>)">
                                                                     <span class="btn-label">
                                                                         <i class="ti-search"></i>
                                                                     </span>
@@ -339,7 +339,7 @@ endforeach;
                                 <?php elseif ($tarefa->etapa == CONTEUDO_PARA_PUBLICAR && $_SESSION['funcao_usuario'] == 0) : ?>
                                     <div class="card card-acoes">
                                         <div class="card-header">
-                                            <h4 class="card-title">Link Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
+                                            <h4 class="card-title">Link da Publicação <a href="<?= $tarefa->link_publicado ?>" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></h4>
                                         </div>
                                         <div class="card-content">
                                             <form action="../../controller/conteudo/atualiza_link.php" method="post">
@@ -378,7 +378,7 @@ endforeach;
                                 <?php endif; ?>
                                 <div class="card card-chat">
                                     <div class="card-header">
-                                        <h4 class="card-title">Cometários</h4>
+                                        <h4 class="card-title">Comentários</h4>
                                     </div>
                                     <div class="card-content">
                                         <ol class="chat" id="olChat">

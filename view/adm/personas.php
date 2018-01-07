@@ -27,7 +27,7 @@ die();*/
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid">                           
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">person</i> Personas</h4>
                         <div class="row">
                             <div class="col-md-12">

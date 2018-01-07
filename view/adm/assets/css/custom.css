@@ -149,13 +149,13 @@ h4.title {
 .pane-pauta h1 {
     font-size: 28px;
     text-align: left;
-    color: #2f6aa5;
+    color: #523877;
 }
 
 .pane-pauta h5 {
     font-size: 14px;
     font-weight: 600;
-    color: #11508e;
+    color: #523877;
 }
 
 .pane-pauta hr {
@@ -175,14 +175,14 @@ h4.title {
 }
 
 .persona-pauta strong {
-    color: #11508e;
+    color: #523877;
 }
 
 .persona-pauta h4 {
     margin-top: 10px;
     margin-bottom: 8px;
     font-weight: 400;
-    color: #11508e;
+    color: #523877;
 }
 
 .persona-pauta p {
@@ -259,6 +259,7 @@ h4.title {
     font-size: 1.3em;
     border-radius: 2px;
     cursor: pointer;
+    border-color: #F1EAE0;
 }
 
 .lista-projetos a {
@@ -659,14 +660,14 @@ h4.title i {
     width: 12%;
     text-align: center;
     color: #4d4d4d;
-    font-size: 17px;
+    font-size: 14px;
     /* height: 55px; */
     padding-top: 5px;
 }
 
 .textosProgressBar li.data {
     color: #ec268f;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.1;
 }
 
@@ -760,7 +761,7 @@ h4.title i {
 }
 
 .login-page img {
-    width: 230px;
+    width: 200px;
     margin: 0 auto;
     display: table;
     margin-bottom: 15px;
@@ -801,4 +802,10 @@ h4.title i {
 }
 .card-membro .card-footer hr {
     margin-top: 0px;
+}
+.empty-title{
+    margin: 30px !important;
+}
+.no-padding{
+    padding: 0 !important;
 }

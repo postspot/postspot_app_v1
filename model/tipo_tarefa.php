@@ -67,7 +67,7 @@ class tipo_tarefa {
 	public static function getAllTiposTaredas() {
 		
 			 try {
-				$stmt = Conexao::getInstance()->prepare("SELECT * FROM tipo_tarefa");
+				$stmt = Conexao::getInstance()->prepare("SELECT * FROM tipo_tarefa order by nome_tarefa");
 		
 				$stmt->execute();
 				$colunas = array();

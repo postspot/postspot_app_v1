@@ -31,13 +31,13 @@
     <body>
 
         <div class="wrapper wrapper-full-page">
-            <div class="full-page login-page" data-color="" data-image="assets/img/background/background-5.png">
+            <div class="full-page login-page" data-color="" data-image="assets/img/background/background-5.jpg">
                 <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
                 <div class="content">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
-                            <img src="assets/img/logo-postspo.png" alt="">
+                            <img src="assets/img/logo-branco.png" alt="">
                                 <form class="l" action="../../controller/usuario/login.php" method="POST">
                                     <div class="card card-hidden" data-background="color" data-color="blue">
                                         <div class="card-content">

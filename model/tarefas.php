@@ -142,7 +142,7 @@ class tarefas {
 	public static function getById($id) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT * , tp.nome_tarefa as nome_tipo"
+		$stmt = Conexao::getInstance()->prepare("SELECT t.*, lt.* , tp.nome_tarefa as nome_tipo"
         . " FROM tarefas t"
         . " INNER JOIN log_tarefas lt"
         . " ON(t.id_tarefa = lt.id_tarefa) "

@@ -113,8 +113,8 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                         <ol class="list-unstyled">
                                             <a href="pautas.php?s=1"><li class="<?= ($filtro == '1') ? 'active' : '' ?>"><div class="count"><?= $totalPautas ?></div><div class="text">Todas as Pautas</div></li></a>
                                             <a href="pautas.php?s=5"><li class="<?= ($filtro == '5') ? 'active' : '' ?>"><div class="count azul-um"><?= $escrevendo ?></div><div class="text"><small>pautas</small>Em Produção</div></li></a>
-                                            <a href="pautas.php?s=6"><li class="<?= ($filtro == '6') ? 'active' : '' ?>"><div class="count azul-tres"><?= $aprovando_moderador ?></div><div class="text"><small>pautas</small>Aprovação moderador</div></li></a>
-                                            <a href="pautas.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count azul-quatro"><?= $aprovando ?></div><div class="text"><small>pautas</small>Aprovação cliente</div></li></a>
+                                            <a href="pautas.php?s=6"><li class="<?= ($filtro == '6') ? 'active' : '' ?>"><div class="count azul-tres"><?= $aprovando_moderador ?></div><div class="text"><small>pautas</small>Em Avaliação</div></li></a>
+                                            <a href="pautas.php?s=2"><li class="<?= ($filtro == '2') ? 'active' : '' ?>"><div class="count azul-quatro"><?= $aprovando ?></div><div class="text"><small>pautas</small>Em Aprovação</div></li></a>
                                             <a href="pautas.php?s=3"><li class="<?= ($filtro == '3') ? 'active' : '' ?>"><div class="count azul-cinco"><?= $ajustando ?></div><div class="text"><small>pautas</small>Em ajustes</div></li></a>
                                             <a href="pautas.php?s=4"><li class="<?= ($filtro == '4') ? 'active' : '' ?>"><div class="count azul-seis"><?= $aprovadas ?></div><div class="text"><small>pautas</small>Aprovadas</div></li></a>
                                         </ol>
@@ -124,7 +124,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                             <div class="col-lg-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p class="title"><strong>Todas as Pautas</strong></p>
+                                        <p class="title"><strong>Pautas</strong></p>
                                     </div>
                                     <div class="col-lg-2">
                                         <p>Status:</p>
@@ -134,7 +134,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                     <div class="card">
                                         <div class="card-content">
                                             <div class="typo-line text-center">
-                                            <h2 class"cor-roxo-escuro">Nenhuma pauta encontrada! <br><small>Toque no botão laranja "+" para criar uma pauta</small> </h2>
+                                            <h2 class="cor-roxo-escuro empty-title">Nenhuma pauta encontrada</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +194,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 
         $('#filtroTipoTarefa').on("change", function(e) {
          var siteBase = '<?= SITE ?>';
-         var statusPautasParam = (<?= $filtro ?> > 0) ? <?= $filtro ?> : '';
+         var statusPautasParam = (<?= $filtro ?> > 0) ? <?= $filtro ?> : 1;
          window.location.href = siteBase + 'view/adm/pautas.php?t='+$(this).val()+'&s=' + statusPautasParam;
         });
     </script>

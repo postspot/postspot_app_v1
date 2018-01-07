@@ -45,7 +45,7 @@ endforeach;
 
                     <div class="content">
                         <div class="container-fluid">
-                            <h4 class="title"><i class="ti-direction-alt"></i> Estratégia</h4>
+                            <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">store</i> Estratégia</h4>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card">
@@ -68,10 +68,10 @@ endforeach;
                                                     <p><?= $estrategia->projeto ?></p>
                                                     <p><b>Blog:</b> <?= $estrategia->blog ?></p>
                                                     <hr>
-                                                    <h3>Produtos e Serviço</h3>
+                                                    <h3>Produtos e serviço oferecidos</h3>
                                                     <?= $estrategia->produtos_servicos ?>
                                                     <hr>
-                                                    <h3>Links de Midia Sociais</h3>
+                                                    <h3>Links das mídias sociais</h3>
                                                     <ol>
                                                         <?= $linksSociais ?>
                                                     </ol>
@@ -79,16 +79,16 @@ endforeach;
                                                     <h3>Objetivo primário</h3>
                                                     <?= $estrategia->objetivo_primario ?>
                                                     <hr>
-                                                    <h3>KPIs de acompanhamento primário</h3>
+                                                    <h3>KPI de acompanhamento do objetivo primário</h3>
                                                     <?= $estrategia->kpis_primario ?>
                                                     <hr>
                                                     <h3>Objetivo secundário</h3>
                                                     <?= $estrategia->objetivo_secundario ?>
                                                     <hr>
-                                                    <h3>KPIs de acompanhamento secundário</h3>
+                                                    <h3>KPI de acompanhamento do objetivo secundário</h3>
                                                     <?= $estrategia->kpis_secundario ?>
                                                     <hr>
-                                                    <h3>Concorrentes(de segmento e/ou palavras-chave)</h3>
+                                                    <h3>Concorrentes (de segmento e/ou palavras-chave)</h3>
                                                     <?= $estrategia->concorrentes ?>
                                                     <hr>
                                                     <h3>Com quem falar</h3>
@@ -103,17 +103,17 @@ endforeach;
                                                     <h3>Evitar</h3>
                                                     <?= $estrategia->evitar ?>
                                                     <hr>
-                                                    <h3>Linguagem</h3>
+                                                    <h3>Linguagem a ser utilizada</h3>
                                                     <?php foreach($linguagens_estrategia as $lingua):?>
                                                         <p><?=  $lingua->nome_linguagem ?></p> 
                                                     <?php endforeach;?>
                                                     <hr>
-                                                    <h3>Links para Referências</h3>
+                                                    <h3>Links de referências</h3>
                                                     <ol>
                                                         <?= $linksReferencias ?>
                                                     </ol>
                                                     <hr>
-                                                    <h3>Categorias de conteúdo</h3>
+                                                    <h3>Categorias de conteúdo a serem produzidos</h3>
                                                     <?=  $estrategia->categorias ?> 
                                                     <hr>
                                                     <h3>Canais de aquisição de tráfego</h3>
@@ -122,7 +122,7 @@ endforeach;
                                                     <h3>Ações de marketing levantadas</h3>
                                                     <?= $estrategia->acoes ?>
                                                     <hr>
-                                                    <h3>Considerações gerais de freelancers</h3>
+                                                    <h3>Considerações gerais para freelancers</h3>
                                                     <?= $estrategia->consideracoes_gerais ?>
                                                 </div>
                                                 <div class="tab-pane pane-pauta" id="editar">
@@ -146,12 +146,12 @@ endforeach;
                                                         <input name="blog" type="text" placeholder="Informe o Blog" class="form-control" value="<?= $estrategia->blog ?>">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Produtos e Serviço</label>
+                                                        <label>Produtos e serviços oferecidos</label>
                                                         <p class="text-muted">Descreva os produtos e ou serviços que queremos vender com o Marketing de Conteúdo</p>
                                                         <textarea name="produtos_servicos" class="form-control" rows="3" ><?= $estrategia->produtos_servicos ?></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Links de Midia Sociais</label>
+                                                        <label>Links das mídias sociais</label>
                                                         <p class="text-muted">Uma URL para cada tópico</p>
                                                         <textarea name="links" class="form-control" rows="3" ><?= $estrategia->links ?></textarea>                                                        
                                                     </div>
@@ -169,7 +169,7 @@ endforeach;
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>KPIs de acompanhamento primário</label>
+                                                        <label>KPI de acompanhamento do objetivo primário</label>
                                                         <select class="form-control" name="kpis_primario">
                                                             <option value="0" <?=($estrategia->kpis_primario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um KPI</option>
                                                             <option value="Tráfego total" <?=($estrategia->kpis_primario == 'Tráfego total') ? 'selected="selected"' : ''?>>Tráfego total</option>
@@ -196,7 +196,7 @@ endforeach;
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>KPIs de acompanhamento secundário</label>
+                                                        <label>KPI de acompanhamento do objetivo secundário</label>
                                                         <select class="form-control" name="kpis_secundario">
                                                             <option value="0" <?=($estrategia->kpis_secundario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um KPI</option>
                                                             <option value="Tráfego total" <?=($estrategia->kpis_secundario == 'Tráfego total') ? 'selected="selected"' : ''?>>Tráfego total</option>
@@ -209,7 +209,7 @@ endforeach;
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Concorrentes(de segmento e/ou palavras-chave)</label>
+                                                        <label>Concorrentes (de segmento e/ou palavras-chave)</label>
                                                         <textarea class="form-control" rows="3"  name="concorrentes"><?= $estrategia->concorrentes ?></textarea>
                                                     </div>
                                                     <div class="form-group">
@@ -234,7 +234,7 @@ endforeach;
                                                         <textarea class="form-control" rows="3"  name="evitar"><?= $estrategia->evitar ?></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="block">Linguagem</label>
+                                                        <label class="block">Linguagem a ser utilizada</label>
                                                         <p class="text-muted">Descreve o tom e a voz da escrita</p>
                                                         <select multiple title="Escolha as Linguagens" class="selectpicker" data-style="no-border" data-size="7" name="linguagem[]">
                                                             <?php foreach($linguagens as $linguagem):
@@ -250,12 +250,12 @@ endforeach;
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label>Links para Referências</label>
+                                                        <label>Links de referência</label>
                                                         <textarea class="form-control" rows="3"  name="links_ref"><?= $estrategia->links_ref ?></textarea>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
-                                                        <label>Categorias de conteúdo</label>
+                                                        <label>Categorias de conteúdo a serem produzidos</label>
                                                         <p class="text-muted">Informe duas ou três categorias principais</p>                                              
                                                         <textarea class="form-control" rows="3"  name="categorias"><?= $estrategia->categorias ?></textarea>
                                                     </div>

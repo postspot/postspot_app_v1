@@ -28,7 +28,7 @@ die();*/
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-files"></i> Documentos</h4>
+                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">folder</i> Documentos</h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">

@@ -9,21 +9,17 @@
 // define('SITE', 'http://localhost/postspot/');
 
 //Produção
- define('USER','root_n');
- define('PASS','#Apppostspot');
- define('BANCO','banco_andress_n');
- define('HOST','mysql857.umbler.com');
+define('USER', 'root_n');
+define('PASS', '#Apppostspot');
+define('BANCO', 'banco_andress_n');
+define('HOST', 'mysql857.umbler.com');
 
- define('DIR_ROOT', '/home/app.postspot.com.br/public/postspot');
- define('SITE', 'http://app-postspot-com-br.umbler.net/postspot/');
+define('DIR_ROOT', '/home/app.postspot.com.br/public/postspot');
+define('SITE', 'http://app-postspot-com-br.umbler.net/postspot/');
 
 
-// define('GUSER', 'ola@app.postspot.com.br');
-// define('GPWD', '#PostSpot2017');
-// define('APP_NOME', 'Amigos da PostSpot');
-
-define('GUSER', 'app@melhorcomprabrasil.com');
-define('GPWD', 'sJ@@GOmA$X');
+define('GUSER', 'ola@app.postspot.com.br');
+define('GPWD', '#PostSpot2017');
 define('APP_NOME', 'Amigos da PostSpot');
 
 

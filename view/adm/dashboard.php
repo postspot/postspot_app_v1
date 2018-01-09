@@ -250,7 +250,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn fill-up fundo-rosa" id="btnBuscarFiltro">Buscar</button>
+                                            <button type="submit" class="btn fill-up fundo-roxo-padrao" id="btnBuscarFiltro">Buscar</button>
                                         </div>
                                     </div>
                                 </div>

@@ -77,8 +77,8 @@ endforeach;
                                     <li>Avaliação</li>
                                     <li class="data"><?= ($dataAvaliacao == '') ? '' : 'Entregue em ' . date("d/m/Y", strtotime($dataAvaliacao)) ?></li>
                                     <li>Aprovação</li>
-                                    <li class="data"><?= ($dataAprovacao == '') ? '' : 'Aprovado em ' . date("d/m/Y", strtotime($dataAprovacao)) ?></li>
                                     <li>Adequação</li>
+                                    <li class="data"><?= ($dataAprovacao == '') ? '' : 'Aprovado em ' . date("d/m/Y", strtotime($dataAprovacao)) ?></li>
                                     <li>Publicação</li>
                                     <li>Publicado</li>
                                 </ul>
@@ -90,16 +90,16 @@ endforeach;
                                     <div class="progress-bar azul-dois" style="width: <?= ($tarefa->etapa > CONTEUDO_ESCREVENDO) ? '10' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-tres" style="width: <?= ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? '26' : '0' ?>%">
+                                    <div class="progress-bar azul-tres" style="width: <?= ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa > CONTEUDO_APROVACAO_MODERADOR) ? '23' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-quatro" style="width: <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? '17' : '0' ?>%">
+                                    <div class="progress-bar azul-quatro" style="width: <?= ($tarefa->etapa > CONTEUDO_REPROVADO) ? '12' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-cinco" style="width: <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR) ? '17' : '0' ?>%">
+                                    <div class="progress-bar azul-cinco" style="width: <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_CLIENTE) ? '23' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-seis" style="width: <?= ($tarefa->etapa >= CONTEUDO_PUBLICADO) ? '20' : '0' ?>%">
+                                    <div class="progress-bar azul-seis" style="width: <?= ($tarefa->etapa >= CONTEUDO_PUBLICADO) ? '22' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
                                 </div>

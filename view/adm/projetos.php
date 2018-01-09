@@ -30,7 +30,10 @@ foreach ($clientes as $cliente) {
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid relative">
+                        <a href="#" onclick="ativaModal()" class="btn btn-fixed fundo-rosa">
+                            <i class="material-icons">add</i> Novo Projeto
+                        </a>
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Projetos</h4>
                         <div class="row">
                             <div class="col-md-12">
@@ -59,7 +62,7 @@ foreach ($clientes as $cliente) {
                                                         </div>
                                                         <div class="col-xs-4 text-right">
                                                             <a href="dashboard.php?p=<?= $projeto->id_projeto ?>" class="btn btn-sm btn-info btn-icon fundo-roxo-escuro"><i class="fa fa-search"></i> Acessar Projeto</a>
-                                                            <btn type="button" onclick="deletaProjeto('<?= $projeto->id_projeto ?>',this);" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="fa fa-times"></i> Deletar</btn>
+                                                            <btn type="button" onclick="deletaProjeto('<?= $projeto->id_projeto ?>',this);" class="btn btn-sm btn-icon fundo-rosa-claro"><i class="fa fa-times"></i> Deletar</btn>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -71,9 +74,6 @@ foreach ($clientes as $cliente) {
                         </div>
                     </div>
                 </div>
-                <a href="#" onclick="ativaModal()" class="btn btn-icon btn-fixed">
-                    <i class="ti-plus"></i>
-                </a>
             </div>
         </div>
     </body>
@@ -97,6 +97,10 @@ foreach ($clientes as $cliente) {
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'error') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - projeto editado com sucesso.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome do projeto.');
             });
         <?php } ?>
         function deletaProjeto(cod_projeto,btn) { 

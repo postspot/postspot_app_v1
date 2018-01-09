@@ -10,11 +10,11 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
 <div class="sidebar" data-background-color="white" data-active-color="danger">
     <div class="logo">
         <a href="dashboard.php" class="simple-text logo-mini">
-            <img src="assets/img/favicon-32x32.png">
+            <!-- <img src="assets/img/favicon-32x32.png"> -->
         </a>
 
         <a href="dashboard.php" class="simple-text logo-normal">
-            POSTSPOT
+        <img src="assets/img/logo-branco.png">
         </a>
     </div>
     <div class="sidebar-wrapper">

@@ -124,7 +124,7 @@ $qtd_escritores = usuarios::countRedatores();
                             <div class="col-md-6">
                             <h3 class="cor-roxo-escuro" style="margin-left: 15;">Equipe PostSpot</h3>
                             <?php foreach ($membros as $membro) :
-                                if ($membro->funcao_usuario != 3) :
+                                if ($membro->funcao_usuario != 3 && $membro->funcao_usuario != 2) :
                             ?>
                                 <div class="col-md-12" id="membro<?= $membro->id_membros ?>">
                                     <div class="card card-membro">

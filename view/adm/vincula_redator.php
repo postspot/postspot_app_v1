@@ -29,7 +29,7 @@ die();*/
 
                 <div class="content">
                     <div class="container-fluid">
-                            <h4 class="title"><i class="ti-ruler-pencil"></i> Vincular Redator</h4>
+							<h4 class="title cor-roxo-escuro"><i class="material-icons md-48">group</i> Vincular Redator</h4>
                         <div class="row">
                             <div class="col-md-12">
                             <div class="card">

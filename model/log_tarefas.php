@@ -96,7 +96,7 @@ class log_tarefas
 	{
 
 		try {
-			$stmt = Conexao::getInstance()->prepare("SELECT data_criacao FROM log_tarefas WHERE ((etapa = 8 OR etapa = 12) AND  id_tarefa = :id) ORDER BY id_log desc limit 1");
+			$stmt = Conexao::getInstance()->prepare("SELECT data_criacao FROM log_tarefas WHERE ((etapa = 9 OR etapa = 13) AND  id_tarefa = :id) ORDER BY id_log desc limit 1");
 
 			$stmt->bindParam(":id", $tarefa);
 			$stmt->execute();
@@ -113,7 +113,7 @@ class log_tarefas
 	{
 
 		try {
-			$stmt = Conexao::getInstance()->prepare("SELECT data_criacao FROM log_tarefas WHERE ((etapa = 9 OR etapa = 13) AND  id_tarefa = :id) ORDER BY id_log desc limit 1");
+			$stmt = Conexao::getInstance()->prepare("SELECT data_criacao FROM log_tarefas WHERE ((etapa > 13) AND  id_tarefa = :id) ORDER BY id_log desc limit 1");
 
 			$stmt->bindParam(":id", $tarefa);
 			$stmt->execute();
@@ -121,6 +121,24 @@ class log_tarefas
 				return $row->data_criacao;
 			}
 			return false;
+		} catch (PDOException $ex) {
+			return false;
+		}
+	}
+
+	public static function getNotificacoes($projeto)
+	{
+
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT lg.etapa, ta.nome_tarefa, ta.id_tarefa FROM log_tarefas lg INNER JOIN tarefas ta ON (lg.id_tarefa = ta.id_tarefa) WHERE ta.id_projeto = :projeto AND lg.status = 1 ORDER BY lg.id_log DESC LIMIT 10");
+
+			$stmt->bindParam(":projeto", $projeto);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
 		} catch (PDOException $ex) {
 			return false;
 		}

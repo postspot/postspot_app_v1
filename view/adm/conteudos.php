@@ -105,7 +105,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill fill-up fundo-roxo-escuro">Buscar</button>
+                                            <button type="submit" class="btn fill-up fundo-rosa">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -156,7 +156,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                             <p><?= retornaStatusTarefa($conteudo->etapa) ?></p>
                                         </div>
                                         <div class="col-lg-3">
-                                            <a href="detalhes_conteudo.php?t=<?= $conteudo->id_tarefa ?>" class="btn btn-success btn-fill fill-up btn-wd fundo-roxo-padrao">Ver Conteúdo</a>
+                                            <a href="detalhes_conteudo.php?t=<?= $conteudo->id_tarefa ?>" class="btn fill-up fundo-roxo-escuro">Ver Conteúdo</a>
                                         </div>  
                                     </div>
                                             <div class="badge"><?= $conteudo->nome_tipo ?></div>
@@ -165,11 +165,6 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                         </div>
 
                     </div>
-                    <?php if($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1'):?>
-                        <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
-                            <i class="ti-plus"></i>
-                        </a>
-                    <?php endif;?>
                 </div>
             </div>
         </div>

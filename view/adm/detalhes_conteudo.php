@@ -25,7 +25,7 @@ $referencias = '';
 $conteudo = publicacoes::getUltimaPublicacao($id_tarefa);
 $historicos = publicacoes::getHistoricoPublicacao($id_tarefa);
 $fotos = anexos::getAllByProjeto($_SESSION['id_projeto'], $id_tarefa);
-// pre_r($tarefa);
+// pre_r($fotos);
 // die();
 foreach ($referencias_banco as $referencia) :
     $referencias .= '<li><a href="' . $referencia . '" target="_blank">' . $referencia . '</a></li>';
@@ -75,9 +75,9 @@ endforeach;
                                 <ul class="textosProgressBar">
                                     <li>Produção</li>
                                     <li>Avaliação</li>
-                                    <li class="data"><?= ($dataAvaliacao == '') ? '' : 'Entregue em '. date("d/m/Y", strtotime($dataAvaliacao)) ?></li>
+                                    <li class="data"><?= ($dataAvaliacao == '') ? '' : 'Entregue em ' . date("d/m/Y", strtotime($dataAvaliacao)) ?></li>
                                     <li>Aprovação</li>
-                                    <li class="data"><?= ($dataAprovacao == '') ? '' : 'Aprovado em '. date("d/m/Y", strtotime($dataAprovacao)) ?></li>
+                                    <li class="data"><?= ($dataAprovacao == '') ? '' : 'Aprovado em ' . date("d/m/Y", strtotime($dataAprovacao)) ?></li>
                                     <li>Adequação</li>
                                     <li>Publicação</li>
                                     <li>Publicado</li>
@@ -87,10 +87,10 @@ endforeach;
                                     <div class="progress-bar azul-um" style="width: <?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE) ? '10' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-dois" style="width: <?= ($tarefa->etapa > CONTEUDO_APROVACAO_MODERADOR) ? '10' : '0' ?>%">
+                                    <div class="progress-bar azul-dois" style="width: <?= ($tarefa->etapa > CONTEUDO_ESCREVENDO) ? '10' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-tres" style="width: <?= ($tarefa->etapa > CONTEUDO_REPROVADO) ? '17' : '0' ?>%">
+                                    <div class="progress-bar azul-tres" style="width: <?= ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? '26' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
                                     <div class="progress-bar azul-quatro" style="width: <?= ($tarefa->etapa > CONTEUDO_REAPROVACAO_MODERADOR) ? '17' : '0' ?>%">
@@ -99,7 +99,7 @@ endforeach;
                                     <div class="progress-bar azul-cinco" style="width: <?= ($tarefa->etapa > CONTEUDO_PARA_PUBLICAR) ? '17' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
-                                    <div class="progress-bar azul-seis" style="width: <?= ($tarefa->etapa >= CONTEUDO_PUBLICADO) ? '29' : '0' ?>%">
+                                    <div class="progress-bar azul-seis" style="width: <?= ($tarefa->etapa >= CONTEUDO_PUBLICADO) ? '20' : '0' ?>%">
                                         <span class="sr-only">35% Complete (success)</span>
                                     </div>
                                 </div>
@@ -122,23 +122,24 @@ endforeach;
                                             <!-- </div> -->
                                         </div>
                                         <div id="my-tab-content" class="tab-content text-center">
-                                            <div class="tab-pane pane-pauta min-height active" id="conteudo">
+                                            <div class="tab-pane pane-pauta active" id="conteudo">
                                             <!-- <input type="text" class="form-control" value="<?= $tarefa->nome_tarefa ?>">    -->
                                             <h1 class="titulo-pauta"><?= $tarefa->nome_tarefa ?></h1>   
                                             <img class="img-capa" src="<?= SITE ?>uploads/projetos/<?= $fotos[0]->id_projeto ?>-arquivos/<?= $fotos[0]->nome_anexo ?>" alt=""> 
-                                                <div class="sem-estilo"><?= (empty($conteudo)) ? '<p>não há nenhum conteúdo escrito até o momento</p>' : $conteudo ?> </div>
+                                                <div class="sem-estilo min-height"><?= (empty($conteudo)) ? '<p>não há nenhum conteúdo escrito até o momento</p>' : $conteudo ?> </div>
                                                 <?php if ($_SESSION['funcao_usuario'] == 0) : ?>
                                                     <hr>
                                                     <div class="card">
                                                         <div class="card-content no-padding">
                                                             
                                                             <h4 class="title cor-roxo-escuro"><i class="material-icons">insert_photo</i> Imagem Destaque</h4>
-                                                            <div class="row">
+                                                            <div class="row" id="espacoFotos">
                                                                 <?php if (empty($fotos)) : ?>
                                                                 <div class="col-md-12"><p>Nenhuma imagem</p></div>
                                                                 <?php else : foreach ($fotos as $foto) : ?>
-                                                                    <div class="col-md-3">
+                                                                    <div class="col-md-3 contador-img">
                                                                         <a href="<?= SITE ?>uploads/projetos/<?= $foto->id_projeto ?>-arquivos/<?= $foto->nome_anexo ?>" download><img src="<?= SITE ?>uploads/projetos/<?= $foto->id_projeto ?>-arquivos/<?= $foto->nome_anexo ?>" alt=""></a>
+                                                                        <p class="cor-rosa-claro text-center" onclick="rmfile(<?= $foto->id_anexo ?>,'<?= $foto->nome_anexo ?>',this)"><i class="material-icons">delete_forever</i> Excluir</p>
                                                                     </div>
                                                                 <?php endforeach;
                                                                 endif ?>
@@ -271,13 +272,13 @@ endforeach;
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="btnAprovaConteudo">
                                                     <span class="btn-label">
-                                                        <i class="fa fa-check"></i>
+                                                    <i class="material-icons">check</i>
                                                     </span>
                                                     Aprovar conteúdo
                                                 </button>
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem fundo-rosa-claro" id="btnReprovaConteudo">
                                                     <span class="btn-label">
-                                                        <i class="fa fa-check"></i>
+                                                    <i class="material-icons">close</i>
                                                     </span>
                                                     Reprovar conteúdo
                                                 </button>
@@ -292,16 +293,16 @@ endforeach;
                                             <h4 class="card-title">Ação necessaria</h4>
                                         </div> -->
                                         <div class="card-content">
-                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="btnLatSalvaConteudo">
+                                            <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-roxo-escuro" id="btnLatSalvaConteudo">
                                                 <span class="btn-label">
-                                                    <i class="fa fa-check"></i>
+                                                <i class="material-icons">save</i>
                                                 </span>
                                                 Salvar Conteúdo
                                             </button>
                                             <?php if ($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1 || $_SESSION['funcao_usuario'] == 2) : ?>
-                                                <button type="button" class="btn btn-lg fill-up btn-wd btn-danger margem fundo-rosa-claro" id="btnLatEnviaModeradorConteudo">
+                                                <button type="button" class="btn btn-lg fill-up btn-wd btn-danger margem azul-cinco" id="btnLatEnviaModeradorConteudo">
                                                     <span class="btn-label">
-                                                        <i class="ti-control-forward"></i>
+                                                    <i class="material-icons">fast_forward</i>
                                                     </span>
                                                     Enviar Moderador
                                                 </button>
@@ -323,13 +324,13 @@ endforeach;
                                                 
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-info margem azul-cinco" id="btnLatEnviaAprovacaoConteudo">
                                                     <span class="btn-label">
-                                                        <i class="ti-control-forward"></i>
+                                                    <i class="material-icons">check</i>
                                                     </span>
                                                     Enviar para o cliente
                                                 </button>
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-danger margem fundo-rosa-claro" id="btnLatReprovaModerador">
                                                     <span class="btn-label">
-                                                        <i class="ti-control-forward"></i>
+                                                    <i class="material-icons">close</i>
                                                     </span>
                                                     Reprovar Conteúdo
                                                 </button>
@@ -351,7 +352,7 @@ endforeach;
                                                     </div>
                                                     <button type="submit" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco">
                                                         <span class="btn-label">
-                                                            <i class="fa fa-check"></i>
+                                                        <i class="material-icons">check</i>
                                                         </span>
                                                         Publicar Conteúdo
                                                     </button>
@@ -506,6 +507,7 @@ endforeach;
                     title: 'Tem certeza?',
                     type: 'warning',
                     showCancelButton: true,
+                    cancelButtonText: 'Sair',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
                     confirmButtonText: 'Excluir',
@@ -529,6 +531,67 @@ endforeach;
                     });
                 });  
             }
+
+            
+            var elemDel;
+            function rmfile(id,nomeArquivo,elem){
+                elemDel = $(elem).parent();
+                var dados = {id_anexo: id, nome_anexo: nomeArquivo}
+
+            swal({
+                    title: 'Tem certeza?',
+                    text: "Esta imagem não poderá mais ser visualizada.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonText: 'Sim!',
+                    cancelButtonText: 'Não',
+                    buttonsStyling: false
+                }).then(function() {
+                    $.ajax({
+                        url: "../../controller/anexos/remove_anexo.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if(data == 'true'){
+                                elemDel.fadeOut(300, function(){ 
+                                $(this).remove();
+                                var count = $('.contador-img').length;
+                                if(count == 0){
+                                    $('#espacoFotos').append('<div class="col-md-12"><p>Nenhuma imagem</p></div>');
+                                    $(".img-capa").attr('src', '');
+                                }else{
+                                    var src = $('#espacoFotos').find('.col-md-3').eq(0).find('img').attr('src');
+                                    $(".img-capa").attr('src', src);
+                                }
+                            });
+                                swal({
+                                    title: 'Sucesso!',
+                                    text: 'A imagem foi removida.',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                    })
+                            }else{
+                                swal({
+                                    title: 'Erro!',
+                                    text: 'A imagem não foi removida.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                    })
+                            }
+                        },
+                        error: function (x, t, m) {
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+                });
+            }
         $(document).ready(function () {
            
             <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
@@ -547,7 +610,7 @@ endforeach;
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo reprovado.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'imgOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Foto adicionada.');
+                funcoes.showNotification(0,1,'<b>Sucesso</b> - Imagem adicionada.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'cErro') { ?>
                 funcoes.showNotification(0,4,'<b>Erro</b> - entre em contato com o gerente.');
@@ -592,7 +655,7 @@ endforeach;
                     }
                 });
             });
-            
+
             function enviaAprovacao(){
                 $('textarea[name="texto_publicacao"]').html(CKEDITOR.instances.editor.getData());
                 $("#controleCriacao").val(1);
@@ -609,29 +672,23 @@ endforeach;
                 e.preventDefault();
                 swal({
                     html: '<div class="form-group">' +
-                                '<label>Avalie este conteúdo sendo 1 para muito ruim e 10 para muito bom</label>'+
-                                '<select class="form-control" id="inputNotaModal">'+
-                                    '<option selected disabled>Escolha de 1 a 10</option>'+
-                                    '<option value="1">1</option>'+
-                                    '<option value="2">2</option>'+
-                                    '<option value="3">3</option>'+
-                                    '<option value="4">4</option>'+
-                                    '<option value="5">5</option>'+
-                                    '<option value="6">6</option>'+
-                                    '<option value="7">7</option>'+
-                                    '<option value="8">8</option>'+
-                                    '<option value="9">9</option>'+
-                                    '<option value="10">10</option>'+
-                                '</select>'+
+                                '<label>Qual a sua avaliação para o conteúdo produzido?</label>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio1" value="1"><label for="radio1"><i class="material-icons">sentiment_very_dissatisfied</i> Muito insatisfeito</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio2" value="2"><label for="radio2"><i class="material-icons">sentiment_dissatisfied</i> Insatisfeito</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio3" value="3"><label for="radio3"><i class="material-icons">sentiment_neutral</i> Indiferente</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio4" value="4"><label for="radio4"><i class="material-icons">sentiment_satisfied</i> Bom</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio5" value="5"><label for="radio5"><i class="material-icons">sentiment_very_satisfied</i> Muito bom</label></div>'+
                             '</div>',
                     type: 'info',
                     showCancelButton: true,
+                    cancelButtonText: 'Sair',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
                     confirmButtonText: 'Aprovar!',
                     buttonsStyling: false
                 }).then(function() {
-                    $("#inputNota").val($("#inputNotaModal").val());
+                    // $("#inputNota").val($("#inputNotaModal").val());
+                    $("#inputNota").val($('input[name=radioNota]:checked').val());
                     $("#formAprovaConteudo").attr('action', '../../controller/conteudo/aprova_conteudo.php');
                     $("#formAprovaConteudo").submit();
                 });
@@ -645,6 +702,7 @@ endforeach;
                             '</div>',
                     type: 'warning',
                     showCancelButton: true,
+                    cancelButtonText: 'Sair',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
                     confirmButtonText: 'Reprovar!',
@@ -670,6 +728,7 @@ endforeach;
                             '</div>',
                     type: 'warning',
                     showCancelButton: true,
+                    cancelButtonText: 'Sair',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
                     confirmButtonText: 'Reprovar!',

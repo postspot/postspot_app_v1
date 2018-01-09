@@ -26,8 +26,8 @@ class usuarios {
 	public static function insert($obj) {
             try{
             $stmt = Conexao::getInstance()->prepare("INSERT INTO usuarios 
-            (nome_usuario, sexo_usuario, foto_usuario, funcao_usuario, email_usuario, senha_usuario, obs)VALUES
-            (:nome_usuario, :sexo_usuario, :foto_usuario, :funcao_usuario, :email_usuario, :senha_usuario, :obs);");
+            (nome_usuario, sexo_usuario, foto_usuario, funcao_usuario, email_usuario, senha_usuario, obs, doc_usuario, banco_usuario, agencia_usuario, conta_usuario)VALUES
+            (:nome_usuario, :sexo_usuario, :foto_usuario, :funcao_usuario, :email_usuario, :senha_usuario, :obs, :doc_usuario, :banco_usuario, :agencia_usuario, :conta_usuario);");
 
 		$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
 		$stmt->bindParam(":sexo_usuario", $obj->sexo_usuario);
@@ -36,6 +36,10 @@ class usuarios {
 		$stmt->bindParam(":email_usuario", $obj->email_usuario);
 		$stmt->bindParam(":senha_usuario", $obj->senha_usuario);
 		$stmt->bindParam(":obs", $obj->obs);
+		$stmt->bindParam(":doc_usuario", $obj->doc_usuario);
+		$stmt->bindParam(":banco_usuario", $obj->banco_usuario);
+		$stmt->bindParam(":agencia_usuario", $obj->agencia_usuario);
+		$stmt->bindParam(":conta_usuario", $obj->conta_usuario);
 
 		$stmt->execute(); 
 			return true;
@@ -49,7 +53,7 @@ class usuarios {
 
 	public static function update($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario, funcao_usuario = :funcao_usuario , email_usuario = :email_usuario, obs = :obs  WHERE id_usuario = :id_usuario ");
+		$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario, funcao_usuario = :funcao_usuario , email_usuario = :email_usuario, obs = :obs, doc_usuario = :doc_usuario, banco_usuario = :banco_usuario, agencia_usuario = :agencia_usuario, conta_usuario = :conta_usuario  WHERE id_usuario = :id_usuario ");
 
 		$stmt->bindParam(":id_usuario", $obj->id_usuario);
 		$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
@@ -57,6 +61,10 @@ class usuarios {
 		$stmt->bindParam(":funcao_usuario", $obj->funcao_usuario);
 		$stmt->bindParam(":obs", $obj->obs);
 		$stmt->bindParam(":email_usuario", $obj->email_usuario);
+		$stmt->bindParam(":doc_usuario", $obj->doc_usuario);
+		$stmt->bindParam(":banco_usuario", $obj->banco_usuario);
+		$stmt->bindParam(":agencia_usuario", $obj->agencia_usuario);
+		$stmt->bindParam(":conta_usuario", $obj->conta_usuario);
 
 		$stmt->execute(); 
 			return true;
@@ -67,13 +75,18 @@ class usuarios {
 	
 	public static function updatePerfil($obj) {
 		 try{
-		$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET foto_usuario = :foto_usuario, nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario , email_usuario = :email_usuario  WHERE id_usuario = :id_usuario ");
+		$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET foto_usuario = :foto_usuario, nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario , email_usuario = :email_usuario, obs = :obs, doc_usuario = :doc_usuario, banco_usuario = :banco_usuario, agencia_usuario = :agencia_usuario, conta_usuario = :conta_usuario   WHERE id_usuario = :id_usuario ");
 
 		$stmt->bindParam(":id_usuario", $obj->id_usuario);
 		$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
 		$stmt->bindParam(":sexo_usuario", $obj->sexo_usuario);
 		$stmt->bindParam(":email_usuario", $obj->email_usuario);
 		$stmt->bindParam(":foto_usuario", $obj->foto_usuario);
+		$stmt->bindParam(":obs", $obj->obs);
+		$stmt->bindParam(":doc_usuario", $obj->doc_usuario);
+		$stmt->bindParam(":banco_usuario", $obj->banco_usuario);
+		$stmt->bindParam(":agencia_usuario", $obj->agencia_usuario);
+		$stmt->bindParam(":conta_usuario", $obj->conta_usuario);
 
 		$stmt->execute(); 
 			return true;

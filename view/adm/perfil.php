@@ -36,7 +36,7 @@ die();*/
 
                 <div class="content">
                     <div class="container-fluid">
-                        <form action="../../controller/usuario/edita_perfil.php" enctype="multipart/form-data" method="POST">
+                        <form id="formEditaUsuario" action="../../controller/usuario/edita_perfil.php" enctype="multipart/form-data" method="POST">
                             <div class="row">
                                 <div class="col-lg-4 col-md-5">
                                     <div class="card card-user">
@@ -62,12 +62,11 @@ die();*/
                                             <h4 class="card-title">Editar Perfil</h4>
                                         </div>
                                         <div class="card-content">
-                                            <form>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Nome</label>
-                                                            <input type="text" class="form-control border-input" placeholder="Nome" value="<?=$usuario->nome_usuario?>" name="nome_usuario">
+                                                            <input type="text" class="form-control border-input" placeholder="Nome" value="<?=$usuario->nome_usuario?>" name="nome_usuario" require="true">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -136,7 +135,37 @@ die();*/
                                                     <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label>Email</label>
-                                                            <input type="email" class="form-control border-input" value="<?=$usuario->email_usuario?>" name="email_usuario">
+                                                            <input type="email" class="form-control border-input" value="<?=$usuario->email_usuario?>" name="email_usuario" email="true" required="true">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label>Descrição usuário</label>
+                                                            <textarea rows="5" name="obs" class="form-control border-input" placeholder=""><?=$usuario->obs?></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>CPF / CNPJ</label>
+                                                            <input type="text" class="form-control border-input" value="<?=$usuario->doc_usuario?>" name="doc_usuario">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Banco</label>
+                                                            <input type="text" class="form-control border-input" value="<?=$usuario->banco_usuario?>" name="banco_usuario">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Agência</label>
+                                                            <input type="text" class="form-control border-input" value="<?=$usuario->agencia_usuario?>" name="agencia_usuario">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label>Conta Corrente</label>
+                                                            <input type="text" class="form-control border-input" value="<?=$usuario->conta_usuario?>" name="conta_usuario">
                                                         </div>
                                                     </div>
                                                     </div>
@@ -146,7 +175,6 @@ die();*/
                                                     <button type="submit" class="btn btn-info btn-fill btn-wd pull-right fundo-rosa">Atualizar Perfil</button>
                                                 </div>
                                                 <div class="clearfix"></div>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -163,6 +191,8 @@ die();*/
     
     <script>
         $(document).ready(function() {
+        $('#formEditaUsuario').validate();
+
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             funcoes.showNotification(0,1,'<b>Sucesso</b> - Perfil atualizado.');
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>

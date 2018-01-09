@@ -25,7 +25,10 @@ $idiomas = idiomas::getAllIdiomas();
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid relative">
+                    <a href="#" class="btn btn-fixed fundo-rosa" onclick="funcoes.showSwal('idioma')">
+                        <i class="material-icons">add</i> Novo idioma
+                    </a>
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Idiomas</h4>
                         <div class="row">
                             <div class="col-md-8">
@@ -39,7 +42,7 @@ $idiomas = idiomas::getAllIdiomas();
                                                     <?= $idioma->nome_idioma ?>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-icon fundo-roxo-padrao" onclick="deletaIdioma('<?= $idioma->id_idioma ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
+                                                        <btn class="btn btn-sm btn-icon fundo-rosa-claro" onclick="deletaIdioma('<?= $idioma->id_idioma ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                     </div>
                                                 </div>
                                             </li>
@@ -51,9 +54,6 @@ $idiomas = idiomas::getAllIdiomas();
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('idioma')">
-                    <i class="ti-plus"></i>
-                </a>
             </div>
         </div>
     </body>
@@ -70,6 +70,10 @@ $idiomas = idiomas::getAllIdiomas();
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,4,'<b>Erro</b> - idioma não foi criado.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome do idioma.');
             });
         <?php } ?>
         function deletaIdioma(cod_idioma,btn) { 

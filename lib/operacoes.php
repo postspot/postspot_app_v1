@@ -90,8 +90,8 @@ function mesEscrito($date) {
 
 
 function funcaoCliente($funcao){
-    $funcoes = array('0' => 'Gerente de Projeto',
-        '1' => 'Analista',
+    $funcoes = array('0' => 'Analista de Produção',
+        '1' => 'Analista de Qualidade',
         '2' => 'Redator',
         '3' => 'Cliente',
         '4' => 'Designer'

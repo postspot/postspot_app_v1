@@ -12,6 +12,11 @@ $usuario_banco = usuarios::getById($id_usuario);
 $nome_usuario = $_POST["nome_usuario"];
 $sexo_usuario = $_POST["sexo_usuario"];
 $email_usuario = $_POST["email_usuario"];
+$obs = $_POST["obs"];
+$doc_usuario = $_POST["doc_usuario"];
+$banco_usuario = $_POST["banco_usuario"];
+$agencia_usuario = $_POST["agencia_usuario"];
+$conta_usuario = $_POST["conta_usuario"];
 $idioma = $_POST["idioma"];
 $habilidades = $_POST["habilidade"];
 
@@ -45,6 +50,11 @@ if (isset($usuario_banco)) {
         $usuario_atualizado->id_usuario = $id_usuario;
         $usuario_atualizado->sexo_usuario = $sexo_usuario;
         $usuario_atualizado->email_usuario = $email_usuario;
+        $usuario_atualizado->obs = $obs;
+        $usuario_atualizado->doc_usuario = $doc_usuario;
+        $usuario_atualizado->banco_usuario = $banco_usuario;
+        $usuario_atualizado->agencia_usuario = $agencia_usuario;
+        $usuario_atualizado->conta_usuario = $conta_usuario;
         
         if(usuarios::updatePerfil($usuario_atualizado)){
 

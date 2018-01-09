@@ -67,8 +67,14 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                 <!--Menu Topo-->
                 <?php require_once './includes/menu_topo.php'; ?>
 
-                <div class="content">
-                    <div class="container-fluid">
+                <div class="content relative">
+                    
+                    <div class="container-fluid relative">
+                <?php if($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1'):?>
+                        <a href="cria_pauta.php" class="btn btn-fixed fundo-rosa">
+                        <i class="material-icons">add</i> Nova pauta
+                        </a>
+                    <?php endif;?>
                         <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">list</i> Pautas</h4>
 
                         <div class="row">
@@ -100,7 +106,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill fill-up fundo-roxo-escuro">Buscar</button>
+                                            <button type="submit" class="btn fill-up fundo-rosa">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -150,7 +156,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                                     <p><?= retornaStatusTarefa($pauta->etapa) ?></p>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <a href="detalhes_pauta.php?t=<?= $pauta->id_tarefa ?>" class="btn btn-success btn-fill fill-up btn-wd fundo-roxo-padrao">ver pauta</a>
+                                                    <a href="detalhes_pauta.php?t=<?= $pauta->id_tarefa ?>" class="btn btn-success fill-up btn-wd fundo-roxo-escuro">ver pauta</a>
                                                 </div>  
                                             </div>
                                             <div class="badge"><?= $pauta->nome_tipo ?></div>
@@ -160,11 +166,6 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                             </div>
                         </div>
                     </div>
-                    <?php if($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1'):?>
-                        <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
-                            <i class="ti-plus"></i>
-                        </a>
-                    <?php endif;?>
                 </div>
             </div>
         </div>
@@ -177,9 +178,9 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
                 funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta aprovada.');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
-                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta salva.');
+                funcoes.showNotification(0, 1, 'Pauta salva com <b>sucesso</b>.');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
-                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta enviada para aprovação.');
+                funcoes.showNotification(0, 1, 'Pauta enviada para o gestor com <b>sucesso</b>.');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
                 funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta reprovada.');
 <?php } ?>

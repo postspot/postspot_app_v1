@@ -15,7 +15,7 @@ $id_usuario = $_SESSION['id_usuario'];
 
 if (isset($nome_projeto) && isset($responsavel_projeto) && isset($site_projeto)) {
 
-    if (!empty($nome_projeto) && !empty($responsavel_projeto) && !empty($site_projeto)) {
+    if (!empty($nome_projeto) && !empty($responsavel_projeto)) {
       
         $obj = new stdClass();
         
@@ -33,7 +33,7 @@ if (isset($nome_projeto) && isset($responsavel_projeto) && isset($site_projeto))
             $nova_estrategia->projetos_id_projeto = $id_projeto;
             
           
-            if(estrategias::insert($nova_estrategia)){         
+            if(estrategias::insert($nova_estrategia)){
                 
                 $id_equipe = equipes::getAutoInc();
                 if(equipes::insert($id_projeto)){
@@ -69,14 +69,9 @@ if (isset($nome_projeto) && isset($responsavel_projeto) && isset($site_projeto))
         }
     }
     else {
-        header('Location: ../../view/adm/projetos.php?retorno=erro4');
+        header('Location: ../../view/adm/projetos.php?retorno=empty');
     }
 } 
 else {
-    header('Location: ../../view/adm/projetos.php?retorno=erro5');
+    header('Location: ../../view/adm/projetos.php?retorno=empty');
 }
-
-
-
-
-

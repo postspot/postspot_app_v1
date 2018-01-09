@@ -8,9 +8,12 @@ $nome_idioma = $_POST["nome_idioma"];
 $obj = new stdClass();
 $obj->nome_idioma = $nome_idioma;
 
-if(idiomas::insert($obj)){
-    header('Location: ../../view/adm/idiomas.php?retorno=ok');
-}
-else{
-    header('Location: ../../view/adm/idiomas.php?retorno=erro');
+if (!empty($nome_idioma)) {
+    if (idiomas::insert($obj)) {
+        header('Location: ../../view/adm/idiomas.php?retorno=ok');
+    } else {
+        header('Location: ../../view/adm/idiomas.php?retorno=erro');
+    }
+} else {
+    header('Location: ../../view/adm/idiomas.php?retorno=empty');
 }

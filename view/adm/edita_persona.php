@@ -32,7 +32,7 @@ $disabled = ($_SESSION['funcao_usuario'] != 0) ? 'disabled="disabled"' : '';
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">person</i> Persona</h4>
+                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">person</i> Detalhes da Persona</h4>
                         <div class="row">
                             <div class="col-md-12">
 
@@ -160,12 +160,6 @@ $disabled = ($_SESSION['funcao_usuario'] != 0) ? 'disabled="disabled"' : '';
                                                             <input type="text" class="form-control border-input" name="decisao" value="<?= $persona->decisao ?>" <?= $disabled ?>>
                                                         </div>
                                                     </div> -->
-                                                </div>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <button type="submit" class="btn btn-fill btn-info pull-right" <?= $disabled ?>>Salvar</button>                                               
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="tab-pane pane-pauta" id="editar">

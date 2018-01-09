@@ -53,6 +53,10 @@ $funcao_usuario = $_POST["funcao_usuario"];
 $email_usuario = $_POST["email_usuario"];
 $senha_usuario = $_POST["senha_usuario"];
 $obs = $_POST["obs"];
+$doc_usuario = $_POST["doc_usuario"];
+$banco_usuario = $_POST["banco_usuario"];
+$agencia_usuario = $_POST["agencia_usuario"];
+$conta_usuario = $_POST["conta_usuario"];
 $idioma = $_POST["idioma"];
 $habilidades = $_POST["habilidade"];
 
@@ -67,6 +71,10 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
         $obj->sexo_usuario = $sexo_usuario;
         $obj->funcao_usuario = $funcao_usuario;
         $obj->obs = $obs;
+        $obj->doc_usuario = $doc_usuario;
+        $obj->banco_usuario = $banco_usuario;
+        $obj->agencia_usuario = $agencia_usuario;
+        $obj->conta_usuario = $conta_usuario;
         $obj->email_usuario = $email_usuario;
         $obj->senha_usuario = md5($senha_usuario);
 //	$obj->senha_usuario = $estagio_compra;

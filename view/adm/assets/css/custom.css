@@ -2,6 +2,27 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+p,
+.navbar,
+.brand,
+a,
+.td-name,
+td {
+    font-family: 'Roboto', sans-serif;
+}
+
 .card-tarefa {
     background-color: #fff;
     padding: 15px 10px;
@@ -46,15 +67,11 @@ h4.title {
 }
 
 .btn-fixed {
-    position: fixed;
-    bottom: 5%;
-    right: 3%;
+    position: absolute;
+    top: -10px;
+    right: 30px;
     font-size: 2em;
     color: #fff;
-    background: #f3bb45;
-    border-color: #f3bb45;
-    padding: 15px !important;
-    border-radius: 100% !important;
 }
 
 .btn-fixed:hover {
@@ -127,6 +144,7 @@ h4.title {
 
 .swal2-modal .swal2-title {
     margin-bottom: 30px;
+    line-height: 1;
 }
 
 .team-members .avatar {
@@ -207,8 +225,8 @@ h4.title {
 }
 
 .logo-normal img {
-    width: 130px;
-    margin-left: -5px;
+    width: 125px;
+    padding-top: 10px;
 }
 
 .menu-engrenagem li.sub-title {
@@ -286,11 +304,13 @@ h4.title {
     font-size: 1.5em;
     color: #eb5e28;
 }
+
 .card-membro i.trash {
     position: absolute;
     bottom: 10px;
     right: 10px;
     cursor: pointer;
+    color: #e8607f;
 }
 
 .card-chat input.textarea {
@@ -455,7 +475,7 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .sidebar .sidebar-wrapper>.nav i,
 .off-canvas-sidebar .sidebar-wrapper>.nav i {
-    font-size: 30px;
+    font-size: 24px;
 }
 
 .fundo-roxo-padrao {
@@ -592,13 +612,13 @@ h4.title i {
 .open>.navbar .navbar-nav>li>a.btn.dropdown-toggle,
 .open>.navbar .navbar-nav>li>a.btn.dropdown-toggle:focus,
 .open>.navbar .navbar-nav>li>a.btn.dropdown-toggle:hover {
-    background-color: #3dd3d0;
-    border-color: #3dd3d0;
+    background-color: #ec268f;
+    border-color: #ec268f;
 }
 
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li>a:focus {
-    background-color: #3dd3d0;
+    background-color: #ec268f;
 }
 
 .dropdown-menu>li:last-child>a {
@@ -783,29 +803,135 @@ h4.title i {
     width: 60px;
     margin: 0 auto;
 }
-.card-membro .stats{
+
+.card-membro .stats {
     position: absolute;
     top: 10px;
     right: 10px;
 }
-.card-membro h5{
+
+.card-membro h5 {
     margin-bottom: 0;
 }
 
-.card-membro p{
+.card-membro p {
     line-height: 1;
     font-size: 1em;
 }
-.card-membro i.mail{
+
+.card-membro i.mail {
     float: left;
     margin-right: 5px;
 }
+
 .card-membro .card-footer hr {
     margin-top: 0px;
 }
-.empty-title{
+
+.empty-title {
     margin: 30px !important;
 }
-.no-padding{
+
+.no-padding {
     padding: 0 !important;
+}
+
+.btn.btn-sm {
+    font-size: 12px !important;
+}
+
+.btn {
+    font-size: 14px !important;
+}
+
+[class*="material-"]{
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.swal2-container .radio label::before {
+    top: 0;
+}
+
+.swal2-container .radio label::before,
+.swal2-container .radio label::after {
+    top: 0;
+}
+
+.swal2-content .material-icons {
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.swal2-content .radio {
+    padding-left: 20px;
+    margin-bottom: 12px;
+    width: 200px;
+    display: table;
+    margin: 10px auto;
+    text-align: left;
+}
+
+.sidebar .logo,
+.off-canvas-sidebar .logo {
+    padding: 5px 0px 18px 0px;
+}
+
+.navbar-default .navbar-nav>.active>a,
+.navbar-default .navbar-nav>.active>a:not(.btn):hover,
+.navbar-default .navbar-nav>.active>a:not(.btn):focus,
+.navbar-default .navbar-nav>li>a:not(.btn):hover,
+.navbar-default .navbar-nav>li>a:not(.btn):focus {
+    color: #ec268f;
+}
+
+.dropdown-menu>li>a:hover,
+.dropdown-menu>li>a:focus {
+    background-color: #ec268f;
+}
+
+.pagination>li>a:hover,
+.pagination>li>a:focus,
+.pagination>li>a:active,
+.pagination>li.active>a,
+.pagination>li.active>span,
+.pagination>li.active>a:hover,
+.pagination>li.active>span:hover,
+.pagination>li.active>a:focus,
+.pagination>li.active>span:focus {
+    background-color: #523877;
+    border-color: #523877;
+    color: white;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    border: 2px solid #523877;
+    color: #523877;
+}
+
+.has-error .form-control,
+.form-control.error {
+    background-color: #e6a1c6;
+    color: #595858;
+    border-color: #ec268f;
+}
+
+.has-error .form-control:focus,
+.form-control.error:focus {
+    background-color: #FFFFFF;
+    border-color: #ec268f;
+}
+
+label.error {
+    color: #ec268f;
+    font-weight: 300;
+    font-size: 0.8em;
+    position: absolute;
+}
+#espacoFotos p.text-center{
+    cursor: pointer;
+}
+.relative{
+    position: relative !important;
 }

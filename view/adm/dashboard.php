@@ -250,7 +250,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             </fieldset>
                                         </div>
                                         <div class="col-lg-2">
-                                            <button type="submit" class="btn btn-info btn-fill fill-up fundo-roxo-escuro" id="btnBuscarFiltro">Buscar</button>
+                                            <button type="submit" class="btn fill-up fundo-rosa" id="btnBuscarFiltro">Buscar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -291,18 +291,13 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <p><?= date('d/m/Y', strtotime($tarefa->criacao_log)) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn btn-success btn-wd fill-up fundo-roxo-escuro">Detalhes</a>
+                                        <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn fill-up fundo-roxo-escuro">Detalhes</a>
                                     </div>
                                 </div>
                                 <div class="badge"><?= $tarefa->nome_tipo ?></div>
                             </div>
                         <?php endforeach;
                         endif; ?>
-                        <?php if ($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1') : ?>
-                            <a href="cria_pauta.php" class="btn btn-icon btn-fixed">
-                                <i class="ti-plus"></i>
-                            </a>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>

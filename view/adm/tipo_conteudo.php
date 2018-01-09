@@ -25,7 +25,10 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid relative">
+                    <a href="#" class="btn btn-fixed fundo-rosa" onclick="funcoes.showSwal('tipoConteudo')">
+                        <i class="material-icons">add</i> Novo tipo
+                    </a>
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Tipo de Conteúdo</h4>
                         <div class="row">
                             <div class="col-md-8">
@@ -39,7 +42,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                                     <?= $tipoTarefa->nome_tarefa ?>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
-                                                        <btn class="btn btn-sm btn-icon fundo-roxo-padrao" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
+                                                        <btn class="btn btn-sm btn-icon fundo-rosa-claro" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                     </div>
                                                 </div>
                                             </li>
@@ -51,9 +54,6 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('tipoConteudo')">
-                    <i class="ti-plus"></i>
-                </a>
             </div>
         </div>
     </body>
@@ -70,6 +70,10 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,4,'<b>Erro</b> - tipo de conteúdo não foi criado.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome do tipo de conteúdo.');
             });
         <?php } ?>
         function deletaTipoTarefa(cod_tipo,btn) { 

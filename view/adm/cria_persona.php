@@ -23,7 +23,7 @@ require_once 'includes/header_padrao.php';
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-user"></i> Cria Persona</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">person</i> Personas</h4>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="card">

@@ -1,8 +1,11 @@
 <?php
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
+require_once '../../model/habilidades_usuario.php';
 require_once 'includes/header_adm.php';
 $users = usuarios::getAll();
+// pre_r($users);
+// die();
 ?>
 <html lang="pt-br">
     <head>
@@ -23,7 +26,10 @@ $users = usuarios::getAll();
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid relative">
+                        <a href="cria_usuario.php" class="btn btn-fixed fundo-rosa">
+                            <i class="material-icons">add</i> Novo membro
+                        </a>
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Usuários</h4>
                         <div class="row">
                             <div class="col-md-12">
@@ -40,6 +46,7 @@ $users = usuarios::getAll();
                                                 <th>Nome</th>
                                                 <th>E-mail</th>
                                                 <th>Função</th>
+                                                <th>Habilidade</th>
                                                 <th class="disabled-sorting"></th>
                                             </tr>
                                         </thead>
@@ -49,23 +56,37 @@ $users = usuarios::getAll();
                                                 <th>Nome</th>
                                                 <th>E-mail</th>
                                                 <th>Função</th>
+                                                <th>Habilidade</th>
                                                 <th></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <?php foreach ($users as $user) { 					
+                                            <?php foreach ($users as $user) {
+                                                if ($user->funcao_usuario == 2) :
+                                                    $habilidades_user = habilidades_usuario::getHabilidadesUsuario($user->id_usuario);
+                                                $habilidades = '';
+                                                $tempHabilidades = '';
+                                                foreach ($habilidades_user as $habi) {
+                                                    $tempHabilidades .= $habi->nome_habilidade . ', ';
+                                                }
+                                                $habilidades = rtrim($tempHabilidades, ", ");
+                                                else :
+                                                    $habilidades = '';
+                                                endif;
                                                 ?>
                                                 <tr>
                                                     <td><?= $user->id_usuario ?></td>
                                                     <td><?= $user->nome_usuario ?></td>
                                                     <td><?= $user->email_usuario ?></td>
                                                     <td><?= funcaoCliente($user->funcao_usuario) ?></td>
+                                                    <td><?= $habilidades ?></td>
                                                     <td>
-                                                        <a href="#" class="btn btn-simple btn-danger btn-icon del-usuario"><i class="ti-trash"></i></a>
-                                                        <a href="edita_usuario.php?u=<?= $user->id_usuario?>" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="ti-search"></i></a>
+                                                        <a href="#" class="btn btn-sm btn-icon fundo-rosa-claro del-usuario"><i class="ti-trash"></i></a>
+                                                        <a href="edita_usuario.php?u=<?= $user->id_usuario ?>" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="ti-search"></i></a>
                                                     </td>
                                                 </tr>
-                                            <?php } ?>
+                                            <?php 
+                                        } ?>
                                         </tbody>
 									</table>
                                     </div>
@@ -74,9 +95,6 @@ $users = usuarios::getAll();
                         </div>
                     </div>
                 </div>
-                <a href="cria_usuario.php" class="btn btn-icon btn-fixed">
-                    <i class="ti-plus"></i>
-                </a>
             </div>
         </div>
     </body>
@@ -170,11 +188,14 @@ $users = usuarios::getAll();
 	         } );
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - usuário criado corretamente.');
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'eok') { ?>
+        <?php 
+    } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'eok') { ?>
                 funcoes.showNotification(0,1,'<b>Sucesso</b> - usuário editado.');
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+        <?php 
+    } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
                 funcoes.showNotification(0,4,'<b>Erro</b> - usuário não criado.');
-        <?php } ?>
+        <?php 
+    } ?>
 
 	    });
     </script>

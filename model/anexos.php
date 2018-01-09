@@ -71,13 +71,13 @@ class anexos {
 	}
 	
 	public static function getAllByProjeto($id, $tarefa = null) {
-		$condicao = ($tarefa == null) ? 'an.link_tarefa IS NULL' : 'an.link_tarefa = ' . $tarefa;
+		$condicao = ($tarefa == null) ? '' : 'AND an.link_tarefa = ' . $tarefa;
 		try {
 		$stmt = Conexao::getInstance()->prepare("SELECT an.*, us.nome_usuario "
 		. " FROM anexos an"
 		. " INNER JOIN usuarios us"
 		. " ON(an.id_responsavel = us.id_usuario)"
-		. " WHERE an.id_projeto = :id AND {$condicao}");
+		. " WHERE an.id_projeto = :id {$condicao}");
 
 		$stmt->bindParam(":id", $id);
 			$stmt->execute();

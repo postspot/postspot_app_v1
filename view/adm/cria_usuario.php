@@ -28,8 +28,8 @@ $idiomas = idiomas::getAllIdiomas();
 
                 <div class="content">
                     <div class="container-fluid">
-                        <form action="../../controller/usuario/criar_usuario.php" enctype="multipart/form-data" method="POST">
-                        <h4 class="title"><i class="ti-user"></i> Cria Usuário</h4>
+                        <form action="../../controller/usuario/criar_usuario.php" enctype="multipart/form-data" method="POST" id="formCriaUsuario">
+                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">group</i> Cria Usuário</h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card">
@@ -43,7 +43,7 @@ $idiomas = idiomas::getAllIdiomas();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <input type="text" class="form-control border-input" name="nome_usuario">
+                                                    <input type="text" class="form-control border-input" name="nome_usuario" required="true">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -102,6 +102,30 @@ $idiomas = idiomas::getAllIdiomas();
                                                     <textarea rows="5" name="obs" class="form-control border-input" placeholder=""></textarea>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>CPF / CNPJ</label>
+                                                    <input type="text" class="form-control border-input" name="doc_usuario">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Banco</label>
+                                                    <input type="text" class="form-control border-input" name="banco_usuario" required="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Agência</label>
+                                                    <input type="text" class="form-control border-input" name="agencia_usuario" required="true">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Conta Corrente</label>
+                                                    <input type="text" class="form-control border-input" name="conta_usuario" required="true">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div> <!-- end col-md-12 -->
@@ -118,19 +142,19 @@ $idiomas = idiomas::getAllIdiomas();
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input type="email" class="form-control border-input" name="email_usuario">
+                                                    <input type="email" class="form-control border-input" name="email_usuario" email="true" required="true">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Senha</label>
-                                                    <input type="password" class="form-control border-input" name="senha_usuario">
+                                                    <input type="password" class="form-control border-input" name="senha_usuario" id="senhaUser" required="true">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Confirmar Senha</label>
-                                                    <input type="password" class="form-control border-input" name="confirmacao">
+                                                    <input type="password" class="form-control border-input" name="confirmacao" equalTo="#senhaUser">
                                                 </div>
                                             </div>
 
@@ -138,7 +162,7 @@ $idiomas = idiomas::getAllIdiomas();
                                         <hr>
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <button type="submit" class="btn btn-fill btn-info pull-right">Salvar</button>                                               
+                                                <button type="submit" class="btn btn-fill pull-right fundo-rosa-claro">Salvar</button>                                               
                                             </div>
                                         </div>
                                     </div>
@@ -153,4 +177,11 @@ $idiomas = idiomas::getAllIdiomas();
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
+
+    
+    <script>
+    $(document).ready(function() {
+        $('#formCriaUsuario').validate();
+    });
+    </script>
 </html>

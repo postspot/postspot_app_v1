@@ -4,7 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/anexos.php';
 session_start();
 
-pre_r($_FILES);
+// pre_r($_FILES);
 
 $id_responsavel = $_SESSION["id_usuario"];
 $id_projeto = $_SESSION['id_projeto'];

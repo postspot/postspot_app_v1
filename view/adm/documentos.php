@@ -27,7 +27,10 @@ die();*/
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid relative">
+                        <a href="#" class="btn btn-fixed fundo-rosa" onclick="funcoes.showSwal('anexo')">
+                        <i class="material-icons">add</i> Novo documento
+                        </a>
                         <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">folder</i> Documentos</h4>
                         <div class="row">
                             <div class="col-md-12">
@@ -44,7 +47,7 @@ die();*/
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php foreach($anexos as $anexo): ?>
+                                                <?php foreach ($anexos as $anexo) : ?>
                                                     <tr>
                                                         <td><?= $anexo->id_anexo ?></td>
                                                         <td><?= $anexo->nome_anexo ?></td>
@@ -68,9 +71,6 @@ die();*/
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('anexo')">
-                    <i class="ti-plus"></i>
-                </a>
             </div>
         </div>
     </body>
@@ -81,9 +81,11 @@ die();*/
         
             <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
                     funcoes.showNotification(0,1,'<b>Sucesso</b> - documento(s) enviado(s) corretamente.');
-            <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+            <?php 
+										} else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
                    funcoes.showNotification(0,4,'<b>Erro</b> - documento(s) não enviado(s).');
-            <?php } ?>
+            <?php 
+										} ?>
 
 	        $('#datatables').DataTable({
 	            "pagingType": "full_numbers",
@@ -121,49 +123,58 @@ die();*/
 
 	            var data = table.row($tr).data();
 				
-                var urlFile = "http://localhost/postspot/uploads/projetos/<?=$_SESSION['id_projeto']?>-arquivos/" + data[1];
+                var urlFile = "http://localhost/postspot/uploads/projetos/<?= $_SESSION['id_projeto'] ?>-arquivos/" + data[1];
                 var win = window.open(urlFile, '_blank');
                 win.focus();
 	         } );
 
 	         table.on( 'click', '.del-doc', function () {
-	            $tr = $(this).closest('tr');
-
-	            var data = table.row($tr).data();
-                
-                
+				$tr = $(this).closest('tr');
+				var data = table.row($tr).data();
 				var dados = {id_anexo: data[0], nome_anexo: data[1]}
-				$.ajax({
-					url: "../../controller/anexos/remove_anexo.php",
-					type: "POST",
-					dataType: "json",
-					async: true,
-					data: dados,
-					timeout: 15000,
-					success: function (data) {
-						if(data == 'true'){
-							table.row($tr).remove().draw();
-							swal({
-								title: 'Sucesso!',
-								text: 'O anexo foi removido.',
-								type: 'success',
-								confirmButtonClass: "btn btn-success btn-fill",
-								buttonsStyling: false
-								})
-						}else{
-							swal({
-								title: 'Erro!',
-								text: 'O anexo não foi removido.',
-								type: 'error',
-								confirmButtonClass: "btn btn-info btn-fill",
-								buttonsStyling: false
-								})
+				swal({
+                    title: 'Tem certeza?',
+                    text: "Este documento não poderá mais ser visualizado.",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonClass: 'btn btn-success btn-fill',
+                    cancelButtonClass: 'btn btn-danger btn-fill',
+                    confirmButtonText: 'Sim!',
+                    cancelButtonText: 'Não',
+                    buttonsStyling: false
+                }).then(function() {
+					$.ajax({
+						url: "../../controller/anexos/remove_anexo.php",
+						type: "POST",
+						dataType: "json",
+						async: true,
+						data: dados,
+						timeout: 15000,
+						success: function (data) {
+							if(data == 'true'){
+								table.row($tr).remove().draw();
+								swal({
+									title: 'Sucesso!',
+									text: 'O documento foi removido.',
+									type: 'success',
+									confirmButtonClass: "btn btn-success btn-fill",
+									buttonsStyling: false
+									})
+							}else{
+								swal({
+									title: 'Erro!',
+									text: 'O documento não foi removido.',
+									type: 'error',
+									confirmButtonClass: "btn btn-info btn-fill",
+									buttonsStyling: false
+									})
+							}
+						},
+						error: function (x, t, m) {
+							console.log(JSON.stringify(x));
 						}
-					},
-					error: function (x, t, m) {
-						console.log(JSON.stringify(x));
-					}
-				});
+					});
+                });
 	         } );
 
 	    });

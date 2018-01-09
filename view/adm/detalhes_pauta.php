@@ -7,9 +7,9 @@ require_once '../../model/tarefas.php';
 require_once '../../model/comentarios.php';
 require_once 'includes/header_padrao.php';
 
-if(!isset($_GET["t"])){
+if (!isset($_GET["t"])) {
     header('location: ../../view/adm/dashboard.php?erro=te');
-}else{
+} else {
     $id_tarefa = $_GET["t"];
 }
 
@@ -39,7 +39,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                 <div class="content">
                     <div class="container-fluid">
                         
-                        <h4 class="title"><i class="ti-light-bulb"></i> Criar Pauta</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">list</i> Detalhes Pauta</h4>
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="card">
@@ -60,7 +60,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 <div class="col-md-9">
                                                     <select class="form-control" name="tipo_tarefa">
                                                         <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
-                                                            <option value="<?= $tipoTarefa->id_tipo ?>" <?= ($tarefa->id_tipo == $tipoTarefa->id_tipo)? 'selected' : '' ?>><?= $tipoTarefa->nome_tarefa ?></option>
+                                                            <option value="<?= $tipoTarefa->id_tipo ?>" <?= ($tarefa->id_tipo == $tipoTarefa->id_tipo) ? 'selected' : '' ?>><?= $tipoTarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -83,19 +83,19 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 <div class="col-md-10">
 
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Conhecimento" <?= ($tarefa->estagio_compra == 'Conhecimento')? 'checked' : '' ?>>
+                                                        <input type="radio" name="estagio_compra" id="estagio1" value="Conhecimento" <?= ($tarefa->estagio_compra == 'Conhecimento') ? 'checked' : '' ?>>
                                                         <label for="estagio1">
                                                             Conhecimento
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração" <?= ($tarefa->estagio_compra == 'Consideração')? 'checked' : '' ?>>
+                                                        <input type="radio" name="estagio_compra" id="estagio3" value="Consideração" <?= ($tarefa->estagio_compra == 'Consideração') ? 'checked' : '' ?>>
                                                         <label for="estagio3">
                                                             Consideração
                                                         </label>
                                                     </div>
                                                     <div class="radio">
-                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão" <?= ($tarefa->estagio_compra == 'Decisão')? 'checked' : '' ?>>
+                                                        <input type="radio" name="estagio_compra" id="estagio4" value="Decisão" <?= ($tarefa->estagio_compra == 'Decisão') ? 'checked' : '' ?>>
                                                         <label for="estagio4">
                                                             Decisão
                                                         </label>
@@ -107,17 +107,19 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 <label class="col-md-2 control-label">Persona</label>
                                                 <div class="col-md-4">
                                                     <select class="form-control" name="id_persona" required>
-                                                        <?php if(empty($persona)): ?>
+                                                        <?php if (empty($persona)) : ?>
                                                             <option value="" disabled selected>Nenhuma persona cadastrada!</option>
-                                                        <?php else:
-                                                        foreach ($persona as $pers) {
-                                                        ?>
+                                                        <?php else :
+                                                            foreach ($persona as $pers) {
+                                                            ?>
                                                         
-                                                        <option value="<?= $pers->id_persona ?>" <?= ($tarefa->id_persona == $pers->id_persona)? 'selected' : '' ?>><?= $pers->nome ?></option>
+                                                        <option value="<?= $pers->id_persona ?>" <?= ($tarefa->id_persona == $pers->id_persona) ? 'selected' : '' ?>><?= $pers->nome ?></option>
                                                         
                                                         <?php
-                                                        } endif;
-                                                        ?>
+
+                                                    }
+                                                    endif;
+                                                    ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -143,54 +145,54 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                     </form>
                                 </div>
                             </div>
-                                <?php if($tarefa->etapa < CONTEUDO_ESCREVENDO && $_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4'): ?>
+                                <?php if ($tarefa->etapa < CONTEUDO_ESCREVENDO && $_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4') : ?>
                                     <div class="col-md-4">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h4 class="card-title">Ação necessaria</h4>
                                             </div>
                                             <div class="card-content">
-                                                <?php if(($tarefa->etapa == PAUTA_ESCREVENDO || $tarefa->etapa == PAUTA_AJUSTANDO) && (  $_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1' )): ?>
-                                                    <button type="button" class="btn btn-wd btn-info btn-fill btn-magnify fill-up margem" id="salvaPauta">
+                                                <?php if (($tarefa->etapa == PAUTA_ESCREVENDO || $tarefa->etapa == PAUTA_AJUSTANDO) && ($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '1')) : ?>
+                                                    <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-roxo-escuro" id="salvaPauta">
                                                         <span class="btn-label">
-                                                            <i class="ti-save"></i>
+                                                        <i class="material-icons">save</i>
                                                         </span>
-                                                        Salvar
+                                                        Salvar Pauta
                                                     </button>
-                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaPautaModeracao">
+                                                    <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="enviaPautaModeracao">
+                                                        <span class="btn-label">
+                                                            <i class="material-icons">fast_forward</i>
+                                                        </span>
                                                         Enviar Moderador
-                                                        <span class="btn-label">
-                                                            <i class="ti-control-forward"></i>
-                                                        </span>
                                                     </button>
                                                 <?php endif; ?>
-                                                <?php if($_SESSION['funcao_usuario'] == '0' && ($tarefa->etapa == PAUTA_APROVACAO_MODERADOR || $tarefa->etapa == PAUTA_REAPROVACAO_MODERADOR) ): ?>
-                                                    <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="enviaAprovacaoPauta">
+                                                <?php if ($_SESSION['funcao_usuario'] == '0' && ($tarefa->etapa == PAUTA_APROVACAO_MODERADOR || $tarefa->etapa == PAUTA_REAPROVACAO_MODERADOR)) : ?>
+                                                    <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="enviaAprovacaoPauta">
+                                                        <span class="btn-label">
+                                                        <i class="material-icons">check</i>
+                                                        </span>
                                                         Enviar para o cliente
-                                                        <span class="btn-label">
-                                                            <i class="ti-control-forward"></i>
-                                                        </span>
                                                     </button>
-                                                    <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right fill-up margem" id="reprovaPautaModeracao">
-                                                            Reprovar
-                                                            <span class="btn-label">
-                                                                <i class="ti-control-forward"></i>
-                                                            </span>
-                                                        </button>
+                                                    <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-rosa-claro" id="reprovaPautaModeracao">
+                                                        <span class="btn-label">
+                                                            <i class="material-icons">close</i>
+                                                        </span>
+                                                        Reprovar Pauta
+                                                    </button>
                                                 <?php endif; ?>
-                                                <?php if($tarefa->etapa == PAUTA_APROVACAO_CLIENTE || $tarefa->etapa == PAUTA_REAPROVACAO_CLIENTE): ?>
-                                                    <?php if($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '3'):?>
-                                                        <button type="button" class="btn btn-wd btn-danger btn-fill btn-move-right fill-up margem" id="reprovaPauta">
-                                                            Reprovar
+                                                <?php if ($tarefa->etapa == PAUTA_APROVACAO_CLIENTE || $tarefa->etapa == PAUTA_REAPROVACAO_CLIENTE) : ?>
+                                                    <?php if ($_SESSION['funcao_usuario'] == '0' || $_SESSION['funcao_usuario'] == '3') : ?>
+                                                        <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="aprovaPauta">
                                                             <span class="btn-label">
-                                                                <i class="ti-control-forward"></i>
-                                                            </span>
+                                                            <i class="material-icons">check</i>
+                                                        </span>
+                                                        Aprovar Pauta
                                                         </button>
-                                                        <button type="button" class="btn btn-wd btn-success btn-fill btn-move-right fill-up margem" id="aprovaPauta">
-                                                            Aprovar
+                                                        <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-rosa-claro" id="reprovaPauta">
                                                             <span class="btn-label">
-                                                                <i class="ti-control-forward"></i>
+                                                                <i class="material-icons">close</i>
                                                             </span>
+                                                            Reprovar Pauta
                                                         </button>
                                                     <?php endif; ?>
                                                 <?php endif; ?>
@@ -205,39 +207,40 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                         </div>
                                         <div class="card-content">
                                         <ol class="chat" id="olChat">
-                                        <?php if(empty($comentarios)):?>
+                                        <?php if (empty($comentarios)) : ?>
                                             <li class="text-muted"><p class="text-center fill-up">Nenhum comentário</p></li>
-                                        <?php else:
-                                        foreach($comentarios as $comentario):
-                                                if($comentario->id_usuario != $_SESSION['id_usuario']):
-                                            ?>
+                                        <?php else :
+                                            foreach ($comentarios as $comentario) :
+                                            if ($comentario->id_usuario != $_SESSION['id_usuario']) :
+                                        ?>
                                                 <li class="other">
                                                     <div class="avatar">
-                                                        <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
+                                                        <img src="../../uploads/usuarios/<?= $comentario->foto_usuario ?>" alt="Foto <?= $comentario->nome_usuario ?>" title="Foto <?= $comentario->nome_usuario ?>"/>
                                                     </div>
-                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario?>" >
-                                                        <p><?= $comentario->comentario?></p>
+                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
+                                                        <p><?= $comentario->comentario ?></p>
                                                         <div class="card-footer">
                                                             <i class="ti-calendar"></i>
                                                             <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("h:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
                                                     </div>
                                                 </li>
-                                            <?php else:?>
+                                            <?php else : ?>
                                                 <li class="self">
-                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario?>" >
-                                                        <p><?= $comentario->comentario?></p>
+                                                    <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
+                                                        <p><?= $comentario->comentario ?></p>
                                                         <div class="card-footer">
                                                             <i class="ti-calendar"></i>
                                                             <h6><?= date("d/m", strtotime($comentario->data_criacao)) ?> <?= date("h:i", strtotime($comentario->data_criacao)) ?></h6>
                                                         </div>
                                                     </div>
                                                     <div class="avatar">
-                                                    <img src="../../uploads/usuarios/<?= $comentario->foto_usuario?>" alt="Foto <?= $comentario->nome_usuario?>" title="Foto <?= $comentario->nome_usuario?>"/>
+                                                    <img src="../../uploads/usuarios/<?= $comentario->foto_usuario ?>" alt="Foto <?= $comentario->nome_usuario ?>" title="Foto <?= $comentario->nome_usuario ?>"/>
                                                     </div>
                                                 </li>
                                                 <?php endif;
-                                                endforeach;endif;?>
+                                                endforeach;
+                                                endif; ?>
                                         </ol>
                                         </div>
                                     </div>
@@ -256,7 +259,8 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
 
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'nErro') { ?>
             funcoes.showNotification(0,4,'<b>Erro</b> - erro ao salvar pauta.');
-        <?php } ?>
+        <?php 
+    } ?>
 
         $("#salvaPauta").click(function (e) { 
             e.preventDefault();
@@ -279,12 +283,13 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
         $("#aprovaPauta").click(function (e) { 
             e.preventDefault();
             swal({
-                title: 'Alguma Observção?',
+                title: 'Alguma observação sobre a pauta?',
                 html: '<div class="form-group">' +
                             '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
                         '</div>',
                 type: 'info',
                 showCancelButton: true,
+                cancelButtonText: 'Sair',
                 cancelButtonClass: 'btn btn-danger btn-fill',
                 confirmButtonClass: 'btn btn-success btn-fill',
                 confirmButtonText: 'Aprovar!',

@@ -46,7 +46,7 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_CLIENTE);
             $novo_log_aprovacao->id_tarefa = $id_tarefa;
             $novo_log_aprovacao->id_usuario = $id_usuario;
-        
+            //Aqui vai o email
             if(log_tarefas::insert($novo_log_aprovacao)){
                 header('Location: ../../view/adm/detalhes_conteudo.php?t='.$id_tarefa.'&retorno=naOk');
             }else{

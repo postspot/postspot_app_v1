@@ -69,7 +69,7 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_aprovacao->data_prevista = retornaDataPrevista($nova_etapa);
                 $novo_log_aprovacao->id_tarefa = $id_tarefa;
                 $novo_log_aprovacao->id_usuario = $id_usuario;
-            
+                //vai enviar email aqui
                 if(log_tarefas::insert($novo_log_aprovacao)){
                     header('Location: ../../view/adm/pautas.php?retorno=naOk');
                 }else{

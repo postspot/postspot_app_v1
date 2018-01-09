@@ -27,7 +27,8 @@ die();*/
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">                           
+                    <div class="container-fluid relative">       
+                    <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="cria_persona.php" class="btn btn-fixed fundo-rosa"><i class="material-icons">add</i> Nova persona</a>' : '' ?>                    
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">person</i> Personas</h4>
                         <div class="row">
                             <div class="col-md-12">
@@ -71,7 +72,7 @@ die();*/
                                                         </div>
                                                         <div class="col-xs-3 text-right">
                                                             <a href="edita_persona.php?persona=<?= $persona->id_persona ?>" class="btn btn-sm btn-icon fundo-roxo-escuro"><i class="fa fa-search"></i> ver persona</a>
-                                                            <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="#" onclick="deletaPersona(event,'. $persona->id_persona .',this);" class="btn btn-sm btn-icon fundo-roxo-padrao"><i class="fa fa-times"></i> Deletar</a>' : '' ?>
+                                                            <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="#" onclick="deletaPersona(event,'. $persona->id_persona .',this);" class="btn btn-sm btn-icon fundo-rosa-claro"><i class="fa fa-times"></i> Deletar</a>' : '' ?>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -84,7 +85,6 @@ die();*/
                         </div>
                     </div>
                 </div>
-                <?= ($_SESSION['funcao_usuario'] == 0)? '<a href="cria_persona.php" class="btn btn-icon btn-fixed"><i class="ti-plus"></i></a>' : '' ?>
             </div>
         </div>
     </body>

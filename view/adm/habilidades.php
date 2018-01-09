@@ -25,7 +25,10 @@ $habilidades = habilidades::getAllSkills();
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-                    <div class="container-fluid">
+                    <div class="container-fluid relative">
+                    <a href="#" class="btn btn-fixed fundo-rosa" onclick="funcoes.showSwal('habilidade')">
+                        <i class="material-icons">add</i> Nova habilidade
+                    </a>
                         <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Habilidades</h4>
                         <div class="row">
                             <div class="col-md-8">
@@ -39,7 +42,7 @@ $habilidades = habilidades::getAllSkills();
                                                             <?= $habilidade->nome_habilidade ?>
                                                         </div>
                                                         <div class="col-xs-4 text-right">
-                                                            <btn class="btn btn-sm btn-icon fundo-roxo-padrao" onclick="deletaHabilidade('<?= $habilidade->id_habilidade ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
+                                                            <btn class="btn btn-sm btn-icon fundo-rosa-claro" onclick="deletaHabilidade('<?= $habilidade->id_habilidade ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -51,9 +54,6 @@ $habilidades = habilidades::getAllSkills();
                         </div>
                     </div>
                 </div>
-                <a href="#" class="btn btn-icon btn-fixed" onclick="funcoes.showSwal('habilidade')">
-                    <i class="ti-plus"></i>
-                </a>
             </div>
         </div>
     </body>
@@ -70,6 +70,10 @@ $habilidades = habilidades::getAllSkills();
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,4,'<b>Erro</b> - habilidade não foi criada.');
+            });
+        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
+            $(document).ready(function() {
+                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome da habilidade.');
             });
         <?php } ?>
         function deletaHabilidade(cod_habilidade,btn) { 

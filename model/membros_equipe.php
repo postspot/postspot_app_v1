@@ -89,6 +89,29 @@ class membros_equipe {
 			echo $ex->getMessage();
 		}
 	}
+	public static function buscarClientesDaEquipe($projeto) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare('SELECT us.nome_usuario, us.email_usuario '
+		. ' FROM membros_equipe as me'
+		. ' INNER JOIN equipes eq'
+		. ' ON(me.id_equipe = eq.id_equipe)'
+		. ' INNER JOIN usuarios us'
+		. ' ON(me.id_usuario = us.id_usuario)'
+		. ' WHERE eq.id_projeto =:id_projeto AND us.funcao_usuario = 3');
+
+		$stmt->bindParam(":id_projeto", $projeto);
+		$stmt->execute();
+		$colunas = array();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			unset($row->senha_usuario);
+			array_push($colunas, $row);
+		}
+		return $colunas;
+		} catch(PDOException $ex) {
+			echo $ex->getMessage();
+		}
+	}
 
 
  //------------------ function delete($id)---------//

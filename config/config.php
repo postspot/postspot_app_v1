@@ -18,6 +18,9 @@ define('SITE', 'http://localhost/postspot/');
 //  define('SITE', 'http://app-postspot-com-br.umbler.net/postspot/');
 
 
+define('GUSER', 'app@melhorcomprabrasil.com');	// <-- Insira aqui o seu GMail
+define('GPWD', 'sJ@@GOmA$X');		//      <-- Insira aqui a senha do seu GMail
+define('APP_NOME', 'PostSpot');		//      <-- Insira aqui a senha do seu GMail
 
 
 date_default_timezone_set('America/Sao_Paulo');

@@ -223,3 +223,31 @@ function retornaStatusTarefa($status){
 function resetStatusTarefa($tarefa){
     log_tarefas::resetStatus($tarefa);
 }
+
+function smtpmailer($para, $assunto, $corpo){
+    global $error;
+    $mail = new PHPMailer();
+    $mail->SetLanguage("br");
+    $mail->CharSet = 'UTF-8';
+    $mail->IsMail();
+    $mail->IsHTML(true);
+    $mail->IsSMTP(); // Define que a mensagem será SMTP
+    $mail->SMTPDebug = 1;		// Debugar: 1 = erros e mensagens, 2 = mensagens apenas
+    $mail->SMTPAuth = true;		// Autenticação ativada
+    $mail->SMTPSecure = 'ssl';	// SSL REQUERIDO pelo GMail
+    $mail->Host = 'smtp.zoho.com';	// SMTP utilizado
+    $mail->Port = 465;  		// A porta 587 deverá estar aberta em seu servidor
+    $mail->Username = GUSER;
+    $mail->Password = GPWD;
+    $mail->SetFrom(GUSER, APP_NOME);
+    $mail->Subject = $assunto;
+    $mail->Body = $corpo;
+    $mail->AddAddress($para);
+    if (!$mail->Send()) {
+        echo 'Mail error: ' . $mail->ErrorInfo;
+        return false;
+    } else {
+        echo 'Mensagem enviada!';
+        return true;
+    }
+}

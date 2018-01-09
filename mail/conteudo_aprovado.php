@@ -1,10 +1,9 @@
 <?php
-$nome_adm = isset($_GET['nome_adm']) ? $_GET['nome_adm'] : 'ErroParametro';
-$nome_usuario = isset($_GET['nome']) ? $_GET['nome'] : 'ErroParametro';
-$email_usuario = isset($_GET['email']) ? $_GET['email'] : 'ErroParametro';
-$assunto_usuario = isset($_GET['assunto']) ? $_GET['assunto'] : 'ErroParametro';
-$mensagem_usuario = isset($_GET['mensagem']) ? $_GET['mensagem'] : 'ErroParametro';
-$textoInformativo = isset($_GET['texto']) ? $_GET['texto'] : 'ErroParametro';
+require_once '../config/config.php';
+$nome = isset($_GET['nome']) ? $_GET['nome'] : 'ErroParametro';
+$titulo = isset($_GET['titulo']) ? $_GET['titulo'] : 'ErroParametro';
+$projeto = isset($_GET['projeto']) ? $_GET['projeto'] : 'ErroParametro';
+$aprovador = isset($_GET['aprovador']) ? $_GET['aprovador'] : 'ErroParametro';
 ?>
 <html>
     <head>
@@ -14,11 +13,11 @@ $textoInformativo = isset($_GET['texto']) ? $_GET['texto'] : 'ErroParametro';
 
     <body style="background-color: #efefef;font-family: sans-serif;">
         <table cellspacing="0" cellpadding="10" border="0" width="600" style="margin: 0 auto;background-color: white;border-bottom: 2px solid #9e6dce;padding-bottom: 10px;">
-            <tr><td align="center"><img src="../view/adm/assets/img/logo-colorido-horizontal.png" style="width: 200px;" align="center"></td></tr>
+            <tr><td align="center"><img src="<?=SITE?>view/adm/assets/img/logo-colorido-horizontal.png" style="width: 200px;" align="center"></td></tr>
             <tr>
                 <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">
-                    <p style="line-height: 150%;">Olá, <?= $nome_adm ?>!</p> 
-                    <p style="line-height: 150%">O conteúdo <b><?= $nome_adm ?></b> do projeto <b><?= $nome_adm ?></b> foi aprovado por <b><?= $nome_adm ?></b></p>     
+                    <p style="line-height: 150%;">Olá, <?= $nome ?>!</p> 
+                    <p style="line-height: 150%">O conteúdo <b><?= $titulo ?></b> do projeto <b><?= $projeto ?></b> foi aprovado por <b><?= $aprovador ?></b></p>     
                 </td>   
             </tr>
             <tr>

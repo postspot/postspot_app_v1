@@ -1,10 +1,10 @@
 <?php
-$nome_adm = isset($_GET['nome_adm']) ? $_GET['nome_adm'] : 'ErroParametro';
-$nome_usuario = isset($_GET['nome']) ? $_GET['nome'] : 'ErroParametro';
-$email_usuario = isset($_GET['email']) ? $_GET['email'] : 'ErroParametro';
-$assunto_usuario = isset($_GET['assunto']) ? $_GET['assunto'] : 'ErroParametro';
-$mensagem_usuario = isset($_GET['mensagem']) ? $_GET['mensagem'] : 'ErroParametro';
-$textoInformativo = isset($_GET['texto']) ? $_GET['texto'] : 'ErroParametro';
+require_once '../config/config.php';
+$nome = isset($_GET['nome']) ? $_GET['nome'] : 'ErroParametro';
+$titulo = isset($_GET['titulo']) ? $_GET['titulo'] : 'ErroParametro';
+$projeto = isset($_GET['projeto']) ? $_GET['projeto'] : 'ErroParametro';
+$data = isset($_GET['data']) ? $_GET['data'] : 'ErroParametro';
+$id_tarefa = isset($_GET['id_tarefa']) ? $_GET['id_tarefa'] : 'ErroParametro';
 ?>
 <html>
     <head>
@@ -14,15 +14,15 @@ $textoInformativo = isset($_GET['texto']) ? $_GET['texto'] : 'ErroParametro';
 
     <body style="background-color: #efefef;font-family: sans-serif;">
         <table cellspacing="0" cellpadding="10" border="0" width="600" style="margin: 0 auto;background-color: white;border-bottom: 2px solid #9e6dce;padding-bottom: 10px;">
-            <tr><td align="center"><img src="../view/adm/assets/img/logo-colorido-horizontal.png" style="width: 200px;" align="center"></td></tr>
+            <tr><td align="center"><img src="<?=SITE?>view/adm/assets/img/logo-colorido-horizontal.png" style="width: 200px;" align="center"></td></tr>
             <tr>
                 <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">
-                    <p style="line-height: 150%;">Olá, <?= $nome_adm ?>!</p> 
-                    <p style="line-height: 150%">O conteúdo <b><?= $nome_adm ?></b> do Projeto <b><?= $nome_adm ?></b> está pronto para ser aprovado na sua plataforma PostSpot. O conteúdo deverá ser <b>aprovado até o dia <?= $nome_adm ?></b></p>     
+                    <p style="line-height: 150%;">Olá, <?= $nome ?>!</p> 
+                    <p style="line-height: 150%">O conteúdo <b><?= $titulo ?></b> do Projeto <b><?= $projeto ?></b> está pronto para ser aprovado na sua plataforma PostSpot. O conteúdo deverá ser <b>aprovado até o dia <?= $data ?></b></p>     
                 </td>   
             </tr>
             <tr>
-                <td align="center" height="70"><a target="_blank" href="<?= $nome_adm ?>" style="text-decoration: none;background-color: #ec268f;border-color: #ec268f;color: #fff;border-radius: 20px;border: 2px;font-size: 14px;font-weight: 600;padding: 10px 20px;cursor: pointer;"> CLIQUE AQUI PARA VISUALIZAR A PAUTA</a></td>
+                <td align="center" height="70"><a target="_blank" href="<?=SITE?>view/adm/detalhes_conteudo.php?t=<?= $id_tarefa ?>" style="text-decoration: none;background-color: #ec268f;border-color: #ec268f;color: #fff;border-radius: 20px;border: 2px;font-size: 14px;font-weight: 600;padding: 10px 20px;cursor: pointer;"> CLIQUE AQUI PARA VISUALIZAR O CONTEÚDO</a></td>
             </tr>
             <tr>
             <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">

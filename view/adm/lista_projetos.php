@@ -9,7 +9,7 @@ $projetos = projetos::getByUsuario($_SESSION['id_usuario']);
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium - Projetos</title>
+        <title>Projetos - Postspot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 

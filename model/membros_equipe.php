@@ -66,7 +66,7 @@ class membros_equipe {
 		}
 	}
 
-	public static function buscarPessoasDaEquipe($projeto) {
+	public static function buscarPessoasDaEquipe($projeto, $cond) {
 
 	 try {
 		$stmt = Conexao::getInstance()->prepare('SELECT * '
@@ -75,7 +75,7 @@ class membros_equipe {
 		. ' ON(me.id_equipe = eq.id_equipe)'
 		. ' INNER JOIN usuarios us'
 		. ' ON(me.id_usuario = us.id_usuario)'
-		. ' WHERE eq.id_projeto =:id_projeto');
+		. ' WHERE eq.id_projeto =:id_projeto '.$cond);
 
 		$stmt->bindParam(":id_projeto", $projeto);
 		$stmt->execute();

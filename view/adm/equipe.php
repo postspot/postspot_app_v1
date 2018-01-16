@@ -5,15 +5,23 @@ require_once '../../model/membros_equipe.php';
 require_once '../../model/usuarios.php';
 require_once 'includes/header_padrao.php';
 
-$membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
+if($_SESSION['funcao_usuario'] != 0):
+    $cond = 'AND (us.funcao_usuario <> 2 OR us.funcao_usuario = 3)';
+else:
+    $cond = '';
+endif;
+$membros_equipe = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto'], $cond);
+$membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto'], '');
 $possiveis_membros = usuarios::getMenosEscritores($_SESSION['id_projeto']);
 $qtd_escritores = usuarios::countRedatores();
 
+// pre_r($membros_equipe);
+// die();
 ?>
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Equipe - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -123,8 +131,9 @@ $qtd_escritores = usuarios::countRedatores();
                             </div>
                             <div class="col-md-6">
                             <h3 class="cor-roxo-escuro" style="margin-left: 15;">Equipe PostSpot</h3>
-                            <?php foreach ($membros as $membro) :
-                                if ($membro->funcao_usuario != 3 && $membro->funcao_usuario != 2) :
+                            <?php foreach ($membros_equipe as $membro) :
+                                if ($membro->funcao_usuario != 3) :
+                                    // if($membro->funcao_usuario == 2 && $_SESSION['funcao_usuario'] == 0 ):
                             ?>
                                 <div class="col-md-12" id="membro<?= $membro->id_membros ?>">
                                     <div class="card card-membro">
@@ -175,12 +184,12 @@ $qtd_escritores = usuarios::countRedatores();
     var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - membros vinculados corretamente.');
+                funcoes.showNotification(0,1,'Membros vinculados corretamente.');
             });
         <?php 
     } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - membros não vinculados.');
+                funcoes.showNotification(0,4,'<b>Erro</b> membros não vinculados.');
             });
         <?php 
     } ?>

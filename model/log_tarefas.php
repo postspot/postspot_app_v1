@@ -130,7 +130,7 @@ class log_tarefas
 	{
 
 		try {
-			$stmt = Conexao::getInstance()->prepare("SELECT lg.etapa, ta.nome_tarefa, ta.id_tarefa FROM log_tarefas lg INNER JOIN tarefas ta ON (lg.id_tarefa = ta.id_tarefa) WHERE ta.id_projeto = :projeto AND lg.status = 1 ORDER BY lg.id_log DESC LIMIT 10");
+			$stmt = Conexao::getInstance()->prepare("SELECT lg.etapa, ta.nome_tarefa, ta.id_tarefa FROM log_tarefas lg INNER JOIN tarefas ta ON (lg.id_tarefa = ta.id_tarefa) WHERE ta.id_projeto = :projeto AND lg.status = 1 AND (lg.etapa = 1 || lg.etapa = 2 || lg.etapa = 3 || lg.etapa = 8 || lg.etapa = 9 || lg.etapa = 10 || lg.etapa = 13 || lg.etapa = 14 || lg.etapa = 15) ORDER BY lg.id_log DESC LIMIT 10");
 
 			$stmt->bindParam(":projeto", $projeto);
 			$stmt->execute();

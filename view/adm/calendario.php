@@ -6,7 +6,7 @@ require_once 'includes/header_padrao.php';
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Calendário - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 

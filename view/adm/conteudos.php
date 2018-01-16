@@ -57,7 +57,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium - Conteudos</title>
+        <title>Conteudos - Post Stadium</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 

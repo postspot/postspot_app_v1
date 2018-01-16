@@ -90,8 +90,8 @@ function mesEscrito($date) {
 
 
 function funcaoCliente($funcao){
-    $funcoes = array('0' => 'Analista de Produção',
-        '1' => 'Analista de Qualidade',
+    $funcoes = array('0' => 'Analista de Sucesso',
+        '1' => 'Analista de Planejamento',
         '2' => 'Redator',
         '3' => 'Cliente',
         '4' => 'Designer'
@@ -168,49 +168,104 @@ function retornaDataPrevista($aux){
 function retornaStatusTarefa($status){
     switch ($status) {
         case 0: 
-            return 'Escrevendo';
+            return 'Pauta em produção';
             break;
         case 1: 
-            return 'Aguardando Aprovação Moderador';
+            return 'Pauta em avaliação'; //
             break;
         case 2: 
-            return 'Aguardando Aprovação Cliente';
+            return 'Pauta em aprovação'; //
+            break;
+        case 3: 
+            return 'Pauta Reprovada'; //
+            break;
+        case 4: 
+            return 'Pauta em ajuste';
+            break;
+        case 5: 
+            return 'Pauta em avaliação';
+            break;
+        case 6: 
+            return 'Pauta reprovada';
+            break;
+        case 7: 
+            return 'Conteúdo em produção';
+            break;
+        case 8: 
+            return 'Conteúdo em avaliação'; //
+            break;
+        case 9: 
+            return 'Conteúdo em aprovação'; //
+            break;
+        case 10: 
+            return 'Conteúdo Reprovado'; //
+            break;
+        case 11: 
+            return 'Conteúdo em ajuste';
+            break;
+        case 12: 
+            return 'Conteúdo em avaliação';
+            break;
+        case 13: 
+            return 'Conteúdo em aprovação';//
+            break;
+        case 14: 
+            return 'Conteúdo em publicar';
+            break;
+        case 15: 
+            return 'Conteúdo Publicado';//
+            break;
+        default:
+            break;
+    }
+}
+
+function retornaTextoNotificacaoTarefa($status){
+    switch ($status) {
+        case 0: 
+            return 'Pauta em produção';
+            break;
+        case 1: 
+            return 'Pauta em avaliação';
+            break;
+        case 2: 
+            return 'Pauta em aprovação';
             break;
         case 3: 
             return 'Pauta Reprovada';
             break;
         case 4: 
-            return 'Ajustando Pauta';
+            return 'Pauta em ajuste';
             break;
         case 5: 
-            return 'Reaprovação do moderador';
+            return 'Pauta em avaliação';
             break;
         case 6: 
-            return 'Reaprovando Pauta';
+            return 'Pauta reprovada';
             break;
         case 7: 
-            return 'Criando Conteúdo';
+            return 'Conteúdo em produção';
             break;
         case 8: 
-            return 'Aguardando Aprovação Moderador';
+            return 'Conteúdo em avaliação';
             break;
         case 9: 
-            return 'Aguardando Aprovação Cliente';
+            return 'Conteúdo em aprovação';
             break;
         case 10: 
             return 'Conteúdo Reprovado';
             break;
         case 11: 
-            return 'Ajustando Conteúdo';
+            return 'Conteúdo em ajuste';
             break;
         case 12: 
-            return 'Aguardando Aprovação Moderador';
+            return 'Conteúdo em avaliação';
             break;
         case 13: 
-            return 'Aprovação Final';
+            return 'Conteúdo em aprovação';
             break;
         case 14: 
-            return 'Conteúdo para Publicar';
+            return 'Conteúdo em publicar';
             break;
         case 15: 
             return 'Conteúdo Publicado';

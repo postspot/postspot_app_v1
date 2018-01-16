@@ -333,10 +333,10 @@ funcoes = {
                     text: "Após a exclusão o projeto não poderá ser recuperado",
                     type: 'warning',
                     showCancelButton: true,
-                    cancelButtonText: 'Não',
+                    cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
+                    confirmButtonText: 'Sim, deletar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_projeto: codDeletado}
@@ -351,7 +351,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'O projeto foi excluído da plataforma',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -359,7 +359,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'O projeto não foi excluído.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
@@ -381,8 +381,8 @@ funcoes = {
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
-                    cancelButtonText: 'Não',
+                    confirmButtonText: 'Sim, deletar',
+                    cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_habilidade: codDeletado}
@@ -397,7 +397,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'A habilidade foi excluída',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -405,7 +405,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'A habilidade não foi deletada.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
@@ -427,8 +427,8 @@ funcoes = {
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
-                    cancelButtonText: 'Não',
+                    confirmButtonText: 'Sim, deletar',
+                    cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_tipo: codDeletado}
@@ -443,7 +443,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'Tipo de conteúdo excluído',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -451,7 +451,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'Tipo de conteúdo não excluído.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
@@ -473,8 +473,8 @@ funcoes = {
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
-                    cancelButtonText: 'Não',
+                    confirmButtonText: 'Sim, deletar',
+                    cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_idioma: codDeletado}
@@ -489,7 +489,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'Idioma excluído.',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -497,7 +497,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'Idioma não excluído.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
@@ -519,8 +519,8 @@ funcoes = {
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
-                    cancelButtonText: 'Não',
+                    confirmButtonText: 'Sim, deletar',
+                    cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_categoria: codDeletado}
@@ -535,7 +535,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'A Categoria foi excluída.',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -543,7 +543,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'A Categoria não foi excluída.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
@@ -566,8 +566,8 @@ funcoes = {
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
-                    cancelButtonText: 'Não',
+                    confirmButtonText: 'Sim, deletar',
+                    cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_membros: codDeletado}
@@ -582,7 +582,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'Membro excluído.',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -590,7 +590,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'Membro não excluído.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",
@@ -613,8 +613,8 @@ funcoes = {
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Sim, deletar!',
-                    cancelButtonText: 'Não',
+                    confirmButtonText: 'Sim, deletar',
+                    cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function() {
                     dados = {id_persona: codDeletado}
@@ -629,7 +629,7 @@ funcoes = {
                             if(data == 'true'){
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso!',
+                                  title: 'Sucesso',
                                   text: 'Persona excluída.',
                                   type: 'success',
                                   confirmButtonClass: "btn btn-success btn-fill",
@@ -637,7 +637,7 @@ funcoes = {
                                   })
                             }else{
                                 swal({
-                                  title: 'Erro!',
+                                  title: 'Erro',
                                   text: 'Persona não foi deletada.',
                                   type: 'error',
                                   confirmButtonClass: "btn btn-info btn-fill",

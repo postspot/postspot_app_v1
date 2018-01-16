@@ -49,6 +49,8 @@ $notificacoes = log_tarefas::getNotificacoes($_SESSION['id_projeto']);
 
                     <ul class="dropdown-menu">
                         <li><a href="lista_projetos.php" >Trocar Projeto</a></li>
+                        <li><a href="https://postspot.zendesk.com/hc/pt-br" target="_blank" >Central de Ajuda</a></li>
+                        <li><a href="#">Conta: <?= $_SESSION['id_projeto'] ?></a></li>
                         <li><a href="../../controller/usuario/logout.php">Sair</a></li>
                     </ul>
                 </li>

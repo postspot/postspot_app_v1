@@ -22,7 +22,7 @@ $idiomas_user = idiomas_usuario::getIdiomasUsuario($usuario->id_usuario);
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Edita Usuário - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 

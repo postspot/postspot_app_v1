@@ -9,7 +9,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Tipo Conteúdo - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -65,15 +65,15 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
     var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - tipo de conteúdo criado corretamente.');
+                funcoes.showNotification(0,1,'Tipo de conteúdo criado.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - tipo de conteúdo não foi criado.');
+                funcoes.showNotification(0,4,'Tipo de conteúdo não foi criado.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome do tipo de conteúdo.');
+                funcoes.showNotification(0,4,'Informe o nome do tipo de conteúdo.');
             });
         <?php } ?>
         function deletaTipoTarefa(cod_tipo,btn) { 

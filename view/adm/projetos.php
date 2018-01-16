@@ -14,7 +14,7 @@ foreach ($clientes as $cliente) {
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Projetos - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -92,15 +92,15 @@ foreach ($clientes as $cliente) {
         var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - projeto foi criado corretamente.');
+                funcoes.showNotification(0,1,'Projeto foi criado.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'error') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - projeto editado com sucesso.');
+                funcoes.showNotification(0,1,'Projeto editado.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome do projeto.');
+                funcoes.showNotification(0,4,'Informe o nome do projeto.');
             });
         <?php } ?>
         function deletaProjeto(cod_projeto,btn) { 

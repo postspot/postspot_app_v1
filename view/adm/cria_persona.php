@@ -6,7 +6,7 @@ require_once 'includes/header_padrao.php';
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Cria Persona - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -168,7 +168,7 @@ require_once 'includes/header_padrao.php';
     <script>
     <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'falha') { ?>
         $(document).ready(function() {
-            funcoes.showNotification(0,4,'<b>Erro</b> - Erro ao criar persona.');
+            funcoes.showNotification(0,4,'<b>Erro</b> ao criar persona.');
         });
     <?php } ?>
     </script>

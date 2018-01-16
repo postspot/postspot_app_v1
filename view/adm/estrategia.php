@@ -26,7 +26,7 @@ endforeach;
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Estratégia - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -302,11 +302,11 @@ endforeach;
     <script>
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - estratégia editada corretamente.');
+                funcoes.showNotification(0,1,'Estratégia editada corretamente.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - estratégia não editada.');
+                funcoes.showNotification(0,4,'<b>Erro</b> estratégia não editada.');
             });
         <?php } ?>
     </script>

@@ -10,7 +10,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Cria Pauta - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -170,7 +170,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
         $('#formCriaPauta').validate();
 
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'nErro') { ?>
-            funcoes.showNotification(0,4,'<b>Erro</b> - erro ao criar pauta.');
+            funcoes.showNotification(0,4,'<b>Erro</b> ao criar pauta.');
         <?php } ?>
 
         $("#salvaPauta").click(function (e) { 

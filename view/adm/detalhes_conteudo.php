@@ -17,7 +17,7 @@ if (!isset($_GET["t"])) {
 }
 $condicaoComentario = (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : (($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 1, $condicaoComentario);
-$membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto']);
+$membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto'],'');
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getById($tarefa->id_persona);
 $referencias_banco = explode("\n", $tarefa->referencias);
@@ -34,7 +34,7 @@ endforeach;
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Detalhes Conteúdo - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
         <script src="ckeditor/ckeditor.js"></script>
         <script src="ckeditor/sample.js"></script>
@@ -156,7 +156,6 @@ endforeach;
                                                     </div>
                                                 <?php endif; ?>
                                             </div>
-                                            <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
                                                 <div class="tab-pane pane-pauta min-height" id="ajuste">
                                                     <form action="../../controller/conteudo/envia_aprovacao.php" method="post" enctype="multipart/form-data" id="formConteudo">
                                                         <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
@@ -166,7 +165,6 @@ endforeach;
                                                         <textarea name="texto_publicacao" id="editor"><?= (empty($conteudo)) ? '' : $conteudo ?></textarea>
                                                     </form>
                                                 </div>
-                                            <?php endif; ?>
                                             <div class="tab-pane pane-pauta" id="pauta">
                                                 <h1><?= $tarefa->nome_tarefa ?></h1>
                                                 <hr>
@@ -485,7 +483,7 @@ endforeach;
                             width: 900,
                             showCancelButton: false,
                             confirmButtonClass: 'btn btn-success btn-fill',
-                            confirmButtonText: 'Fechar!',
+                            confirmButtonText: 'Fechar',
                             buttonsStyling: false
                         }).then(function() {});  
                             CKEDITOR.replace( 'editorHistorico', {
@@ -507,7 +505,7 @@ endforeach;
                     title: 'Tem certeza?',
                     type: 'warning',
                     showCancelButton: true,
-                    cancelButtonText: 'Sair',
+                    cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
                     confirmButtonText: 'Excluir',
@@ -545,7 +543,7 @@ endforeach;
                     showCancelButton: true,
                     confirmButtonClass: 'btn btn-success btn-fill',
                     cancelButtonClass: 'btn btn-danger btn-fill',
-                    confirmButtonText: 'Sim!',
+                    confirmButtonText: 'Sim',
                     cancelButtonText: 'Não',
                     buttonsStyling: false
                 }).then(function() {
@@ -595,22 +593,22 @@ endforeach;
         $(document).ready(function () {
            
             <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo aprovado.');
+                funcoes.showNotification(0,1,'Conteúdo aprovado.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo salvo.');
+                funcoes.showNotification(0,1,'Conteúdo salvo.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'lOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Link salvo.');
+                funcoes.showNotification(0,1,'Conteúdo publicado.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo enviado para aprovação.');
+                funcoes.showNotification(0,1,'Conteúdo enviado para aprovação.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Conteúdo reprovado.');
+                funcoes.showNotification(0,1,'Conteúdo reprovado.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'imgOk') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - Imagem adicionada.');
+                funcoes.showNotification(0,1,'Imagem adicionada.');
             <?php 
         } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'cErro') { ?>
                 funcoes.showNotification(0,4,'<b>Erro</b> - entre em contato com o gerente.');
@@ -672,19 +670,19 @@ endforeach;
                 e.preventDefault();
                 swal({
                     html: '<div class="form-group">' +
-                                '<label>Qual a sua avaliação para o conteúdo produzido?</label>'+
-                                '<div class="radio"><input type="radio" name="radioNota" id="radio1" value="1"><label for="radio1"><i class="material-icons">sentiment_very_dissatisfied</i> Muito insatisfeito</label></div>'+
-                                '<div class="radio"><input type="radio" name="radioNota" id="radio2" value="2"><label for="radio2"><i class="material-icons">sentiment_dissatisfied</i> Insatisfeito</label></div>'+
-                                '<div class="radio"><input type="radio" name="radioNota" id="radio3" value="3"><label for="radio3"><i class="material-icons">sentiment_neutral</i> Indiferente</label></div>'+
-                                '<div class="radio"><input type="radio" name="radioNota" id="radio4" value="4"><label for="radio4"><i class="material-icons">sentiment_satisfied</i> Bom</label></div>'+
-                                '<div class="radio"><input type="radio" name="radioNota" id="radio5" value="5"><label for="radio5"><i class="material-icons">sentiment_very_satisfied</i> Muito bom</label></div>'+
+                                '<label>Ajude  nos a aperfeiçoar as entregas de conteúdo. De 1 a 5 como você avalia o conteúdo que acabou de aprovar?</label>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio1" value="1"><label for="radio1">1</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio2" value="2"><label for="radio2">2</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio3" value="3"><label for="radio3">3</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio4" value="4"><label for="radio4">4</label></div>'+
+                                '<div class="radio"><input type="radio" name="radioNota" id="radio5" value="5"><label for="radio5">5</label></div>'+
                             '</div>',
                     type: 'info',
                     showCancelButton: true,
-                    cancelButtonText: 'Sair',
+                    cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Aprovar!',
+                    confirmButtonText: 'Aprovar',
                     buttonsStyling: false
                 }).then(function() {
                     // $("#inputNota").val($("#inputNotaModal").val());
@@ -702,10 +700,10 @@ endforeach;
                             '</div>',
                     type: 'warning',
                     showCancelButton: true,
-                    cancelButtonText: 'Sair',
+                    cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Reprovar!',
+                    confirmButtonText: 'Reprovar',
                     buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());
@@ -728,10 +726,10 @@ endforeach;
                             '</div>',
                     type: 'warning',
                     showCancelButton: true,
-                    cancelButtonText: 'Sair',
+                    cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Reprovar!',
+                    confirmButtonText: 'Reprovar',
                     buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());

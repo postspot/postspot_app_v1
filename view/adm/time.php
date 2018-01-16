@@ -10,7 +10,7 @@ $users = usuarios::getAll();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Membros - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -187,13 +187,13 @@ $users = usuarios::getAll();
                 });
 	         } );
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - usuário criado corretamente.');
+                funcoes.showNotification(0,1,'Usuário criado corretamente.');
         <?php 
     } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'eok') { ?>
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - usuário editado.');
+                funcoes.showNotification(0,1,'Usuário editado.');
         <?php 
     } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
-                funcoes.showNotification(0,4,'<b>Erro</b> - usuário não criado.');
+                funcoes.showNotification(0,4,'Usuário não criado.');
         <?php 
     } ?>
 

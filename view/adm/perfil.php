@@ -19,7 +19,7 @@ die();*/
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Perfil - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -194,13 +194,13 @@ die();*/
         $('#formEditaUsuario').validate();
 
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
-            funcoes.showNotification(0,1,'<b>Sucesso</b> - Perfil atualizado.');
+            funcoes.showNotification(0,1,'Perfil atualizado.');
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
-            funcoes.showNotification(0,4,'<b>Erro</b> - Perfil não atualziado.');
+            funcoes.showNotification(0,4,'Perfil não atualziado.');
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'sOk') { ?>
-            funcoes.showNotification(0,1,'<b>Sucesso</b> - Senha atualziada.');
+            funcoes.showNotification(0,1,'Senha atualziada.');
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'sErro') { ?>
-            funcoes.showNotification(0,4,'<b>Erro</b> - Senha não atualziada.');
+            funcoes.showNotification(0,4,'Senha não atualizada.');
         <?php } ?>
         });
     </script>

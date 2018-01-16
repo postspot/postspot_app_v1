@@ -11,7 +11,7 @@ die();*/
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Personas - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -96,11 +96,11 @@ die();*/
     var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona foi criada corretamente.');
+                funcoes.showNotification(0,1,'Persona foi criada.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'eOk') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - persona editada com sucesso.');
+                funcoes.showNotification(0,1,'Persona editada.');
             });
         <?php } ?>
         function deletaPersona(e,cod_persona,btn) { 

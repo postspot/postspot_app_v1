@@ -52,7 +52,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Post Stadium - Pautas</title>
+        <title>Pautas Postspot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -153,7 +153,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                                     <p><?= $pauta->nome_tarefa ?></p>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <p><?= retornaStatusTarefa($pauta->etapa) ?></p>
+                                                    <p><?=  ($pauta->etapa < CONTEUDO_ESCREVENDO ) ? retornaStatusTarefa($pauta->etapa) : 'Pauta aprovada' ?></p>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <a href="detalhes_pauta.php?t=<?= $pauta->id_tarefa ?>" class="btn btn-success fill-up btn-wd fundo-roxo-escuro">ver pauta</a>
@@ -176,13 +176,13 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
     <script>
         $(document).ready(function () {
 <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'apOk') { ?>
-                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta aprovada.');
+                funcoes.showNotification(0, 1, 'Pauta aprovada');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
-                funcoes.showNotification(0, 1, 'Pauta salva com <b>sucesso</b>.');
+                funcoes.showNotification(0, 1, 'Pauta salva');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
-                funcoes.showNotification(0, 1, 'Pauta enviada para o gestor com <b>sucesso</b>.');
+                funcoes.showNotification(0, 1, 'Pauta enviada para avaliação');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
-                funcoes.showNotification(0, 1, '<b>Sucesso</b> - Pauta reprovada.');
+                funcoes.showNotification(0, 1, 'Pauta reprovada.');
 <?php } ?>
         });
 

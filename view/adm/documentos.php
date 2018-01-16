@@ -11,7 +11,7 @@ die();*/
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Documentos - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -80,10 +80,10 @@ die();*/
 	    $(document).ready(function() {
         
             <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
-                    funcoes.showNotification(0,1,'<b>Sucesso</b> - documento(s) enviado(s) corretamente.');
+                    funcoes.showNotification(0,1,'Documento(s) enviado(s) corretamente.');
             <?php 
 										} else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
-                   funcoes.showNotification(0,4,'<b>Erro</b> - documento(s) não enviado(s).');
+                   funcoes.showNotification(0,4,'<b>Erro</b> documento(s) não enviado(s).');
             <?php 
 										} ?>
 
@@ -123,7 +123,7 @@ die();*/
 
 	            var data = table.row($tr).data();
 				
-                var urlFile = "http://localhost/postspot/uploads/projetos/<?= $_SESSION['id_projeto'] ?>-arquivos/" + data[1];
+                var urlFile = "<?= SITE?>postspot/uploads/projetos/<?= $_SESSION['id_projeto'] ?>-arquivos/" + data[1];
                 var win = window.open(urlFile, '_blank');
                 win.focus();
 	         } );

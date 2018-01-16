@@ -21,7 +21,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Detalhes Pauta - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -258,7 +258,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
     $(document).ready(function () {
 
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'nErro') { ?>
-            funcoes.showNotification(0,4,'<b>Erro</b> - erro ao salvar pauta.');
+            funcoes.showNotification(0,4,'<b>Erro</b> ao salvar pauta.');
         <?php 
     } ?>
 
@@ -289,10 +289,10 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                         '</div>',
                 type: 'info',
                 showCancelButton: true,
-                cancelButtonText: 'Sair',
+                cancelButtonText: 'Cancelar',
                 cancelButtonClass: 'btn btn-danger btn-fill',
                 confirmButtonClass: 'btn btn-success btn-fill',
-                confirmButtonText: 'Aprovar!',
+                confirmButtonText: 'Aprovar',
                 buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());
@@ -304,7 +304,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
             e.preventDefault();
             
             swal({
-                title: 'Informe o motivo?',
+                title: 'Informe, de forma clara, o motivo da reprovação do conteúdo',
                 html: '<div class="form-group">' +
                             '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
                         '</div>',
@@ -312,7 +312,8 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                 showCancelButton: true,
                 cancelButtonClass: 'btn btn-danger btn-fill',
                 confirmButtonClass: 'btn btn-success btn-fill',
-                confirmButtonText: 'Reprovar!',
+                confirmButtonText: 'Reprovar',
+                cancelButtonText: 'Cancelar',
                 buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());
@@ -325,7 +326,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
             e.preventDefault();
             
             swal({
-                title: 'Informe o motivo?',
+                title: 'Informe, de forma clara, o motivo da reprovação do conteúdo',
                 html: '<div class="form-group">' +
                             '<textarea class="form-control" row="5" id="inputMotivoModal"></textarea>' +
                         '</div>',
@@ -333,7 +334,8 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                 showCancelButton: true,
                 cancelButtonClass: 'btn btn-danger btn-fill',
                 confirmButtonClass: 'btn btn-success btn-fill',
-                confirmButtonText: 'Reprovar!',
+                confirmButtonText: 'Reprovar',
+                cancelButtonText: 'Cancelar',
                 buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());

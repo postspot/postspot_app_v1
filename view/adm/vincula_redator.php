@@ -12,7 +12,7 @@ die();*/
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Vincula Redator - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 

@@ -70,7 +70,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Dashboard - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -211,7 +211,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                                     <select class="form-control select-customizado" name="titulo_noticia">
                                                         <option selected disabled>Buscar pelo nome...</option>
                                                         <?php foreach ($totasTarefas as $tarefa) : ?>
-                                                            <option value="<?= $tarefa->id_tarefa ?>"><?= $tarefa->nome_tarefa ?></option>
+                                                            <option value="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>"><?= $tarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
                                                     </select>
                                                 </div>
@@ -308,13 +308,18 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
     
     <script>
     $(document).ready(function() {
+        var siteBase = '<?= SITE ?>';
         $(".select-customizado").select2();
 
         $("#btnBuscarFiltro").click(function (e) { 
-            var siteBase = '<?= SITE ?>';
             var tipo = $("#filtroTipoTarefa").val();
             var status = $("#filtroStatusTarefa").val();
             window.location.href = siteBase + 'view/adm/dashboard.php?t='+tipo+'&s=' + status;
+        });
+
+        
+        $('.select-customizado').on("change", function(e) {
+            window.location.href = siteBase + 'view/adm/'+$(this).val();
         });
     });
     </script>

@@ -9,7 +9,7 @@ $habilidades = habilidades::getAllSkills();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Habilidades - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -65,15 +65,15 @@ $habilidades = habilidades::getAllSkills();
     var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - habilidade criada corretamente.');
+                funcoes.showNotification(0,1,'Habilidade criada corretamente.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - habilidade não foi criada.');
+                funcoes.showNotification(0,4,'Habilidade não foi criada.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> - Informe o nome da habilidade.');
+                funcoes.showNotification(0,4,'<b>Erro</b> informe o nome da habilidade.');
             });
         <?php } ?>
         function deletaHabilidade(cod_habilidade,btn) { 

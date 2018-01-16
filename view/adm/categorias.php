@@ -9,7 +9,7 @@ $categorias = categorias::getAll();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Categorias - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -65,7 +65,7 @@ $categorias = categorias::getAll();
     var elem;
         <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,1,'<b>Sucesso</b> - categoria criada corretamente.');
+                funcoes.showNotification(0,1,'Categoria criada corretamente.');
             });
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {

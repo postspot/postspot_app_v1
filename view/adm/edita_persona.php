@@ -15,7 +15,7 @@ $disabled = ($_SESSION['funcao_usuario'] != 0) ? 'disabled="disabled"' : '';
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>PostSpot</title>
+        <title>Edita Persona - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -308,7 +308,7 @@ $disabled = ($_SESSION['funcao_usuario'] != 0) ? 'disabled="disabled"' : '';
     <script>
 <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'falha') { ?>
             $(document).ready(function () {
-                funcoes.showNotification(0, 4, '<b>Erro</b> - Erro ao editar persona.');
+                funcoes.showNotification(0, 4, '<b>Erro</b> ao editar persona.');
             });
     <?php 
 }

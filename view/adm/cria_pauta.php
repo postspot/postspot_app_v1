@@ -57,7 +57,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="col-md-2 control-label">Palavra Chave</label>
+                                                <label class="col-md-2 control-label">Palavra-chave</label>
                                                 <div class="col-md-9">
                                                     <input required type="text" class="form-control" name="palavra_chave" required="true">
                                                 </div>
@@ -136,7 +136,7 @@ $persona = personas::getByProjeto($_SESSION['id_projeto']);
                                 <div class="col-md-4">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title">Ação necessaria</h4>
+                                            <h4 class="card-title">Ação necessária</h4>
                                         </div>
                                         <div class="card-content">
                                             <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-roxo-escuro" id="salvaPauta">

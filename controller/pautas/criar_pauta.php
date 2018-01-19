@@ -3,6 +3,7 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/tarefas.php';
 require_once '../../model/log_tarefas.php';
+require_once '../../lib/phpMailer.php';
 
 session_start();
 
@@ -18,6 +19,7 @@ $estagio_compra = $_POST["estagio_compra"];
 $id_projeto = $_SESSION['id_projeto'];
 $id_usuario = $_SESSION['id_usuario'];
 $aprovacao = ($_POST["aprovacao"] == 1) ? 1 : 0;
+$moderadors = membros_equipe::buscarModeradorDaEquipe($_SESSION['id_projeto']);
 
 if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) && 
     isset($briefing_tarefa) && isset($estagio_compra) && isset($id_persona) &&
@@ -73,6 +75,27 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_aprovacao->data_prevista = retornaDataPrevista(PAUTA_APROVACAO_MODERADOR);
                 $novo_log_aprovacao->id_tarefa = $id_tarefa;
                 $novo_log_aprovacao->id_usuario = $id_usuario;
+                //Vai enviar email aqui
+
+                $assunto = 'Pauta em avaliação no projeto ' . $_SESSION['nome_projeto'] . ' - ' . date("d/m/Y") . ' às ' . date("H:i");
+                foreach ($moderadors as $moderador) :
+                    //    PREPARA AS VARIAVEIS
+                    $param_email = array(
+                        'nome' => $moderador->nome_usuario,
+                        'titulo' => $nome_tarefa,
+                        'projeto' => $_SESSION['nome_projeto'],
+                        'data' => date("d/m/Y", strtotime($novo_log_aprovacao->data_prevista)),
+                        'id_tarefa' => $id_tarefa
+                    );
+
+                    //    LINKA + PARAMETROS
+                    $parametros = SITE . 'mail/pauta_avaliacao.php?' . http_build_query($param_email);
+
+                    // VARIAVEIS
+                    $para = $moderador->email_usuario;
+                    $tmp = file_get_contents($parametros);
+                    smtpmailer($para, $assunto, $tmp);
+                endforeach;
             
                 if(log_tarefas::insert($novo_log_salvo) && log_tarefas::insert($novo_log_aprovacao)){
                     header('Location: ../../view/adm/pautas.php?retorno=naOk');

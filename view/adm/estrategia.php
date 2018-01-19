@@ -13,13 +13,14 @@ $linguagens = linguagens::getAll();
 $categorias = categorias::getAll();
 $linguagens_estrategia = linguagens_estrategia::getById($estrategia->id_estrategia);
 $categorias_estrategias = categorias_estrategia::getById($estrategia->id_estrategia);
-$linksReferenciasBanco = explode("\n", $estrategia->links_ref); 
+$linksReferenciasBanco = explode("\n", $estrategia->links_ref);
 $linksSociaisBanco = explode("\n", $estrategia->links);
-$linksSociais = '';$linksReferencias = '';
-foreach ($linksSociaisBanco as $linkSocial):
+$linksSociais = '';
+$linksReferencias = '';
+foreach ($linksSociaisBanco as $linkSocial) :
     $linksSociais .= '<li><a href="' . $linkSocial . '" target="_blank">' . $linkSocial . '</a></li>';
 endforeach;
-foreach ($linksReferenciasBanco as $linkReferencia):
+foreach ($linksReferenciasBanco as $linkReferencia) :
     $linksReferencias .= '<li><a href="' . $linkReferencia . '" target="_blank">' . $linkReferencia . '</a></li>';
 endforeach;
 ?>
@@ -42,91 +43,89 @@ endforeach;
                 <?php require_once './includes/menu_topo.php'; ?>
 
                 <div class="content">
-
-                    <div class="content">
-                        <div class="container-fluid">
-                            <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">store</i> Estratégia</h4>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="nav-tabs-navigation">
-                                                <div class="nav-tabs-wrapper">
-                                                    <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                                                        <li class="active"><a href="#estrategia" data-toggle="tab">Estratégia</a></li>
-                                                        <?= ($_SESSION['funcao_usuario'] == 0)? '<li><a href="#editar" data-toggle="tab">Editar</a></li>' : '' ?>
-                                                    </ul>
-                                                </div>
+                    <div class="container-fluid">
+                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">store</i> Estratégia</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-content">
+                                        <div class="nav-tabs-navigation">
+                                            <div class="nav-tabs-wrapper">
+                                                <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                                                    <li class="active"><a href="#estrategia" data-toggle="tab">Estratégia</a></li>
+                                                    <?= ($_SESSION['funcao_usuario'] == 0) ? '<li><a href="#editar" data-toggle="tab">Editar</a></li>' : '' ?>
+                                                </ul>
                                             </div>
-                                            <div id="tab-persona" class="tab-content">
-                                                <div class="tab-pane pane-pauta active" id="estrategia">
-                                                    <h3>Sobre a empresa</h3>
-                                                    <p><?= $estrategia->empresa ?></p>
-                                                    <p><strong>Site:</strong> <?= $estrategia->site ?></p>
-                                                    <hr>
-                                                    <h3>Sobre o projeto</h3>
-                                                    <p><?= $estrategia->projeto ?></p>
-                                                    <p><b>Blog:</b> <?= $estrategia->blog ?></p>
-                                                    <hr>
-                                                    <h3>Produtos e serviço oferecidos</h3>
-                                                    <?= $estrategia->produtos_servicos ?>
-                                                    <hr>
-                                                    <h3>Links das mídias sociais</h3>
-                                                    <ol>
-                                                        <?= $linksSociais ?>
-                                                    </ol>
-                                                    <hr>
-                                                    <h3>Objetivo primário</h3>
-                                                    <?= $estrategia->objetivo_primario ?>
-                                                    <hr>
-                                                    <h3>KPI de acompanhamento do objetivo primário</h3>
-                                                    <?= $estrategia->kpis_primario ?>
-                                                    <hr>
-                                                    <h3>Objetivo secundário</h3>
-                                                    <?= $estrategia->objetivo_secundario ?>
-                                                    <hr>
-                                                    <h3>KPI de acompanhamento do objetivo secundário</h3>
-                                                    <?= $estrategia->kpis_secundario ?>
-                                                    <hr>
-                                                    <h3>Concorrentes (de segmento e/ou palavras-chave)</h3>
-                                                    <?= $estrategia->concorrentes ?>
-                                                    <hr>
-                                                    <h3>Com quem falar</h3>
-                                                    <?= $estrategia->com_quem_falar ?>
-                                                    <hr>
-                                                    <h3>Com quem não falar</h3>
-                                                    <?= $estrategia->com_quem_nao_falar ?>
-                                                    <hr>
-                                                    <h3>Abordar</h3>
-                                                    <?= $estrategia->abordar ?>
-                                                    <hr>
-                                                    <h3>Evitar</h3>
-                                                    <?= $estrategia->evitar ?>
-                                                    <hr>
-                                                    <h3>Linguagem a ser utilizada</h3>
-                                                    <?php foreach($linguagens_estrategia as $lingua):?>
-                                                        <p><?=  $lingua->nome_linguagem ?></p> 
-                                                    <?php endforeach;?>
-                                                    <hr>
-                                                    <h3>Links de referências</h3>
-                                                    <ol>
-                                                        <?= $linksReferencias ?>
-                                                    </ol>
-                                                    <hr>
-                                                    <h3>Categorias de conteúdo a serem produzidos</h3>
-                                                    <?=  $estrategia->categorias ?> 
-                                                    <hr>
-                                                    <h3>Canais de aquisição de tráfego</h3>
-                                                    <?= $estrategia->canais ?>
-                                                    <hr>
-                                                    <h3>Ações de marketing levantadas</h3>
-                                                    <?= $estrategia->acoes ?>
-                                                    <hr>
-                                                    <h3>Considerações gerais para freelancers</h3>
-                                                    <?= $estrategia->consideracoes_gerais ?>
-                                                </div>
-                                                <div class="tab-pane pane-pauta" id="editar">
-                                                    <form class="" action="../../controller/estrategia/criar_estrategia.php" method="POST">
+                                        </div>
+                                        <div id="tab-persona" class="tab-content">
+                                            <div class="tab-pane pane-pauta active" id="estrategia">
+                                                <h3>Sobre a empresa</h3>
+                                                <p><?= $estrategia->empresa ?></p>
+                                                <p><strong>Site:</strong> <?= $estrategia->site ?></p>
+                                                <hr>
+                                                <h3>Sobre o projeto</h3>
+                                                <p><?= $estrategia->projeto ?></p>
+                                                <p><b>Blog:</b> <?= $estrategia->blog ?></p>
+                                                <hr>
+                                                <h3>Produtos e serviços oferecidos</h3>
+                                                <?= $estrategia->produtos_servicos ?>
+                                                <hr>
+                                                <h3>Links das mídias sociais</h3>
+                                                <ol>
+                                                    <?= $linksSociais ?>
+                                                </ol>
+                                                <hr>
+                                                <h3>Objetivo primário</h3>
+                                                <?= $estrategia->objetivo_primario ?>
+                                                <hr>
+                                                <h3>KPI de acompanhamento do objetivo primário</h3>
+                                                <?= $estrategia->kpis_primario ?>
+                                                <hr>
+                                                <h3>Objetivo secundário</h3>
+                                                <?= $estrategia->objetivo_secundario ?>
+                                                <hr>
+                                                <h3>KPI de acompanhamento do objetivo secundário</h3>
+                                                <?= $estrategia->kpis_secundario ?>
+                                                <hr>
+                                                <h3>Concorrentes (de segmento e/ou palavras-chave)</h3>
+                                                <?= $estrategia->concorrentes ?>
+                                                <hr>
+                                                <h3>Com quem falar</h3>
+                                                <?= $estrategia->com_quem_falar ?>
+                                                <hr>
+                                                <h3>Com quem não falar</h3>
+                                                <?= $estrategia->com_quem_nao_falar ?>
+                                                <hr>
+                                                <h3>Abordar</h3>
+                                                <?= $estrategia->abordar ?>
+                                                <hr>
+                                                <h3>Evitar</h3>
+                                                <?= $estrategia->evitar ?>
+                                                <hr>
+                                                <h3>Linguagem a ser utilizada</h3>
+                                                <?php foreach ($linguagens_estrategia as $lingua) : ?>
+                                                    <p><?= $lingua->nome_linguagem ?></p> 
+                                                <?php endforeach; ?>
+                                                <hr>
+                                                <h3>Links de referências</h3>
+                                                <ol>
+                                                    <?= $linksReferencias ?>
+                                                </ol>
+                                                <hr>
+                                                <h3>Categorias de conteúdos a serem produzidos</h3>
+                                                <?= $estrategia->categorias ?> 
+                                                <hr>
+                                                <h3>Canais de aquisição de tráfego</h3>
+                                                <?= $estrategia->canais ?>
+                                                <hr>
+                                                <h3>Ações de marketing levantadas</h3>
+                                                <?= $estrategia->acoes ?>
+                                                <hr>
+                                                <h3>Considerações gerais para freelancers</h3>
+                                                <?= $estrategia->consideracoes_gerais ?>
+                                            </div>
+                                            <div class="tab-pane pane-pauta" id="editar">
+                                                <form class="" action="../../controller/estrategia/criar_estrategia.php" method="POST">
                                                     <div class="form-group">
                                                         <label>Sobre a empresa</label>
                                                         <p class="text-muted">Descreva brevemente a empresa ou o negócio.</p>
@@ -158,54 +157,54 @@ endforeach;
                                                     <div class="form-group">
                                                         <label>Objetivo primário</label>
                                                         <select name="objetivo_primario" class="form-control">
-                                                            <option value="0" <?=($estrategia->objetivo_primario == '0') ? 'selected="selected"' : ''?> disabled>Selecione um Objetivo</option>
-                                                            <option value="Conhecimento de marca" <?=($estrategia->objetivo_primario == 'Conhecimento de marca') ? 'selected="selected"' : ''?>>Conhecimento de marca</option>
-                                                            <option value="Geração de leads" <?=($estrategia->objetivo_primario == 'Geração de leads') ? 'selected="selected"' : ''?>>Geração de leads</option>
-                                                            <option value="Educar o cliente" <?=($estrategia->objetivo_primario == 'Educar o cliente') ? 'selected="selected"' : ''?>>Educar o cliente</option>
-                                                            <option value="Tornar-se referência" <?=($estrategia->objetivo_primario == 'Tornar-se referência') ? 'selected="selected"' : ''?>>Tornar-se referência</option>
-                                                            <option value="Geração de tráfego" <?=($estrategia->objetivo_primario == 'Geração de tráfego') ? 'selected="selected"' : ''?>>Geração de tráfego</option>
-                                                            <option value="Engajamento com a marca" <?=($estrategia->objetivo_primario == 'Engajamento com a marca') ? 'selected="selected"' : ''?>>Engajamento com a marca</option>
-                                                            <option value="Outro" <?=($estrategia->objetivo_primario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
+                                                            <option value="0" <?= ($estrategia->objetivo_primario == '0') ? 'selected="selected"' : '' ?> disabled>Selecione um Objetivo</option>
+                                                            <option value="Conhecimento de marca" <?= ($estrategia->objetivo_primario == 'Conhecimento de marca') ? 'selected="selected"' : '' ?>>Conhecimento de marca</option>
+                                                            <option value="Geração de leads" <?= ($estrategia->objetivo_primario == 'Geração de leads') ? 'selected="selected"' : '' ?>>Geração de leads</option>
+                                                            <option value="Educar o cliente" <?= ($estrategia->objetivo_primario == 'Educar o cliente') ? 'selected="selected"' : '' ?>>Educar o cliente</option>
+                                                            <option value="Tornar-se referência" <?= ($estrategia->objetivo_primario == 'Tornar-se referência') ? 'selected="selected"' : '' ?>>Tornar-se referência</option>
+                                                            <option value="Geração de tráfego" <?= ($estrategia->objetivo_primario == 'Geração de tráfego') ? 'selected="selected"' : '' ?>>Geração de tráfego</option>
+                                                            <option value="Engajamento com a marca" <?= ($estrategia->objetivo_primario == 'Engajamento com a marca') ? 'selected="selected"' : '' ?>>Engajamento com a marca</option>
+                                                            <option value="Outro" <?= ($estrategia->objetivo_primario == 'Outro') ? 'selected="selected"' : '' ?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPI de acompanhamento do objetivo primário</label>
                                                         <select class="form-control" name="kpis_primario">
-                                                            <option value="0" <?=($estrategia->kpis_primario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um KPI</option>
-                                                            <option value="Tráfego total" <?=($estrategia->kpis_primario == 'Tráfego total') ? 'selected="selected"' : ''?>>Tráfego total</option>
-                                                            <option value="Tráfego orgânico" <?=($estrategia->kpis_primario == 'Tráfego orgânico') ? 'selected="selected"' : ''?>>Tráfego orgânico</option>
-                                                            <option value="Leads gerados" <?=($estrategia->kpis_primario == 'Leads gerados') ? 'selected="selected"' : ''?>>Leads gerados</option>
-                                                            <option value="Assinantes" <?=($estrategia->kpis_primario == 'Assinantes') ? 'selected="selected"' : ''?>>Assinantes</option>
-                                                            <option value="Conversão" <?=($estrategia->kpis_primario == 'Conversão') ? 'selected="selected"' : ''?>>Conversão</option>
-                                                            <option value="Taxa de cancelamento" <?=($estrategia->kpis_primario == 'Taxa de cancelamento') ? 'selected="selected"' : ''?>>Taxa de cancelamento</option>
-                                                            <option value="Outro" <?=($estrategia->kpis_primario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
+                                                            <option value="0" <?= ($estrategia->kpis_primario == '0') ? 'selected="selected"' : '' ?> selected="selected" disabled>Selecione um KPI</option>
+                                                            <option value="Tráfego total" <?= ($estrategia->kpis_primario == 'Tráfego total') ? 'selected="selected"' : '' ?>>Tráfego total</option>
+                                                            <option value="Tráfego orgânico" <?= ($estrategia->kpis_primario == 'Tráfego orgânico') ? 'selected="selected"' : '' ?>>Tráfego orgânico</option>
+                                                            <option value="Leads gerados" <?= ($estrategia->kpis_primario == 'Leads gerados') ? 'selected="selected"' : '' ?>>Leads gerados</option>
+                                                            <option value="Assinantes" <?= ($estrategia->kpis_primario == 'Assinantes') ? 'selected="selected"' : '' ?>>Assinantes</option>
+                                                            <option value="Conversão" <?= ($estrategia->kpis_primario == 'Conversão') ? 'selected="selected"' : '' ?>>Conversão</option>
+                                                            <option value="Taxa de cancelamento" <?= ($estrategia->kpis_primario == 'Taxa de cancelamento') ? 'selected="selected"' : '' ?>>Taxa de cancelamento</option>
+                                                            <option value="Outro" <?= ($estrategia->kpis_primario == 'Outro') ? 'selected="selected"' : '' ?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
                                                         <label>Objetivo secundário</label>
                                                         <select class="form-control" name="objetivo_secundario">
-                                                            <option value="0" <?=($estrategia->objetivo_secundario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um Objetivo</option>
-                                                            <option value="Conhecimento de marca" <?=($estrategia->objetivo_secundario == 'Conhecimento de marca') ? 'selected="selected"' : ''?>>Conhecimento de marca</option>
-                                                            <option value="Geração de leads" <?=($estrategia->objetivo_secundario == 'Geração de leads') ? 'selected="selected"' : ''?>>Geração de leads</option>
-                                                            <option value="Educar o cliente" <?=($estrategia->objetivo_secundario == 'Educar o cliente') ? 'selected="selected"' : ''?>>Educar o cliente</option>
-                                                            <option value="Tornar-se referência" <?=($estrategia->objetivo_secundario == 'Tornar-se referência') ? 'selected="selected"' : ''?>>Tornar-se referência</option>
-                                                            <option value="Geração de tráfego" <?=($estrategia->objetivo_secundario == 'Geração de tráfego') ? 'selected="selected"' : ''?>>Geração de tráfego</option>
-                                                            <option value="Engajamento com a marca" <?=($estrategia->objetivo_secundario == 'Engajamento com a marca') ? 'selected="selected"' : ''?>>Engajamento com a marca</option>
-                                                            <option value="Outro" <?=($estrategia->objetivo_secundario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
+                                                            <option value="0" <?= ($estrategia->objetivo_secundario == '0') ? 'selected="selected"' : '' ?> selected="selected" disabled>Selecione um Objetivo</option>
+                                                            <option value="Conhecimento de marca" <?= ($estrategia->objetivo_secundario == 'Conhecimento de marca') ? 'selected="selected"' : '' ?>>Conhecimento de marca</option>
+                                                            <option value="Geração de leads" <?= ($estrategia->objetivo_secundario == 'Geração de leads') ? 'selected="selected"' : '' ?>>Geração de leads</option>
+                                                            <option value="Educar o cliente" <?= ($estrategia->objetivo_secundario == 'Educar o cliente') ? 'selected="selected"' : '' ?>>Educar o cliente</option>
+                                                            <option value="Tornar-se referência" <?= ($estrategia->objetivo_secundario == 'Tornar-se referência') ? 'selected="selected"' : '' ?>>Tornar-se referência</option>
+                                                            <option value="Geração de tráfego" <?= ($estrategia->objetivo_secundario == 'Geração de tráfego') ? 'selected="selected"' : '' ?>>Geração de tráfego</option>
+                                                            <option value="Engajamento com a marca" <?= ($estrategia->objetivo_secundario == 'Engajamento com a marca') ? 'selected="selected"' : '' ?>>Engajamento com a marca</option>
+                                                            <option value="Outro" <?= ($estrategia->objetivo_secundario == 'Outro') ? 'selected="selected"' : '' ?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label>KPI de acompanhamento do objetivo secundário</label>
                                                         <select class="form-control" name="kpis_secundario">
-                                                            <option value="0" <?=($estrategia->kpis_secundario == '0') ? 'selected="selected"' : ''?> selected="selected" disabled>Selecione um KPI</option>
-                                                            <option value="Tráfego total" <?=($estrategia->kpis_secundario == 'Tráfego total') ? 'selected="selected"' : ''?>>Tráfego total</option>
-                                                            <option value="Tráfego orgânico" <?=($estrategia->kpis_secundario == 'Tráfego orgânico') ? 'selected="selected"' : ''?>>Tráfego orgânico</option>
-                                                            <option value="Leads gerados" <?=($estrategia->kpis_secundario == 'Leads gerados') ? 'selected="selected"' : ''?>>Leads gerados</option>
-                                                            <option value="Assinantes" <?=($estrategia->kpis_secundario == 'Assinantes') ? 'selected="selected"' : ''?>>Assinantes</option>
-                                                            <option value="Conversão" <?=($estrategia->kpis_secundario == 'Conversão') ? 'selected="selected"' : ''?>>Conversão</option>
-                                                            <option value="Taxa de cancelamento" <?=($estrategia->kpis_secundario == 'Taxa de cancelamento') ? 'selected="selected"' : ''?>>Taxa de cancelamento</option>
-                                                            <option value="Outro" <?=($estrategia->kpis_secundario == 'Outro') ? 'selected="selected"' : ''?>>Outro</option>
+                                                            <option value="0" <?= ($estrategia->kpis_secundario == '0') ? 'selected="selected"' : '' ?> selected="selected" disabled>Selecione um KPI</option>
+                                                            <option value="Tráfego total" <?= ($estrategia->kpis_secundario == 'Tráfego total') ? 'selected="selected"' : '' ?>>Tráfego total</option>
+                                                            <option value="Tráfego orgânico" <?= ($estrategia->kpis_secundario == 'Tráfego orgânico') ? 'selected="selected"' : '' ?>>Tráfego orgânico</option>
+                                                            <option value="Leads gerados" <?= ($estrategia->kpis_secundario == 'Leads gerados') ? 'selected="selected"' : '' ?>>Leads gerados</option>
+                                                            <option value="Assinantes" <?= ($estrategia->kpis_secundario == 'Assinantes') ? 'selected="selected"' : '' ?>>Assinantes</option>
+                                                            <option value="Conversão" <?= ($estrategia->kpis_secundario == 'Conversão') ? 'selected="selected"' : '' ?>>Conversão</option>
+                                                            <option value="Taxa de cancelamento" <?= ($estrategia->kpis_secundario == 'Taxa de cancelamento') ? 'selected="selected"' : '' ?>>Taxa de cancelamento</option>
+                                                            <option value="Outro" <?= ($estrategia->kpis_secundario == 'Outro') ? 'selected="selected"' : '' ?>>Outro</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -237,16 +236,17 @@ endforeach;
                                                         <label class="block">Linguagem a ser utilizada</label>
                                                         <p class="text-muted">Descreve o tom e a voz da escrita</p>
                                                         <select multiple title="Escolha as Linguagens" class="selectpicker" data-style="no-border" data-size="7" name="linguagem[]">
-                                                            <?php foreach($linguagens as $linguagem):
-                                                                $selected = '';
-                                                                foreach ($linguagens_estrategia as $linguagem_escolhida) {
-                                                                    if($linguagem_escolhida->id_linguagem == $linguagem->id_linguagem){
-                                                                        $selected = 'selected="selected"';
-                                                                    }
-                                                                }
+                                                            <?php
+                                                            foreach ($linguagens as $linguagem) :
+                                                                $selected = 'selected="selected"';
+                                                                // foreach ($linguagens_estrategia as $linguagem_escolhida) {
+                                                                //     if ($linguagem_escolhida->id_linguagem == $linguagem->id_linguagem) {
+                                                                //         $selected = 'selected="selected"';
+                                                                //     }
+                                                                // }
                                                                 ?>
-                                                                <option value="<?= $linguagem->id_linguagem ?>" <?= $selected?>><?= $linguagem->nome_linguagem ?></option>
-                                                            <?php endforeach;?>
+                                                                <option value="<?= $linguagem->id_linguagem ?>" <?= $selected ?>><?= $linguagem->nome_linguagem ?></option>
+                                                            <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -255,7 +255,7 @@ endforeach;
                                                     </div>
                                                     <hr>
                                                     <div class="form-group">
-                                                        <label>Categorias de conteúdo a serem produzidos</label>
+                                                        <label>Categorias de conteúdos a serem produzidos</label>
                                                         <p class="text-muted">Informe duas ou três categorias principais</p>                                              
                                                         <textarea class="form-control" rows="3"  name="categorias"><?= $estrategia->categorias ?></textarea>
                                                     </div>
@@ -284,11 +284,10 @@ endforeach;
                                                     <hr>
                                                     <button type="submit" class="btn btn-fill btn-success pull-right">Salvar</button>
                                                     <div class="clearfix"></div>
-                                                    </form>
-                                                </div>
+                                                </form>
                                             </div>
                                         </div>
-                                    </div> <!-- end col-md-12 -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -300,14 +299,18 @@ endforeach;
 
     <?php require_once './includes/footer_imports.php'; ?>
     <script>
-        <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
-            $(document).ready(function() {
-                funcoes.showNotification(0,1,'Estratégia editada corretamente.');
+<?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'ok') { ?>
+            $(document).ready(function () {
+                funcoes.showNotification(0, 1, 'Estratégia editada corretamente.');
             });
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
-            $(document).ready(function() {
-                funcoes.showNotification(0,4,'<b>Erro</b> estratégia não editada.');
+<?php 
+} else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') {
+    ?>
+            $(document).ready(function () {
+                funcoes.showNotification(0, 4, '<b>Erro</b> estratégia não editada.');
             });
-        <?php } ?>
+<?php 
+}
+?>
     </script>
 </html>

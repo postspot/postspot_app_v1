@@ -259,14 +259,15 @@ endforeach;
                                     && ($tarefa->etapa == CONTEUDO_APROVACAO_CLIENTE || $tarefa->etapa == CONTEUDO_REAPROVACAO_CLIENTE)) : ?>
                                 <div class="card card-acoes">
                                     <!-- <div class="card-header">
-                                        <h4 class="card-title">Ação necessaria</h4>
+                                        <h4 class="card-title">Ação necessária</h4>
                                     </div> -->
                                     <div class="card-content">
                                         <?php //if($tarefa->etapa == 6 || $tarefa->etapa == 9):?>
                                             <form id="formAprovaConteudo" action="" method="post">
                                                 <input type="hidden" name="motivo" id="inputMotivo">
                                                 <input type="hidden" name="nota_tarefa" id="inputNota">
-                                                <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
+                                                <input type="hidden" name="nome_tarefa" value="<?= $tarefa->nome_tarefa ?>">
+                                                <input type="hidden" name="id_tarefa" value="<?= $id_tarefa ?>">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem azul-cinco" id="btnAprovaConteudo">
                                                     <span class="btn-label">
@@ -288,7 +289,7 @@ endforeach;
                                     && ($tarefa->etapa == CONTEUDO_ESCREVENDO || $tarefa->etapa == CONTEUDO_AJUSTANDO)) : ?>
                                     <div class="card card-acoes">
                                         <!-- <div class="card-header">
-                                            <h4 class="card-title">Ação necessaria</h4>
+                                            <h4 class="card-title">Ação necessária</h4>
                                         </div> -->
                                         <div class="card-content">
                                             <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-roxo-escuro" id="btnLatSalvaConteudo">
@@ -310,13 +311,14 @@ endforeach;
                                 <?php elseif (($tarefa->etapa == CONTEUDO_APROVACAO_MODERADOR || $tarefa->etapa == CONTEUDO_REAPROVACAO_MODERADOR) && $_SESSION['funcao_usuario'] == 0) : ?>
                                     <div class="card card-acoes">
                                         <!-- <div class="card-header">
-                                            <h4 class="card-title">Ação necessaria</h4>
+                                            <h4 class="card-title">Ação necessária</h4>
                                         </div> -->
                                         <div class="card-content">
                                             <form id="formAprovaConteudo" action="" method="post">
                                                 <input type="hidden" name="texto_publicacao" id="refacoes">
                                                 <input type="hidden" name="motivo" id="inputMotivo">
                                                 <input type="hidden" name="nota_tarefa" id="inputNota">
+                                                <input type="hidden" name="nome_tarefa" value="<?= $tarefa->nome_tarefa ?>">
                                                 <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 

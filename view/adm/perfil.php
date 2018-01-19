@@ -91,7 +91,7 @@ die();*/
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label>Habilidade</label>
+                                                                <label>Habilidades</label>
                                                                 <select multiple title="Escolha as Habilidades" class="selectpicker" data-style="no-border" data-size="7" name="habilidade[]">
                                                                     <?php foreach($habilidades as $habilidade):
                                                                         $selected = '';
@@ -134,13 +134,13 @@ die();*/
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label>Email</label>
+                                                            <label>E-mail</label>
                                                             <input type="email" class="form-control border-input" value="<?=$usuario->email_usuario?>" name="email_usuario" email="true" required="true">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label>Descrição usuário</label>
+                                                            <label>Descrição do usuário</label>
                                                             <textarea rows="5" name="obs" class="form-control border-input" placeholder=""><?=$usuario->obs?></textarea>
                                                         </div>
                                                     </div>

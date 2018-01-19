@@ -40,7 +40,7 @@ die();*/
                                             <thead>
                                                 <tr>
                                                     <th class="disabled-sorting"></th>
-                                                    <th>Nome Documento</th>
+                                                    <th>Nome do Documento</th>
                                                     <th>Referência</th>
                                                     <th>Responsável</th>
                                                     <th class="disabled-sorting"></th>
@@ -92,7 +92,7 @@ die();*/
 	            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
 	            responsive: true,
 				language: {
-					"sEmptyTable": "Nenhum documentos encontrado",
+					"sEmptyTable": "Nenhum documento encontrado",
 					"sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ documentos",
 					"sInfoEmpty": "Mostrando 0 até 0 de 0 documentos",
 					"sInfoFiltered": "(Filtrados de _MAX_ documentos)",

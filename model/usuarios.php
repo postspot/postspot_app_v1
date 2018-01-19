@@ -259,6 +259,24 @@ class usuarios
 		}
 	}
 
+	
+	public static function getByEmail($email)
+	{
+		$stmt = Conexao::getInstance()->prepare("SELECT id_usuario, nome_usuario, foto_usuario, "
+			. "funcao_usuario "
+			. "FROM " . self::$tabela
+			. " WHERE email_usuario= :email_usuario ");
+
+		$stmt->bindParam(":email_usuario", $email);
+		if ($stmt->execute()) {
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+
+				return $row;
+			}
+			return null;
+		}
+	}
+
 
  //------------------ function delete($id)---------//
 

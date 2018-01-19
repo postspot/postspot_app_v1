@@ -111,19 +111,19 @@ $idiomas = idiomas::getAllIdiomas();
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Banco</label>
-                                                    <input type="text" class="form-control border-input" name="banco_usuario" required="true">
+                                                    <input type="text" class="form-control border-input" name="banco_usuario">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Agência</label>
-                                                    <input type="text" class="form-control border-input" name="agencia_usuario" required="true">
+                                                    <input type="text" class="form-control border-input" name="agencia_usuario">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Conta Corrente</label>
-                                                    <input type="text" class="form-control border-input" name="conta_usuario" required="true">
+                                                    <input type="text" class="form-control border-input" name="conta_usuario">
                                                 </div>
                                             </div>
                                         </div>
@@ -141,7 +141,7 @@ $idiomas = idiomas::getAllIdiomas();
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Email</label>
+                                                    <label>E-mail</label>
                                                     <input type="email" class="form-control border-input" name="email_usuario" email="true" required="true">
                                                 </div>
                                             </div>

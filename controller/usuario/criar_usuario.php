@@ -4,6 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/usuarios.php';
 require_once '../../model/idiomas_usuario.php';
 require_once '../../model/habilidades_usuario.php';
+require_once '../../lib/phpMailer.php';
 
 function resizePersonal($originalFile, $pasta)
 {
@@ -107,6 +108,22 @@ if (isset($nome_usuario) && isset($sexo_usuario) &&
     //    pre_r(pre_r($_POST));
     //    die();
         if (usuarios::insert($obj)) {
+            // ENVIA O EMAIL
+            $assunto = 'Seja-bem vindo(a) à plataforma PostSpot!';
+            //    PREPARA AS VARIAVEIS
+            $param_email = array(
+                'nome' => $obj->nome_usuario,
+                'email' => $obj->email_usuario,
+                'senha' => $senha_usuario
+            );
+        
+            //    LINKA + PARAMETROS
+            $parametros = SITE . 'mail/novo_cliente.php?' . http_build_query($param_email);
+        
+            // VARIAVEIS
+            $tmp = file_get_contents($parametros);
+            smtpmailer($email_usuario, $assunto, $tmp);
+
             $flag_idiomas = 0;
             foreach ($idioma as $value) {
                 $novo_idioma = new stdClass();

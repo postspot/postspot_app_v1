@@ -3,13 +3,16 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/log_tarefas.php';
 require_once '../../model/comentarios.php';
+require_once '../../model/membros_equipe.php';
+require_once '../../lib/phpMailer.php';
 
 session_start();
 $id_tarefa = $_POST["id_tarefa"];
 $id_usuario = $_SESSION['id_usuario'];
-$id_tarefa = $_POST["id_tarefa"];
+$nome_tarefa = $_POST["nome_tarefa"];
 $motivo = $_POST["motivo"];
 $equipe = $_SESSION['id_projeto'];
+$moderadores = membros_equipe::buscarModeradorDaEquipe($_SESSION['id_projeto']);
 
 if (isset($id_tarefa)){
     resetStatusTarefa($id_tarefa); 
@@ -28,6 +31,27 @@ if (isset($id_tarefa)){
     $log_ajuste->id_tarefa = $id_tarefa;
     $log_ajuste->id_usuario = $id_usuario;
     
+    //Vai enviar email aqui
+
+    $assunto = 'Conteúdo reprovado no projeto ' . $_SESSION['nome_projeto'] . ' - ' . date("d/m/Y") . ' às ' . date("H:i");
+    foreach ($moderadores as $moderador) :
+        //    PREPARA AS VARIAVEIS
+        $param_email = array(
+            'nome' => $moderador->nome_usuario,
+            'titulo' => $nome_tarefa,
+            'projeto' => $_SESSION['nome_projeto'],
+            'data' => date("d/m/Y", strtotime($log_ajuste->data_prevista)),
+            'id_tarefa' => $id_tarefa
+        );
+
+        //    LINKA + PARAMETROS
+        $parametros = SITE . 'mail/pauta_reprovada.php?' . http_build_query($param_email);
+
+        // VARIAVEIS
+        $para = $moderador->email_usuario;
+        $tmp = file_get_contents($parametros);
+        smtpmailer($para, $assunto, $tmp);
+    endforeach;
     if(!empty($motivo)){
         $comentario = new stdClass();
         $comentario->comentario = $motivo;

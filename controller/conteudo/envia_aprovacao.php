@@ -15,6 +15,7 @@ $aprovacao = $_POST["aprovacao"];
 $etapa = $_POST['etapa'];
 $titulo = $_POST['novo_titulo_tarefa'];
 $clientes = membros_equipe::buscarClientesDaEquipe($_SESSION['id_projeto']);
+$moderadores = membros_equipe::buscarModeradorDaEquipe($_SESSION['id_projeto']);
 
 // pre_r($_POST);
 // die();
@@ -82,6 +83,26 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_MODERADOR);
             $novo_log_aprovacao->id_tarefa = $id_tarefa;
             $novo_log_aprovacao->id_usuario = $id_usuario;
+            //Aqui vai o email
+            $assunto = 'Conteúdo em avaliação no projeto ' . $_SESSION['nome_projeto'] . ' - ' . date("d/m/Y") . ' às ' . date("H:i");
+            foreach ($moderadores as $moderador):
+                //    PREPARA AS VARIAVEIS
+                $param_email = array(
+                    'nome' => $moderador->nome_usuario,
+                    'titulo' => $titulo,
+                    'projeto' => $_SESSION['nome_projeto'],
+                    'data' => date("d/m/Y", strtotime($novo_log_aprovacao->data_prevista)),
+                    'id_tarefa' => $id_tarefa
+                );
+
+                //    LINKA + PARAMETROS
+                $parametros = SITE . 'mail/conteudo_avaliacao.php?' . http_build_query($param_email);
+
+                // VARIAVEIS
+                $para = $moderador->email_usuario;
+                $tmp = file_get_contents($parametros);
+                smtpmailer($para, $assunto, $tmp);
+            endforeach;
 
             if (log_tarefas::insert($novo_log_aprovacao)) {
                 header('Location: ../../view/adm/detalhes_conteudo.php?t=' . $id_tarefa . '&retorno=naOk');

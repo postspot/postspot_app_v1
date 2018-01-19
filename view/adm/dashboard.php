@@ -110,7 +110,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <hr />
                                         <a href="pautas.php?s=2">
                                             <div class="stats">
-                                                <i class="ti-eye"></i>  todas
+                                                <i class="ti-eye"></i> Ver todas
                                             </div>
                                         </a>
                                     </div>
@@ -150,14 +150,14 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <div class="row">
                                             <div class="col-xs-5">
                                                 <div class="icon-big icon-danger text-center">
-                                                <i class="material-icons cor-azul-quatro">alarm</i>
+                                                <i class="material-icons cor-azul-quatro">send</i>
                                                 </div>
                                             </div>
                                             <div class="col-xs-7">
                                                 <div class="numbers">
-                                                    <p>Atrasados<span>Conteúdos / Pautas</span>
+                                                    <p>Conteúdos<span>para publicar</span>
                                                     </p>
-                                                    <?= tarefas::countTarefasProjetoAtrasadas($_SESSION['id_projeto']) ?>
+                                                    <?= tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], "= ".CONTEUDO_PARA_PUBLICAR) ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -166,7 +166,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <hr />
                                         <a href="dashboard.php?a=1">
                                             <div class="stats">
-                                                <i class="ti-timer"></i> Ver todos
+                                                <i class="ti-eye"></i> Ver todos
                                             </div>
                                         </a>
                                     </div>
@@ -209,7 +209,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <fieldset>
                                                 <div class="form-group">
                                                     <select class="form-control select-customizado" name="titulo_noticia">
-                                                        <option selected disabled>Buscar pelo nome...</option>
+                                                        <option selected disabled>Buscar pelo título...</option>
                                                         <?php foreach ($totasTarefas as $tarefa) : ?>
                                                             <option value="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>"><?= $tarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
@@ -234,16 +234,15 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                                 <div class="form-group">
                                                     <select class="form-control" id="filtroStatusTarefa">
                                                         <option value="0" <?= ($filtroStatus == '0') ? 'selected' : '' ?>>Status</option>
-                                                        <option value="5" <?= ($filtroStatus == '5') ? 'selected' : '' ?>>Pautas Produzindo</option>
-                                                        <option value="6" <?= ($filtroStatus == '6') ? 'selected' : '' ?>>Pautas Aprovando Moderador</option>
-                                                        <option value="2" <?= ($filtroStatus == '2') ? 'selected' : '' ?>>Pautas Aprovando Cliente</option>
-                                                        <option value="3" <?= ($filtroStatus == '3') ? 'selected' : '' ?>>Pautas Ajustando</option>
-                                                        <!-- Ate aqui foi -->
-                                                        <option value="1" <?= ($filtroStatus == '1') ? 'selected' : '' ?>>Conteúdos Produzindo</option>
-                                                        <option value="4" <?= ($filtroStatus == '4') ? 'selected' : '' ?>>Conteúdos Aprovando Moderador</option>
-                                                        <option value="7" <?= ($filtroStatus == '7') ? 'selected' : '' ?>>Conteúdos Aprovando Cliente</option>
-                                                        <option value="8" <?= ($filtroStatus == '8') ? 'selected' : '' ?>>Conteúdos Ajustando</option>
-                                                        <option value="9" <?= ($filtroStatus == '9') ? 'selected' : '' ?>>Conteúdos Publicar</option>
+                                                        <option value="5" <?= ($filtroStatus == '5') ? 'selected' : '' ?>>Pautas em produção</option>
+                                                        <option value="6" <?= ($filtroStatus == '6') ? 'selected' : '' ?>>Pautas em avaliação</option>
+                                                        <option value="2" <?= ($filtroStatus == '2') ? 'selected' : '' ?>>Pautas em aprovação</option>
+                                                        <option value="3" <?= ($filtroStatus == '3') ? 'selected' : '' ?>>Pautas em ajuste</option>
+                                                        <option value="1" <?= ($filtroStatus == '1') ? 'selected' : '' ?>>Conteúdos em produção</option>
+                                                        <option value="4" <?= ($filtroStatus == '4') ? 'selected' : '' ?>>Conteúdos em avaliação</option>
+                                                        <option value="7" <?= ($filtroStatus == '7') ? 'selected' : '' ?>>Conteúdos em aprovação</option>
+                                                        <option value="8" <?= ($filtroStatus == '8') ? 'selected' : '' ?>>Conteúdos em ajuste</option>
+                                                        <option value="9" <?= ($filtroStatus == '9') ? 'selected' : '' ?>>Conteúdos em publicação</option>
                                                         <option value="10" <?= ($filtroStatus == '10') ? 'selected' : '' ?>>Conteúdos Publicados</option>
                                                     </select>
                                                 </div>

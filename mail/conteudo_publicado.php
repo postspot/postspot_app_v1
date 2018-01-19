@@ -23,7 +23,7 @@ $min = date('H:i');
                 </td>   
             </tr>
             <tr>
-                <td align="center" height="70"><a target="_blank" href="<?= $link ?>" style="text-decoration: none;background-color: #ec268f;border-color: #ec268f;color: #fff;border-radius: 20px;border: 2px;font-size: 14px;font-weight: 600;padding: 10px 20px;cursor: pointer;">CLIQUE AQUI PARA ACESSAR O POST</a></td>
+                <td align="center" height="70"><a target="_blank" href="<?= $link ?>" style="text-decoration: none;background-color: #ec268f;border-color: #ec268f;color: #fff;border-radius: 20px;border: 2px;font-size: 14px;font-weight: 600;padding: 10px 20px;cursor: pointer;">VISUALIZAR</a></td>
             </tr>
             <tr>
             <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">

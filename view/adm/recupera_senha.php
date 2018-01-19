@@ -38,22 +38,18 @@
                         <div class="row">
                             <div class="col-md-4 col-sm-6 col-md-offset-4 col-sm-offset-3">
                             <img src="assets/img/logo-branco.png" alt="">
-                                <form class="l" action="../../controller/usuario/login.php" method="POST">
+                                <form class="l" action="../../controller/usuario/recupera_senha.php" method="POST">
                                     <div class="card card-hidden" data-background="color" data-color="blue">
                                         <div class="card-content">
                                             <div class="form-group">
-                                                <label>Seu e-mail</label>
-                                                <input type="text" name="campo_login" placeholder="Informe o e-mail" class="form-control input-no-border">
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Sua senha</label>
-                                                <input type="password" name="campo_senha" placeholder="Informe a senha" class="form-control input-no-border">
+                                                <label>Informe o e-mail de cadastro</label>
+                                                <input type="text" name="email_usuario" placeholder="Informe o e-mail" class="form-control input-no-border">
                                             </div>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <button type="submit" class="btn btn-success btn-fill btn-wd fill-up fundo-roxo-padrao">Entrar</button>
+                                            <button type="submit" class="btn btn-success btn-fill btn-wd fill-up fundo-roxo-padrao">Recuperar Senha</button>
                                             <div class="forgot" style="margin-top: 15px;">
-                                                <a href="recupera_senha.php">Esqueceu sua senha?</a>
+                                                <a href="index.php">voltar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -131,14 +127,6 @@
                                     <?php }else if (isset($_GET['erro']) && $_GET['erro'] == 'sessao4') { ?>
                                         $(document).ready(function() {
                                             funcoes.showNotification(0,4,'<b>Projeto Inexistente</b> - fale com o administrador.');
-                                        });
-                                    <?php }else if (isset($_GET['erro']) && $_GET['erro'] == 'rsOk') { ?>
-                                        $(document).ready(function() {
-                                            funcoes.showNotification(0,1,'Verifique seu email para obter o acesso');
-                                        });
-                                    <?php }else if (isset($_GET['erro']) && $_GET['erro'] == 'rsErro') { ?>
-                                        $(document).ready(function() {
-                                            funcoes.showNotification(0,4,'Não foi possível validar o e-mail. Tente novamente');
                                         });
                                     <?php } ?>
                                 });

@@ -86,12 +86,15 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
                 </a>
             </li>
 
-            <li class="<?= $detalhe_pagina == "equipe.php" ? "active" : "" ?>">
-                <a href="equipe.php">
-                <i class="material-icons">group</i>
-                    <p>Equipe</p>
-                </a>
-            </li>
+            <?php if ($_SESSION['funcao_usuario'] != '2') : ?>
+                <li class="<?= $detalhe_pagina == "equipe.php" ? "active" : "" ?>">
+                    <a href="equipe.php">
+                    <i class="material-icons">group</i>
+                        <p>Equipe</p>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <?php if ($_SESSION['funcao_usuario'] == '0') : ?>
                 <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active" : "" ?>">
                     <a data-toggle="collapse" href="#gestao" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"' : '' ?>>

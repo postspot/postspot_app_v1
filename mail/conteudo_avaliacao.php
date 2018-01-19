@@ -18,7 +18,7 @@ $id_tarefa = isset($_GET['id_tarefa']) ? $_GET['id_tarefa'] : 'ErroParametro';
             <tr>
                 <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">
                     <p style="line-height: 150%;">Olá, <?= $nome ?>!</p> 
-                    <p style="line-height: 150%">O conteúdo <b><?= $titulo ?></b> do Projeto <b><?= $projeto ?></b> está pronto para ser aprovado na sua plataforma PostSpot. O conteúdo deverá ser <b>aprovado até o dia <?= $data ?></b></p>     
+                    <p style="line-height: 150%">O conteúdo <b><?= $titulo ?></b> do Projeto <b><?= $projeto ?></b> precisa de sua atenção. O conteúdo deverá ser <b>avaliado até o dia <?= $data ?></b></p>     
                 </td>   
             </tr>
             <tr>

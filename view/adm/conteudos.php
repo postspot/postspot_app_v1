@@ -57,7 +57,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Conteudos - Post Stadium</title>
+        <title>Conteúdos - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -84,7 +84,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                                             <fieldset>
                                                 <div class="form-group">
                                                     <select class="form-control select-customizado" name="titulo_noticia">
-                                                        <option selected disabled>Buscar pelo nome...</option>
+                                                        <option selected disabled>Buscar pelo título...</option>
                                                         <?php foreach ($totasTarefas as $tarefa):?>
                                                             <option value="<?= $tarefa->id_tarefa ?>"><?= $tarefa->nome_tarefa ?></option>
                                                         <?php endforeach; ?>
@@ -130,7 +130,7 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
                             <div class="col-lg-9">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <p class="title"><strong>Conteúdos</strong></p>
+                                        <p class="title"><strong>Todos os Conteúdos</strong></p>
                                     </div>
                                     <div class="col-lg-2">
                                         <p>Status:</p>

@@ -23,7 +23,7 @@ $id_usuario = $_SESSION['id_usuario'];
 $aprovacao = $_POST["aprovacao"];
 $etapa = $_POST['etapa'];
 $clientes = membros_equipe::buscarClientesDaEquipe($_SESSION['id_projeto']);
-
+$moderadores = membros_equipe::buscarModeradorDaEquipe($_SESSION['id_projeto']);
 
 if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
     isset($briefing_tarefa) && isset($estagio_compra) && isset($id_persona) &&
@@ -75,22 +75,22 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 //Vai enviar email aqui
 
                 $assunto = 'Nova pauta para você aprovar';
-                foreach($clientes as $cliente):
+                foreach ($clientes as $cliente) :
                     //    PREPARA AS VARIAVEIS
-                    $param_email = array(
-                        'nome' => $cliente->nome_usuario,
-                        'titulo' => $nome_tarefa,
-                        'data' => date("d/m/Y", strtotime($novo_log_aprovacao->data_prevista)),
-                        'id_tarefa' => $id_tarefa
-                    );
+                $param_email = array(
+                    'nome' => $cliente->nome_usuario,
+                    'titulo' => $nome_tarefa,
+                    'data' => date("d/m/Y", strtotime($novo_log_aprovacao->data_prevista)),
+                    'id_tarefa' => $id_tarefa
+                );
 
                     //    LINKA + PARAMETROS
-                    $parametros = SITE . 'mail/cliente_pauta.php?' . http_build_query($param_email);
+                $parametros = SITE . 'mail/cliente_pauta.php?' . http_build_query($param_email);
 
                     // VARIAVEIS
-                    $para = $cliente->email_usuario;
-                    $tmp = file_get_contents($parametros);
-                    smtpmailer($para, $assunto, $tmp);
+                $para = $cliente->email_usuario;
+                $tmp = file_get_contents($parametros);
+                smtpmailer($para, $assunto, $tmp);
                 endforeach;
 
                 if (log_tarefas::insert($novo_log_aprovacao)) {
@@ -107,6 +107,27 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_aprovacao->data_prevista = retornaDataPrevista($nova_etapa);
                 $novo_log_aprovacao->id_tarefa = $id_tarefa;
                 $novo_log_aprovacao->id_usuario = $id_usuario;
+                //Vai enviar email aqui
+
+                $assunto = 'Pauta em avaliação no projeto ' . $_SESSION['nome_projeto'] . ' - ' . date("d/m/Y") . ' às ' . date("H:i");
+                foreach ($moderadores as $moderador) :
+                    //    PREPARA AS VARIAVEIS
+                    $param_email = array(
+                        'nome' => $moderador->nome_usuario,
+                        'titulo' => $nome_tarefa,
+                        'projeto' => $_SESSION['nome_projeto'],
+                        'data' => date("d/m/Y", strtotime($novo_log_aprovacao->data_prevista)),
+                        'id_tarefa' => $id_tarefa
+                    );
+
+                    //    LINKA + PARAMETROS
+                    $parametros = SITE . 'mail/pauta_avaliacao.php?' . http_build_query($param_email);
+
+                    // VARIAVEIS
+                    $para = $moderador->email_usuario;
+                    $tmp = file_get_contents($parametros);
+                    smtpmailer($para, $assunto, $tmp);
+                endforeach;
 
                 if (log_tarefas::insert($novo_log_aprovacao)) {
                     header('Location: ../../view/adm/pautas.php?retorno=naOk');

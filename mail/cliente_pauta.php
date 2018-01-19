@@ -27,7 +27,7 @@ $id_tarefa = isset($_GET['id_tarefa']) ? $_GET['id_tarefa'] : 'ErroParametro';
             <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">
                 <p style="line-height: 150%;">Qualquer dúvida estamos à disposição.</p> 
                 <p style="line-height: 150%;">Abraços,</p> 
-                <p style="line-height: 150%;"><b>Equipe PostSpot</b></p> 
+                <p style="line-height: 150%;"><b>Time PostSpot</b></p> 
                 </td>
             </tr>
         </table>        

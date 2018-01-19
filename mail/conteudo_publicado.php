@@ -31,7 +31,7 @@ $min = date('H:i');
                 <p style="line-height: 150%;"><b>Publicado em: </b><?= $hora ?> às <?= $min ?></p> 
                 <p style="line-height: 150%;">Qualquer dúvida estamos à disposição.</p> 
                 <p style="line-height: 150%;">Abraços,</p> 
-                <p style="line-height: 150%;"><b>Equipe PostSpot</b></p> 
+                <p style="line-height: 150%;"><b>Time PostSpot</b></p> 
                 </td>
             </tr>
         </table>        

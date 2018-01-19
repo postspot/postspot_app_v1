@@ -29,7 +29,7 @@ $senha = isset($_GET['senha']) ? $_GET['senha'] : 'ErroParametro';
                 <p style="line-height: 150%;">Estamos o tempo todo compartilhando novidades e conteúdos que podem ajudá-lo com sua estratégia de marketing digital:</p> 
                 <p style="line-height: 150%;">Siga-nos no <a target="_blank" href="https://twitter.com/postspotcontent" style="color: #9f6fcf;">Twitter</a> e acompanhe o <a target="_blank" style="color: #9f6fcf;" href="http://postspot.com.br/blog/">nosso blog</a>!</p> 
                 <p style="line-height: 150%;">Se você tiver qualquer dúvida, nossa  <a target="_blank" href="https://postspot.zendesk.com/hc/pt-br" style="color: #9f6fcf;">Central de Ajuda</a> é constantemente atualizada para ajudá-lo.</p> 
-                <p style="line-height: 150%;"><b>Equipe PostSpot</b></p> 
+                <p style="line-height: 150%;"><b>Time PostSpot</b></p> 
                 </td>
             </tr>
         </table>        

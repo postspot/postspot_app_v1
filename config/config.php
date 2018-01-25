@@ -21,6 +21,7 @@ define('SITE', 'https://app.postspot.com.br/');
 define('GUSER', 'ola@app.postspot.com.br');
 define('GPWD', '#PostSpot2017');
 define('APP_NOME', 'Time PostSpot');
+define('AMBIENTE_PROD', true);
 
 
 date_default_timezone_set('America/Sao_Paulo');

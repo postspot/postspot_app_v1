@@ -4,6 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/log_tarefas.php';
 require_once '../../model/comentarios.php';
 require_once '../../model/membros_equipe.php';
+require_once '../../model/tarefas.php';
 require_once '../../lib/phpMailer.php';
 
 session_start();
@@ -20,7 +21,7 @@ if (isset($id_tarefa)){
     $novo_log_aprovado = new stdClass();
     $novo_log_aprovado->etapa = CONTEUDO_ESCREVENDO;
     $novo_log_aprovado->status = 1;
-    $novo_log_aprovado->data_prevista = retornaDataPrevista(CONTEUDO_ESCREVENDO);
+    $novo_log_aprovado->data_prevista = retornaDataPrevista(CONTEUDO_ESCREVENDO,$id_tarefa);
     $novo_log_aprovado->id_tarefa = $id_tarefa;
     $novo_log_aprovado->id_usuario = $id_usuario;
     //Vai enviar email aqui

@@ -18,7 +18,7 @@ if (isset($id_tarefa)){
     $novo_log_publicado = new stdClass();
     $novo_log_publicado->etapa = CONTEUDO_PUBLICADO;
     $novo_log_publicado->status = 1;
-    $novo_log_publicado->data_prevista = retornaDataPrevista(CONTEUDO_PARA_PUBLICAR);
+    $novo_log_publicado->data_prevista = retornaDataPrevista(CONTEUDO_PARA_PUBLICAR,$id_tarefa);
     $novo_log_publicado->id_tarefa = $id_tarefa;
     $novo_log_publicado->id_usuario = $id_usuario;
 

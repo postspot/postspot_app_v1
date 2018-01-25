@@ -127,7 +127,7 @@ endforeach;
                                             <h1 class="titulo-pauta"><?= $tarefa->nome_tarefa ?></h1>   
                                             <img class="img-capa" src="<?= SITE ?>uploads/projetos/<?= $fotos[0]->id_projeto ?>-arquivos/<?= $fotos[0]->nome_anexo ?>" alt=""> 
                                                 <div class="sem-estilo min-height"><?= (empty($conteudo)) ? '<p>não há nenhum conteúdo escrito até o momento</p>' : $conteudo ?> </div>
-                                                <?php if ($_SESSION['funcao_usuario'] == 0) : ?>
+                                                <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
                                                     <hr>
                                                     <div class="card">
                                                         <div class="card-content no-padding">
@@ -456,6 +456,21 @@ endforeach;
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card card-prazo">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Prazos</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <ul>
+                                                <li>Produção: <?= date("d/m/Y", strtotime(retornaDataPrevista(CONTEUDO_ESCREVENDO, $id_tarefa))) ?></li>
+                                                <li>Avaliação: <?= date("d/m/Y", strtotime(retornaDataPrevista(CONTEUDO_APROVACAO_MODERADOR, $id_tarefa))) ?></li>
+                                                <li>Aprovação: <?= date("d/m/Y", strtotime(retornaDataPrevista(CONTEUDO_APROVACAO_CLIENTE, $id_tarefa))) ?></li>
+                                                <li>Publicação: <?= date("d/m/Y", strtotime(retornaDataPrevista(CONTEUDO_PARA_PUBLICAR, $id_tarefa))) ?></li>
+                                            </ul>
+                                            <hr>
+                                            <p>Conteúdo criado em <?= date("d/m/Y", strtotime($tarefa->data_criacao)) ?> às <?= date("H:i", strtotime($tarefa->data_criacao)) ?></p>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>

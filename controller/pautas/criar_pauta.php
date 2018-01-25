@@ -3,6 +3,7 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/tarefas.php';
 require_once '../../model/log_tarefas.php';
+require_once '../../model/membros_equipe.php';
 require_once '../../lib/phpMailer.php';
 
 session_start();
@@ -45,22 +46,18 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
         if(tarefas::insert($nova_tarefa)){ // Insere a tarefa
             
             if(!$aprovacao){ // Senão for para aprovação, apenas cria o log de salvo
-                $date = date('Y-m-d H:i');
                 $novo_log_salvo = new stdClass();
                 $novo_log_salvo->etapa = PAUTA_ESCREVENDO;
                 $novo_log_salvo->status = 1;
-                $novo_log_salvo->data_prevista = retornaDataPrevista(0);
+                $novo_log_salvo->data_prevista = retornaDataPrevista(PAUTA_ESCREVENDO);
                 $novo_log_salvo->id_tarefa = $id_tarefa;
                 $novo_log_salvo->id_usuario = $id_usuario;
                 if(log_tarefas::insert($novo_log_salvo)){
                     header('Location: ../../view/adm/pautas.php?retorno=nOk');
                 }else{
-                    echo 'first';
-                    die();
                     header('Location: ../../view/adm/cria_pauta.php?retorno=nErro');
                 }
             }else{ // Senão, ja cria dois log´s
-                $date = date('Y-m-d H:i');
                 $novo_log_salvo = new stdClass();
                 $novo_log_salvo->etapa = PAUTA_ESCREVENDO;
                 $novo_log_salvo->status = 0;
@@ -68,7 +65,6 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 $novo_log_salvo->id_tarefa = $id_tarefa;
                 $novo_log_salvo->id_usuario = $id_usuario;
                 
-                $date = date('Y-m-d H:i');
                 $novo_log_aprovacao = new stdClass();
                 $novo_log_aprovacao->etapa = PAUTA_APROVACAO_MODERADOR;
                 $novo_log_aprovacao->status = 1;

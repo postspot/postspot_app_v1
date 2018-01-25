@@ -17,6 +17,9 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getByProjeto($_SESSION['id_projeto']);
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
+// pre_r($tarefa);
+// pre_r($persona);
+// die();
 ?>
 <html lang="pt-br">
     <head>
@@ -66,13 +69,13 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                     <div class="col-md-8">
                                                         <?php
                                                         foreach ($tiposTarefa as $tipoTarefa) :
-                                                            if ($tarefa->id_tipo == $tipoTarefa->id_tipo):
-                                                                ?>
+                                                            if ($tarefa->id_tipo == $tipoTarefa->id_tipo) :
+                                                        ?>
                                                                 <p><?= $tipoTarefa->nome_tarefa ?></p>
                                                                 <?php
-                                                            endif;
-                                                        endforeach;
-                                                        ?>
+                                                                endif;
+                                                                endforeach;
+                                                                ?>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -100,13 +103,13 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                     <div class="col-md-8">
                                                         <?php
                                                         foreach ($persona as $pers) :
-                                                            if ($tarefa->id_persona == $pers->id_persona):
-                                                                ?>
+                                                            if ($tarefa->id_persona == $pers->id_persona) :
+                                                        ?>
                                                                 <p><?= $pers->nome ?></p>
                                                                 <?php
-                                                            endif;
-                                                        endforeach;
-                                                        ?>
+                                                                endif;
+                                                                endforeach;
+                                                                ?>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -197,16 +200,17 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                                 <?php if (empty($persona)) : ?>
                                                                     <option value="" disabled selected>Nenhuma persona cadastrada!</option>
                                                                     <?php
-                                                                else :
-                                                                    foreach ($persona as $pers) {
+                                                                    else :
+                                                                        foreach ($persona as $pers) {
                                                                         ?>
 
                                                                         <option value="<?= $pers->id_persona ?>" <?= ($tarefa->id_persona == $pers->id_persona) ? 'selected' : '' ?>><?= $pers->nome ?></option>
 
                                                                         <?php
+
                                                                     }
-                                                                endif;
-                                                                ?>
+                                                                    endif;
+                                                                    ?>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -297,10 +301,10 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                             <?php if (empty($comentarios)) : ?>
                                                 <li class="text-muted"><p class="text-center fill-up">Nenhum comentário</p></li>
                                                 <?php
-                                            else :
-                                                foreach ($comentarios as $comentario) :
+                                                else :
+                                                    foreach ($comentarios as $comentario) :
                                                     if ($comentario->id_usuario != $_SESSION['id_usuario']) :
-                                                        ?>
+                                                ?>
                                                         <li class="other">
                                                             <div class="avatar">
                                                                 <img src="../../uploads/usuarios/<?= $comentario->foto_usuario ?>" alt="Foto <?= $comentario->nome_usuario ?>" title="Foto <?= $comentario->nome_usuario ?>"/>
@@ -328,12 +332,25 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                         </li>
                                                     <?php
                                                     endif;
-                                                endforeach;
-                                            endif;
-                                            ?>
+                                                    endforeach;
+                                                    endif;
+                                                    ?>
                                         </ol>
                                     </div>
                                 </div>
+                                <div class="card card-prazo">
+                                        <div class="card-header">
+                                            <h4 class="card-title">Prazos</h4>
+                                        </div>
+                                        <div class="card-content">
+                                            <ul>
+                                                <li>Avaliação: <?= date("d/m/Y", strtotime(retornaDataPrevista(PAUTA_APROVACAO_MODERADOR, $id_tarefa))) ?></li>
+                                                <li>Aprovação: <?= date("d/m/Y", strtotime(retornaDataPrevista(PAUTA_REAPROVACAO_CLIENTE, $id_tarefa))) ?></li>
+                                            </ul>
+                                            <hr>
+                                            <p>Pauta criada em <?= date("d/m/Y", strtotime($tarefa->data_criacao)) ?> às <?= date("H:i", strtotime($tarefa->data_criacao)) ?></p>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -349,6 +366,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
 <?php if (isset($_GET['retorno']) && $_GET['retorno'] == 'nErro') { ?>
                 funcoes.showNotification(0, 4, '<b>Erro</b> ao salvar pauta.');
     <?php
+
 }
 ?>
 

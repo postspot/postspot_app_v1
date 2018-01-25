@@ -159,6 +159,23 @@ class tarefas {
 			echo $ex->getMessage();
 		}
 	}
+	public static function getDateCriacao($id) {
+
+	 try {
+		$stmt = Conexao::getInstance()->prepare("SELECT data_criacao"
+        . " FROM tarefas "
+        . " WHERE id_tarefa = :id");
+
+		$stmt->bindParam(":id", $id);
+		$stmt->execute();
+		while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			return $row->data_criacao;
+		}
+		return false;
+		} catch(PDOException $ex) {
+			echo $ex->getMessage();
+		}
+	}
 	public static function getUltimasDez($id, $limit) {
 
 	 try {

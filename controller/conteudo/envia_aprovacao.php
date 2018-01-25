@@ -35,7 +35,7 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             $novo_log_conteudo = new stdClass();
             $novo_log_conteudo->etapa = $nova_etapa;
             $novo_log_conteudo->status = 1;
-            $novo_log_conteudo->data_prevista = retornaDataPrevista($nova_etapa);
+            $novo_log_conteudo->data_prevista = retornaDataPrevista($nova_etapa,$id_tarefa);
             $novo_log_conteudo->id_tarefa = $id_tarefa;
             $novo_log_conteudo->id_usuario = $id_usuario;
             if (log_tarefas::insert($novo_log_conteudo) && tarefas::atualizaTitulo($titulo, $id_tarefa)) {
@@ -47,7 +47,7 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             $novo_log_aprovacao = new stdClass();
             $novo_log_aprovacao->etapa = CONTEUDO_APROVACAO_CLIENTE;
             $novo_log_aprovacao->status = 1;
-            $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_CLIENTE);
+            $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_CLIENTE,$id_tarefa);
             $novo_log_aprovacao->id_tarefa = $id_tarefa;
             $novo_log_aprovacao->id_usuario = $id_usuario;
             //Aqui vai o email
@@ -80,7 +80,7 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             $novo_log_aprovacao = new stdClass();
             $novo_log_aprovacao->etapa = CONTEUDO_APROVACAO_MODERADOR;
             $novo_log_aprovacao->status = 1;
-            $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_MODERADOR);
+            $novo_log_aprovacao->data_prevista = retornaDataPrevista(CONTEUDO_APROVACAO_MODERADOR,$id_tarefa);
             $novo_log_aprovacao->id_tarefa = $id_tarefa;
             $novo_log_aprovacao->id_usuario = $id_usuario;
             //Aqui vai o email

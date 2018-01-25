@@ -4,6 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/log_tarefas.php';
 require_once '../../model/comentarios.php';
 require_once '../../model/publicacoes.php';
+require_once '../../model/tarefas.php';
 
 session_start();
 
@@ -27,14 +28,14 @@ if (publicacoes::insert($conteudo_texto)) {
         $novo_log_reprovado = new stdClass();
         $novo_log_reprovado->etapa = CONTEUDO_REPROVADO;
         $novo_log_reprovado->status = 0;
-        $novo_log_reprovado->data_prevista = retornaDataPrevista(CONTEUDO_REPROVADO);
+        $novo_log_reprovado->data_prevista = retornaDataPrevista(CONTEUDO_REPROVADO,$id_tarefa);
         $novo_log_reprovado->id_tarefa = $id_tarefa;
         $novo_log_reprovado->id_usuario = $id_usuario;
 
         $log_ajuste = new stdClass();
         $log_ajuste->etapa = ($etapa == CONTEUDO_APROVACAO_MODERADOR) ? CONTEUDO_ESCREVENDO : CONTEUDO_AJUSTANDO;
         $log_ajuste->status = 1;
-        $log_ajuste->data_prevista = retornaDataPrevista($log_ajuste->etapa);
+        $log_ajuste->data_prevista = retornaDataPrevista($log_ajuste->etapa,$id_tarefa);
         $log_ajuste->id_tarefa = $id_tarefa;
         $log_ajuste->id_usuario = $id_usuario;
 

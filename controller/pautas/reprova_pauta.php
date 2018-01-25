@@ -4,6 +4,7 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/log_tarefas.php';
 require_once '../../model/comentarios.php';
 require_once '../../model/membros_equipe.php';
+require_once '../../model/tarefas.php';
 require_once '../../lib/phpMailer.php';
 
 session_start();
@@ -19,14 +20,14 @@ if (isset($id_tarefa)) {
     $novo_log_reprovado = new stdClass();
     $novo_log_reprovado->etapa = PAUTA_REPROVADA;
     $novo_log_reprovado->status = 0;
-    $novo_log_reprovado->data_prevista = retornaDataPrevista(PAUTA_REPROVADA);
+    $novo_log_reprovado->data_prevista = retornaDataPrevista(PAUTA_REPROVADA,$id_tarefa);
     $novo_log_reprovado->id_tarefa = $id_tarefa;
     $novo_log_reprovado->id_usuario = $id_usuario;
 
     $log_ajuste = new stdClass();
     $log_ajuste->etapa = PAUTA_AJUSTANDO;
     $log_ajuste->status = 1;
-    $log_ajuste->data_prevista = retornaDataPrevista(PAUTA_AJUSTANDO);
+    $log_ajuste->data_prevista = retornaDataPrevista(PAUTA_AJUSTANDO,$id_tarefa);
     $log_ajuste->id_tarefa = $id_tarefa;
     $log_ajuste->id_usuario = $id_usuario;
     

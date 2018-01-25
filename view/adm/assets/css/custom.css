@@ -940,3 +940,9 @@ label.error {
 .forgot a{
     color: #523877;
 }
+.main-panel > .content {
+    margin-bottom: 50px;
+}
+.card-prazo p{
+    font-size: 14px;
+}

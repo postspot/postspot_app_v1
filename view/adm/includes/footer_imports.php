@@ -58,7 +58,6 @@
 <!-- Paper Dashboard PRO Core javascript and methods for Demo purpose -->
 <script src="assets/js/paper-dashboard.js"></script>
 <script src="assets/js/custom.js"></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.7/summernote.js"></script>
 
 <script>
   window.intercomSettings = {

@@ -11,6 +11,11 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
         <?php require_once './includes/header_includes.php'; ?>
         <title>Tipo Conteúdo - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
+        <style>
+        .swal2-container{
+            z-index: 1000 !important;
+        }
+        </style>
     </head>
 
     <body>
@@ -38,8 +43,11 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
                                             <li id="tipo<?= $tipoTarefa->id_tipo ?>">
                                                 <div class="row">
-                                                    <div class="col-xs-8">
+                                                    <div class="col-xs-7">
                                                     <?= $tipoTarefa->nome_tarefa ?>
+                                                    </div>
+                                                    <div class="col-xs-1">
+                                                        <div class="quadrado-cor" style="background-color: #<?= $tipoTarefa->cor_tarefa ?>"></div>
                                                     </div>
                                                     <div class="col-xs-4 text-right">
                                                         <btn class="btn btn-sm btn-icon fundo-rosa-claro" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
@@ -59,6 +67,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
+    <script src="assets/js/jscolor.min.js"></script>
     
     <script>
     var codDeletado;
@@ -67,15 +76,18 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
             $(document).ready(function() {
                 funcoes.showNotification(0,1,'Tipo de conteúdo criado.');
             });
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
+        <?php 
+    } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,4,'Tipo de conteúdo não foi criado.');
             });
-        <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
+        <?php 
+    } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
             $(document).ready(function() {
                 funcoes.showNotification(0,4,'Informe o nome do tipo de conteúdo.');
             });
-        <?php } ?>
+        <?php 
+    } ?>
         function deletaTipoTarefa(cod_tipo,btn) { 
             elem = '#tipo' + cod_tipo;
             codDeletado = cod_tipo;

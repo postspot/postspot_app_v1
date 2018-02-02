@@ -1,16 +1,16 @@
 var today = new Date();
 var dd = today.getDate();
-var mm = today.getMonth()+1; //January is 0!
-icones = ['','info','success','warning','danger'];
-type = ['','info','success','warning','danger'];
+var mm = today.getMonth() + 1; //January is 0!
+icones = ['', 'info', 'success', 'warning', 'danger'];
+type = ['', 'info', 'success', 'warning', 'danger'];
 var camposHtml = '<div class="row">';
-for(i=1 ; i < 60 ; i++){
-    camposHtml +=  '<div class="col-md-3">' +
-                        '<div class="foto-persona-radio">' +
-                            '<img src="assets/img/faces/'+i+'-avatar-postspot.png">' +
-                            '<input type="radio" name="foto_persona" value="'+i+'-avatar-postspot.png">' +
-                        '</div>' +
-                    '</div>';
+for (i = 1; i < 60; i++) {
+    camposHtml += '<div class="col-md-3">' +
+        '<div class="foto-persona-radio">' +
+        '<img src="assets/img/faces/' + i + '-avatar-postspot.png">' +
+        '<input type="radio" name="foto_persona" value="' + i + '-avatar-postspot.png">' +
+        '</div>' +
+        '</div>';
 }
 camposHtml += '</div>';
 
@@ -24,6 +24,7 @@ funcoes = {
         d = today.getDate();
 
         $calendar.fullCalendar({
+            locale: 'pt-br',
             viewRender: function (view, element) {
                 // We make sure that we activate the perfect scrollbar when the view isn't on Month
                 if (view.name != 'month') {
@@ -32,16 +33,15 @@ funcoes = {
             },
             header: {
                 left: 'title',
-                center: 'month,agendaWeek,agendaDay',
                 right: 'prev,next,today'
             },
             defaultDate: today,
             selectable: true,
             selectHelper: true,
             views: {
-                month: {// name of view
+                month: { // name of view
                     titleFormat: 'MMMM YYYY'
-                            // other view-specific options here
+                    // other view-specific options here
                 },
                 week: {
                     titleFormat: " MMMM D YYYY"
@@ -50,102 +50,26 @@ funcoes = {
                     titleFormat: 'D MMM, YYYY'
                 }
             },
-            select: function (start, end) {
-
-                // on select we show the Sweet Alert modal with an input
-                swal({
-                    title: 'Create an Event',
-                    html: '<div class="form-group">' +
-                            '<input class="form-control" placeholder="Event Title" id="input-field">' +
-                            '</div>',
-                    showCancelButton: true,
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: false
-                }).then(function (result) {
-
-                    var eventData;
-                    event_title = $('#input-field').val();
-
-                    if (event_title) {
-                        eventData = {
-                            title: event_title,
-                            start: start,
-                            end: end
-                        };
-                        $calendar.fullCalendar('renderEvent', eventData, true); // stick? = true
-                    }
-
-                    $calendar.fullCalendar('unselect');
-
-                });
-            },
             editable: true,
             eventLimit: true, // allow "more" link when too many events
+            eventSources: [
 
-
-            // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]
-            events: [
                 {
-                    title: 'All Day Event',
-                    start: new Date(y, m, 1),
-                    className: 'event-default'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d - 4, 6, 0),
-                    allDay: false,
-                    className: 'event-rose'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: new Date(y, m, d + 3, 6, 0),
-                    allDay: false,
-                    className: 'event-rose'
-                },
-                {
-                    title: 'Meeting',
-                    start: new Date(y, m, d - 1, 10, 30),
-                    allDay: false,
-                    className: 'event-green'
-                },
-                {
-                    title: 'Lunch',
-                    start: new Date(y, m, d + 7, 12, 0),
-                    end: new Date(y, m, d + 7, 14, 0),
-                    allDay: false,
-                    className: 'event-red'
-                },
-                {
-                    title: 'Md-pro Launch',
-                    start: new Date(y, m, d - 2, 12, 0),
-                    allDay: true,
-                    className: 'event-azure'
-                },
-                {
-                    title: 'Birthday Party',
-                    start: new Date(y, m, d + 1, 19, 0),
-                    end: new Date(y, m, d + 1, 22, 30),
-                    allDay: false,
-                    className: 'event-azure'
-                },
-                {
-                    title: 'Click for Creative Tim',
-                    start: new Date(y, m, 21),
-                    end: new Date(y, m, 22),
-                    url: 'http://www.creative-tim.com/',
-                    className: 'event-orange'
-                },
-                {
-                    title: 'Click for Google',
-                    start: new Date(y, m, 21),
-                    end: new Date(y, m, 22),
-                    url: 'http://www.creative-tim.com/',
-                    className: 'event-orange'
+                    url: siteBase + 'controller/calendario/datas.php',
+                    error: function () {
+                        alert('there was an error while fetching events!');
+                    }
                 }
-            ]
+
+                // any other sources...
+
+            ],
+            eventClick: function(event) {
+                if (event.url) {
+                    window.open(event.url);
+                    return false;
+                }
+            }
         });
     },
     showSwal: function (modal) {
@@ -155,12 +79,11 @@ funcoes = {
                     title: 'Escolha o Projeto',
                     text: 'Escolha o projeto no qual você deseja gerenciar',
                     showConfirmButton: false,
-                    html:
-                            '<ul class="modal-projetos">' +
-                            '<li>Projeto Fabiola</li>' +
-                            '<li>Camisaria Italiana</li>' +
-                            '<li>Melhor Compra</li>' +
-                            '</ul>'
+                    html: '<ul class="modal-projetos">' +
+                        '<li>Projeto Fabiola</li>' +
+                        '<li>Camisaria Italiana</li>' +
+                        '<li>Melhor Compra</li>' +
+                        '</ul>'
                 });
                 break;
             case 'personas':
@@ -169,10 +92,10 @@ funcoes = {
                     showConfirmButton: true,
                     confirmButtonText: 'Salvar',
                     html: camposHtml
-                }).then(function() {
+                }).then(function () {
                     var fotoPersona = 'assets/img/faces/' + ($('input[name=foto_persona]:checked').val());
-                  $('#fotoPersona').attr('src', fotoPersona);
-                  $('#hiddenFotoPersona').val($('input[name=foto_persona]:checked').val());
+                    $('#fotoPersona').attr('src', fotoPersona);
+                    $('#hiddenFotoPersona').val($('input[name=foto_persona]:checked').val());
                 });
                 break;
             case 'criaProjeto':
@@ -180,30 +103,29 @@ funcoes = {
                     title: 'Criar Projeto',
                     showConfirmButton: true,
                     confirmButtonText: 'Criar Projeto',
-                    html:
-                            '<div class="row">' +
-                                '<form id="formCriaProjeto" action="../../controller/projeto/cria_projeto.php" method="post">' +
-                                    '<div class="col-md-12">' +
-                                            '<div class="form-group">' +
-                                            '<label>Nome do Projeto</label>' +
-                                            '<input type="text" class="form-control border-input" name="nome_projeto">' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="col-md-12">' +
-                                            '<div class="form-group">' +
-                                            '<label>Site do Projeto</label>' +
-                                            '<input type="text" class="form-control border-input" name="site_projeto">' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="col-md-12">' +
-                                        '<label>Responsável</label>' +
-                                        '<div class="form-group">' +
-                                            '<select class="form-control border-input" name="responsavel_projeto">'+ optionResponsaveis + '</select>'+
-                                        '</div>' +
-                                    '</div>'+
-                                '</form>' +
-                            '</div>'
-                }).then(function() {
+                    html: '<div class="row">' +
+                        '<form id="formCriaProjeto" action="../../controller/projeto/cria_projeto.php" method="post">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Nome do Projeto</label>' +
+                        '<input type="text" class="form-control border-input" name="nome_projeto">' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Site do Projeto</label>' +
+                        '<input type="text" class="form-control border-input" name="site_projeto">' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-12">' +
+                        '<label>Responsável</label>' +
+                        '<div class="form-group">' +
+                        '<select class="form-control border-input" name="responsavel_projeto">' + optionResponsaveis + '</select>' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
                     $('#formCriaProjeto').trigger('submit');
                 });
                 break;
@@ -212,18 +134,17 @@ funcoes = {
                     title: 'Trocar Senha',
                     showConfirmButton: true,
                     confirmButtonText: 'Trocar',
-                    html:
-                            '<div class="row">' +
-                                '<form id="formTrocarSenha" action="../../controller/usuario/trocar_senha.php" method="post"enctype="multipart/form-data">' +                            
-                                    '<div class="col-md-12">' +
-                                         '<div class="form-group">' +
-                                            '<label>Nova Senha</label>' +
-                                            '<input type="password" class="form-control border-input" name="senha_usuario">' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</form>' +
-                            '</div>'
-                }).then(function() {
+                    html: '<div class="row">' +
+                        '<form id="formTrocarSenha" action="../../controller/usuario/trocar_senha.php" method="post"enctype="multipart/form-data">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Nova Senha</label>' +
+                        '<input type="password" class="form-control border-input" name="senha_usuario">' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
                     $('#formTrocarSenha').trigger('submit');
                 });
                 break;
@@ -232,38 +153,49 @@ funcoes = {
                     title: 'Incluir tipo de conteúdo',
                     showConfirmButton: true,
                     confirmButtonText: 'Criar',
-                    html:
-                            '<div class="row">' +
-                                '<form id="formCriaTipoTarefa" action="../../controller/tipo_tarefa/cria_tipo.php" method="post">' +                                                        
-                                    '<div class="col-md-12">' +
-                                        '<div class="form-group">' +
-                                            '<label>Nome</label>' +
-                                            '<input type="text" class="form-control border-input" name="nome_tarefa" required>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</form>'+
-                            '</div>'
-                }).then(function() {
+                    html: '<div class="row">' +
+                        '<form id="formCriaTipoTarefa" action="../../controller/tipo_tarefa/cria_tipo.php" method="post">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Nome</label>' +
+                        '<input type="text" class="form-control border-input" name="nome_tarefa" required>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Cor do Evento</label>' +
+                        '<p id="inputColor"></p>' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
                     $('#formCriaTipoTarefa').trigger('submit');
                 });
+                var input = document.createElement('INPUT');
+                input.type = "text";
+                input.name = 'cor_tarefa';
+                input.className = "form-control border-input";
+                var picker = new jscolor(input);
+                picker.fromHSV(360 / 100 * i, 100, 100)
+                document.getElementById('inputColor').appendChild(input);
                 break;
             case 'habilidade':
                 swal({
                     title: 'Incluir habilidade',
                     showConfirmButton: true,
                     confirmButtonText: 'Criar',
-                    html:
-                            '<div class="row">' +
-                                '<form id="formCriaHabilidade" action="../../controller/habilidades/cria_habilidade.php" method="post">' +                            
-                                    '<div class="col-md-12">' +
-                                         '<div class="form-group">' +
-                                            '<label>Nome</label>' +
-                                            '<input type="text" class="form-control border-input" name="nome_habilidade">' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</form>'+
-                            '</div>'
-                }).then(function() {
+                    html: '<div class="row">' +
+                        '<form id="formCriaHabilidade" action="../../controller/habilidades/cria_habilidade.php" method="post">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Nome</label>' +
+                        '<input type="text" class="form-control border-input" name="nome_habilidade">' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
                     $('#formCriaHabilidade').trigger('submit');
                 });
                 break;
@@ -272,18 +204,17 @@ funcoes = {
                     title: 'Criar Idioma',
                     showConfirmButton: true,
                     confirmButtonText: 'Criar',
-                    html:
-                            '<div class="row">' +
-                                '<form id="formCriaIdioma" action="../../controller/idiomas/cria_idioma.php" method="post">' +                            
-                                    '<div class="col-md-12">' +
-                                         '<div class="form-group">' +
-                                            '<label>Idioma</label>' +
-                                            '<input type="text" class="form-control border-input" name="nome_idioma">' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</form>'+
-                            '</div>'
-                }).then(function() {
+                    html: '<div class="row">' +
+                        '<form id="formCriaIdioma" action="../../controller/idiomas/cria_idioma.php" method="post">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Idioma</label>' +
+                        '<input type="text" class="form-control border-input" name="nome_idioma">' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
                     $('#formCriaIdioma').trigger('submit');
                 });
                 break;
@@ -292,41 +223,39 @@ funcoes = {
                     title: 'Incluir categoria',
                     showConfirmButton: true,
                     confirmButtonText: 'Criar',
-                    html:
-                            '<div class="row">' +
-                                '<form id="formCriaCategoria" action="../../controller/categorias/cria_categoria.php" method="post">' +                            
-                                    '<div class="col-md-12">' +
-                                         '<div class="form-group">' +
-                                            '<label>Categoria</label>' +
-                                            '<input type="text" class="form-control border-input" name="nome_categoria">' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</form>'+
-                            '</div>'
-                }).then(function() {
+                    html: '<div class="row">' +
+                        '<form id="formCriaCategoria" action="../../controller/categorias/cria_categoria.php" method="post">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Categoria</label>' +
+                        '<input type="text" class="form-control border-input" name="nome_categoria">' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
                     $('#formCriaCategoria').trigger('submit');
                 });
                 break;
             case 'anexo':
-                    swal({
-                        title: 'Subir Arquivo',
-                        showConfirmButton: true,
-                        confirmButtonText: 'Subir',
-                        html:
-                                '<div class="row">' +
-                                    '<form id="formSubirAnexo" action="../../controller/anexos/cria_anexos.php" method="post"enctype="multipart/form-data">' +                            
-                                        '<div class="col-md-12">' +
-                                             '<div class="form-group">' +
-                                                '<label>Arquivo(s)</label>' +
-                                                '<input type="file" class="form-control border-input" name="anexos[]" multiple>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</form>'+
-                                '</div>'
-                    }).then(function() {
-                        $('#formSubirAnexo').trigger('submit');
-                    });
-                    break;
+                swal({
+                    title: 'Subir Arquivo',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Subir',
+                    html: '<div class="row">' +
+                        '<form id="formSubirAnexo" action="../../controller/anexos/cria_anexos.php" method="post"enctype="multipart/form-data">' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Arquivo(s)</label>' +
+                        '<input type="file" class="form-control border-input" name="anexos[]" multiple>' +
+                        '</div>' +
+                        '</div>' +
+                        '</form>' +
+                        '</div>'
+                }).then(function () {
+                    $('#formSubirAnexo').trigger('submit');
+                });
+                break;
             case 'deletaProjeto':
                 swal({
                     title: 'Deseja deletar?',
@@ -338,8 +267,10 @@ funcoes = {
                     confirmButtonClass: 'btn btn-success btn-fill',
                     confirmButtonText: 'Sim, deletar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_projeto: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_projeto: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/projeto/deleta_projeto.php",
                         type: "POST",
@@ -348,23 +279,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'O projeto foi excluído da plataforma',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'O projeto foi excluído da plataforma',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'O projeto não foi excluído.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'O projeto não foi excluído.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -373,7 +304,7 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
             case 'deletaHabilidade':
                 swal({
                     title: 'Deseja mesmo deletar?',
@@ -384,8 +315,10 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_habilidade: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_habilidade: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/habilidades/deleta_habilidade.php",
                         type: "POST",
@@ -394,23 +327,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'A habilidade foi excluída',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'A habilidade foi excluída',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'A habilidade não foi deletada.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'A habilidade não foi deletada.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -419,7 +352,7 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
             case 'deletaTipoTarefa':
                 swal({
                     title: 'Deseja mesmo deletar?',
@@ -430,8 +363,10 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_tipo: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_tipo: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/tipo_tarefa/deleta_tipo.php",
                         type: "POST",
@@ -440,23 +375,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'Tipo de conteúdo excluído',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'Tipo de conteúdo excluído',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'Tipo de conteúdo não excluído.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'Tipo de conteúdo não excluído.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -465,7 +400,7 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
             case 'deletaIdioma':
                 swal({
                     title: 'Deseja mesmo deletar?',
@@ -476,8 +411,10 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_idioma: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_idioma: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/idiomas/deleta_idioma.php",
                         type: "POST",
@@ -486,23 +423,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'Idioma excluído.',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'Idioma excluído.',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'Idioma não excluído.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'Idioma não excluído.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -511,7 +448,7 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
             case 'deletaCategoria':
                 swal({
                     title: 'Deseja mesmo deletar?',
@@ -522,8 +459,10 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_categoria: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_categoria: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/categorias/deleta_categoria.php",
                         type: "POST",
@@ -532,23 +471,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'A Categoria foi excluída.',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'A Categoria foi excluída.',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'A Categoria não foi excluída.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'A Categoria não foi excluída.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -557,7 +496,7 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
             case 'deletaMembro':
                 swal({
                     title: 'Deseja deletar?',
@@ -569,8 +508,10 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_membros: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_membros: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/membros_equipe/deleta_membro.php",
                         type: "POST",
@@ -579,23 +520,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'Membro excluído.',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'Membro excluído.',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'Membro não excluído.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'Membro não excluído.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -604,7 +545,7 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
             case 'deletaPersona':
                 swal({
                     title: 'Deseja deletar?',
@@ -616,8 +557,10 @@ funcoes = {
                     confirmButtonText: 'Sim, deletar',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
-                }).then(function() {
-                    dados = {id_persona: codDeletado}
+                }).then(function () {
+                    dados = {
+                        id_persona: codDeletado
+                    }
                     $.ajax({
                         url: "../../controller/persona/deleta_persona.php",
                         type: "POST",
@@ -626,23 +569,23 @@ funcoes = {
                         data: dados,
                         timeout: 15000,
                         success: function (data) {
-                            if(data == 'true'){
+                            if (data == 'true') {
                                 $(elem).remove();
                                 swal({
-                                  title: 'Sucesso',
-                                  text: 'Persona excluída.',
-                                  type: 'success',
-                                  confirmButtonClass: "btn btn-success btn-fill",
-                                  buttonsStyling: false
-                                  })
-                            }else{
+                                    title: 'Sucesso',
+                                    text: 'Persona excluída.',
+                                    type: 'success',
+                                    confirmButtonClass: "btn btn-success btn-fill",
+                                    buttonsStyling: false
+                                })
+                            } else {
                                 swal({
-                                  title: 'Erro',
-                                  text: 'Persona não foi deletada.',
-                                  type: 'error',
-                                  confirmButtonClass: "btn btn-info btn-fill",
-                                  buttonsStyling: false
-                                  })
+                                    title: 'Erro',
+                                    text: 'Persona não foi deletada.',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info btn-fill",
+                                    buttonsStyling: false
+                                })
                             }
                         },
                         error: function (x, t, m) {
@@ -651,14 +594,14 @@ funcoes = {
                         }
                     });
                 });
-            break;
+                break;
         }
     },
-    
-    initFormExtendedDatetimepickers: function(){
 
-         $('.datepicker').datetimepicker({
-            format: 'DD/MM/YYYY',    //use this format if you want the 12hours timpiecker with AM/PM toggle
+    initFormExtendedDatetimepickers: function () {
+
+        $('.datepicker').datetimepicker({
+            format: 'DD/MM/YYYY', //use this format if you want the 12hours timpiecker with AM/PM toggle
             icons: {
                 time: "fa fa-clock-o",
                 date: "fa fa-calendar",
@@ -670,16 +613,16 @@ funcoes = {
                 clear: 'fa fa-trash',
                 close: 'fa fa-remove'
             }
-         });
+        });
     },
-    
-    showNotification: function(icon,cor, text){
-        
+
+    showNotification: function (icon, cor, text) {
+
         $.notify({
             icon: icones[icon],
             message: text
 
-        },{
+        }, {
             type: type[cor],
             timer: 3000,
             placement: {
@@ -691,69 +634,69 @@ funcoes = {
 }
 
 $.fn.formatFormToJson = function (options) {
-    
-      options = $.extend({}, options);
-    
-      var self = this,
+
+    options = $.extend({}, options);
+
+    var self = this,
         json = {},
         push_counters = {},
         patterns = {
-          "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
-          "key": /[a-zA-Z0-9_]+|(?=\[\])/g,
-          "push": /^$/,
-          "fixed": /^\d+$/,
-          "named": /^[a-zA-Z0-9_]+$/
+            "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
+            "key": /[a-zA-Z0-9_]+|(?=\[\])/g,
+            "push": /^$/,
+            "fixed": /^\d+$/,
+            "named": /^[a-zA-Z0-9_]+$/
         };
-    
-    
-      this.build = function (base, key, value) {
+
+
+    this.build = function (base, key, value) {
         base[key] = value;
         return base;
-      };
-    
-      this.push_counter = function (key) {
+    };
+
+    this.push_counter = function (key) {
         if (push_counters[key] === undefined) {
-          push_counters[key] = 0;
+            push_counters[key] = 0;
         }
         return push_counters[key]++;
-      };
-    
-      $.each($(this).serializeArray(), function () {
-    
+    };
+
+    $.each($(this).serializeArray(), function () {
+
         // skip invalid keys
         if (!patterns.validate.test(this.name)) {
-          return;
+            return;
         }
-    
+
         var k,
-          keys = this.name.match(patterns.key),
-          merge = this.value,
-          reverse_key = this.name;
-    
+            keys = this.name.match(patterns.key),
+            merge = this.value,
+            reverse_key = this.name;
+
         while ((k = keys.pop()) !== undefined) {
-    
-          // adjust reverse_key
-          reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
-    
-          // push
-          if (k.match(patterns.push)) {
-            merge = self.build([], self.push_counter(reverse_key), merge);
-          }
-    
-          // fixed
-          else if (k.match(patterns.fixed)) {
-            merge = self.build([], k, merge);
-          }
-    
-          // named
-          else if (k.match(patterns.named)) {
-            merge = self.build({}, k, merge);
-          }
+
+            // adjust reverse_key
+            reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), '');
+
+            // push
+            if (k.match(patterns.push)) {
+                merge = self.build([], self.push_counter(reverse_key), merge);
+            }
+
+            // fixed
+            else if (k.match(patterns.fixed)) {
+                merge = self.build([], k, merge);
+            }
+
+            // named
+            else if (k.match(patterns.named)) {
+                merge = self.build({}, k, merge);
+            }
         }
-    
+
         json = $.extend(true, json, merge);
-      });
-    
-    
-      return json;
-    }
+    });
+
+
+    return json;
+}

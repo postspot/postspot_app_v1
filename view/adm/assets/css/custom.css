@@ -797,11 +797,13 @@ h4.title i {
 
 .card-membro .avatar {
     width: 95px;
+    height: 60px;
 }
 
 .card-membro .avatar img {
     width: 60px;
     margin: 0 auto;
+    height: 60px;
 }
 
 .card-membro .stats {
@@ -945,4 +947,25 @@ label.error {
 }
 .card-prazo p{
     font-size: 14px;
+}
+.quadrado-cor{
+    width: 25px;
+    height: 25px;
+}
+.fc-day-grid-event .fc-time {
+    font-weight: bold;
+    display: none;
+}
+.fc button {
+    border-radius: 20px;
+    height: 36px;
+    font-weight: 600;
+    padding: 6px;
+}
+.fc button:hover, .fc button:focus, .fc button:active, .fc button.active, .fc button:active:focus, .fc button:active:hover, .open > .fc button.dropdown-toggle, .open > .fc button.dropdown-toggle:focus, .open > .fc button.dropdown-toggle:hover {
+    background-color: #523877;
+    border-color: #523877;
+}
+.fc-toolbar h2 {
+    text-transform: capitalize;
 }

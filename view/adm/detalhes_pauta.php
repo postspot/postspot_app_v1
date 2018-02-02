@@ -24,7 +24,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Detalhes Pauta - PostSpot</title>
+        <title>Detalhes da Pauta - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -256,7 +256,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                     <span class="btn-label">
                                                         <i class="material-icons">fast_forward</i>
                                                     </span>
-                                                    Enviar Moderador
+                                                    Enviar PostSpot
                                                 </button>
                                             <?php endif; ?>
                                             <?php if ($_SESSION['funcao_usuario'] == '0' && ($tarefa->etapa == PAUTA_APROVACAO_MODERADOR || $tarefa->etapa == PAUTA_REAPROVACAO_MODERADOR)) : ?>

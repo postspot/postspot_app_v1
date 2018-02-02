@@ -57,12 +57,12 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
                 </a>
             </li>
 
-            <!-- <li class="<?= $detalhe_pagina == "calendario.php" ? "active" : "" ?>">
+            <li class="<?= $detalhe_pagina == "calendario.php" ? "active" : "" ?>">
                 <a href="calendario.php">
                 <i class="material-icons">event</i>
                     <p>Calendário</p>
                 </a>
-            </li> -->
+            </li> 
 
             <?php if ($_SESSION['funcao_usuario'] != '2' && $_SESSION['funcao_usuario'] != '4') : ?>
                 <li class="<?= $detalhe_pagina == "documentos.php" ? "active" : "" ?>">

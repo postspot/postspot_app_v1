@@ -23,9 +23,9 @@ require_once 'includes/header_padrao.php';
 
                 <div class="content">
                     <div class="container-fluid">
-                        <h4 class="title"><i class="ti-calendar"></i> Calendário</h4>
+                    <h4 class="title cor-roxo-escuro"><i class="material-icons">event</i> Calendário</h4>
                         <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
+                            <div class="col-md-12">
                                 <div class="card card-calendar">
                                     <div class="card-content">
                                         <div id="fullCalendar"></div>
@@ -40,8 +40,11 @@ require_once 'includes/header_padrao.php';
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
+    <script src="assets/js/pt-br.js"></script>
     <script type="text/javascript">
+        var siteBase = '<?= SITE ?>';
         $(document).ready(function () {
+
             funcoes.initFullCalendar();
         });
     </script>

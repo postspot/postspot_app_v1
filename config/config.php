@@ -7,6 +7,7 @@
 
 // define('DIR_ROOT', 'C:\xampp\htdocs\postspot');
 // define('SITE', 'http://localhost/postspot/');
+// define('AMBIENTE_PROD', false);
 
 //Produção
 define('USER', 'root_n');
@@ -16,12 +17,12 @@ define('HOST', 'mysql857.umbler.com');
 
 define('DIR_ROOT', '/home/app.postspot.com.br/public/');
 define('SITE', 'https://app.postspot.com.br/');
+define('AMBIENTE_PROD', true);
 
 
 define('GUSER', 'ola@app.postspot.com.br');
 define('GPWD', '#PostSpot2017');
 define('APP_NOME', 'Time PostSpot');
-define('AMBIENTE_PROD', true);
 
 
 date_default_timezone_set('America/Sao_Paulo');

@@ -290,7 +290,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                         <p><?= date('d/m/Y', strtotime($tarefa->criacao_log)) ?></p>
                                     </div>
                                     <div class="col-lg-2">
-                                        <a href="<?= ($tarefa->etapa > 4) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn fill-up fundo-roxo-escuro">Detalhes</a>
+                                        <a href="<?= ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE) ? 'detalhes_conteudo' : 'detalhes_pauta' ?>.php?t=<?= $tarefa->id_tarefa ?>" class="btn fill-up fundo-roxo-escuro">Detalhes</a>
                                     </div>
                                 </div>
                                 <div class="badge"><?= $tarefa->nome_tipo ?></div>

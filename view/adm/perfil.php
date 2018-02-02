@@ -198,7 +198,7 @@ die();*/
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'erro') { ?>
             funcoes.showNotification(0,4,'Perfil não atualziado.');
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'sOk') { ?>
-            funcoes.showNotification(0,1,'Senha atualziada.');
+            funcoes.showNotification(0,1,'Senha atualizada.');
         <?php }else if (isset($_GET['retorno']) && $_GET['retorno'] == 'sErro') { ?>
             funcoes.showNotification(0,4,'Senha não atualizada.');
         <?php } ?>

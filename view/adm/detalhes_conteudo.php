@@ -34,7 +34,7 @@ endforeach;
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Detalhes Conteúdo - PostSpot</title>
+        <title>Detalhes do Conteúdo - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
         <script src="ckeditor/ckeditor.js"></script>
         <script src="ckeditor/sample.js"></script>
@@ -126,7 +126,7 @@ endforeach;
                                             <!-- <input type="text" class="form-control" value="<?= $tarefa->nome_tarefa ?>">    -->
                                             <h1 class="titulo-pauta"><?= $tarefa->nome_tarefa ?></h1>   
                                             <img class="img-capa" src="<?= SITE ?>uploads/projetos/<?= $fotos[0]->id_projeto ?>-arquivos/<?= $fotos[0]->nome_anexo ?>" alt=""> 
-                                                <div class="sem-estilo min-height"><?= (empty($conteudo)) ? '<p>não há nenhum conteúdo escrito até o momento</p>' : $conteudo ?> </div>
+                                                <div class="sem-estilo min-height"><?= (empty($conteudo)) ? '<p>Não há nenhum conteúdo escrito até o momento</p>' : $conteudo ?> </div>
                                                 <?php if ($_SESSION['funcao_usuario'] != 3) : ?>
                                                     <hr>
                                                     <div class="card">
@@ -303,7 +303,7 @@ endforeach;
                                                     <span class="btn-label">
                                                     <i class="material-icons">fast_forward</i>
                                                     </span>
-                                                    Enviar Moderador
+                                                    Enviar PostSpot
                                                 </button>
                                             <?php endif; ?>
                                         </div>

@@ -15,37 +15,37 @@ if (isset($_GET["t"]) || isset($_GET["s"])) {
 
     switch ($filtroStatus) {
         case '0':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, $filtroTipo);
             break;
         case '1':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . CONTEUDO_ESCREVENDO . ' OR l.etapa = ' . CONTEUDO_AJUSTANDO . ')' . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND (l.etapa = ' . CONTEUDO_ESCREVENDO . ' OR l.etapa = ' . CONTEUDO_AJUSTANDO . ')' . $filtroTipo);
             break;
         case '2':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . PAUTA_APROVACAO_CLIENTE . ' OR l.etapa = ' . PAUTA_REAPROVACAO_CLIENTE . ')' . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND (l.etapa = ' . PAUTA_APROVACAO_CLIENTE . ' OR l.etapa = ' . PAUTA_REAPROVACAO_CLIENTE . ')' . $filtroTipo);
             break;
         case '3':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_AJUSTANDO . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND l.etapa = ' . PAUTA_AJUSTANDO . $filtroTipo);
             break;
         case '4':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . CONTEUDO_APROVACAO_MODERADOR . ' OR l.etapa = ' . CONTEUDO_REAPROVACAO_MODERADOR . ')' . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND (l.etapa = ' . CONTEUDO_APROVACAO_MODERADOR . ' OR l.etapa = ' . CONTEUDO_REAPROVACAO_MODERADOR . ')' . $filtroTipo);
             break;
         case '5':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_ESCREVENDO . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND l.etapa = ' . PAUTA_ESCREVENDO . $filtroTipo);
             break;
         case '6':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . PAUTA_APROVACAO_MODERADOR . ' OR l.etapa = ' . PAUTA_REAPROVACAO_MODERADOR . ')' . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND (l.etapa = ' . PAUTA_APROVACAO_MODERADOR . ' OR l.etapa = ' . PAUTA_REAPROVACAO_MODERADOR . ')' . $filtroTipo);
             break;
         case '7':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . CONTEUDO_APROVACAO_CLIENTE . ' OR l.etapa = ' . CONTEUDO_REAPROVACAO_CLIENTE . ')' . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND (l.etapa = ' . CONTEUDO_APROVACAO_CLIENTE . ' OR l.etapa = ' . CONTEUDO_REAPROVACAO_CLIENTE . ')' . $filtroTipo);
             break;
         case '8':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . CONTEUDO_AJUSTANDO . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND l.etapa = ' . CONTEUDO_AJUSTANDO . $filtroTipo);
             break;
         case '9':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . CONTEUDO_PARA_PUBLICAR . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND l.etapa = ' . CONTEUDO_PARA_PUBLICAR . $filtroTipo);
             break;
         case '10':
-            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . CONTEUDO_PUBLICADO . $filtroTipo);
+            $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND l.etapa = ' . CONTEUDO_PUBLICADO . $filtroTipo);
             break;
     }
     $textoTitulo = 'Materiais encontrados';
@@ -57,7 +57,7 @@ if (isset($_GET["t"]) || isset($_GET["s"])) {
     // pre_r($tarefas);
     // die();
 } else {
-    $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . CONTEUDO_PARA_PUBLICAR);
+    $tarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 100, 'AND l.etapa = ' . CONTEUDO_PARA_PUBLICAR);
     $textoTitulo = 'Conteúdos para Publicar';
     $param = false;
 }
@@ -164,7 +164,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                     </div>
                                     <div class="card-footer">
                                         <hr />
-                                        <a href="dashboard.php?a=1">
+                                        <a href="conteudos.php?s=7">
                                             <div class="stats">
                                                 <i class="ti-eye"></i> Ver todos
                                             </div>

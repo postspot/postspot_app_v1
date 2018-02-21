@@ -19,11 +19,11 @@ $events = array();
 
 foreach ($tarefas as $tarefa) :
     // Calcula datas
-    $pautaAvaliacao = date('Y-m-d', strtotime("+4 days", strtotime($tarefa->data_criacao)));
-    $pautaAprovacao = date('Y-m-d', strtotime("+7 days", strtotime($tarefa->data_criacao)));
+    //$pautaAvaliacao = date('Y-m-d', strtotime("+4 days", strtotime($tarefa->data_criacao)));
+    //$pautaAprovacao = date('Y-m-d', strtotime("+7 days", strtotime($tarefa->data_criacao)));
     $conteudoProducao = date('Y-m-d', strtotime("+11 days", strtotime($tarefa->data_criacao)));
-    $conteudoAvaliacao = date('Y-m-d', strtotime("+12 days", strtotime($tarefa->data_criacao)));
-    $conteudoAprovacao = date('Y-m-d', strtotime("+13 days", strtotime($tarefa->data_criacao)));
+    //$conteudoAvaliacao = date('Y-m-d', strtotime("+12 days", strtotime($tarefa->data_criacao)));
+    //$conteudoAprovacao = date('Y-m-d', strtotime("+13 days", strtotime($tarefa->data_criacao)));
     $conteudoPublicacao = date('Y-m-d', strtotime("+17 days", strtotime($tarefa->data_criacao)));
 
     // seta valores basicos
@@ -37,24 +37,24 @@ foreach ($tarefas as $tarefa) :
     $e['allDay'] = false;
 
     // Insere pauta avaliacao
-    $e['start'] = $pautaAvaliacao;
-    array_push($events, $e);
+    //$e['start'] = $pautaAvaliacao;
+    //array_push($events, $e);
     
     // Insere pauta aprovacao
-    $e['start'] = $pautaAprovacao;
-    array_push($events, $e);
+    //$e['start'] = $pautaAprovacao;
+    //array_push($events, $e);
     
     // Insere conteudo producao
     $e['start'] = $conteudoProducao;
     array_push($events, $e);
     
     // Insere conteudo avaliacao
-    $e['start'] = $conteudoAvaliacao;
-    array_push($events, $e);
+    //$e['start'] = $conteudoAvaliacao;
+    //array_push($events, $e);
     
     // Insere conteudo aprovacao
-    $e['start'] = $conteudoAprovacao;
-    array_push($events, $e);
+    //$e['start'] = $conteudoAprovacao;
+    //array_push($events, $e);
     
     // Insere conteudo publicacao
     $e['start'] = $conteudoPublicacao;

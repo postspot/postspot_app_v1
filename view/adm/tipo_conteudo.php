@@ -43,8 +43,11 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                                             <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
                                             <li id="tipo<?= $tipoTarefa->id_tipo ?>">
                                                 <div class="row">
-                                                    <div class="col-xs-7">
-                                                    <?= $tipoTarefa->nome_tarefa ?>
+                                                    <div class="col-xs-5">
+                                                        <?= $tipoTarefa->nome_tarefa ?>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        R$ <?= str_replace(".", ",", $tipoTarefa->valor_tipo_tarefa) ?>
                                                     </div>
                                                     <div class="col-xs-1">
                                                         <div class="quadrado-cor" style="background-color: #<?= $tipoTarefa->cor_tarefa ?>"></div>
@@ -68,6 +71,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 
     <?php require_once './includes/footer_imports.php'; ?>
     <script src="assets/js/jscolor.min.js"></script>
+    <script src="assets/js/mask.js"></script>
     
     <script>
     var codDeletado;
@@ -84,7 +88,7 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
         <?php 
     } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'empty') { ?>
             $(document).ready(function() {
-                funcoes.showNotification(0,4,'Informe o nome do tipo de conteúdo.');
+                funcoes.showNotification(0,4,'Informe os campos corretamente.');
             });
         <?php 
     } ?>

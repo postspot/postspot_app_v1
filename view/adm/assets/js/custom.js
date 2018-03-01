@@ -163,6 +163,12 @@ funcoes = {
                         '</div>' +
                         '<div class="col-md-12">' +
                         '<div class="form-group">' +
+                        '<label>Valor tarefa</label>' +
+                        '<input type="text" class="form-control border-input mask-real" name="valor_tipo_tarefa" required>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
                         '<label>Cor do Evento</label>' +
                         '<p id="inputColor"></p>' +
                         '</div>' +
@@ -179,6 +185,9 @@ funcoes = {
                 var picker = new jscolor(input);
                 picker.fromHSV(360 / 100 * i, 100, 100)
                 document.getElementById('inputColor').appendChild(input);
+                $('.mask-real').mask('000.000.000.000.000,00', {
+                    reverse: true
+                });
                 break;
             case 'habilidade':
                 swal({

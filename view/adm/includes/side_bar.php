@@ -145,6 +145,31 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
                         </ul>
                     </div>
                 </li>
+                <li class="<?= in_array($detalhe_pagina, $array_gestao) ? "active" : "" ?>">
+                    <a data-toggle="collapse" href="#relatorio" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"' : '' ?>>
+                    <i class="material-icons">assessment</i>
+                        <p>
+                            Relatórios
+                            <b class="caret"></b>
+                        </p>
+                    </a>
+                    <div class="collapse <?= in_array($detalhe_pagina, $array_gestao) ? 'in' : '' ?>" id="relatorio" <?= in_array($detalhe_pagina, $array_gestao) ? 'aria-expanded="true"' : '' ?>>
+                        <ul class="nav">
+                            <li class="<?= $detalhe_pagina == "relatorio_conteudo.php" ? "active" : "" ?>">
+                                <a href="relatorio_conteudo.php">
+                                    <span class="sidebar-mini">PC</span>
+                                    <span class="sidebar-normal">Produção de Conteúdo</span>
+                                </a>
+                            </li>
+                            <li class="<?= $detalhe_pagina == "relatorio_avaliacao.php" ? "active" : "" ?>">
+                                <a href="relatorio_avaliacao.php">
+                                    <span class="sidebar-mini">AC</span>
+                                    <span class="sidebar-normal">Avaliação de Conteúdo</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             <?php endif; ?>
         </ul>
     </div>

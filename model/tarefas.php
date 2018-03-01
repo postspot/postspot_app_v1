@@ -362,6 +362,73 @@ class tarefas
 	}
 
 
+	public static function getRedatoresTarefa($id)
+	{
+
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT DISTINCT(lt.id_usuario), us.nome_usuario as nome_redator  FROM log_tarefas lt INNER JOIN usuarios us ON(lt.id_usuario = us.id_usuario) WHERE lt.id_tarefa = :id_tarefa  AND us.funcao_usuario = 2 ORDER BY lt.id_log  DESC");
+
+			$stmt->bindParam(":id_tarefa", $id);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch (PDOException $ex) {
+			return false;
+              	//echo $ex->getMessage();
+		}
+	}
+
+	public static function getTarefasByRedator($id, $inicio = null, $fim = null)
+	{
+		$inicio = (empty($inicio)) ? '' : 'and ta.data_criacao BETWEEN  "' . $inicio . '"';
+		$fim = (empty($fim)) ? '' : 'and "' . $fim . '"';
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT DISTINCT(lt.id_usuario), ta.nome_tarefa, tt.nome_tarefa as nome_tipo_tarefa, tt.valor_tipo_tarefa, pr.nome_projeto, ta.data_criacao, ta.id_tarefa FROM log_tarefas lt"
+			.	" INNER JOIN tarefas ta "
+			.	" ON(lt.id_tarefa = ta.id_tarefa) "
+			.	" INNER JOIN tipo_tarefa tt "
+			.	" ON(tt.id_tipo = ta.id_tipo) "
+			.	" INNER JOIN projetos pr "
+			.	" on(ta.id_projeto = pr.id_projeto) "
+			.	" WHERE lt.id_usuario = :id_usuario {$inicio} {$fim} ");
+
+			$stmt->bindParam(":id_usuario", $id);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch (PDOException $ex) {
+			return false;
+              	//echo $ex->getMessage();
+		}
+	}
+
+	public static function getTarefasAvaliacao($id_projeto, $inicio = null, $fim = null)
+	{
+		$inicio = (empty($inicio)) ? '' : 'and t.data_criacao BETWEEN  "' . $inicio . '"';
+		$fim = (empty($fim)) ? '' : 'and "' . $fim . '"';
+		try {
+			$stmt = Conexao::getInstance()->prepare("select tp.nome_tarefa as nome_tipo, t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto, l.etapa, l.status, l.data_criacao as criacao_log  from tarefas t inner join log_tarefas l on (t.id_tarefa = l.id_tarefa) inner join tipo_tarefa tp on (t.id_tipo = tp.id_tipo) where t.id_projeto = :id_projeto and l.status = 1 AND l.etapa = 15 {$inicio} {$fim} order by convert(l.etapa, decimal)");
+			$stmt->bindParam(":id_projeto", $id_projeto);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch (PDOException $ex) {
+			 return $ex->getMessage();
+			//return false;
+		}
+	}
+
+
+
  //------------------ function delete($id)---------//
 
 

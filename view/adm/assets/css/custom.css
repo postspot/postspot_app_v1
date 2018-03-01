@@ -575,6 +575,10 @@ h4.title i {
     margin: 0;
     line-height: 1.1em;
 }
+.card-tarefa ul{
+    padding: 0px;
+    margin: 0px;
+}
 
 .card-vincula-membro .form-group {
     float: left;
@@ -968,4 +972,7 @@ label.error {
 }
 .fc-toolbar h2 {
     text-transform: capitalize;
+}
+.card-tarefa .row{
+    margin-bottom: 5px;
 }

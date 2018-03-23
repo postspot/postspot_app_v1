@@ -10,10 +10,10 @@ if (isset($_GET["proj"])) {
     //echo 'P: ' . $_GET["proj"];
     $projetoEscolhido = $_GET["proj"];
     $conteudos = tarefas::getTarefasAvaliacao($projetoEscolhido, dataBRparaPHP($inicio), dataBRparaPHP($fim));
-} else {
+} else { 
     $projetoEscolhido = 0;
     $conteudos = '';
-}   
+}
 $projetos = projetos::getAll();
 $media = 0;
 // pre_r($conteudos);
@@ -86,10 +86,13 @@ $media = 0;
                                     </div>
                                 <?php else: ?>
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-2">
+                                            <p>Data</p>
+                                        </div>
+                                        <div class="col-lg-5">
                                             <p class="title"><strong>Nome conteúdo</strong></p>
                                         </div>
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                             <p>Redator(es)</p>
                                         </div>
                                         <div class="col-lg-2">
@@ -102,10 +105,13 @@ $media = 0;
     $redatores = tarefas::getRedatoresTarefa($conteudo->id_tarefa);
     ?>
 	                                            <div class="row">
-	                                                <div class="col-lg-6">
+                                                    <div class="col-lg-2">
+                                                        <p><?= date('d/m/Y', strtotime($conteudo->data_criacao)) ?></p>
+                                                    </div>
+	                                                <div class="col-lg-5">
 	                                                    <p><?=$conteudo->nome_tarefa?></p>
 	                                                </div>
-	                                                <div class="col-lg-3">
+	                                                <div class="col-lg-2">
 	                                                    <?php if (!empty($redatores)): ?>
 	                                                        <ul>
 	                                                            <?php foreach ($redatores as $redator): ?>

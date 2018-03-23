@@ -29,10 +29,16 @@ foreach ($tarefas as $tarefa) :
     // seta valores basicos
     $e = array();
     $e['id'] = $tarefa->id_tarefa;
-    $e['title'] = $tarefa->nome_tarefa;
     $e['color'] = '#'.$tarefa->cor_tarefa;
     $e['textColor'] = 'white';
-    $pagina = ($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE) ? 'detalhes_conteudo.php' : 'detalhes_pauta.php';
+    if($tarefa->etapa > PAUTA_REAPROVACAO_CLIENTE):
+        $pagina =  'detalhes_conteudo.php';
+        $prefixo = '(C) ';
+    else: 
+        $prefixo = '(P) ';
+        $pagina = 'detalhes_pauta.php';
+    endif;
+    $e['title'] = $prefixo . $tarefa->nome_tarefa;
     $e['url'] = SITE .'view/adm/'. $pagina . '?t='. $tarefa->id_tarefa;
     $e['allDay'] = false;
 

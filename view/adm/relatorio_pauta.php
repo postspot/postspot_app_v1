@@ -6,18 +6,18 @@ require_once 'includes/header_padrao.php';
 
 $inicio = (empty($_GET['i']) ? null : $_GET['i']);
 $fim = (empty($_GET['f']) ? null : $_GET['f']);
-
+ 
 if (isset($_GET["r"])) {
     $redatorEscolhido = $_GET["r"];
     $conteudos = tarefas::getTarefasByRedator($redatorEscolhido, dataBRparaPHP($inicio), dataBRparaPHP($fim));
     $inf_redator = usuarios::getById($redatorEscolhido);
-    $msgErro = 'Nenhuma tarefa encontrada';
+    $msgErro = 'Nenhuma pauta encontrada';
 }else{
     $redatorEscolhido = 0;
     $conteudos = '';
-    $msgErro = 'Nenhum redator selecionada';
+    $msgErro = 'Nenhum analista selecionado';
 }
-$redatores = usuarios::getAllTipo(2);
+$redatores = usuarios::getAllTipo(1);
 $total = 0;
 //pre_r($redatores);
 //die();
@@ -44,7 +44,7 @@ $total = 0;
                 <div class="content relative">
                     
                     <div class="container-fluid relative">
-                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">assessment</i> Relatório de produção de Conteúdo</h4>
+                        <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">assessment</i> Relatório de produção de Pauta</h4>
 
                         <div class="row">
                             <div class="col-lg-12 fundo-campos-busca">
@@ -53,7 +53,7 @@ $total = 0;
                                         <fieldset>
                                             <div class="form-group">
                                                 <select class="form-control select-customizado" id="listaRedatores">
-                                                    <option selected disabled>Escolha o redator</option>
+                                                    <option selected disabled>Escolha o analista</option>
                                                     <?php foreach ($redatores as $redator):?>
                                                         <option value="<?= $redator->id_usuario ?>" <?= ($redatorEscolhido == $redator->id_usuario) ? 'selected' : ''?>><?= $redator->nome_usuario ?></option>
                                                     <?php endforeach; ?>

@@ -161,6 +161,12 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
                                     <span class="sidebar-normal">Produção de Conteúdo</span>
                                 </a>
                             </li>
+                            <li class="<?= $detalhe_pagina == "relatorio_pauta.php" ? "active" : "" ?>">
+                                <a href="relatorio_pauta.php">
+                                    <span class="sidebar-mini">PP</span>
+                                    <span class="sidebar-normal">Produção de Pauta</span>
+                                </a>
+                            </li>
                             <li class="<?= $detalhe_pagina == "relatorio_avaliacao.php" ? "active" : "" ?>">
                                 <a href="relatorio_avaliacao.php">
                                     <span class="sidebar-mini">AC</span>

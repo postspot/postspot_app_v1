@@ -50,7 +50,7 @@ $qtd_escritores = usuarios::countRedatores();
                                                     <i class="material-icons">person_add</i>
                                                     <div class="form-group">
                                                         <label>Adicionar Membro</label>
-                                                        <select multiple title="Escolha um membro" class="selectpicker form-control border-input" data-style="no-border" data-size="7" name="usuarios[]">
+                                                        <select  multiple="multiple" title="Escolha um membro" class="form-control select-customizado" name="usuarios[]">
                                                             <?php foreach ($possiveis_membros as $membro) : ?>
                                                                 <option value="<?= $membro->id_usuario ?>"><?= $membro->nome_usuario ?> - <?= funcaoCliente($membro->funcao_usuario) ?></option>
                                                             <?php endforeach; ?>
@@ -193,7 +193,8 @@ $qtd_escritores = usuarios::countRedatores();
             });
         <?php 
     } ?>
-        function deletaMembro(cod) { 
+    $('.select-customizado').select2();   
+    function deletaMembro(cod) { 
             elem = '#membro' + cod;
             codDeletado = cod;
             funcoes.showSwal('deletaMembro');

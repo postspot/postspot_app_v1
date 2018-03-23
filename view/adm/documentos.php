@@ -123,7 +123,7 @@ die();*/
 
 	            var data = table.row($tr).data();
 				
-                var urlFile = "<?= SITE?>postspot/uploads/projetos/<?= $_SESSION['id_projeto'] ?>-arquivos/" + data[1];
+                var urlFile = "<?= SITE?>uploads/projetos/<?= $_SESSION['id_projeto'] ?>-arquivos/" + data[1];
                 var win = window.open(urlFile, '_blank');
                 win.focus();
 	         } );

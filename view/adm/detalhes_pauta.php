@@ -17,9 +17,6 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getByProjeto($_SESSION['id_projeto']);
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
-// pre_r($tarefa);
-// pre_r($persona);
-// die();
 ?>
 <html lang="pt-br">
     <head>
@@ -270,7 +267,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                     <span class="btn-label">
                                                         <i class="material-icons">close</i>
                                                     </span>
-                                                    Reprovar Pauta
+                                                    Solicitar ajuste
                                                 </button>
                                             <?php endif; ?>
                                             <?php if ($tarefa->etapa == PAUTA_APROVACAO_CLIENTE || $tarefa->etapa == PAUTA_REAPROVACAO_CLIENTE) : ?>
@@ -285,7 +282,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                         <span class="btn-label">
                                                             <i class="material-icons">close</i>
                                                         </span>
-                                                        Reprovar Pauta
+                                                        Solicitar ajuste
                                                     </button>
                                                 <?php endif; ?>
                                             <?php endif; ?>
@@ -304,6 +301,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                 else :
                                                     foreach ($comentarios as $comentario) :
                                                     if ($comentario->id_usuario != $_SESSION['id_usuario']) :
+                                                        if(!($_SESSION['funcao_usuario'] == 1 && $comentario->funcao_usuario == 3)):
                                                 ?>
                                                         <li class="other">
                                                             <div class="avatar">
@@ -317,7 +315,10 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                                                                 </div>
                                                             </div>
                                                         </li>
-                                                    <?php else : ?>
+                                                        <?php 
+                                                            endif;
+                                                            else:
+                                                        ?>
                                                         <li class="self">
                                                             <div class="msg" title="Comentário de <?= $comentario->nome_usuario ?>" >
                                                                 <p><?= $comentario->comentario ?></p>
@@ -420,7 +421,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Reprovar',
+                    confirmButtonText: 'Solicitar ajuste',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function () {
@@ -442,7 +443,7 @@ $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 0, '');
                     showCancelButton: true,
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Reprovar',
+                    confirmButtonText: 'Solicitar ajuste',
                     cancelButtonText: 'Cancelar',
                     buttonsStyling: false
                 }).then(function () {

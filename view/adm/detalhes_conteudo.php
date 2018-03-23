@@ -279,7 +279,7 @@ endforeach;
                                                     <span class="btn-label">
                                                     <i class="material-icons">close</i>
                                                     </span>
-                                                    Reprovar conteúdo
+                                                    Solicitar ajuste
                                                 </button>
                                             </form>
                                         <?php //endif;?>
@@ -332,7 +332,7 @@ endforeach;
                                                     <span class="btn-label">
                                                     <i class="material-icons">close</i>
                                                     </span>
-                                                    Reprovar Conteúdo
+                                                    Solicitar ajuste
                                                 </button>
                                             </form>
                                         </div>
@@ -720,7 +720,7 @@ endforeach;
                     cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Reprovar',
+                    confirmButtonText: 'Solicitar ajuste',
                     buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());
@@ -746,7 +746,7 @@ endforeach;
                     cancelButtonText: 'Cancelar',
                     cancelButtonClass: 'btn btn-danger btn-fill',
                     confirmButtonClass: 'btn btn-success btn-fill',
-                    confirmButtonText: 'Reprovar',
+                    confirmButtonText: 'Solicitar ajuste',
                     buttonsStyling: false
                 }).then(function() {
                     $("#inputMotivo").val($("#inputMotivoModal").val());

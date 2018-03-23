@@ -74,7 +74,7 @@ class comentarios {
 	public static function getAllComentariosByTarefa($id, $status, $condicao) {
 
 	 try {
-		$stmt = Conexao::getInstance()->prepare("SELECT co.*, us.nome_usuario, us.foto_usuario "
+		$stmt = Conexao::getInstance()->prepare("SELECT co.*, us.nome_usuario, us.foto_usuario, us.funcao_usuario "
 		 . " FROM comentarios co"
 		 . " INNER JOIN usuarios us"
 		 . " ON(co.id_usuario = us.id_usuario)"

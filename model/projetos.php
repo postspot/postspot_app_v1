@@ -102,7 +102,8 @@ class projetos {
 		. " ON(pr.id_projeto = eq.id_projeto)"
 		. " INNER JOIN membros_equipe me"
 		. " ON(eq.id_equipe = me.id_equipe)"
-		. " WHERE me.id_usuario = :id");
+		. " WHERE me.id_usuario = :id"
+		. " ORDER BY pr.nome_projeto ASC");
 
 		$stmt->bindParam(":id", $id);
 		$stmt->execute();

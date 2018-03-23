@@ -130,7 +130,7 @@ if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
                 endforeach;
 
                 if (log_tarefas::insert($novo_log_aprovacao)) {
-                    header('Location: ../../view/adm/pautas.php?retorno=naOk');
+                    header('Location: ../../view/adm/pautas.php?retorno=navOk');
                 } else {
                     header('Location: ../../view/adm/detalhes_pauta.php?t=' . $id_tarefa . '&retorno=nErro');
                 }

@@ -180,6 +180,8 @@ $totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etap
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'nOk') { ?>
                 funcoes.showNotification(0, 1, 'Pauta salva');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'naOk') { ?>
+                funcoes.showNotification(0, 1, 'Pauta enviada para aprovação');
+<?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'navOk') { ?>
                 funcoes.showNotification(0, 1, 'Pauta enviada para avaliação');
 <?php } else if (isset($_GET['retorno']) && $_GET['retorno'] == 'reOk') { ?>
                 funcoes.showNotification(0, 1, 'Pauta reprovada.');

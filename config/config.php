@@ -1,6 +1,6 @@
 <?php
 //Desenvolvimento
-/* define('USER','root');
+ /*define('USER','root');
  define('PASS','');
  define('BANCO','banco_andress_n');
  define('HOST','localhost');

@@ -34,7 +34,7 @@ if (isset($id_tarefa)){
     
     //Vai enviar email aqui
 
-    $assunto = 'Conteúdo reprovado no projeto ' . $_SESSION['nome_projeto'] . ' - ' . date("d/m/Y") . ' às ' . date("H:i");
+    $assunto = 'Conteúdo precisa de ajustes no projeto ' . $_SESSION['nome_projeto'] . ' - ' . date("d/m/Y") . ' às ' . date("H:i");
     foreach ($moderadores as $moderador) :
         //    PREPARA AS VARIAVEIS
         $param_email = array(

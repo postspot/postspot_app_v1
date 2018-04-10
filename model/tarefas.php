@@ -144,7 +144,25 @@ class tarefas
 
  //------------------ function select($id)---------//
 
+ public static function getAll()
+ {
 
+	 try {
+		 $stmt = Conexao::getInstance()->prepare("select tp.nome_tarefa as nome_tipo, t.id_tarefa, t.data_criacao, t.nome_tarefa, t.nota_tarefa, t.id_projeto  from tarefas t inner join tipo_tarefa tp on (t.id_tipo = tp.id_tipo)");
+
+		 $stmt->execute();
+		 $colunas = array();
+		 while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+			 $row->data_criacao = date('d/m/Y', strtotime($row->data_criacao));
+			 array_push($colunas, $row);
+		 }
+		 return $colunas;
+	 } catch (PDOException $ex) {
+		 //return false;
+		 echo $ex->getMessage();
+		 die();
+	 }
+ }
 
 	public static function getById($id)
 	{
@@ -381,19 +399,12 @@ class tarefas
 		}
 	}
 
-	public static function getTarefasByRedator($id, $inicio = null, $fim = null)
+	public static function getTarefasByRedatorConteudo($id, $inicio = null, $fim = null)
 	{
-		$inicio = (empty($inicio)) ? '' : 'and ta.data_criacao BETWEEN  "' . $inicio . '"';
-		$fim = (empty($fim)) ? '' : 'and "' . $fim . '"';
+		$inicio = (empty($inicio)) ? '' : 'and ta.data_criacao >=  "' . $inicio . ' 00:00:00"';
+		$fim = (empty($fim)) ? '' : 'and ta.data_criacao   <= "' . $fim . ' 23:59:59"';
 		try {
-			$stmt = Conexao::getInstance()->prepare("SELECT DISTINCT(lt.id_usuario), ta.nome_tarefa, tt.nome_tarefa as nome_tipo_tarefa, tt.valor_tipo_tarefa, pr.nome_projeto, ta.data_criacao, ta.id_tarefa FROM log_tarefas lt"
-			.	" INNER JOIN tarefas ta "
-			.	" ON(lt.id_tarefa = ta.id_tarefa) "
-			.	" INNER JOIN tipo_tarefa tt "
-			.	" ON(tt.id_tipo = ta.id_tipo) "
-			.	" INNER JOIN projetos pr "
-			.	" on(ta.id_projeto = pr.id_projeto) "
-			.	" WHERE lt.id_usuario = :id_usuario {$inicio} {$fim} ");
+			$stmt = Conexao::getInstance()->prepare("SELECT max(CAST(lt.etapa AS UNSIGNED)) as etapa, ta.nome_tarefa, tt.nome_tarefa as nome_tipo_tarefa, tt.valor_conteudo_tipo_tarefa, pr.nome_projeto, ta.data_criacao, ta.id_tarefa FROM log_tarefas lt INNER JOIN tarefas ta ON(lt.id_tarefa = ta.id_tarefa) INNER JOIN tipo_tarefa tt ON(tt.id_tipo = ta.id_tipo) INNER JOIN projetos pr on(ta.id_projeto = pr.id_projeto) inner join usuarios u ON (lt.id_usuario = u.id_usuario) where lt.id_tarefa IN(SELECT id_tarefa FROM log_tarefas WHERE id_usuario = :id_usuario) {$inicio} {$fim} group by lt.id_tarefa");
 
 			$stmt->bindParam(":id_usuario", $id);
 			$stmt->execute();
@@ -404,7 +415,37 @@ class tarefas
 			return $colunas;
 		} catch (PDOException $ex) {
 			return false;
-              	//echo $ex->getMessage();
+				  echo $ex->getMessage();
+				  die();
+		}
+	}
+	public static function getTarefasByRedator($id, $inicio = null, $fim = null)
+	{
+		$inicio = (empty($inicio)) ? '' : 'and ta.data_criacao >=  "' . $inicio . ' 00:00:00"';
+		$fim = (empty($fim)) ? '' : 'and ta.data_criacao   <= "' . $fim . ' 23:59:59"';
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT DISTINCT(lt.id_usuario), ta.nome_tarefa, tt.nome_tarefa as nome_tipo_tarefa, tt.valor_pauta_tipo_tarefa, pr.nome_projeto, ta.data_criacao, ta.id_tarefa FROM log_tarefas lt"
+			.	" INNER JOIN tarefas ta "
+			.	" ON(lt.id_tarefa = ta.id_tarefa) "
+			.	" INNER JOIN tipo_tarefa tt "
+			.	" ON(tt.id_tipo = ta.id_tipo) "
+			.	" INNER JOIN projetos pr "
+			.	" on(ta.id_projeto = pr.id_projeto) "
+			.	" WHERE lt.id_usuario = :id_usuario {$inicio} {$fim}"
+			.	" ORDER BY pr.nome_projeto"
+			.	" , ta.data_criacao");
+
+			$stmt->bindParam(":id_usuario", $id);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch (PDOException $ex) {
+			return false;
+				  //echo $ex->getMessage();
+				  //die();
 		}
 	}
 
@@ -437,6 +478,19 @@ class tarefas
 	{
 		try {
 			$stmt = Conexao::getInstance()->prepare("DELETE FROM tarefas WHERE id_equipe = :id");
+
+			$stmt->bindParam(":id", $id);
+
+			$stmt->execute();
+			return true;
+		} catch (PDOException $ex) {
+			return false;
+		}
+	}
+	public static function deletaTarefa($id)
+	{
+		try {
+			$stmt = Conexao::getInstance()->prepare("DELETE FROM tarefas WHERE id_tarefa = :id");
 
 			$stmt->bindParam(":id", $id);
 

@@ -109,6 +109,20 @@ if (!empty($id_tarefa) && !empty($texto_publicacao)) {
             } else {
                 header('Location: ../../view/adm/detalhes_conteudo.php?t=' . $id_tarefa . '&retorno=cErro');
             }
+        } else if ($aprovacao == '3'){
+            // apenas cria o log de salvo
+            $nova_etapa = CONTEUDO_APROVACAO_MODERADOR;
+            $novo_log_conteudo = new stdClass();
+            $novo_log_conteudo->etapa = $nova_etapa;
+            $novo_log_conteudo->status = 1;
+            $novo_log_conteudo->data_prevista = retornaDataPrevista($nova_etapa,$id_tarefa);
+            $novo_log_conteudo->id_tarefa = $id_tarefa;
+            $novo_log_conteudo->id_usuario = $id_usuario;
+            if (log_tarefas::insert($novo_log_conteudo) && tarefas::atualizaTitulo($titulo, $id_tarefa)) {
+                header('Location: ../../view/adm/detalhes_conteudo.php?t=' . $id_tarefa . '&retorno=nOk');
+            } else {
+                header('Location: ../../view/adm/detalhes_conteudo.php?t=' . $id_tarefa . '&retorno=cErro');
+            }
         }
     } else {
         header('Location: ../../view/adm/detalhes_conteudo.php?t=' . $id_tarefa . '&retorno=cErro');

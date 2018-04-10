@@ -163,8 +163,14 @@ funcoes = {
                         '</div>' +
                         '<div class="col-md-12">' +
                         '<div class="form-group">' +
-                        '<label>Valor tarefa</label>' +
-                        '<input type="text" class="form-control border-input mask-real" name="valor_tipo_tarefa" required>' +
+                        '<label>Valor pauta</label>' +
+                        '<input type="text" class="form-control border-input mask-real" name="valor_pauta_tipo_tarefa" required>' +
+                        '</div>' +
+                        '</div>' +
+                        '<div class="col-md-12">' +
+                        '<div class="form-group">' +
+                        '<label>Valor conteúdo</label>' +
+                        '<input type="text" class="form-control border-input mask-real" name="valor_conteudo_tipo_tarefa" required>' +
                         '</div>' +
                         '</div>' +
                         '<div class="col-md-12">' +

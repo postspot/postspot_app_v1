@@ -9,13 +9,13 @@ $fim = (empty($_GET['f']) ? null : $_GET['f']);
 
 if (isset($_GET["r"])) {
     $redatorEscolhido = $_GET["r"];
-    $conteudos = tarefas::getTarefasByRedator($redatorEscolhido, dataBRparaPHP($inicio), dataBRparaPHP($fim));
+    $conteudos = tarefas::getTarefasByRedatorConteudo($redatorEscolhido, dataBRparaPHP($inicio), dataBRparaPHP($fim));
     $inf_redator = usuarios::getById($redatorEscolhido);
     $msgErro = 'Nenhuma tarefa encontrada';
 }else{
     $redatorEscolhido = 0;
     $conteudos = '';
-    $msgErro = 'Nenhum redator selecionada';
+    $msgErro = 'Nenhum redator selecionado';
 }
 $redatores = usuarios::getAllTipo(2);
 $total = 0;
@@ -128,7 +128,7 @@ $total = 0;
                                     </div>
                                         <div class="card-tarefa">
                                 <?php foreach ($conteudos as $conteudo):
-                                        $total = $total + $conteudo->valor_tipo_tarefa
+                                        $total = $total + $conteudo->valor_conteudo_tipo_tarefa
                                         ?>
                                             <div class="row">
                                                 <div class="col-lg-2">
@@ -144,7 +144,7 @@ $total = 0;
                                                     <p><?= $conteudo->nome_projeto ?></p>
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <p> R$ <?= str_replace(".", ",", $conteudo->valor_tipo_tarefa); ?></p>
+                                                    <p> R$ <?= str_replace(".", ",", $conteudo->valor_conteudo_tipo_tarefa); ?></p>
                                                 </div>  
                                                 <div class="col-lg-1">
                                                     <a target="_blank" href="detalhes_conteudo.php?t=<?= $conteudo->id_tarefa ?>" class="btn btn-success fill-up fundo-roxo-escuro"><i class="fa fa-external-link" aria-hidden="true"></i></a>
@@ -157,7 +157,7 @@ $total = 0;
                                                     <p class="title"><strong>Valor total: R$ <?=str_replace(".", ",", number_format($total,2))?></strong></p>
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <a target="_blank" class="btn btn-success fill-up fundo-roxo-escuro" href="impressao.php?r=<?=$redatorEscolhido?>&i=<?=$inicio?>&f=<?=$fim?>"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
+                                                    <a target="_blank" class="btn btn-success fill-up fundo-roxo-escuro" href="impressao_conteudo.php?r=<?=$redatorEscolhido?>&i=<?=$inicio?>&f=<?=$fim?>"><i class="fa fa-print" aria-hidden="true"></i> Imprimir</a>
                                                 </div>
                                             </div>
                                         </div>

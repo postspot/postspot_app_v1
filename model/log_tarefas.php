@@ -74,6 +74,29 @@ class log_tarefas
 
 
 
+	public static function getAllById($id)
+	{
+
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT lt.etapa, lt.status ,us.nome_usuario "
+			. " FROM log_tarefas lt"
+			. " INNER JOIN usuarios us"
+			. " ON(lt.id_usuario = us.id_usuario)"
+			. " WHERE id_tarefa = :id"
+			. " ORDER BY lt.id_log DESC");
+
+			$stmt->bindParam(":id", $id);
+			$stmt->execute();
+			$colunas = array();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				array_push($colunas, $row);
+			}
+			return $colunas;
+		} catch (PDOException $ex) {
+			echo $ex->getMessage();
+			return false;
+		}
+	}
 	public static function getById($id)
 	{
 

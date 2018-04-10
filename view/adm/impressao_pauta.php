@@ -38,14 +38,14 @@ $total = 0;
                 </thead>
                 <tbody>
                     <?php foreach ($conteudos as $conteudo):
-                        $total = $total + $conteudo->valor_tipo_tarefa
+                        $total = $total + $conteudo->valor_pauta_tipo_tarefa
                         ?>
                         <tr>
                             <td><?= date('d/m/Y', strtotime($conteudo->data_criacao)) ?></td>
                             <td><?= $conteudo->nome_tipo_tarefa ?></td>
                             <td><?= $conteudo->nome_tarefa ?></td>
                             <td><?= $conteudo->nome_projeto ?></td>
-                            <td >R$ <?= number_format($conteudo->valor_tipo_tarefa, 2, ',', ' ') ?></td>
+                            <td >R$ <?= number_format($conteudo->valor_pauta_tipo_tarefa, 2, ',', ' ') ?></td>
                         </tr>
 
                     <?php endforeach; ?>

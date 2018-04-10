@@ -322,6 +322,12 @@ endforeach;
                                                 <input type="hidden" value="<?= $id_tarefa ?>" name="id_tarefa">
                                                 <input type="hidden" name="etapa" value="<?= $tarefa->etapa ?>">
                                                 
+                                                <button type="button" class="btn btn-lg fill-up  btn-wd btn-success margem fundo-roxo-escuro" onclick="salvaConteudoModerador();">
+                                                    <span class="btn-label">
+                                                    <i class="material-icons">save</i>
+                                                    </span>
+                                                    Salvar modificações
+                                                </button>
                                                 <button type="button" class="btn btn-lg fill-up  btn-wd btn-info margem azul-cinco" id="btnLatEnviaAprovacaoConteudo">
                                                     <span class="btn-label">
                                                     <i class="material-icons">check</i>
@@ -682,6 +688,7 @@ endforeach;
                 $("#controleCriacao").val(0);
                 $("#formConteudo").submit();
             }
+
             
             $("#btnAprovaConteudo").click(function (e) { 
                 e.preventDefault();
@@ -769,5 +776,10 @@ endforeach;
 	            $("#total-caracteres").text(totalCaracteres);
              }
         });
+            function salvaConteudoModerador(){
+                $('textarea[name="texto_publicacao"]').html(CKEDITOR.instances.editor.getData());
+                $("#controleCriacao").val(3);
+                $("#formConteudo").submit();
+            }
     </script>
 </html>

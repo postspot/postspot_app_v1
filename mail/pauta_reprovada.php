@@ -18,7 +18,7 @@ $id_tarefa = isset($_GET['id_tarefa']) ? $_GET['id_tarefa'] : 'ErroParametro';
             <tr>
                 <td bgcolor="transparent" align="left" style="font-size: 16px; line-height: 150%; font-family: Helvetica, Arial, sans-serif; color: rgb(102, 102, 102); padding: 9px 18px">
                     <p style="line-height: 150%;">Olá, <?= $nome ?>!</p> 
-                    <p style="line-height: 150%">A Pauta <b><?= $titulo ?></b> do Projeto <b><?= $projeto ?></b> foi reprovada e precisa de ajustes. A pauta deverá ser <b>entregue até o dia <?= $data ?></b></p>     
+                    <p style="line-height: 150%">A Pauta <b><?= $titulo ?></b> do Projeto <b><?= $projeto ?></b> precisa de ajustes. A pauta deverá ser <b>entregue até o dia <?= $data ?></b></p>     
                 </td>   
             </tr>
             <tr>

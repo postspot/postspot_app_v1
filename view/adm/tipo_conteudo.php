@@ -36,23 +36,26 @@ $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
                     </a>
                     <h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gestão - Tipo de Conteúdo</h4>
                         <div class="row">
-                            <div class="col-md-8">
+                            <div class="col-md-9">
                                 <div class="card">
                                     <div class="card-content">
                                         <ul class="list-unstyled team-members">
                                             <?php foreach ($tiposTarefa as $tipoTarefa) : ?>
                                             <li id="tipo<?= $tipoTarefa->id_tipo ?>">
                                                 <div class="row">
-                                                    <div class="col-xs-5">
+                                                    <div class="col-xs-4">
                                                         <?= $tipoTarefa->nome_tarefa ?>
                                                     </div>
                                                     <div class="col-xs-2">
-                                                        R$ <?= str_replace(".", ",", $tipoTarefa->valor_tipo_tarefa) ?>
+                                                        R$ <?= str_replace(".", ",", $tipoTarefa->valor_pauta_tipo_tarefa) ?>
+                                                    </div>
+                                                    <div class="col-xs-2">
+                                                        R$ <?= str_replace(".", ",", $tipoTarefa->valor_conteudo_tipo_tarefa) ?>
                                                     </div>
                                                     <div class="col-xs-1">
                                                         <div class="quadrado-cor" style="background-color: #<?= $tipoTarefa->cor_tarefa ?>"></div>
                                                     </div>
-                                                    <div class="col-xs-4 text-right">
+                                                    <div class="col-xs-3 text-right">
                                                         <btn class="btn btn-sm btn-icon fundo-rosa-claro" onclick="deletaTipoTarefa('<?= $tipoTarefa->id_tipo ?>',this);"><i class="fa fa-times"></i> Deletar</btn>
                                                     </div>
                                                 </div>

@@ -18,12 +18,12 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
     if ($error == UPLOAD_ERR_OK) {
 
         //echo ' entro';
+        $info = pathinfo($_FILES['anexos']["name"][$key]);
         $obj = new stdClass();
-        $obj->nome_anexo = $_FILES['anexos']["name"][$key];
+        $obj->nome_anexo = remove_caracteres($info['filename']) . '.' . $info['extension'];
         $obj->id_responsavel = $id_responsavel;
-        $obj->id_projeto = $id_projeto;    
-
-        //pre_r($obj);
+        $obj->id_projeto = $id_projeto; 
+        
         if (anexos::insert($obj)) {
             //echo 'entro';
             //die();
@@ -48,8 +48,8 @@ foreach ($_FILES['anexos']['error'] as $key => $error) {
 
             // O arquivo passou em todas as verificações, hora de tentar movê-lo para a pasta
             else {
-                $nome_final = $_FILES['anexos']['name'][$key];
-
+                $nome_final = $obj->nome_anexo;
+                
                 // Depois verifica se é possível mover o arquivo para a pasta escolhida
                 if (move_uploaded_file($_FILES['anexos']['tmp_name'][$key], $_UP['pasta'] . $nome_final)) {
                     continue;

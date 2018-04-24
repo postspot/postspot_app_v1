@@ -82,7 +82,7 @@ class log_tarefas
 			. " FROM log_tarefas lt"
 			. " INNER JOIN usuarios us"
 			. " ON(lt.id_usuario = us.id_usuario)"
-			. " WHERE id_tarefa = :id"
+			. " WHERE lt.id_tarefa = :id"
 			. " ORDER BY lt.id_log DESC");
 
 			$stmt->bindParam(":id", $id);

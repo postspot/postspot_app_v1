@@ -4,7 +4,8 @@ require_once '../../lib/operacoes.php';
 require_once '../../model/log_tarefas.php';
 require_once 'includes/header_padrao.php';
 
-$logTarefa = log_tarefas::getAllById(1);
+
+$logTarefa = log_tarefas::getAllById($_GET['t']);
 
 ?>
 <html lang="pt-br">

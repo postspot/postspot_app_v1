@@ -10,7 +10,7 @@ $tarefas = tarefas::getAll();
 <html lang="pt-br">
     <head>
         <?php require_once './includes/header_includes.php'; ?>
-        <title>Gerencia Tarefa - PostSpot</title>
+        <title>Gerenciar Tarefa - PostSpot</title>
         <?php require_once './includes/header_imports.php'; ?>
     </head>
 
@@ -27,7 +27,7 @@ $tarefas = tarefas::getAll();
 
                 <div class="content">
                     <div class="container-fluid">
-							<h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gerencia Tarefa</h4>
+							<h4 class="title cor-roxo-escuro"><i class="material-icons md-48">settings</i> Gerenciar Tarefa</h4>
                         <div class="row">
                             <div class="col-md-12">
                             <div class="card">

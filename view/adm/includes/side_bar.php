@@ -5,7 +5,7 @@ $detalhe_pagina = explode("/", $_SERVER['PHP_SELF']);
 
 $detalhe_pagina = end($detalhe_pagina);
 
-$array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conteudo.php', 'idiomas.php', 'categorias.php','deleta_tarefa.php');
+$array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conteudo.php', 'idiomas.php', 'categorias.php','gerencia_tarefa.php');
 ?>
 <div class="sidebar" data-background-color="white" data-active-color="danger">
     <div class="logo">
@@ -136,10 +136,10 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
                                     <span class="sidebar-normal">Idiomas</span>
                                 </a>
                             </li>
-                            <li class="<?= $detalhe_pagina == "deleta_tarefa.php" ? "active" : "" ?>">
+                            <li class="<?= $detalhe_pagina == "gerencia_tarefa.php" ? "active" : "" ?>">
                                 <a href="gerencia_tarefa.php">
-                                    <span class="sidebar-mini">DT</span>
-                                    <span class="sidebar-normal">Deleta Tarefas</span>
+                                    <span class="sidebar-mini">GT</span>
+                                    <span class="sidebar-normal">Gerenciar Tarefas</span>
                                 </a>
                             </li>
                             <!-- <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">

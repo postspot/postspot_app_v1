@@ -46,7 +46,7 @@ if (isset($id_tarefa)){
         );
 
         //    LINKA + PARAMETROS
-        $parametros = SITE . 'mail/pauta_reprovada.php?' . http_build_query($param_email);
+        $parametros = SITE . 'mail/conteudo_reprovado.php?' . http_build_query($param_email);
 
         // VARIAVEIS
         $para = $moderador->email_usuario;

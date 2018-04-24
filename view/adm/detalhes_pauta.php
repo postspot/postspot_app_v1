@@ -13,6 +13,11 @@ if (!isset($_GET["t"])) {
     $id_tarefa = $_GET["t"];
 }
 
+//Check tarefa
+if( !tarefas::checkAccess($id_tarefa,$_SESSION['id_projeto'])){
+    header('location: ../../view/adm/lista_projetos.php?erro=te');
+}
+
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
 $tarefa = tarefas::getById($id_tarefa);
 $persona = personas::getByProjeto($_SESSION['id_projeto']);

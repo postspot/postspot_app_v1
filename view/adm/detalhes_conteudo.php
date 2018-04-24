@@ -15,6 +15,13 @@ if (!isset($_GET["t"])) {
 } else {
     $id_tarefa = $_GET["t"];
 }
+
+//Check tarefa
+if( !tarefas::checkAccess($id_tarefa,$_SESSION['id_projeto'])){
+    header('location: ../../view/adm/lista_projetos.php?erro=te');
+}
+
+
 $condicaoComentario = (($_SESSION['funcao_usuario'] == 0 || $_SESSION['funcao_usuario'] == 1) ? '' : (($_SESSION['funcao_usuario'] == 3) ? 'AND co.equipe = 0' : 'AND co.equipe = 1'));
 $comentarios = comentarios::getAllComentariosByTarefa($id_tarefa, 1, $condicaoComentario);
 $membros = membros_equipe::buscarPessoasDaEquipe($_SESSION['id_projeto'],'');

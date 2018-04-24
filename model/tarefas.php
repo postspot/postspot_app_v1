@@ -469,6 +469,29 @@ class tarefas
 	}
 
 
+	public static function checkAccess($tar,$proj)
+	{
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT id_tarefa"
+				. " FROM tarefas"
+				. " WHERE id_tarefa = :id_tarefa AND id_projeto = :id_projeto");
+
+			$stmt->bindParam(":id_tarefa", $tar);
+			$stmt->bindParam(":id_projeto", $proj);
+			if ($stmt->execute()) {
+				while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+					return true;
+				}
+
+				return false;
+			}
+		} catch (PDOException $ex) {
+			//echo $ex->getMessage();
+			return false;
+		}
+	}
+
+
 
  //------------------ function delete($id)---------//
 

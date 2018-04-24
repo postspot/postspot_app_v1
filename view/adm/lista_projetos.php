@@ -45,6 +45,15 @@ $projetos = projetos::getByUsuario($_SESSION['id_usuario']);
 
     <?php require_once './includes/footer_imports.php'; ?>
     <script>
+        $(document).ready(function () {
+
+<?php if (isset($_GET['erro']) && $_GET['erro'] == 'te') { ?>
+                funcoes.showNotification(0, 4, '<b>Erro</b> escolha o projeto correto.');
+    <?php
+
+}
+?>
+});
         $(".select-customizado").select2();
 
         $('.select-customizado').on("change", function(e) {

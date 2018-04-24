@@ -25,6 +25,7 @@ $etapa = $_POST['etapa'];
 $clientes = membros_equipe::buscarClientesDaEquipe($_SESSION['id_projeto']);
 $moderadores = membros_equipe::buscarModeradorDaEquipe($_SESSION['id_projeto']);
 
+
 if (isset($nome_tarefa) && isset($tipo_tarefa) && isset($palavra_chave) &&
     isset($briefing_tarefa) && isset($estagio_compra) && isset($id_persona) &&
     isset($tipo_cta) && isset($referencias) && isset($consideracoes_gerais) && isset($id_projeto)) {

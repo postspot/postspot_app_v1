@@ -36,9 +36,11 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        <link rel="shortcut icon" href="../assets/media/favicons/favicon.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="../assets/media/favicons/favicon-192x192.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="../assets/media/favicons/apple-touch-icon-180x180.png">
+        
+        <link rel="icon" href="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-32x32.png" sizes=32x32 />
+        <link rel="icon" href="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-192x192.png" sizes=192x192 />
+        <link rel="apple-touch-icon-precomposed" href="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-180x180.png"/>
+        <meta name="msapplication-TileImage" content="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-270x270.png"/>
         <!-- END Icons -->
 
         <!-- Stylesheets -->
@@ -113,6 +115,10 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 
                                 <!-- Form -->
 	                            <form class="js-wizard-validation-form"  id="wizardForm" method="post" action="<?=SITE?>controller/candidatos/vincula_candidato.php" enctype="multipart/form-data">
+                                <input  type="hidden"
+											name="id_usuario"
+											value="<?=$usuario->id_usuario?>"
+									/>
                                     <!-- Steps Content -->
                                     <div class="block-content block-content-full tab-content">
                                         <!-- Step 1 -->
@@ -168,7 +174,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control mask-telefone"
 		                                                           type="tel"
 		                                                           name="telefone_usuario"
-
+                                                                    required="true"
 		                                                           placeholder="ex: (XX) X XXXX - XXXX"
 															/>
 		                                                </div>
@@ -179,7 +185,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control"
 		                                                           type="text"
 		                                                           name="estado_candidato"
-
+                                                                    required="true"
 															/>
 		                                                </div>
                                                 </div>
@@ -188,7 +194,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <label class="control-label">
 																CNPJ
 															</label>
-		                                                    <input class="form-control js-masked-cnpj"
+		                                                    <input class="form-control mask-cnpj"
 		                                                           type="tel"
 		                                                           name="cnpj_candidato"
 															/>
@@ -197,7 +203,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <label class="control-label">
 																Data de Nascimento
 															</label>
-		                                                    <input class="form-control js-masked-date"
+		                                                    <input class="form-control mask-nascimento"
 		                                                           type="tel"
 		                                                           name="nascimento_usuario"
 
@@ -620,9 +626,14 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
         <script src="../assets/js/pages/be_forms_wizard.min.js"></script>
 
 
+        <!-- Custom -->
+        <script src="../assets/js/mask.js"></script>
+        <script src="../assets/js/mascaras.js"></script>
+        <script src="../assets/js/registro.js"></script>
+
         <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins) -->
         <script>
-            jQuery(function(){ Dashmix.helpers(['select2', 'masked-inputs']); iniciaCkeditor();} );
+            jQuery(function(){ Dashmix.helpers(['select2']); iniciaCkeditor();} );
         </script>
     </body>
 </html>

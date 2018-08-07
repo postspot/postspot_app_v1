@@ -106,7 +106,20 @@ function funcaoCliente($funcao)
         '1' => 'Analista de Planejamento',
         '2' => 'Redator',
         '3' => 'Cliente',
-        '4' => 'Designer'
+        '4' => 'Designer',
+        '5' => 'Candidato'
+    );
+
+    return $funcoes[$funcao];
+}
+
+function statusCandidato($funcao)
+{
+    $funcoes = array(
+        '0' => 'Incompleto',
+        '1' => 'Inscrito',
+        '2' => 'Aceito',
+        '3' => 'Negado'
     );
 
     return $funcoes[$funcao];
@@ -121,7 +134,21 @@ function dataBRparaPHP($data)
         return date('Y-m-d', strtotime(implode("-", array_reverse(explode("/", $data)))));
     endif;
 }
+function dataBr($data){
+    if ($data == null):
+        return null;
+    else:
+        return date('d/m/Y', strtotime($data));
+    endif;
+}
 
+function dataBrComTempo($data){
+    if ($data == null):
+        return null;
+    else:
+        return date('d/m/Y h:i', strtotime($data));
+    endif;
+}
 function retornaDataPrevista($aux, $tarefa = null)
 {
     $date = (empty($tarefa) ? date('Y-m-d H:i') : tarefas::getDateCriacao($tarefa));

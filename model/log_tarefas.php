@@ -78,7 +78,7 @@ class log_tarefas
 	{
 
 		try {
-			$stmt = Conexao::getInstance()->prepare("SELECT lt.etapa, lt.status ,us.nome_usuario "
+			$stmt = Conexao::getInstance()->prepare("SELECT lt.etapa, lt.status, lt.data_criacao ,us.nome_usuario, us.funcao_usuario "
 			. " FROM log_tarefas lt"
 			. " INNER JOIN usuarios us"
 			. " ON(lt.id_usuario = us.id_usuario)"

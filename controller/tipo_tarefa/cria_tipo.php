@@ -14,7 +14,8 @@ $obj->cor_tarefa = $cor_tarefa;
 $obj->valor_pauta_tipo_tarefa = str_replace(",", ".", $valor_pauta_tipo_tarefa);
 $obj->valor_conteudo_tipo_tarefa = str_replace(",", ".", $valor_conteudo_tipo_tarefa);
 
-if (!empty($nome_tarefa) && !empty($cor_tarefa) && !empty($valor_tipo_tarefa)) {
+
+if (!empty($nome_tarefa) && !empty($cor_tarefa)) {
     if (tipo_tarefa::insert($obj)) {
         header('Location: ../../view/adm/tipo_conteudo.php?retorno=ok');
     } else {

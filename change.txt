@@ -1,0 +1,2 @@
+Add coluna tipo da conta, telefone, cod_banco, nascimento, na tabela usuario
+Add tabela de condidatos

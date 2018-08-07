@@ -29,10 +29,11 @@ class usuarios
 	{
 		try {
 			$stmt = Conexao::getInstance()->prepare("INSERT INTO usuarios 
-            (nome_usuario, sexo_usuario, foto_usuario, funcao_usuario, email_usuario, senha_usuario, obs, doc_usuario, banco_usuario, agencia_usuario, conta_usuario)VALUES
-            (:nome_usuario, :sexo_usuario, :foto_usuario, :funcao_usuario, :email_usuario, :senha_usuario, :obs, :doc_usuario, :banco_usuario, :agencia_usuario, :conta_usuario);");
+            (nome_usuario, sobrenome_usuario, sexo_usuario, foto_usuario, funcao_usuario, email_usuario, senha_usuario, obs, doc_usuario, banco_usuario, agencia_usuario, conta_usuario)VALUES
+            (:nome_usuario, :sobrenome_usuario, :sexo_usuario, :foto_usuario, :funcao_usuario, :email_usuario, :senha_usuario, :obs, :doc_usuario, :banco_usuario, :agencia_usuario, :conta_usuario);");
 
 			$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
+			$stmt->bindParam(":sobrenome_usuario", $obj->sobrenome_usuario);
 			$stmt->bindParam(":sexo_usuario", $obj->sexo_usuario);
 			$stmt->bindParam(":foto_usuario", $obj->foto_usuario);
 			$stmt->bindParam(":funcao_usuario", $obj->funcao_usuario);
@@ -47,6 +48,7 @@ class usuarios
 			$stmt->execute();
 			return true;
 		} catch (PDOException $ex) {
+			echo $ex->getMessage();
 			return false;
 		}
 	}
@@ -80,7 +82,7 @@ class usuarios
 	public static function updatePerfil($obj)
 	{
 		try {
-			$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET foto_usuario = :foto_usuario, nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario , email_usuario = :email_usuario, obs = :obs, doc_usuario = :doc_usuario, banco_usuario = :banco_usuario, agencia_usuario = :agencia_usuario, conta_usuario = :conta_usuario   WHERE id_usuario = :id_usuario ");
+			$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET foto_usuario = :foto_usuario, nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario , email_usuario = :email_usuario, obs = :obs, doc_usuario = :doc_usuario, banco_usuario = :banco_usuario, agencia_usuario = :agencia_usuario, conta_usuario = :conta_usuario, tipo_conta_usuario = :tipo_conta_usuario, modalidade_conta_usuario = :modalidade_conta_usuario, cod_banco_usuario = :cod_banco_usuario, nascimento_usuario = :nascimento_usuario, telefone_usuario = :telefone_usuario   WHERE id_usuario = :id_usuario ");
 
 			$stmt->bindParam(":id_usuario", $obj->id_usuario);
 			$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
@@ -92,6 +94,11 @@ class usuarios
 			$stmt->bindParam(":banco_usuario", $obj->banco_usuario);
 			$stmt->bindParam(":agencia_usuario", $obj->agencia_usuario);
 			$stmt->bindParam(":conta_usuario", $obj->conta_usuario);
+			$stmt->bindParam(":tipo_conta_usuario", $obj->tipo_conta_usuario);
+			$stmt->bindParam(":modalidade_conta_usuario", $obj->modalidade_conta_usuario);
+			$stmt->bindParam(":cod_banco_usuario", $obj->cod_banco_usuario);
+			$stmt->bindParam(":nascimento_usuario", $obj->nascimento_usuario);
+			$stmt->bindParam(":telefone_usuario", $obj->telefone_usuario);
 
 			$stmt->execute();
 			return true;
@@ -132,7 +139,7 @@ class usuarios
 				unset($row->senha_usuario);
 				return $row;
 			}
-			return false;
+			return null;
 		} catch (PDOException $ex) {
 			return $ex->getMessage();
 		}

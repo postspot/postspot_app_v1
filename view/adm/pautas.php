@@ -16,27 +16,27 @@ if (isset($_GET["s"])) {
     $filtro = $_GET["s"];
     switch ($filtro) {
         case '1':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa >= ' . PAUTA_ESCREVENDO . $filtroTipo);
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND l.etapa >= ' . PAUTA_ESCREVENDO . $filtroTipo);
             break;
         case '2':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = '. PAUTA_APROVACAO_CLIENTE .' OR l.etapa = '. PAUTA_REAPROVACAO_CLIENTE .')' . $filtroTipo);
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND (l.etapa = '. PAUTA_APROVACAO_CLIENTE .' OR l.etapa = '. PAUTA_REAPROVACAO_CLIENTE .')' . $filtroTipo);
             break;
         case '3':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_AJUSTANDO . $filtroTipo);
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND l.etapa = ' . PAUTA_AJUSTANDO . $filtroTipo);
             break;
         case '4':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa > ' . PAUTA_REAPROVACAO_CLIENTE . $filtroTipo);
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND l.etapa > ' . PAUTA_REAPROVACAO_CLIENTE . $filtroTipo);
             break;
         case '5':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND l.etapa = ' . PAUTA_ESCREVENDO . $filtroTipo);
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND l.etapa = ' . PAUTA_ESCREVENDO . $filtroTipo);
             break;
         case '6':
-            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, 'AND (l.etapa = ' . PAUTA_APROVACAO_MODERADOR.' OR l.etapa = '. PAUTA_REAPROVACAO_MODERADOR .')' . $filtroTipo);
+            $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND (l.etapa = ' . PAUTA_APROVACAO_MODERADOR.' OR l.etapa = '. PAUTA_REAPROVACAO_MODERADOR .')' . $filtroTipo);
             break;
     }
 } else {
     $filtro = 0;
-    $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 10, $filtroTipo);
+    $pautas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, $filtroTipo);
 }
 // pre_r($pautas);
 // die();
@@ -47,7 +47,7 @@ $ajustando = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '= ' .PA
 $aprovadas = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '> '. PAUTA_REAPROVACAO_CLIENTE);
 $aprovando_moderador = tarefas::countTarefasProjetoEtapa($_SESSION['id_projeto'], '= '. PAUTA_APROVACAO_MODERADOR. ' OR l.etapa = ' . PAUTA_REAPROVACAO_MODERADOR);
 $tiposTarefa = tipo_tarefa::getAllTiposTaredas();
-$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 1000, 'AND l.etapa >= 0');
+$totasTarefas = tarefas::getPautasDez($_SESSION['id_projeto'], 30, 'AND l.etapa >= 0');
 ?>
 <html lang="pt-br">
     <head>

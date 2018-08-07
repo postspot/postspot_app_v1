@@ -401,10 +401,10 @@ class tarefas
 
 	public static function getTarefasByRedatorConteudo($id, $inicio = null, $fim = null)
 	{
-		$inicio = (empty($inicio)) ? '' : 'and ta.data_criacao >=  "' . $inicio . ' 00:00:00"';
-		$fim = (empty($fim)) ? '' : 'and ta.data_criacao   <= "' . $fim . ' 23:59:59"';
+		$inicio = (empty($inicio)) ? '' : 'and lt.data_criacao >=  "' . $inicio . ' 00:00:00"';
+		$fim = (empty($fim)) ? '' : 'and lt.data_criacao   <= "' . $fim . ' 23:59:59"';
 		try {
-			$stmt = Conexao::getInstance()->prepare("SELECT max(CAST(lt.etapa AS UNSIGNED)) as etapa, ta.nome_tarefa, tt.nome_tarefa as nome_tipo_tarefa, tt.valor_conteudo_tipo_tarefa, pr.nome_projeto, ta.data_criacao, ta.id_tarefa FROM log_tarefas lt INNER JOIN tarefas ta ON(lt.id_tarefa = ta.id_tarefa) INNER JOIN tipo_tarefa tt ON(tt.id_tipo = ta.id_tipo) INNER JOIN projetos pr on(ta.id_projeto = pr.id_projeto) inner join usuarios u ON (lt.id_usuario = u.id_usuario) where lt.id_tarefa IN(SELECT id_tarefa FROM log_tarefas WHERE id_usuario = :id_usuario) {$inicio} {$fim} group by lt.id_tarefa");
+			$stmt = Conexao::getInstance()->prepare("SELECT max(CAST(lt.etapa AS UNSIGNED)) as etapa, ta.nome_tarefa, tt.nome_tarefa as nome_tipo_tarefa, tt.valor_conteudo_tipo_tarefa, pr.nome_projeto, lt.data_criacao, ta.id_tarefa FROM log_tarefas lt INNER JOIN tarefas ta ON(lt.id_tarefa = ta.id_tarefa) INNER JOIN tipo_tarefa tt ON(tt.id_tipo = ta.id_tipo) INNER JOIN projetos pr on(ta.id_projeto = pr.id_projeto) inner join usuarios u ON (lt.id_usuario = u.id_usuario) where lt.id_usuario IN(SELECT id_usuario FROM log_tarefas WHERE id_usuario = :id_usuario) {$inicio} {$fim} group by lt.id_tarefa order by lt.data_criacao");
 
 			$stmt->bindParam(":id_usuario", $id);
 			$stmt->execute();

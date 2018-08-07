@@ -42,6 +42,7 @@ $logTarefa = log_tarefas::getAllById($_GET['t']);
                                             <th class="disabled-sorting">Ação</th>
 											<th>Responsável</th>
 											<th>Status</th>
+											<th>Data</th>
 										</tr>
 									</thead>
 									<tfoot>
@@ -49,6 +50,7 @@ $logTarefa = log_tarefas::getAllById($_GET['t']);
                                             <th>Ação</th>
 											<th>Responsável</th>
 											<th>Status</th>
+											<th>Data</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -56,8 +58,9 @@ $logTarefa = log_tarefas::getAllById($_GET['t']);
 											?>
 											<tr>
 												<td><?= retornaTextoNotificacaoTarefa($log->etapa) ?></td>
-												<td><?= $log->nome_usuario ?></td>
+												<td><?= $log->nome_usuario ?> (<?= funcaoCliente($log->funcao_usuario) ?>)</td>
 												<td><?= ($log->status == '1') ? 'Atual': 'Anterior'  ?></td>
+												<td><?= date("d/m/Y", strtotime($log->data_criacao)) ?></td>
 											</tr>
 										<?php } ?>
 									   </tbody>

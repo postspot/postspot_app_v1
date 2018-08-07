@@ -118,7 +118,8 @@ $tarefas = tarefas::getAll();
 	            $tr = $(this).closest('tr');
 
 	            var data = table.row($tr).data();
-				
+				if(confirm('Tem certeza absoluta que deseja remover esta tarefa?')){
+
 				var dados = {id_tarefa: data[0]}
 				$.ajax({
 					url: "../../controller/tarefas/exclui_tarefa.php",
@@ -152,6 +153,7 @@ $tarefas = tarefas::getAll();
 						console.log(JSON.stringify(x));
 					}
 				});
+				}
 	         } );
 
 	    });

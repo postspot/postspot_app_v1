@@ -1,0 +1,9 @@
+.mostra-candidatura{
+    display: block !important;
+}
+.ctrl-candidatura{
+    display: none;
+}
+.card-wizard .foto_usuario img{
+    width: 120px;
+}

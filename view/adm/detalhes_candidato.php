@@ -53,8 +53,20 @@ if(isset($_GET["u"])){
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
+                                                        <label>Sobrenome</label>
+                                                        <input type="text" class="form-control border-input" value="<?= $usuario->sobrenome_usuario ?>" name="sobrenome_usuario">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
                                                         <label>E-mail</label>
                                                         <input type="text" class="form-control border-input" value="<?= $usuario->email_usuario ?>" name="email_usuario">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label>Skype / Hangout</label>
+                                                        <input type="text" class="form-control border-input" value="<?= $usuario->rede_social_candidato ?>" name="rede_social_candidato">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -114,7 +126,7 @@ if(isset($_GET["u"])){
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>CPF ou CNPJ</label>
+                                                        <label><?= ($usuario->modalidade_conta_usuario == 'Pessoa Física') ? 'CPF' : 'CNPJ'?></label>
                                                         <input type="text" class="form-control border-input" value="<?= $usuario->doc_usuario ?>" name="doc_usuario">
                                                     </div>
                                                 </div>
@@ -132,14 +144,20 @@ if(isset($_GET["u"])){
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label>Nome do Banco</label>
-                                                        <input type="text" class="form-control border-input" value="<?= $usuario->banco_usuario ?>" name="banco_usuario">
+                                                        <label>Dígito</label>
+                                                        <input type="text" class="form-control border-input" value="<?= $usuario->digito_verificador_usuario ?>" name="digito_verificador_usuario">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>Tipo da Conta</label>
                                                         <input type="text" class="form-control border-input" value="<?= $usuario->tipo_conta_usuario ?>" name="tipo_conta_usuario">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Nome do Banco</label>
+                                                        <input type="text" class="form-control border-input" value="<?= $usuario->banco_usuario ?>" name="banco_usuario">
                                                     </div>
                                                 </div>
                                             </div>
@@ -221,6 +239,12 @@ if(isset($_GET["u"])){
                                                         <input type="text" class="form-control border-input" value="<?= $usuario->espanhol_candidato ?>" name="espanhol_candidato">
                                                     </div>
                                                 </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Outro idioma</label>
+                                                        <input type="text" class="form-control border-input" value="<?= $usuario->outro_idioma_candidato ?>" name="outro_idioma_candidato">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div> <!-- end col-md-12 -->
@@ -237,7 +261,7 @@ if(isset($_GET["u"])){
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Modalidade desejada</label>
-                                                        <input type="text" class="form-control border-input" value="<?= $usuario->modalidade_candidatos ?>" name="modalidade_candidatos">
+                                                        <input type="text" class="form-control border-input" value="<?= $usuario->nome_teste_candidato ?>" name="modalidade_candidatos">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">

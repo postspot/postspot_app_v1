@@ -58,12 +58,14 @@ class candidatos
 		curso_candidato = :curso_candidato ,
 		profissao_candidato = :profissao_candidato ,
 		ingles_candidato = :ingles_candidato ,
+		outro_idioma_candidato = :outro_idioma_candidato ,
 		espanhol_candidato = :espanhol_candidato,
 		status_candidato = :status_candidato,
 		modalidade_candidatos = :modalidade_candidatos ,
 		especialidade_candidatos = :especialidade_candidatos ,
 		motivo_candidatos = :motivo_candidatos ,
-		texto_candidatos = :texto_candidatos
+		texto_candidatos = :texto_candidatos,
+		rede_social_candidato = :rede_social_candidato
 		WHERE id_usuario = :id_usuario ");
 
             $stmt->bindParam(":id_usuario", $obj->id_usuario);
@@ -80,11 +82,13 @@ class candidatos
             $stmt->bindParam(":profissao_candidato", $obj->profissao_candidato);
             $stmt->bindParam(":ingles_candidato", $obj->ingles_candidato);
             $stmt->bindParam(":espanhol_candidato", $obj->espanhol_candidato);
+            $stmt->bindParam(":outro_idioma_candidato", $obj->outro_idioma_candidato);
             $stmt->bindParam(":status_candidato", $obj->status_candidato);
             $stmt->bindParam(":modalidade_candidatos", $obj->modalidade_candidatos);
             $stmt->bindParam(":especialidade_candidatos", $obj->especialidade_candidatos);
             $stmt->bindParam(":motivo_candidatos", $obj->motivo_candidatos);
             $stmt->bindParam(":texto_candidatos", $obj->texto_candidatos);
+            $stmt->bindParam(":rede_social_candidato", $obj->rede_social_candidato);
 
             $stmt->execute();
             return true;
@@ -100,11 +104,13 @@ class candidatos
     {
 
         try {
-            $stmt = Conexao::getInstance()->prepare("SELECT can.* , us.* 
+            $stmt = Conexao::getInstance()->prepare("SELECT can.* , us.*, tc.* 
 			FROM candidatos can
 			INNER JOIN usuarios us
 			on(can.id_usuario = us.id_usuario)
-			WHERE id_candidato = :id");
+			INNER JOIN teste_candidato tc
+			on(can.modalidade_candidatos = tc.id_teste_candidato)
+			WHERE can.id_candidato = :id");
 
             $stmt->bindParam(":id", $id);
             $stmt->execute();
@@ -115,6 +121,7 @@ class candidatos
             }
             return $colunas;
         } catch (PDOException $ex) {
+			echo $ex->getMessage();
             return false;
         }
     }

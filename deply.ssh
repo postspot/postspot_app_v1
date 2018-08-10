@@ -1,4 +1,0 @@
-ssh app@app.postspot.com.br
-25qwsa
-cd www/
-git clone git@bitbucket.org:postspotteam/postspot.git

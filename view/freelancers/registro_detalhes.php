@@ -6,10 +6,12 @@ require_once '../../model/teste_candidato.php';
 require_once '../../model/habilidades.php';
 
 $habilidades = habilidades::getAllSkills();
-$usuario = usuarios::getById($_GET['u']);
+$usuario = usuarios::getPossiveisInscritos($_GET['u']);
 $conteudo_teste = teste_candidato::getAll();
-if(!isset($usuario)){
-header('location: '. SITE .'view/redator/registro.php?erro=sessao');
+if (!isset($usuario)) {
+    header('location: ' . SITE . 'view/freelancers/inscricao.php?erro=sessao');
+}else if($usuario->status_candidato != 0){
+    header('location: ' . SITE . 'view/freelancers/inscricao.php?retorno=cadInc');
 }
 ?>
 <!doctype html>
@@ -36,7 +38,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 
         <!-- Icons -->
         <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-        
+
         <link rel="icon" href="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-32x32.png" sizes=32x32 />
         <link rel="icon" href="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-192x192.png" sizes=192x192 />
         <link rel="apple-touch-icon-precomposed" href="https://postspot.com.br/wp-content/uploads/2018/08/cropped-postspot-180x180.png"/>
@@ -78,7 +80,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                 <div class="bg-body-light">
                     <div class="content content-full">
                         <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Cadastro de Redatores</h1>
+                            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Cadastro de Frellancers</h1>
 
                         </div>
                     </div>
@@ -115,9 +117,9 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 
                                 <!-- Form -->
 	                            <form class="js-wizard-validation-form"  id="wizardForm" method="post" action="<?=SITE?>controller/candidatos/vincula_candidato.php" enctype="multipart/form-data">
-                                <input  type="hidden"
-											name="id_usuario"
-											value="<?=$usuario->id_usuario?>"
+                                    <input  type="hidden"
+                                        name="id_usuario"
+                                        value="<?=$usuario->id_usuario?>"
 									/>
                                     <!-- Steps Content -->
                                     <div class="block-content block-content-full tab-content">
@@ -148,11 +150,21 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="wizard-validation-lastname">Sobrenome</label>
-                                                        <input class="form-control" name="nome_usuario" readonly value="<?=$usuario->nome_usuario?>" type="text">
+                                                        <input class="form-control" name="nome_usuario" readonly value="<?=$usuario->sobrenome_usuario?>" type="text">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="wizard-validation-email">Email *</label>
                                                         <input class="form-control" type="email" readonly name="email_usuario" value="<?=$usuario->email_usuario?>">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">
+                                                            Skype ou Hangout
+                                                        </label>
+                                                        <input class="form-control"
+                                                                type="text"
+                                                                name="rede_social_candidato"
+                                                                
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -164,7 +176,8 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 															</label>
 		                                                    <input class="form-control"
 		                                                           type="text"
-		                                                           name="razao_social_candidato"
+                                                                   name="razao_social_candidato"
+                                                                   
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -174,8 +187,8 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control mask-telefone"
 		                                                           type="tel"
 		                                                           name="telefone_usuario"
-                                                                    required="true"
 		                                                           placeholder="ex: (XX) X XXXX - XXXX"
+                                                                   
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -185,7 +198,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control"
 		                                                           type="text"
 		                                                           name="estado_candidato"
-                                                                    required="true"
+                                                                   
 															/>
 		                                                </div>
                                                 </div>
@@ -197,6 +210,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control mask-cnpj"
 		                                                           type="tel"
 		                                                           name="cnpj_candidato"
+                                                                   
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -206,8 +220,8 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control mask-nascimento"
 		                                                           type="tel"
 		                                                           name="nascimento_usuario"
-
 		                                                           placeholder="dd/mm/aaaa"
+                                                                   
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -217,7 +231,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
 		                                                    <input class="form-control"
 		                                                           type="text"
 		                                                           name="cidade_candidato"
-
+                                                                   
 															/>
 		                                                </div>
                                                 </div>
@@ -235,6 +249,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                                 type="text"
                                                                 name="certificacao_candidato"
                                                                 url="true"
+                                                                    
 
                                                         />
                                                     </div>
@@ -243,24 +258,26 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="linkedin_candidato"
+                                                                    
 
                                                         />
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">Link de referência para o portifólio</label>
+                                                        <label class="control-label">Link do portifólio</label>
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="portifolio_candidato"
+                                                                    
 
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Experiência</label>
-                                                        <select class="form-control" name="experiencia_candidato">
-                                                            <option disabled select>Escolha sua experiência</option>
-                                                            <option value="Nunca fui pago para escrever">Nunca fui pago para escrever</option>
-                                                            <option value="Já trabalhei como freelancer">Já trabalhei como freelancer</option>
-                                                            <option value="Escrevo profissionalmente">Escrevo profissionalmente</option>
+                                                        <select class="form-control" name="experiencia_candidato" >
+                                                            <option selected disabled value="null">Escolha sua experiência</option>
+                                                            <option value="Não tenho experiência com produção de textos">Não tenho experiência com produção de textos</option>
+                                                            <option value="Já escrevi mas não para textos de web">Já escrevi mas não para textos de web</option>
+                                                            <option value="Já trabalho como freelancer">Já trabalho como freelancer</option>
                                                         </select>
                                                     </div>
                                                     <div class="row">
@@ -318,8 +335,8 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Formação</label>
-                                                        <select class="form-control" name="formacao_candidato">
-                                                            <option disabled selected>Escolha sua formação</option>
+                                                        <select class="form-control" name="formacao_candidato" >
+                                                            <option selected disabled value="null">Escolha sua formação</option>
                                                             <option value="Ensino médio completo">Ensino médio completo</option>
                                                             <option value="Ensino superior incompleto">Ensino superior incompleto</option>
                                                             <option value="Ensino superior completo">Ensino superior completo</option>
@@ -330,8 +347,8 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Área de Estudo</label>
-                                                        <select class="form-control" name="area_estudo_candidato">
-                                                            <option selected disabled>Escolha sua área de estudo</option>
+                                                        <select class="form-control" name="area_estudo_candidato" >
+                                                            <option selected disabled value="null">Escolha sua área de estudo</option>
                                                             <option value="Humanas">Humanas</option>
                                                             <option value="Exatas">Exatas</option>
                                                             <option value="Biológicas">Biológicas</option>
@@ -345,6 +362,7 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                                 type="text"
                                                                 name="curso_candidato"
                                                                 placeholder=""
+                                                                    
 
                                                         />
                                                     </div>
@@ -354,13 +372,14 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                                 type="text"
                                                                 name="profissao_candidato"
                                                                 placeholder=""
+                                                                    
 
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Nivel de Inglês</label>
                                                         <select name="ingles_candidato" class="form-control">
-                                                            <option selected="" value="Básico" >Básico</option>
+                                                            <option value="Básico" >Básico</option>
                                                             <option value="Intermediário">Intermediário</option>
                                                             <option value="Avançado">Avançado</option>
                                                         </select>
@@ -370,10 +389,18 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                             Nível de Espanhol
                                                         </label>
                                                         <select name="espanhol_candidato" class="form-control">
-                                                            <option selected="" value="Básico" >Básico</option>
+                                                            <option value="Básico" >Básico</option>
                                                             <option value="Intermediário">Intermediário</option>
                                                             <option value="Avançado">Avançado</option>
                                                         </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="control-label">Outro idioma</label>
+                                                        <input class="form-control"
+                                                                type="text"
+                                                                name="outro_idioma_candidato"
+                                                                placeholder=""
+                                                        />
                                                     </div>
                                                 </div>
 		                                    </div>
@@ -388,19 +415,19 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                         <label class="control-label">
                                                             Modalidade
                                                         </label>
-                                                        <select name="modalidade_conta_usuario" class="form-control">
-                                                            <option selected="" value="Pessoa Física" >Pessoa Física</option>
+                                                        <select id="selectModalidade" name="modalidade_conta_usuario" class="form-control">
+                                                            <option selected value="Pessoa Física" >Pessoa Física</option>
                                                             <option value="Pessoa Jurídica">Pessoa Jurídica</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="control-label">
-                                                            CPF ou CNPJ
+                                                        <label class="control-label" id="inputDocUsu">
+                                                            CPF
                                                         </label>
-                                                        <input class="form-control mask-cpf-cnpj"
+                                                        <input  class="form-control mask-cnpj-cpf"
                                                                 type="text"
                                                                 name="doc_usuario"
-
+                                                                
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -410,48 +437,64 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="agencia_usuario"
-
+                                                                   
                                                         />
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">
-                                                            Número de conta e dígito verificador
-                                                        </label>
-                                                        <input class="form-control"
-                                                                type="text"
-                                                                name="conta_usuario"
-
-                                                        />
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label">
+                                                                    Número de conta
+                                                                </label>
+                                                                <input class="form-control"
+                                                                        type="text"
+                                                                        name="conta_usuario"
+                                                                   
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label class="control-label">
+                                                                    Dígito verificador
+                                                                </label>
+                                                                <input class="form-control"
+                                                                        type="text"
+                                                                        name="digito_verificador_usuario"
+                                                                        
+                                                                />
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">
                                                             Nome do Banco
                                                         </label>
-                                                        <select class="js-select2 form-control"  id="example-select2" name="banco_usuario" style="width: 100%">
-                                                            <option selected disabled>Selecione o banco</option>
-                                                            <option value="5">BANCO ALFA S/A</option>
-                                                            <option value="8">BANCO BBM S.A</option>
-                                                            <option value="13">BANCO BONSUCESSO S.A</option>
-                                                            <option value="15">BANCO BRADESCO S.A</option>
-                                                            <option value="22">BANCO CITIBANK S.A.</option>
-                                                            <option value="23">BANCO COOPERATIVO DO BRASIL S.A.</option>
-                                                            <option value="24">BANCO COOPERATIVO SICREDI S.A</option>
-                                                            <option value="32">BANCO DO BRASIL SA</option>
-                                                            <option value="34">BANCO DO ESTADO DE SERGIPE SA</option>
-                                                            <option value="35">BANCO DO ESTADO DO ESPIRITO SANTO SA</option>
-                                                            <option value="36">BANCO DO ESTADO DO PARA SA</option>
-                                                            <option value="37">BANCO DO ESTADO DO RIO GRANDE DO SUL SA</option>
-                                                            <option value="38">BANCO DO NORDESTE DO BRASIL SA</option>
-                                                            <option value="48">BANCO INTERMEDIUM S.A.</option>
-                                                            <option value="49">BANCO ITAU BBA S.A.</option>
-                                                            <option value="50">BANCO ITAU UNIBANCO S/A</option>
-                                                            <option value="60">BANCO MERCANTIL DO BRASIL SA</option>
-                                                            <option value="120">BANCO NEON</option>
-                                                            <option value="122">BANCO ORIGINAL SA</option>
-                                                            <option value="78">BANCO SANTANDER BANESPA S.A.</option>
-                                                            <option selected="selected" value="99">CAIXA ECONOMICA FEDERAL SA</option>
-                                                            <option value="112">GERADOR</option>
-                                                            <option value="121">NU PAGAMENTOS S.A</option>
+                                                        <select class="js-select2 form-control"  id="example-select2" name="banco_usuario" style="width: 100%" >
+                                                            <option selected disabled value="null" >Selecione o Banco</option>
+                                                            <option value="5">5 - BANCO ALFA S/A</option>
+                                                            <option value="8">8 - BANCO BBM S.A</option>
+                                                            <option value="13">13 - BANCO BONSUCESSO S.A</option>
+                                                            <option value="15">15 - BANCO BRADESCO S.A</option>
+                                                            <option value="22">22 - BANCO CITIBANK S.A.</option>
+                                                            <option value="23">23 - BANCO COOPERATIVO DO BRASIL S.A.</option>
+                                                            <option value="24">24 - BANCO COOPERATIVO SICREDI S.A</option>
+                                                            <option value="32">32 - BANCO DO BRASIL SA</option>
+                                                            <option value="34">34 - BANCO DO ESTADO DE SERGIPE SA</option>
+                                                            <option value="35">35 - BANCO DO ESTADO DO ESPIRITO SANTO SA</option>
+                                                            <option value="36">36 - BANCO DO ESTADO DO PARA SA</option>
+                                                            <option value="37">37 - BANCO DO ESTADO DO RIO GRANDE DO SUL SA</option>
+                                                            <option value="38">38 - BANCO DO NORDESTE DO BRASIL SA</option>
+                                                            <option value="48">48 - BANCO INTERMEDIUM S.A.</option>
+                                                            <option value="49">49 - BANCO ITAU BBA S.A.</option>
+                                                            <option value="50">50 - BANCO ITAU UNIBANCO S/A</option>
+                                                            <option value="60">60 - BANCO MERCANTIL DO BRASIL SA</option>
+                                                            <option value="120">120 - BANCO NEON</option>
+                                                            <option value="122">122 - BANCO ORIGINAL SA</option>
+                                                            <option value="78">78 - BANCO SANTANDER BANESPA S.A.</option>
+                                                            <option value="99">99 - CAIXA ECONOMICA FEDERAL SA</option>
+                                                            <option value="112">112 - GERADOR</option>
+                                                            <option value="121">121 - NU PAGAMENTOS S.A</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -468,7 +511,6 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                         </div>
                                         <!-- END Step 3 -->
 
-
                                         <!-- Step 4 -->
                                         <div class="tab-pane" id="wizard-validation-step4" role="tabpanel">
                                             <div class="row">
@@ -477,19 +519,9 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                         <label class="control-label">
                                                             Selecione a modalidade desejada
                                                         </label>
-                                                        <select name="modalidade_candidatos" class="form-control" id="selectTipoCandidatura">
+                                                        <select name="modalidade_candidatos" class="form-control" id="selectTipoCandidatura" >
                                                             <?php foreach ($conteudo_teste as $key => $conteudo): ?>
-                                                                <option <?=($key == 0) ? 'selected=""' : ''?> value="<?=$conteudo->id_teste_candidato?>" ><?=$conteudo->nome_teste_candidato?></option>
-                                                            <?php endforeach;?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">
-                                                            Selecione a especialidade em que você deseja criar a candidatura
-                                                        </label>
-                                                        <select name="especialidade_candidatos" class="form-control">
-                                                            <?php foreach ($habilidades as $key => $habilidade): ?>
-                                                                <option <?=($key == 0) ? 'selected=""' : ''?>  value="<?=$habilidade->nome_habilidade?>" ><?=$habilidade->nome_habilidade?></option>
+                                                                <option <?=($key == 0) ? 'selected' : ''?> value="<?=$conteudo->id_teste_candidato?>" ><?=$conteudo->nome_teste_candidato?></option>
                                                             <?php endforeach;?>
                                                         </select>
                                                     </div>
@@ -497,27 +529,42 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                         <label class="control-label">
                                                             Por que você se considera bom(a) para participar dessa modalidade?
                                                         </label>
-                                                        <textarea class="form-control" name="motivo_candidatos" id="" cols="30" rows="10"></textarea>
+                                                        <textarea class="form-control" name="motivo_candidatos" id="" cols="30" rows="10" ></textarea>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <label>Selecione até 5(cinco) especialidade(s) em que você deseja criar a candidatura:</label>
+                                                        </div>
+                                                        <?php foreach ($habilidades as $key => $habilidade): ?>
+                                                        <div class="col-md-3 col-xs-12">
+                                                            <div class="form-group">
+                                                                <div class="custom-control custom-checkbox custom-control-primary mb-1">
+                                                                    <input type="checkbox" class="custom-control-input check-especialidades" id="checkbox-especialidade-<?=$key?>" name="especialidade_candidatos[]" value="<?=$habilidade->nome_habilidade?>">
+                                                                    <label class="custom-control-label" for="checkbox-especialidade-<?=$key?>"><?=$habilidade->nome_habilidade?></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php endforeach;?>
                                                     </div>
                                                 </div>
                                                 <?php foreach ($conteudo_teste as $key => $conteudo): ?>
                                                     <div class="col-md-12 ctrl-candidatura <?=($key == 0) ? 'mostra-candidatura' : ''?>" id="identificador<?=$conteudo->id_teste_candidato?>">
                                                         <div id="accordion2" role="tablist" aria-multiselectable="true">
                                                             <div class="block block-rounded mb-1">
-                                                                <div class="block-header block-header-default" role="tab" id="accordion2_h1">
-                                                                    <a class="font-w600" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_q1" aria-expanded="true" aria-controls="accordion2_q1">Especificações</a>
+                                                                <div class="block-header block-header-default" role="tab" id="accordion1_h<?=$key?>">
+                                                                    <a class="font-w600" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_q<?=$key?>" aria-expanded="true" aria-controls="accordion1_q<?=$key?>">Especificações</a>
                                                                 </div>
-                                                                <div id="accordion2_q1" class="collapse show" role="tabpanel" aria-labelledby="accordion2_h1">
+                                                                <div id="accordion1_q<?=$key?>" class="collapse show" role="tabpanel" aria-labelledby="accordion1_h<?=$key?>">
                                                                     <div class="block-content">
                                                                         <?=$conteudo->especificacoes_teste_candidato?>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="block block-rounded mb-1">
-                                                                <div class="block-header block-header-default" role="tab" id="accordion2_h2">
-                                                                    <a class="font-w600" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_q2" aria-expanded="true" aria-controls="accordion2_q2">Pauta</a>
+                                                                <div class="block-header block-header-default" role="tab" id="accordion2_h<?=$key?>">
+                                                                    <a class="font-w600" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_q<?=$key?>" aria-expanded="true" aria-controls="accordion2_q<?=$key?>">Pauta</a>
                                                                 </div>
-                                                                <div id="accordion2_q2" class="collapse" role="tabpanel" aria-labelledby="accordion2_h2">
+                                                                <div id="accordion2_q<?=$key?>" class="collapse" role="tabpanel" aria-labelledby="accordion2_h<?=$key?>">
                                                                     <div class="block-content">
                                                                         <?=$conteudo->pauta_teste_candidato?>
                                                                     </div>
@@ -526,12 +573,15 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
                                                         </div>
                                                     </div>
                                                 <?php endforeach;?>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="control-label">
                                                             Desenvolva o conteúdo de acordo com a pauta e as especificações
                                                         </label>
-                                                        <textarea id="editor" name="texto_candidatos"></textarea>
+                                                        <textarea id="editor" name="texto_candidatos" ></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -634,6 +684,73 @@ header('location: '. SITE .'view/redator/registro.php?erro=sessao');
         <!-- Page JS Helpers (Summernote + SimpleMDE + CKEditor plugins) -->
         <script>
             jQuery(function(){ Dashmix.helpers(['select2']); iniciaCkeditor();} );
+
+            $.validator.addMethod('check-especialidades', function(value) {
+                var iuncheck = $('.check-especialidades');
+                var icheck = $('.check-especialidades:checked');
+                console.log(iuncheck);  
+                console.log(icheck);  
+                var tam =  $('.check-especialidades:checked').length;   
+                return tam > 0;
+            }, 'Selecione pelo menos uma das opções.');
+
+            $(document).ready(function(){
+                var checkboxes = $('.check-especialidades');
+                var checkbox_names = $.map(checkboxes, function(e, i) {
+                    return $(e).attr("name")
+                }).join(" ");
+
+                $("#wizardForm").validate({
+                    groups: {
+                        checks: checkbox_names
+                    },
+                    rules: {
+                        resp01: 'required',
+                    },
+                    messages: {
+                        resp01:  { required: 'Selecione uma resposta!' },
+                    }
+                });
+
+                $('#selectModalidade').change(function (e) { 
+                    e.preventDefault();
+                    if(this.value == 'Pessoa Física'){
+                        $('#inputDocUsu').text('CPF');
+                        isCPF = true;
+                    }else{
+                        $('#inputDocUsu').text('CNPJ');
+                        isCPF = false;
+                    }
+                });
+
+                var isCPF = true;
+
+                $(".mask-cnpj-cpf").keydown(function(){
+                    try {
+                        $(".mask-cnpj-cpf").unmask();
+                    } catch (e) {}
+                    
+                    var tamanho = $(".mask-cnpj-cpf").val().length;
+                    
+                    if(isCPF){
+                        $(".mask-cnpj-cpf").mask("999.999.999-99");
+                    } else if(tamanho >= 11){
+                        $(".mask-cnpj-cpf").mask("99.999.999/9999-99");
+                    }
+                    
+                    // ajustando foco
+                    var elem = this;
+                    setTimeout(function(){
+                        // mudo a posição do seletor
+                        elem.selectionStart = elem.selectionEnd = 10000;
+                    }, 0);
+                    // reaplico o valor para mudar o foco
+                    var currentValue = $(this).val();
+                    $(this).val('');
+                    $(this).val(currentValue);
+                });
+            });
+
         </script>
     </body>
 </html>

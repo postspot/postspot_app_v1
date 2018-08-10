@@ -6,6 +6,7 @@ require_once '../../model/candidatos.php';
 
 $obj = new stdClass();
 $obj->id_usuario = filter_input(INPUT_POST, 'id_usuario', FILTER_VALIDATE_INT);
+$obj->rede_social_candidato = filter_input(INPUT_POST, 'rede_social_candidato');
 $obj->telefone_usuario = filter_input(INPUT_POST, 'telefone_usuario');
 $nascimento_usuario = filter_input(INPUT_POST, 'nascimento_usuario');
 $obj->nascimento_usuario = dataBRparaPHP($nascimento_usuario);
@@ -17,6 +18,8 @@ $obj->portifolio_candidato = filter_input(INPUT_POST, 'portifolio_candidato');
 $obj->experiencia_candidato = filter_input(INPUT_POST, 'experiencia_candidato');
 $array_producao_candidato = $_POST['producao_candidato'];
 $obj->producao_candidato = implode(", ", $array_producao_candidato);
+$array_especialidade_candidatos = $_POST['especialidade_candidatos'];
+$obj->especialidade_candidatos = implode(", ", $array_especialidade_candidatos);
 $obj->formacao_candidato = filter_input(INPUT_POST, 'formacao_candidato');
 $obj->area_estudo_candidato = filter_input(INPUT_POST, 'area_estudo_candidato');
 $obj->curso_candidato = filter_input(INPUT_POST, 'curso_candidato');
@@ -32,45 +35,38 @@ $obj->tipo_conta_usuario = filter_input(INPUT_POST, 'tipo_conta_usuario');
 $obj->nome_usuario = filter_input(INPUT_POST, 'nome_usuario');
 $obj->email_usuario = filter_input(INPUT_POST, 'email_usuario');
 $obj->modalidade_candidatos = filter_input(INPUT_POST, 'modalidade_candidatos');
-$obj->especialidade_candidatos = filter_input(INPUT_POST, 'especialidade_candidatos');
 $obj->motivo_candidatos = filter_input(INPUT_POST, 'motivo_candidatos');
 $obj->texto_candidatos = filter_input(INPUT_POST, 'texto_candidatos');
-$obj->foto_usuario = (!empty($_FILES['foto_usuario'])) ? '1-avatar-postspot.png' : $_FILES['foto_usuario']["name"];
 $obj->status_candidato = 1;
 
-pre_r($obj);
+
 
 if (isset($obj->id_usuario)) {
-    //echo 'me ajuda ai 2';
+
     $uploads_dir = DIR_ROOT . '/uploads/usuarios';
     $fotoPadrao = DIR_ROOT . '/view/adm/assets/img/faces/1-avatar-postspot.png';
     $nomeFotoNova = $uploads_dir . '/' . $obj->id_usuario . '-' . str_replace(' ', '_',$obj->nome_usuario) . '.png';
-    //echo $obj->foto_usuario;
-    if ($obj->foto_usuario == '1-avatar-postspot.png'):
-        echo 'Copiar de '. $fotoPadrao;
-        echo 'Para '. $nomeFotoNova;
-        copy($fotoPadrao, $nomeFotoNova);
-    else:
-        if ($_FILES['foto_usuario']['error'] != 4) {
-
-            if ($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK) {
-                $obj->foto_usuario = $nomeFotoNova;
-                $nome_arquivo = $_FILES['foto_usuario']["name"];
-                $ext = pathinfo($nome_arquivo, PATHINFO_EXTENSION);
-                if ($ext != 'png' || $ext != 'jpg' || $ext != 'jpeg'):
-                    //redireciona(SITE . 'view/adm/registro_detalhes.php?r=arquivo_false&u=' . $obj->id_usuario);
-                else:
-                    $tmp_name = $_FILES["foto_usuario"]["tmp_name"];
-                    echo 'Temp '. $tmp_name;
-                    echo 'Para '. $nomeFotoNova;
-                    move_uploaded_file($tmp_name, $nomeFotoNova);
-                endif;
-            }
-        } else {
-            copy($fotoPadrao, $nomeFotoNova);
+   
+    if ($_FILES['foto_usuario']['error'] != 4){
+        if($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK){
+            
+            $info = pathinfo($_FILES['foto_usuario']["name"]);
+            if ($info['extension'] == 'png' || $info['extension'] == 'jpg' || $info['extension'] == 'jpeg'):
+                $name = $obj->id_usuario . '-' .remove_caracteres($info['filename']) . '.' . $info['extension'];
+                $tmp_name = $_FILES['foto_usuario']["tmp_name"];
+                move_uploaded_file($tmp_name, "$uploads_dir/$name");
+                $obj->foto_usuario = $name;
+            else:
+                $obj->foto_usuario = '1-avatar-postspot.png';
+            endif;
         }
-    endif;
-    //die();
+        else{
+            $obj->foto_usuario = '1-avatar-postspot.png';
+        }
+    }
+    else{
+        $obj->foto_usuario = '1-avatar-postspot.png';
+    }
 
     if (!empty($obj->id_usuario)) {
 

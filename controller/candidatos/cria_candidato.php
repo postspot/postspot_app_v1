@@ -30,17 +30,17 @@ if(!isset($checkUsuario)){
             $obj->id_usuario = usuarios::getAutoInc();
                 
             if (usuarios::insert($obj) && candidatos::insert($obj)) {
-                header('Location: ../../view/redator/registro_detalhes.php?r=ok&u=' . $obj->id_usuario);
+                header('Location: ../../view/freelancers/registro_detalhes.php?r=ok&u=' . $obj->id_usuario);
             } else {
-                header('Location: ../../view/redator/registro.php?retorno=erro');
+                header('Location: ../../view/freelancers/inscricao.php?retorno=erro');
             }
         } else {
-            header('Location: ../../view/redator/registro.php?retorno=erro');
+            header('Location: ../../view/freelancers/inscricao.php?retorno=erro');
         }
     } else {
-        header('Location: ../../view/redator/registro.php?retorno=erro');
+        header('Location: ../../view/freelancers/inscricao.php?retorno=erro');
     }
     
 }else {
-    header('Location: ../../view/redator/registro.php?retorno=exi');
+    header('Location: ../../view/freelancers/inscricao.php?retorno=exi');
 }

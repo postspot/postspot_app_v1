@@ -51,9 +51,10 @@ require_once '../../config/config.php';
                             <div class="p-3 w-100">
                                 <!-- Header -->
                                 <div class="mb-3 text-center">
-                                    <a class="link-fx text-success font-w700 font-size-h1" href="index.html">
-                                        <span class="text-dark">PostSpot</span>
-                                    </a>
+
+                                    <?php require_once '../includes/erro.php'?>
+                                    
+                                    <img src="../assets/img/postspot-logo-novo.png" alt="" style="width: 270px;">
                                     <p class="text-uppercase font-w700 font-size-sm text-muted">Seja um Freelancer</p>
                                 </div>
                                 <!-- END Header -->

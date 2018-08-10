@@ -82,7 +82,23 @@ class usuarios
 	public static function updatePerfil($obj)
 	{
 		try {
-			$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET foto_usuario = :foto_usuario, nome_usuario = :nome_usuario , sexo_usuario = :sexo_usuario , email_usuario = :email_usuario, obs = :obs, doc_usuario = :doc_usuario, banco_usuario = :banco_usuario, agencia_usuario = :agencia_usuario, conta_usuario = :conta_usuario, tipo_conta_usuario = :tipo_conta_usuario, modalidade_conta_usuario = :modalidade_conta_usuario, cod_banco_usuario = :cod_banco_usuario, nascimento_usuario = :nascimento_usuario, telefone_usuario = :telefone_usuario   WHERE id_usuario = :id_usuario ");
+			$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET 
+			foto_usuario = :foto_usuario, 
+			nome_usuario = :nome_usuario , 
+			sexo_usuario = :sexo_usuario , 
+			email_usuario = :email_usuario, 
+			obs = :obs, 
+			doc_usuario = :doc_usuario, 
+			banco_usuario = :banco_usuario, 
+			agencia_usuario = :agencia_usuario, 
+			conta_usuario = :conta_usuario, 
+			digito_verificador_usuario = :digito_verificador_usuario, 
+			tipo_conta_usuario = :tipo_conta_usuario, 
+			modalidade_conta_usuario = :modalidade_conta_usuario, 
+			cod_banco_usuario = :cod_banco_usuario, 
+			nascimento_usuario = :nascimento_usuario, 
+			telefone_usuario = :telefone_usuario   
+			WHERE id_usuario = :id_usuario ");
 
 			$stmt->bindParam(":id_usuario", $obj->id_usuario);
 			$stmt->bindParam(":nome_usuario", $obj->nome_usuario);
@@ -94,6 +110,7 @@ class usuarios
 			$stmt->bindParam(":banco_usuario", $obj->banco_usuario);
 			$stmt->bindParam(":agencia_usuario", $obj->agencia_usuario);
 			$stmt->bindParam(":conta_usuario", $obj->conta_usuario);
+			$stmt->bindParam(":digito_verificador_usuario", $obj->digito_verificador_usuario);
 			$stmt->bindParam(":tipo_conta_usuario", $obj->tipo_conta_usuario);
 			$stmt->bindParam(":modalidade_conta_usuario", $obj->modalidade_conta_usuario);
 			$stmt->bindParam(":cod_banco_usuario", $obj->cod_banco_usuario);
@@ -132,6 +149,28 @@ class usuarios
 
 		try {
 			$stmt = Conexao::getInstance()->prepare("SELECT * FROM usuarios WHERE id_usuario = :id");
+
+			$stmt->bindParam(":id", $id);
+			$stmt->execute();
+			while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+				unset($row->senha_usuario);
+				return $row;
+			}
+			return null;
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+
+	public static function getPossiveisInscritos($id)
+	{
+
+		try {
+			$stmt = Conexao::getInstance()->prepare("SELECT can.* , us.*
+			FROM candidatos can
+			INNER JOIN usuarios us
+			on(can.id_usuario = us.id_usuario)
+			WHERE us.id_usuario = :id");
 
 			$stmt->bindParam(":id", $id);
 			$stmt->execute();

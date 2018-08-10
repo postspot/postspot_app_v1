@@ -11,7 +11,7 @@ require_once '../../config/config.php';
         <meta name="msapplication-TileImage" content="assets/img/cropped-postspot-agencia-de-marketing-de-conteúdo-favicon-270x270.png" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <title>Registro - PostSpot</title>
+        <title>Freelancers - PostSpot</title>
 
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
@@ -40,8 +40,8 @@ require_once '../../config/config.php';
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="header-text">
-                                    <h2>Seja bem-vindo</h2>
-                                    <h4>Entraremos contato em breve, obrigado por ter se inscrito</h4>
+                                    <h2>Obrigado!</h2>
+                                    <h4>Recebemos o seu cadastro de teste. Em até <b>10 dias úteis</b> entraremos em contato para lhe dar um feedback. Enquanto isso, que tal aprender mais sobre produção de conteúdo? Acesse nosso <a href="https://postspot.com.br/blog-para-freelancers/">blog de freelas</a></h4>
                                     <hr>
                                 </div>
                             </div>

@@ -5,5 +5,12 @@
     display: none;
 }
 .js-wizard-validation-form .foto_usuario img{
-    width: 120px;
+    width: 170px;
+}
+.custom-control-input.is-invalid~.custom-control-label, 
+.was-validated .custom-control-input:invalid~.custom-control-label{
+    color: #495057;
+}
+.custom-control-input.is-invalid~.custom-control-label::before, .was-validated .custom-control-input:invalid~.custom-control-label::before {
+    background-color: #e6ebf4;
 }

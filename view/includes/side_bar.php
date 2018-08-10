@@ -142,12 +142,6 @@ $array_gestao = array('time.php', 'projetos.php', 'habilidades.php', 'tipo_conte
                                     <span class="sidebar-normal">Gerenciar Tarefas</span>
                                 </a>
                             </li>
-                            <li class="<?= $detalhe_pagina == "candidatos.php" ? "active" : "" ?>">
-                                <a href="candidatos.php">
-                                    <span class="sidebar-mini">GC</span>
-                                    <span class="sidebar-normal">Gerenciar Candidatos</span>
-                                </a>
-                            </li>
                             <!-- <li class="<?= $detalhe_pagina == "categorias.php" ? "active" : "" ?>">
                                 <a href="categorias.php">
                                     <span class="sidebar-mini">CT</span>

@@ -20,7 +20,7 @@ if (!isset($usuario)) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>Redator</title>
+        <title>Inscrição Freelancer</title>
 
         <meta name="description" content="Agência PostSpot, criando marketing de conteúdo com coração">
         <meta name="author" content="App PostSpot">

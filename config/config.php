@@ -1,22 +1,22 @@
 <?php
 //Desenvolvimento
-define('USER','root');
+/*define('USER','root');
  define('PASS','');
  define('BANCO','banco_andress_n');
  define('HOST','localhost');
  define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT']. '/postspot');
  define('SITE', 'http://localhost/postspot/');
- define('AMBIENTE_PROD', false);
+ define('AMBIENTE_PROD', false);*/
 
 //Produção
-/*define('USER', 'app');
-define('PASS', '25qwsa');
+define('USER', 'app');
+define('PASS', '7sHiJKJb5rCI');
 define('BANCO', 'app');
 define('HOST', 'mysql.app.postspot.com.br');
 
-define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT']. '/');
-define('SITE', 'https://app.postspot.com.br/');
-define('AMBIENTE_PROD', true);*/
+define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT']. '/postspot');
+define('SITE', 'https://app.postspot.com.br/postspot/');
+define('AMBIENTE_PROD', true);
 
 
 define('GUSER', 'ola@app.postspot.com.br');

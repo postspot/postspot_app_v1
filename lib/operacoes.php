@@ -335,9 +335,9 @@ function smtpmailer($para, $assunto, $corpo)
         $mail->IsSMTP(); // Define que a mensagem será SMTP
         $mail->SMTPDebug = 1;		// Debugar: 1 = erros e mensagens, 2 = mensagens apenas
         $mail->SMTPAuth = true;		// Autenticação ativada
-        $mail->SMTPSecure = 'tls';	// SSL REQUERIDO pelo GMail
-        $mail->Host = 'smtp.umbler.com';	// SMTP utilizado
-        $mail->Port = 587;  		// A porta 587 deverá estar aberta em seu servidor
+        $mail->SMTPSecure = 'ssl';	// SSL REQUERIDO pelo GMail
+        $mail->Host = 'smtpi.uni5.net';	// SMTP utilizado
+        $mail->Port = '465';  		// A porta 587 deverá estar aberta em seu servidor
         $mail->Username = GUSER;
         $mail->Password = GPWD;
         $mail->SetFrom(GUSER, APP_NOME);
@@ -345,11 +345,9 @@ function smtpmailer($para, $assunto, $corpo)
         $mail->Body = $corpo;
         $mail->AddAddress($para);
         if (!$mail->Send()) {
-            // echo 'Mail error: ' . $mail->ErrorInfo;
             return false;
         } else {
-            // echo 'Mensagem enviada!';
             return true;
         }
     endif;
-}
+}	

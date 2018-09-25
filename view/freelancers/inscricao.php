@@ -1,8 +1,10 @@
 <?php
 require_once '../../config/config.php';
+require_once '../../model/teste_candidato.php';
+$conteudo_teste = teste_candidato::getAll();
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -61,7 +63,7 @@ require_once '../../config/config.php';
                                 
                                 <div class="row no-gutters justify-content-center">
                                     <div class="col-sm-8 col-xl-6">
-                                        <form class="js-validation-signup" method="post" action="<?= SITE ?>controller/candidatos/cria_candidato.php" autocomplete="off">
+                                        <form id="formInscricao" class="js-validation-signup" method="post" action="<?= SITE ?>controller/candidatos/cria_candidato.php" autocomplete="off">
                                             <div class="py-3">
                                                 <div class="form-group">
                                                     <input type="text" class="form-control form-control-lg form-control-alt" name="nome_usuario" placeholder="Primeiro nome">
@@ -73,10 +75,15 @@ require_once '../../config/config.php';
                                                     <input type="email" class="form-control form-control-lg form-control-alt" name="email_usuario" placeholder="Seu E-mail">
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control form-control-lg form-control-alt" name="senha_usuario" placeholder="Digite uma senha">
+                                                    <select name="modalidade_candidatos" id="" class="form-control form-control-lg form-control-alt">
+                                                        <option value="0" selected disabled>Modalidade Desejada</option>
+                                                        <?php foreach ($conteudo_teste as $key => $conteudo): ?>
+                                                            <option value="<?=$conteudo->id_teste_candidato?>" ><?=$conteudo->nome_teste_candidato?></option>
+                                                        <?php endforeach;?>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group">
-                                                    <input type="password" class="form-control form-control-lg form-control-alt" name="confirma_senha" placeholder="Confirme a senha">
+                                                    <input type="password" class="form-control form-control-lg form-control-alt" name="senha_usuario" placeholder="Digite uma senha">
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="custom-control custom-checkbox custom-control-primary">
@@ -92,6 +99,11 @@ require_once '../../config/config.php';
                                                 <p class="mt-3 mb-0 text-center">
                                                     <a class="btn btn-sm btn-light d-block d-lg-inline-block mb-1" href="#" data-toggle="modal" data-target="#modal-terms">
                                                         <i class="fa fa-book text-muted mr-1"></i> Ler o Termos e Condições
+                                                    </a>
+                                                </p>
+                                                <p class="mt-3 mb-0 text-center">
+                                                    <a class="btn btn-sm btn-light d-block d-lg-inline-block mb-1" href="<?=SITE?>/view/adm/index.php">
+                                                         Ja fiz inscrição <i class="si si-login"></i>
                                                     </a>
                                                 </p>
                                             </div>
@@ -149,5 +161,7 @@ require_once '../../config/config.php';
 
         <!-- Page JS Code -->
         <script src="../assets/js/pages/op_auth_signup.min.js"></script>
+
+        <script src="../assets/js/custom/login.js"></script>
     </body>
 </html>

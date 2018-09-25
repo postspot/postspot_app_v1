@@ -2,7 +2,7 @@
 require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/usuarios.php';
-require_once '../../model/candidatos.php';
+require_once '../../model/candidatos.php';  
 
 $obj = new stdClass();
 $obj->id_usuario = filter_input(INPUT_POST, 'id_usuario', FILTER_VALIDATE_INT);
@@ -34,7 +34,6 @@ $obj->banco_usuario = filter_input(INPUT_POST, 'banco_usuario');
 $obj->tipo_conta_usuario = filter_input(INPUT_POST, 'tipo_conta_usuario');
 $obj->nome_usuario = filter_input(INPUT_POST, 'nome_usuario');
 $obj->email_usuario = filter_input(INPUT_POST, 'email_usuario');
-$obj->modalidade_candidatos = filter_input(INPUT_POST, 'modalidade_candidatos');
 $obj->motivo_candidatos = filter_input(INPUT_POST, 'motivo_candidatos');
 $obj->texto_candidatos = filter_input(INPUT_POST, 'texto_candidatos');
 $obj->status_candidato = 1;
@@ -73,7 +72,7 @@ if (isset($obj->id_usuario)) {
         if (usuarios::updatePerfil($obj) && candidatos::update($obj)) {
             //pre_r($_POST);
             //die();
-            header('Location: '.SITE.'view/adm/boas_vindas.php?r=ok');
+            header('Location: '.SITE.'view/adm/boas_vindas.php?f='.$obj->modalidade_candidatos);
         } else {
             //echo 'Error';
             //pre_r($_POST);

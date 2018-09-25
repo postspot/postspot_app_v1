@@ -1,8 +1,30 @@
 <?php
 require_once '../../config/config.php';
+$funcao = $_GET['f'];
+
+switch ($funcao) {
+    case 1:
+    $msg = 'Recebemos o seu cadastro e teste. Em até <b>10 dias úteis</b> entraremos em contato para lhe dar um feedback. Enquanto isso, que tal aprender mais sobre produção de conteúdo? Acesse nosso <a href="https://postspot.com.br/blog-para-freelancers/">blog de freelas</a>';
+        break;
+    case 2:
+    $msg = 'Recebemos o seu cadastro e teste. Em até <b>10 dias úteis</b> entraremos em contato para lhe dar um feedback. Enquanto isso, que tal aprender mais sobre produção de conteúdo? Acesse nosso <a href="https://postspot.com.br/blog-para-freelancers/">blog de freelas</a>';
+        break;
+    case 3:
+    $msg = 'Recebemos o seu cadastro e teste. Em até <b>10 dias úteis</b> entraremos em contato para lhe dar um feedback. Enquanto isso, que tal aprender mais sobre produção de conteúdo? Acesse nosso <a href="https://postspot.com.br/blog-para-freelancers/">blog de freelas</a>';
+        break;
+    case 4:
+    $msg = 'Inscrição efetuada com sucesso! 🎉 <br>
+    Em até 48 horas úteis você receberá um email com o teste de diagramação de eBook. <br>
+    Ficou alguma dúvida? Mande um alô para: comunidade@postspot.com.br';
+        break;
+    
+    default:
+    $msg = 'Recebemos o seu cadastro e teste. Em até <b>10 dias úteis</b> entraremos em contato para lhe dar um feedback. Enquanto isso, que tal aprender mais sobre produção de conteúdo? Acesse nosso <a href="https://postspot.com.br/blog-para-freelancers/">blog de freelas</a>';
+        break;
+}
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="utf-8" />
         <link rel="icon" href="assets/img/cropped-postspot-agencia-de-marketing-de-conteúdo-favicon-32x32.png" sizes="32x32" />
@@ -11,7 +33,7 @@ require_once '../../config/config.php';
         <meta name="msapplication-TileImage" content="assets/img/cropped-postspot-agencia-de-marketing-de-conteúdo-favicon-270x270.png" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <title>Freelancers - PostSpot</title>
+        <title>Boas Vindas - PostSpot</title>
 
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
@@ -41,7 +63,7 @@ require_once '../../config/config.php';
                             <div class="col-md-12">
                                 <div class="header-text">
                                     <h2>Obrigado!</h2>
-                                    <h4>Recebemos o seu cadastro de teste. Em até <b>10 dias úteis</b> entraremos em contato para lhe dar um feedback. Enquanto isso, que tal aprender mais sobre produção de conteúdo? Acesse nosso <a href="https://postspot.com.br/blog-para-freelancers/">blog de freelas</a></h4>
+                                    <h4><?= $msg ?></h4>
                                     <hr>
                                 </div>
                             </div>

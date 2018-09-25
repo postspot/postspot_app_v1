@@ -27,7 +27,7 @@
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
-        <p class="mb-0"><p class="mb-0"><b>Ops!</b> Este e-mail ja está em uso.</p>
+        <p class="mb-0"><p class="mb-0"><b>Ops!</b> Este e-mail não está disponível.</p>
     </div>
 <?php }else if (isset($_GET['retorno']) && ($_GET['retorno'] == 'cadInc')) { ?>
     <div class="alert alert-warning alert-dismissable" role="alert">

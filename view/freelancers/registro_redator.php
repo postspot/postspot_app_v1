@@ -3,14 +3,15 @@ require_once '../../config/config.php';
 require_once '../../lib/operacoes.php';
 require_once '../../model/usuarios.php';
 require_once '../../model/teste_candidato.php';
+require_once '../../model/conteudo_teste_candidato.php';
 require_once '../../model/habilidades.php';
 
 $habilidades = habilidades::getAllSkills();
 $usuario = usuarios::getPossiveisInscritos($_GET['u']);
-$conteudo_teste = teste_candidato::getAll();
+$conteudo_teste = conteudo_teste_candidato::getById($usuario->id_conteudo_teste_candidato);
 if (!isset($usuario)) {
     header('location: ' . SITE . 'view/freelancers/inscricao.php?erro=sessao');
-}else if($usuario->status_candidato != 0){
+} else if ($usuario->status_candidato != 0) {
     header('location: ' . SITE . 'view/freelancers/inscricao.php?retorno=cadInc');
 }
 ?>
@@ -20,7 +21,7 @@ if (!isset($usuario)) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-        <title>Inscrição Freelancer</title>
+        <title>Inscrição Redator</title>
 
         <meta name="description" content="Agência PostSpot, criando marketing de conteúdo com coração">
         <meta name="author" content="App PostSpot">
@@ -80,7 +81,7 @@ if (!isset($usuario)) {
                 <div class="bg-body-light">
                     <div class="content content-full">
                         <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
-                            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Cadastro de Frellancers</h1>
+                            <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Cadastro de Redator</h1>
 
                         </div>
                     </div>
@@ -121,6 +122,10 @@ if (!isset($usuario)) {
                                         name="id_usuario"
                                         value="<?=$usuario->id_usuario?>"
 									/>
+                                    <input  type="hidden"
+                                        name="modalidade_candidatos"
+                                        value="2"
+									/>
                                     <!-- Steps Content -->
                                     <div class="block-content block-content-full tab-content">
                                         <!-- Step 1 -->
@@ -150,7 +155,7 @@ if (!isset($usuario)) {
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="wizard-validation-lastname">Sobrenome</label>
-                                                        <input class="form-control" name="nome_usuario" readonly value="<?=$usuario->sobrenome_usuario?>" type="text">
+                                                        <input class="form-control" name="sobrenome_usuario" readonly value="<?=$usuario->sobrenome_usuario?>" type="text">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="wizard-validation-email">Email *</label>
@@ -163,7 +168,7 @@ if (!isset($usuario)) {
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="rede_social_candidato"
-                                                                
+                                                                required="true"
                                                         />
                                                     </div>
                                                 </div>
@@ -177,7 +182,7 @@ if (!isset($usuario)) {
 		                                                    <input class="form-control"
 		                                                           type="text"
                                                                    name="razao_social_candidato"
-                                                                   
+                                                                required="true"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -188,7 +193,7 @@ if (!isset($usuario)) {
 		                                                           type="tel"
 		                                                           name="telefone_usuario"
 		                                                           placeholder="ex: (XX) X XXXX - XXXX"
-                                                                   
+                                                                required="true"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -198,7 +203,7 @@ if (!isset($usuario)) {
 		                                                    <input class="form-control"
 		                                                           type="text"
 		                                                           name="estado_candidato"
-                                                                   
+                                                                required="true"
 															/>
 		                                                </div>
                                                 </div>
@@ -210,7 +215,7 @@ if (!isset($usuario)) {
 		                                                    <input class="form-control mask-cnpj"
 		                                                           type="tel"
 		                                                           name="cnpj_candidato"
-                                                                   
+                                                                required="true"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -221,7 +226,7 @@ if (!isset($usuario)) {
 		                                                           type="tel"
 		                                                           name="nascimento_usuario"
 		                                                           placeholder="dd/mm/aaaa"
-                                                                   
+                                                                required="true"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -231,7 +236,7 @@ if (!isset($usuario)) {
 		                                                    <input class="form-control"
 		                                                           type="text"
 		                                                           name="cidade_candidato"
-                                                                   
+                                                                required="true"
 															/>
 		                                                </div>
                                                 </div>
@@ -244,13 +249,12 @@ if (!isset($usuario)) {
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="control-label">Link da sua Certificação para Produção de Conteúdo para Web<star>*</star></label>
+                                                        <label class="control-label">Certificação de inbound marketing da hubspot</label>
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="certificacao_candidato"
                                                                 url="true"
-                                                                    
-
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -258,8 +262,7 @@ if (!isset($usuario)) {
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="linkedin_candidato"
-                                                                    
-
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -267,13 +270,12 @@ if (!isset($usuario)) {
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="portifolio_candidato"
-                                                                    
-
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Experiência</label>
-                                                        <select class="form-control" name="experiencia_candidato" >
+                                                        <select class="form-control" name="experiencia_candidato" required="true">
                                                             <option selected disabled value="null">Escolha sua experiência</option>
                                                             <option value="Não tenho experiência com produção de textos">Não tenho experiência com produção de textos</option>
                                                             <option value="Já escrevi mas não para textos de web">Já escrevi mas não para textos de web</option>
@@ -335,7 +337,7 @@ if (!isset($usuario)) {
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Formação</label>
-                                                        <select class="form-control" name="formacao_candidato" >
+                                                        <select class="form-control" name="formacao_candidato" required="true">
                                                             <option selected disabled value="null">Escolha sua formação</option>
                                                             <option value="Ensino médio completo">Ensino médio completo</option>
                                                             <option value="Ensino superior incompleto">Ensino superior incompleto</option>
@@ -347,7 +349,7 @@ if (!isset($usuario)) {
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Área de Estudo</label>
-                                                        <select class="form-control" name="area_estudo_candidato" >
+                                                        <select class="form-control" name="area_estudo_candidato" required="true">
                                                             <option selected disabled value="null">Escolha sua área de estudo</option>
                                                             <option value="Humanas">Humanas</option>
                                                             <option value="Exatas">Exatas</option>
@@ -362,8 +364,7 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="curso_candidato"
                                                                 placeholder=""
-                                                                    
-
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -372,8 +373,7 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="profissao_candidato"
                                                                 placeholder=""
-                                                                    
-
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -427,7 +427,7 @@ if (!isset($usuario)) {
                                                         <input  class="form-control mask-cnpj-cpf"
                                                                 type="text"
                                                                 name="doc_usuario"
-                                                                
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -437,7 +437,7 @@ if (!isset($usuario)) {
                                                         <input class="form-control"
                                                                 type="text"
                                                                 name="agencia_usuario"
-                                                                   
+                                                                required="true"
                                                         />
                                                     </div>
                                                     <div class="row">
@@ -449,7 +449,7 @@ if (!isset($usuario)) {
                                                                 <input class="form-control"
                                                                         type="text"
                                                                         name="conta_usuario"
-                                                                   
+                                                                        required="true"
                                                                 />
                                                             </div>
                                                         </div>
@@ -461,7 +461,7 @@ if (!isset($usuario)) {
                                                                 <input class="form-control"
                                                                         type="text"
                                                                         name="digito_verificador_usuario"
-                                                                        
+                                                                        required="true"
                                                                 />
                                                             </div>
                                                         </div>
@@ -517,17 +517,7 @@ if (!isset($usuario)) {
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="control-label">
-                                                            Selecione a modalidade desejada
-                                                        </label>
-                                                        <select name="modalidade_candidatos" class="form-control" id="selectTipoCandidatura" >
-                                                            <?php foreach ($conteudo_teste as $key => $conteudo): ?>
-                                                                <option <?=($key == 0) ? 'selected' : ''?> value="<?=$conteudo->id_teste_candidato?>" ><?=$conteudo->nome_teste_candidato?></option>
-                                                            <?php endforeach;?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="control-label">
-                                                            Por que você se considera bom(a) para participar dessa modalidade?
+                                                            Por que você se considera bom(a) para ser um redator?
                                                         </label>
                                                         <textarea class="form-control" name="motivo_candidatos" id="" cols="30" rows="10" ></textarea>
                                                     </div>
@@ -539,7 +529,7 @@ if (!isset($usuario)) {
                                                         <div class="col-md-3 col-xs-12">
                                                             <div class="form-group">
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input check-especialidades" id="checkbox-especialidade-<?=$key?>" name="especialidade_candidatos[]" value="<?=$habilidade->nome_habilidade?>">
+                                                                    <input type="checkbox" class="custom-control-input check-especialidades" id="checkbox-especialidade-<?=$key?>" name="especialidade_candidatos[]" value="<?=$habilidade->id_habilidade?>">
                                                                     <label class="custom-control-label" for="checkbox-especialidade-<?=$key?>"><?=$habilidade->nome_habilidade?></label>
                                                                 </div>
                                                             </div>
@@ -547,32 +537,36 @@ if (!isset($usuario)) {
                                                         <?php endforeach;?>
                                                     </div>
                                                 </div>
-                                                <?php foreach ($conteudo_teste as $key => $conteudo): ?>
-                                                    <div class="col-md-12 ctrl-candidatura <?=($key == 0) ? 'mostra-candidatura' : ''?>" id="identificador<?=$conteudo->id_teste_candidato?>">
-                                                        <div id="accordion2" role="tablist" aria-multiselectable="true">
-                                                            <div class="block block-rounded mb-1">
-                                                                <div class="block-header block-header-default" role="tab" id="accordion1_h<?=$key?>">
-                                                                    <a class="font-w600" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_q<?=$key?>" aria-expanded="true" aria-controls="accordion1_q<?=$key?>">Especificações</a>
-                                                                </div>
-                                                                <div id="accordion1_q<?=$key?>" class="collapse show" role="tabpanel" aria-labelledby="accordion1_h<?=$key?>">
-                                                                    <div class="block-content">
-                                                                        <?=$conteudo->especificacoes_teste_candidato?>
-                                                                    </div>
-                                                                </div>
+                                            </div>
+                                                <?php //if(!($usuario->id_conteudo_teste_candidato > 0)):?>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <button  type="button" class="btn btn-secondary" id="sorteiaTarefa">Fazer Teste</button>
+                                                </div>
+                                            </div>
+                                                <?php //endif;?>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12 ctrl-candidatura mostra-candidatura" id="identificador0">
+                                                    <div id="accordion2" role="tablist" aria-multiselectable="true">
+                                                        <div class="block block-rounded mb-1">
+                                                            <div class="block-header block-header-default" role="tab" id="accordion1_h0">
+                                                                <a class="font-w600" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_q0" aria-expanded="true" aria-controls="accordion1_q0">Especificações</a>
                                                             </div>
-                                                            <div class="block block-rounded mb-1">
-                                                                <div class="block-header block-header-default" role="tab" id="accordion2_h<?=$key?>">
-                                                                    <a class="font-w600" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_q<?=$key?>" aria-expanded="true" aria-controls="accordion2_q<?=$key?>">Pauta</a>
-                                                                </div>
-                                                                <div id="accordion2_q<?=$key?>" class="collapse" role="tabpanel" aria-labelledby="accordion2_h<?=$key?>">
-                                                                    <div class="block-content">
-                                                                        <?=$conteudo->pauta_teste_candidato?>
-                                                                    </div>
-                                                                </div>
+                                                            <div id="accordion1_q0" class="collapse show" role="tabpanel" aria-labelledby="accordion1_h0">
+                                                                <div class="block-content" id="conteudoEspecificacao"><?= $conteudo_teste->especificacoes_conteudo_teste_candidato ?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="block block-rounded mb-1">
+                                                            <div class="block-header block-header-default" role="tab" id="accordion2_h1">
+                                                                <a class="font-w600" data-toggle="collapse" data-parent="#accordion2" href="#accordion2_q1" aria-expanded="true" aria-controls="accordion2_q1">Pauta</a>
+                                                            </div>
+                                                            <div id="accordion2_q1" class="collapse" role="tabpanel" aria-labelledby="accordion2_h1">
+                                                                <div class="block-content" id="conteudoPauta"><?= $conteudo_teste->pauta_conteudo_teste_candidato ?></div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <?php endforeach;?>
+                                                </div>
                                             </div>
                                             <hr>
                                             <div class="row">
@@ -688,9 +682,7 @@ if (!isset($usuario)) {
             $.validator.addMethod('check-especialidades', function(value) {
                 var iuncheck = $('.check-especialidades');
                 var icheck = $('.check-especialidades:checked');
-                console.log(iuncheck);  
-                console.log(icheck);  
-                var tam =  $('.check-especialidades:checked').length;   
+                var tam =  $('.check-especialidades:checked').length;
                 return tam > 0;
             }, 'Selecione pelo menos uma das opções.');
 
@@ -712,7 +704,44 @@ if (!isset($usuario)) {
                     }
                 });
 
-                $('#selectModalidade').change(function (e) { 
+                $('#sorteiaTarefa').click(function (e) {
+                    e.preventDefault();
+                    var icheck = $('.check-especialidades:checked');
+                    var selecionados = [];
+                    $('.check-especialidades:checked').each(function() {
+                        selecionados.push($(this).attr('value'));
+                    });
+
+
+                    console.log(JSON.stringify(selecionados));
+                    dados = {
+                        array_escolhas: selecionados,
+                        id: <?= $_GET['u'] ?>
+                    }
+                    $.ajax({
+                        url: "../../controller/candidatos/sorteia_teste.php",
+                        type: "POST",
+                        dataType: "json",
+                        async: true,
+                        data: dados,
+                        timeout: 15000,
+                        success: function (data) {
+                            if (data != 'false') {
+                                $('#conteudoEspecificacao').empty().append(data['especificacoes_conteudo_teste_candidato']);
+                                $('#conteudoPauta').empty().append(data['pauta_conteudo_teste_candidato']);
+                            } else {
+                                alert('Não foi possível gerar o teste, tente novamente!')
+                            }
+                        },
+                        error: function (x, t, m) {
+                            alert('Tempo esgotado');
+                            console.log(JSON.stringify(x));
+                        }
+                    });
+
+                });
+
+                $('#selectModalidade').change(function (e) {
                     e.preventDefault();
                     if(this.value == 'Pessoa Física'){
                         $('#inputDocUsu').text('CPF');
@@ -729,15 +758,15 @@ if (!isset($usuario)) {
                     try {
                         $(".mask-cnpj-cpf").unmask();
                     } catch (e) {}
-                    
+
                     var tamanho = $(".mask-cnpj-cpf").val().length;
-                    
+
                     if(isCPF){
                         $(".mask-cnpj-cpf").mask("999.999.999-99");
                     } else if(tamanho >= 11){
                         $(".mask-cnpj-cpf").mask("99.999.999/9999-99");
                     }
-                    
+
                     // ajustando foco
                     var elem = this;
                     setTimeout(function(){

@@ -10,6 +10,8 @@ $habilidades = habilidades::getAllSkills();
 $usuario = usuarios::getPossiveisInscritos($_GET['u']);
 $conteudo_teste = conteudo_teste_candidato::getAllByCategoria($usuario->modalidade_candidatos);
 
+$opcoes_producao_candidato = explode(', ', $usuario->producao_candidato);
+
 if (!isset($usuario)) {
     header('location: ' . SITE . 'view/freelancers/inscricao.php?erro=sessao');
 } else if ($usuario->status_candidato != 0) {
@@ -83,7 +85,7 @@ if (!isset($usuario)) {
                     <div class="content content-full">
                         <div class="d-flex flex-column flex-sm-row justify-content-sm-between align-items-sm-center">
                             <h1 class="flex-sm-fill font-size-h2 font-w400 mt-2 mb-0 mb-sm-2">Cadastro de Analista de Planejamento</h1>
-
+                            <button id="salvarRascunho">Salvar</button>
                         </div>
                     </div>
                 </div>
@@ -139,13 +141,13 @@ if (!isset($usuario)) {
                                                             Foto
                                                         </label>
                                                         <div class="foto_usuario">
-                                                            <img id="previewFotoUsuario" src="<?=SITE?>view/adm/assets/img/faces/1-avatar-postspot.png" alt="">
+                                                            <img id="previewFotoUsuario" src="<?=($usuario->foto_usuario) ? SITE . 'uploads/usuarios/' . $usuario->foto_usuario : SITE . 'view/adm/assets/img/faces/1-avatar-postspot.png'?>" alt="">
                                                         </div>
                                                         <input
                                                             type="file"
                                                             name="foto_usuario"
                                                             id="inputFotoUsuario"
-                                                            value="1-avatar-postspot.png"
+                                                            value="<?=$usuario->foto_usuario?>"
                                                         />
                                                     </div>
                                                 </div>
@@ -170,6 +172,7 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="rede_social_candidato"
                                                                 required="true"
+                                                                value="<?=$usuario->rede_social_candidato?>"
                                                         />
                                                     </div>
                                                 </div>
@@ -183,7 +186,8 @@ if (!isset($usuario)) {
 		                                                    <input class="form-control"
 		                                                           type="text"
                                                                    name="razao_social_candidato"
-                                                                required="true"
+                                                                    required="true"
+                                                                    value="<?=$usuario->razao_social_candidato?>"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -195,6 +199,7 @@ if (!isset($usuario)) {
 		                                                           name="telefone_usuario"
 		                                                           placeholder="ex: (XX) X XXXX - XXXX"
                                                                 required="true"
+                                                                value="<?=$usuario->telefone_usuario?>"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -205,6 +210,7 @@ if (!isset($usuario)) {
 		                                                           type="text"
 		                                                           name="estado_candidato"
                                                                 required="true"
+                                                                value="<?=$usuario->estado_candidato?>"
 															/>
 		                                                </div>
                                                 </div>
@@ -217,6 +223,7 @@ if (!isset($usuario)) {
 		                                                           type="tel"
 		                                                           name="cnpj_candidato"
                                                                 required="true"
+                                                                value="<?=$usuario->cnpj_candidato?>"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -228,6 +235,7 @@ if (!isset($usuario)) {
 		                                                           name="nascimento_usuario"
 		                                                           placeholder="dd/mm/aaaa"
                                                                 required="true"
+                                                                value="<?=dataBr($usuario->nascimento_usuario)?>"
 															/>
 		                                                </div>
 		                                                <div class="form-group">
@@ -238,6 +246,7 @@ if (!isset($usuario)) {
 		                                                           type="text"
 		                                                           name="cidade_candidato"
                                                                 required="true"
+                                                                value="<?=$usuario->cidade_candidato?>"
 															/>
 		                                                </div>
                                                 </div>
@@ -256,6 +265,7 @@ if (!isset($usuario)) {
                                                                 name="certificacao_candidato"
                                                                 url="true"
                                                                 required="true"
+                                                                value="<?=$usuario->certificacao_candidato?>"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -264,6 +274,7 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="linkedin_candidato"
                                                                 required="true"
+                                                                value="<?=$usuario->linkedin_candidato?>"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -272,15 +283,16 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="portifolio_candidato"
                                                                 required="true"
+                                                                value="<?=$usuario->portifolio_candidato?>"
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Experiência</label>
                                                         <select class="form-control" name="experiencia_candidato" required="true">
-                                                            <option selected disabled value="null">Escolha sua experiência</option>
-                                                            <option value="Não tenho experiência com produção de textos">Não tenho experiência com produção de textos</option>
-                                                            <option value="Já escrevi mas não para textos de web">Já escrevi mas não para textos de web</option>
-                                                            <option value="Já trabalho como freelancer">Já trabalho como freelancer</option>
+                                                            <option disabled value="null" <?=("" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Escolha sua experiência</option>
+                                                            <option value="Não tenho experiência com produção de textos"  <?=("Não tenho experiência com produção de textos" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Não tenho experiência com produção de textos</option>
+                                                            <option value="Já escrevi mas não para textos de web" <?=("Já escrevi mas não para textos de web" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Já escrevi mas não para textos de web</option>
+                                                            <option value="Já trabalho como freelancer" <?=("Já trabalho como freelancer" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Já trabalho como freelancer</option>
                                                         </select>
                                                     </div>
                                                     <div class="row">
@@ -290,15 +302,15 @@ if (!isset($usuario)) {
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-1" name="producao_candidato[]" value="Posts para blog">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-1" name="producao_candidato[]" value="Posts para blog" <?=(in_array("Posts para blog", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-1">Posts para blog</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-2" name="producao_candidato[]" value="Press Releases">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-2" name="producao_candidato[]" value="Press Releases" <?=(in_array("Press Releases", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-2">Press Releases</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-3" name="producao_candidato[]" value="Podcasts">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-3" name="producao_candidato[]" value="Podcasts" <?=(in_array("Podcasts", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-3">Podcasts</label>
                                                                 </div>
                                                             </div>
@@ -306,15 +318,15 @@ if (!isset($usuario)) {
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-4" name="producao_candidato[]" value="Posts para mídias sociais">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-4" name="producao_candidato[]" value="Posts para mídias sociais" <?=(in_array("Posts para mídias sociais", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-4">Posts para mídias sociais</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-5" name="producao_candidato[]" value="Roteiros para vídeo">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-5" name="producao_candidato[]" value="Roteiros para vídeo" <?=(in_array("Roteiros para vídeo", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-5">Roteiros para vídeo</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-6" name="producao_candidato[]" value="Traduções">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-6" name="producao_candidato[]" value="Traduções" <?=(in_array("Traduções", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-6">Traduções</label>
                                                                 </div>
                                                             </div>
@@ -322,15 +334,15 @@ if (!isset($usuario)) {
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-7" name="producao_candidato[]" value="Ebooks">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-7" name="producao_candidato[]" value="Ebooks" <?=(in_array("Ebooks", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-7">Ebooks</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-8" name="producao_candidato[]" value="Tutoriais">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-8" name="producao_candidato[]" value="Tutoriais" <?=(in_array("Tutoriais", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-8">Tutoriais</label>
                                                                 </div>
                                                                 <div class="custom-control custom-checkbox custom-control-primary mb-1">
-                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-9" name="producao_candidato[]" value="Outros">
+                                                                    <input type="checkbox" class="custom-control-input" id="checkbox-9" name="producao_candidato[]" value="Outros" <?=(in_array("Outros", $opcoes_producao_candidato)) ? 'checked' : ''?>>
                                                                     <label class="custom-control-label" for="checkbox-9">Outros</label>
                                                                 </div>
                                                             </div>
@@ -339,24 +351,24 @@ if (!isset($usuario)) {
                                                     <div class="form-group">
                                                         <label class="control-label">Formação</label>
                                                         <select class="form-control" name="formacao_candidato" required="true">
-                                                            <option selected disabled value="null">Escolha sua formação</option>
-                                                            <option value="Ensino médio completo">Ensino médio completo</option>
-                                                            <option value="Ensino superior incompleto">Ensino superior incompleto</option>
-                                                            <option value="Ensino superior completo">Ensino superior completo</option>
-                                                            <option value="Pós graduação">Pós graduação</option>
-                                                            <option value="Mestrado">Mestrado</option>
-                                                            <option value="Doutorado">Doutorado</option>
+                                                            <option selected disabled value="null" <?=("" == $usuario->formacao_candidato) ? 'selected' : ''?>>Escolha sua formação</option>
+                                                            <option value="Ensino médio completo" <?=("Ensino médio completo" == $usuario->formacao_candidato) ? 'selected' : ''?>>Ensino médio completo</option>
+                                                            <option value="Ensino superior incompleto" <?=("Ensino superior incompleto" == $usuario->formacao_candidato) ? 'selected' : ''?>>Ensino superior incompleto</option>
+                                                            <option value="Ensino superior completo" <?=("Ensino superior completo" == $usuario->formacao_candidato) ? 'selected' : ''?>>Ensino superior completo</option>
+                                                            <option value="Pós graduação" <?=("Pós graduação" == $usuario->formacao_candidato) ? 'selected' : ''?>>Pós graduação</option>
+                                                            <option value="Mestrado" <?=("Mestrado" == $usuario->formacao_candidato) ? 'selected' : ''?>>Mestrado</option>
+                                                            <option value="Doutorado" <?=("Doutorado" == $usuario->formacao_candidato) ? 'selected' : ''?>>Doutorado</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Área de Estudo</label>
                                                         <select class="form-control" name="area_estudo_candidato" required="true">
-                                                            <option selected disabled value="null">Escolha sua área de estudo</option>
-                                                            <option value="Humanas">Humanas</option>
-                                                            <option value="Exatas">Exatas</option>
-                                                            <option value="Biológicas">Biológicas</option>
-                                                            <option value="Gerenciais">Gerenciais</option>
-                                                            <option value="Outros">Outros</option>
+                                                            <option disabled value="null"  <?=("" == $usuario->area_estudo_candidato) ? 'selected' : ''?>>Escolha sua área de estudo</option>
+                                                            <option value="Humanas" <?=("Humanas" == $usuario->area_estudo_candidato) ? 'selected' : ''?>>Humanas</option>
+                                                            <option value="Exatas" <?=("Exatas" == $usuario->area_estudo_candidato) ? 'selected' : ''?>>Exatas</option>
+                                                            <option value="Biológicas" <?=("Biológicas" == $usuario->area_estudo_candidato) ? 'selected' : ''?>>Biológicas</option>
+                                                            <option value="Gerenciais" <?=("Gerenciais" == $usuario->area_estudo_candidato) ? 'selected' : ''?>>Gerenciais</option>
+                                                            <option value="Outros" <?=("Outros" == $usuario->area_estudo_candidato) ? 'selected' : ''?>>Outros</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -366,6 +378,7 @@ if (!isset($usuario)) {
                                                                 name="curso_candidato"
                                                                 placeholder=""
                                                                 required="true"
+                                                                value="<?=$usuario->curso_candidato?>"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -375,14 +388,15 @@ if (!isset($usuario)) {
                                                                 name="profissao_candidato"
                                                                 placeholder=""
                                                                 required="true"
+                                                                value="<?=$usuario->profissao_candidato?>"
                                                         />
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label">Nivel de Inglês</label>
                                                         <select name="ingles_candidato" class="form-control">
-                                                            <option value="Básico" >Básico</option>
-                                                            <option value="Intermediário">Intermediário</option>
-                                                            <option value="Avançado">Avançado</option>
+                                                            <option value="Básico"  <?=("Básico" == $usuario->ingles_candidato) ? 'selected' : ''?>>Básico</option>
+                                                            <option value="Intermediário" <?=("Intermediário" == $usuario->ingles_candidato) ? 'selected' : ''?>>Intermediário</option>
+                                                            <option value="Avançado" <?=("Avançado" == $usuario->ingles_candidato) ? 'selected' : ''?>>Avançado</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -390,9 +404,9 @@ if (!isset($usuario)) {
                                                             Nível de Espanhol
                                                         </label>
                                                         <select name="espanhol_candidato" class="form-control">
-                                                            <option value="Básico" >Básico</option>
-                                                            <option value="Intermediário">Intermediário</option>
-                                                            <option value="Avançado">Avançado</option>
+                                                            <option value="Básico"  <?=("Básico" == $usuario->espanhol_candidato) ? 'selected' : ''?>>Básico</option>
+                                                            <option value="Intermediário" <?=("Intermediário" == $usuario->espanhol_candidato) ? 'selected' : ''?>>Intermediário</option>
+                                                            <option value="Avançado" <?=("Avançado" == $usuario->espanhol_candidato) ? 'selected' : ''?>>Avançado</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -401,6 +415,7 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="outro_idioma_candidato"
                                                                 placeholder=""
+                                                                value="<?=$usuario->outro_idioma_candidato?>"
                                                         />
                                                     </div>
                                                 </div>
@@ -416,19 +431,20 @@ if (!isset($usuario)) {
                                                         <label class="control-label">
                                                             Modalidade
                                                         </label>
-                                                        <select id="selectModalidade" name="modalidade_conta_usuario" class="form-control" required="true">
-                                                            <option selected value="Pessoa Física" >Pessoa Física</option>
-                                                            <option value="Pessoa Jurídica">Pessoa Jurídica</option>
+                                                        <select id="selectModalidade" name="modalidade_conta_usuario" class="form-control">
+                                                            <option value="Pessoa Física"  <?=("Pessoa Física" == $usuario->modalidade_conta_usuario) ? 'selected' : ''?> >Pessoa Física</option>
+                                                            <option value="Pessoa Jurídica" <?=("Pessoa Jurídica" == $usuario->modalidade_conta_usuario) ? 'selected' : ''?>>Pessoa Jurídica</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="control-label" id="inputDocUsu">
-                                                            CPF
+                                                        <?=("Pessoa Física" == $usuario->modalidade_conta_usuario) ? 'CPF' : 'CNPJ'?>
                                                         </label>
                                                         <input  class="form-control mask-cnpj-cpf"
                                                                 type="text"
                                                                 name="doc_usuario"
                                                                 required="true"
+                                                                value="<?=$usuario->doc_usuario?>"
                                                         />
                                                     </div>
                                                     <div class="form-group">
@@ -439,6 +455,7 @@ if (!isset($usuario)) {
                                                                 type="text"
                                                                 name="agencia_usuario"
                                                                 required="true"
+                                                                value="<?=$usuario->agencia_usuario?>"
                                                         />
                                                     </div>
                                                     <div class="row">
@@ -451,6 +468,7 @@ if (!isset($usuario)) {
                                                                         type="text"
                                                                         name="conta_usuario"
                                                                 required="true"
+                                                                value="<?=$usuario->conta_usuario?>"
                                                                 />
                                                             </div>
                                                         </div>
@@ -463,6 +481,7 @@ if (!isset($usuario)) {
                                                                         type="text"
                                                                         name="digito_verificador_usuario"
                                                                 required="true"
+                                                                value="<?=$usuario->digito_verificador_usuario?>"
                                                                 />
                                                             </div>
                                                         </div>
@@ -472,30 +491,30 @@ if (!isset($usuario)) {
                                                             Nome do Banco
                                                         </label>
                                                         <select class="js-select2 form-control"  id="example-select2" name="banco_usuario" style="width: 100%" >
-                                                            <option selected disabled value="null" >Selecione o Banco</option>
-                                                            <option value="5">5 - BANCO ALFA S/A</option>
-                                                            <option value="8">8 - BANCO BBM S.A</option>
-                                                            <option value="13">13 - BANCO BONSUCESSO S.A</option>
-                                                            <option value="15">15 - BANCO BRADESCO S.A</option>
-                                                            <option value="22">22 - BANCO CITIBANK S.A.</option>
-                                                            <option value="23">23 - BANCO COOPERATIVO DO BRASIL S.A.</option>
-                                                            <option value="24">24 - BANCO COOPERATIVO SICREDI S.A</option>
-                                                            <option value="32">32 - BANCO DO BRASIL SA</option>
-                                                            <option value="34">34 - BANCO DO ESTADO DE SERGIPE SA</option>
-                                                            <option value="35">35 - BANCO DO ESTADO DO ESPIRITO SANTO SA</option>
-                                                            <option value="36">36 - BANCO DO ESTADO DO PARA SA</option>
-                                                            <option value="37">37 - BANCO DO ESTADO DO RIO GRANDE DO SUL SA</option>
-                                                            <option value="38">38 - BANCO DO NORDESTE DO BRASIL SA</option>
-                                                            <option value="48">48 - BANCO INTERMEDIUM S.A.</option>
-                                                            <option value="49">49 - BANCO ITAU BBA S.A.</option>
-                                                            <option value="50">50 - BANCO ITAU UNIBANCO S/A</option>
-                                                            <option value="60">60 - BANCO MERCANTIL DO BRASIL SA</option>
-                                                            <option value="120">120 - BANCO NEON</option>
-                                                            <option value="122">122 - BANCO ORIGINAL SA</option>
-                                                            <option value="78">78 - BANCO SANTANDER BANESPA S.A.</option>
-                                                            <option value="99">99 - CAIXA ECONOMICA FEDERAL SA</option>
-                                                            <option value="112">112 - GERADOR</option>
-                                                            <option value="121">121 - NU PAGAMENTOS S.A</option>
+                                                            <option disabled value="null"  <?=("" == $usuario->banco_usuario) ? 'selected' : ''?> >Selecione o Banco</option>
+                                                            <option value="5" <?=("5" == $usuario->banco_usuario) ? 'selected' : ''?>>5 - BANCO ALFA S/A</option>
+                                                            <option value="8" <?=("8" == $usuario->banco_usuario) ? 'selected' : ''?>>8 - BANCO BBM S.A</option>
+                                                            <option value="13" <?=("13" == $usuario->banco_usuario) ? 'selected' : ''?>>13 - BANCO BONSUCESSO S.A</option>
+                                                            <option value="15" <?=("15" == $usuario->banco_usuario) ? 'selected' : ''?>>15 - BANCO BRADESCO S.A</option>
+                                                            <option value="22" <?=("22" == $usuario->banco_usuario) ? 'selected' : ''?>>22 - BANCO CITIBANK S.A.</option>
+                                                            <option value="23" <?=("23" == $usuario->banco_usuario) ? 'selected' : ''?>>23 - BANCO COOPERATIVO DO BRASIL S.A.</option>
+                                                            <option value="24" <?=("24" == $usuario->banco_usuario) ? 'selected' : ''?>>24 - BANCO COOPERATIVO SICREDI S.A</option>
+                                                            <option value="32" <?=("32" == $usuario->banco_usuario) ? 'selected' : ''?>>32 - BANCO DO BRASIL SA</option>
+                                                            <option value="34" <?=("34" == $usuario->banco_usuario) ? 'selected' : ''?>>34 - BANCO DO ESTADO DE SERGIPE SA</option>
+                                                            <option value="35" <?=("35" == $usuario->banco_usuario) ? 'selected' : ''?>>35 - BANCO DO ESTADO DO ESPIRITO SANTO SA</option>
+                                                            <option value="36" <?=("36" == $usuario->banco_usuario) ? 'selected' : ''?>>36 - BANCO DO ESTADO DO PARA SA</option>
+                                                            <option value="37" <?=("37" == $usuario->banco_usuario) ? 'selected' : ''?>>37 - BANCO DO ESTADO DO RIO GRANDE DO SUL SA</option>
+                                                            <option value="38" <?=("38" == $usuario->banco_usuario) ? 'selected' : ''?>>38 - BANCO DO NORDESTE DO BRASIL SA</option>
+                                                            <option value="48" <?=("48" == $usuario->banco_usuario) ? 'selected' : ''?>>48 - BANCO INTERMEDIUM S.A.</option>
+                                                            <option value="49" <?=("49" == $usuario->banco_usuario) ? 'selected' : ''?>>49 - BANCO ITAU BBA S.A.</option>
+                                                            <option value="50" <?=("50" == $usuario->banco_usuario) ? 'selected' : ''?>>50 - BANCO ITAU UNIBANCO S/A</option>
+                                                            <option value="60" <?=("60" == $usuario->banco_usuario) ? 'selected' : ''?>>60 - BANCO MERCANTIL DO BRASIL SA</option>
+                                                            <option value="120" <?=("120" == $usuario->banco_usuario) ? 'selected' : ''?>>120 - BANCO NEON</option>
+                                                            <option value="122" <?=("122" == $usuario->banco_usuario) ? 'selected' : ''?>>122 - BANCO ORIGINAL SA</option>
+                                                            <option value="78" <?=("78" == $usuario->banco_usuario) ? 'selected' : ''?>>78 - BANCO SANTANDER BANESPA S.A.</option>
+                                                            <option value="99" <?=("99" == $usuario->banco_usuario) ? 'selected' : ''?>>99 - CAIXA ECONOMICA FEDERAL SA</option>
+                                                            <option value="112" <?=("112" == $usuario->banco_usuario) ? 'selected' : ''?>>112 - GERADOR</option>
+                                                            <option value="121" <?=("121" == $usuario->banco_usuario) ? 'selected' : ''?>>121 - NU PAGAMENTOS S.A</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -503,8 +522,8 @@ if (!isset($usuario)) {
                                                             Tipo da Conta
                                                         </label>
                                                         <select name="tipo_conta_usuario" class="form-control">
-                                                            <option selected="" value="Conta Corrente" >Conta Corrente</option>
-                                                            <option value="Conta Poupança">Conta Poupança</option>
+                                                            <option value="Conta Corrente" <?=("Conta Corrente" == $usuario->tipo_conta_usuario) ? 'selected' : ''?>>Conta Corrente</option>
+                                                            <option value="Conta Poupança" <?=("Conta Poupança" == $usuario->tipo_conta_usuario) ? 'selected' : ''?>>Conta Poupança</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -518,9 +537,9 @@ if (!isset($usuario)) {
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="control-label">
-                                                            Por que você se considera bom(a) para participar dessa modalidade?
+                                                        Por que você se considera bom(a) para trabalhar nessa área?
                                                         </label>
-                                                        <textarea class="form-control" name="motivo_candidatos" id="" cols="30" rows="10" ></textarea>
+                                                        <textarea class="form-control" name="motivo_candidatos" id="" cols="30" rows="10" ><?=$usuario->motivo_candidatos?></textarea>
                                                     </div>
                                                 </div>
                                                 <?php foreach ($conteudo_teste as $key => $conteudo): ?>
@@ -557,7 +576,7 @@ if (!isset($usuario)) {
                                                         <label class="control-label">
                                                             Desenvolva o conteúdo de acordo com a pauta e as especificações
                                                         </label>
-                                                        <textarea id="editor" name="texto_candidatos" ></textarea>
+                                                        <textarea id="editor" name="texto_candidatos" ><?=$usuario->texto_candidatos?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -725,7 +744,64 @@ if (!isset($usuario)) {
                     $(this).val('');
                     $(this).val(currentValue);
                 });
+
+$("#salvarRascunho").click(function (e) {
+    for ( instance in CKEDITOR.instances )
+        CKEDITOR.instances[instance].updateElement();
+    var $form = jQuery('#wizardForm'),
+    data = $form.serialize();
+
+    $.ajax({
+        type: "POST",
+        url: "../../controller/candidatos/salva_candidato.php",
+        data: data,
+        dataType: "json",
+        success: function(data) {
+            if(data == 'true'){
+                alert('Dados salvos com sucesso!')
+            }
+        },
+        error: function() {
+            alert('error handling here');
+        }
+    });
+});
+
+$(document).on('change', '#inputFotoUsuario', function(){
+    var name = document.getElementById("inputFotoUsuario").files[0].name;
+    var form_data = new FormData();
+    var ext = name.split('.').pop().toLowerCase();
+    if(jQuery.inArray(ext, ['gif','png','jpg','jpeg']) == -1){
+        alert("Tipo de arquivo inválido!");
+    }else{
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("inputFotoUsuario").files[0]);
+        var f = document.getElementById("inputFotoUsuario").files[0];
+        var fsize = f.size||f.fileSize;
+        if(fsize > 2000000){
+            alert("A foto enviada é muito grande!");
+        }else{
+            form_data.append("foto_usuario", document.getElementById('inputFotoUsuario').files[0]);
+            form_data.append("iuser", <?=$usuario->id_usuario?>);
+            $.ajax({
+                url: "../../controller/candidatos/salva_foto.php",
+                method:"POST",
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success:function(data)
+                {
+                    if(data != 'true'){
+                        alert('Erro ao atualizar foto');
+                    }
+                }
             });
+        }
+    }
+    });
+});
 
         </script>
     </body>

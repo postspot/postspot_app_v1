@@ -67,7 +67,9 @@ class candidatos
 		motivo_candidatos = :motivo_candidatos ,
 		texto_candidatos = :texto_candidatos,
 		rede_social_candidato = :rede_social_candidato,
-		id_conteudo_teste_candidato = :id_conteudo_teste_candidato
+		id_conteudo_teste_candidato = :id_conteudo_teste_candidato,
+		razao_social_candidato = :razao_social_candidato,
+		cnpj_candidato = :cnpj_candidato
 		WHERE id_usuario = :id_usuario ");
 
             $stmt->bindParam(":id_usuario", $obj->id_usuario);
@@ -91,6 +93,8 @@ class candidatos
             $stmt->bindParam(":texto_candidatos", $obj->texto_candidatos);
             $stmt->bindParam(":rede_social_candidato", $obj->rede_social_candidato);
             $stmt->bindParam(":id_conteudo_teste_candidato", $obj->id_conteudo_teste_candidato);
+            $stmt->bindParam(":razao_social_candidato", $obj->razao_social_candidato);
+            $stmt->bindParam(":cnpj_candidato", $obj->cnpj_candidato);
 
             $stmt->execute();
             return true;

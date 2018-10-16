@@ -124,6 +124,23 @@ class usuarios
 		}
 	}
 
+	public static function updateFoto($obj)
+	{
+		try {
+			$stmt = Conexao::getInstance()->prepare("UPDATE usuarios SET 
+			foto_usuario = :foto_usuario 
+			WHERE id_usuario = :id_usuario ");
+
+			$stmt->bindParam(":id_usuario", $obj->id_usuario);
+			$stmt->bindParam(":foto_usuario", $obj->foto_usuario);
+
+			$stmt->execute();
+			return true;
+		} catch (PDOException $ex) {
+			return $ex->getMessage();
+		}
+	}
+
 	public static function trocaSenha($id, $senha)
 	{
 		try {

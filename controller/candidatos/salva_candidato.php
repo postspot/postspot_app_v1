@@ -39,52 +39,19 @@ $obj->nome_usuario = filter_input(INPUT_POST, 'nome_usuario');
 $obj->email_usuario = filter_input(INPUT_POST, 'email_usuario');
 $obj->motivo_candidatos = filter_input(INPUT_POST, 'motivo_candidatos');
 $obj->texto_candidatos = filter_input(INPUT_POST, 'texto_candidatos');
-$obj->status_candidato = 1;
-
-
 
 if (isset($obj->id_usuario)) {
-
-    /*$uploads_dir = DIR_ROOT . '/uploads/usuarios';
-    $fotoPadrao = DIR_ROOT . '/view/adm/assets/img/faces/1-avatar-postspot.png';
-    $nomeFotoNova = $uploads_dir . '/' . $obj->id_usuario . '-' . str_replace(' ', '_',$obj->nome_usuario) . '.png';
-   
-    if ($_FILES['foto_usuario']['error'] != 4){
-        if($_FILES['foto_usuario']['error'] == UPLOAD_ERR_OK){
-            
-            $info = pathinfo($_FILES['foto_usuario']["name"]);
-            if ($info['extension'] == 'png' || $info['extension'] == 'jpg' || $info['extension'] == 'jpeg'):
-                $name = $obj->id_usuario . '-' .remove_caracteres($info['filename']) . '.' . $info['extension'];
-                $tmp_name = $_FILES['foto_usuario']["tmp_name"];
-                move_uploaded_file($tmp_name, "$uploads_dir/$name");
-                $obj->foto_usuario = $name;
-            else:
-                $obj->foto_usuario = '1-avatar-postspot.png';
-            endif;
-        }
-        else{
-            $obj->foto_usuario = '1-avatar-postspot.png';
-        }
-    }
-    else{
-        $obj->foto_usuario = '1-avatar-postspot.png';
-    }*/
 
     if (!empty($obj->id_usuario)) {
 
         if (usuarios::updatePerfil($obj) && candidatos::update($obj)) {
-            //pre_r($_POST);
-            //die();
-            header('Location: '.SITE.'view/adm/boas_vindas.php?f='.$obj->modalidade_candidatos);
+            echo json_encode('true');
         } else {
-            //echo 'Error';
-            //pre_r($_POST);
-            //die();
-            header('Location: '.SITE.'view/adm/registro.php?retorno=erro');
+            echo json_encode('false1');
         }
     } else {
-        header('Location: '.SITE.'view/adm/registro.php?retorno=erro');
+        echo json_encode('false2');
     }
 } else {
-    header('Location: '.SITE.'view/registro.php?retorno=erro');
+    echo json_encode('false3');
 }

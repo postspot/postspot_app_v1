@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer text-center">
-                                            <button type="submit" class="btn btn-success btn-fill btn-wd fill-up fundo-roxo-padrao">Recuperar Senha</button>
+                                            <button type="submit" class="btn btn-success btn-fill btn-wd fill-up">Recuperar Senha</button>
                                             <div class="forgot" style="margin-top: 15px;">
                                                 <a href="index.php">voltar</a>
                                             </div>

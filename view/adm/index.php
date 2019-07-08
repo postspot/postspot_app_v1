@@ -31,7 +31,7 @@
     <body>
 
         <div class="wrapper wrapper-full-page">
-            <div class="full-page login-page" data-color="" data-image="assets/img/background/background-5.jpg">
+            <div class="full-page login-page">
                 <!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
                 <div class="content">
                     <div class="container">

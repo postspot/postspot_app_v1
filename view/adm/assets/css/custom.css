@@ -22,6 +22,9 @@ a,
 td {
     font-family: 'Roboto', sans-serif;
 }
+a{
+    color: #241C15;
+}
 
 .card-tarefa {
     background-color: #fff;
@@ -46,7 +49,7 @@ td {
 
 #tab-persona h3 {
     font-size: 1.3em;
-    color: #6d82d0;
+    color: #241C15;
 }
 
 #tab-persona p {
@@ -167,13 +170,13 @@ h4.title {
 .pane-pauta h1 {
     font-size: 28px;
     text-align: left;
-    color: #523877;
+    color: #241c15;
 }
 
 .pane-pauta h5 {
     font-size: 14px;
     font-weight: 600;
-    color: #523877;
+    color: #241c15;
 }
 
 .pane-pauta hr {
@@ -193,14 +196,14 @@ h4.title {
 }
 
 .persona-pauta strong {
-    color: #523877;
+    color: #241c15;
 }
 
 .persona-pauta h4 {
     margin-top: 10px;
     margin-bottom: 8px;
     font-weight: 400;
-    color: #523877;
+    color: #241c15;
 }
 
 .persona-pauta p {
@@ -291,7 +294,7 @@ h4.title {
 
 .lista-projetos li.active,
 .lista-projetos li:hover {
-    background-color: #ec268f;
+    background-color: #403b3b;
     color: white;
 }
 
@@ -302,7 +305,7 @@ h4.title {
 
 .card-membro i {
     font-size: 1.5em;
-    color: #eb5e28;
+    color: #241C15;
 }
 
 .card-membro i.trash {
@@ -310,7 +313,7 @@ h4.title {
     bottom: 10px;
     right: 10px;
     cursor: pointer;
-    color: #e8607f;
+    color: #241C15;
 }
 
 .card-chat input.textarea {
@@ -434,14 +437,14 @@ div.dataTables_wrapper div.dataTables_length select {
 .off-canvas-sidebar:before,
 .off-canvas-sidebar[data-background-color="white"]:after,
 .off-canvas-sidebar[data-background-color="white"]:before {
-    background-color: #af87d7;
+    background-color: #fff;
 }
 
 .sidebar .nav li:not(.active)>a,
 .sidebar[data-background-color="white"] .nav li:not(.active)>a,
 .off-canvas-sidebar .nav li:not(.active)>a,
 .off-canvas-sidebar[data-background-color="white"] .nav li:not(.active)>a {
-    color: #ffffff;
+    color: #241c15;
     opacity: 1;
 }
 
@@ -454,7 +457,7 @@ div.dataTables_wrapper div.dataTables_length select {
 
 .sidebar[data-active-color="danger"] .nav li.active>a,
 .off-canvas-sidebar[data-active-color="danger"] .nav li.active>a {
-    color: #8b66bc;
+    color: #241c15;
     opacity: 1;
 }
 
@@ -462,7 +465,7 @@ div.dataTables_wrapper div.dataTables_length select {
 .sidebar[data-background-color="white"] .user .info a,
 .off-canvas-sidebar .user .info a,
 .off-canvas-sidebar[data-background-color="white"] .user .info a {
-    color: #ffffff;
+    color: #403b3b;
     opacity: 1;
 }
 
@@ -470,7 +473,7 @@ div.dataTables_wrapper div.dataTables_length select {
 .sidebar[data-background-color="white"] .user .photo,
 .off-canvas-sidebar .user .photo,
 .off-canvas-sidebar[data-background-color="white"] .user .photo {
-    border: 2px solid #c3a8de;
+    border: 2px solid #dbd9d2;
 }
 
 .sidebar .sidebar-wrapper>.nav i,
@@ -479,74 +482,76 @@ div.dataTables_wrapper div.dataTables_length select {
 }
 
 .fundo-roxo-padrao {
-    background-color: #8b66bc !important;
-    border-color: #8b66bc !important;
-    color: #fff;
+    background-color: #d9d9d2 !important;
+    border-color: #d9d9d2 !important;
+    color: #241c15 !important;
 }
 
 .cor-roxo-padrao {
-    color: #8b66bc !important;
+    color: #241c15 !important;
 }
 
 .fundo-roxo-escuro {
-    background-color: #523877 !important;
-    border-color: #523877 !important;
+    background-color: #241c15 !important;
+    border-color: #241c15 !important;
     color: #fff;
 }
 
 .cor-roxo-escuro {
-    color: #523877 !important;
+    color: #241c15 !important;
     font-weight: 500;
 }
 
 .fundo-rosa {
-    background-color: #ec268f !important;
-    border-color: #ec268f !important;
+    background-color: #403b3b !important;
+    border-color: #403b3b !important;
     color: #fff;
 }
 
 .cor-rosa {
-    color: #ec268f !important;
+    color: #403b3b !important;
 }
 
 .azul-um {
-    background-color: #bff3f2 !important;
-    border-color: #bff3f2 !important;
+    background-color: #241c15 !important;
+    border-color: #241c15 !important;
     color: #fff;
 }
 
 .azul-dois {
-    background-color: #bff2f1 !important;
-    border-color: #bff2f1 !important;
+    background-color: #241C15 !important;
+    border-color: #241C15 !important;
     color: #fff;
 }
 
 .azul-tres {
-    background-color: #9aedeb !important;
-    border-color: #9aedeb !important;
+    background-color: #241C15 !important;
+    border-color: #241C15 !important;
     color: #fff;
 }
 
 .azul-quatro {
-    background-color: #70e6e3 !important;
+    /*background-color: #70e6e3 !important;
     border-color: #70e6e3 !important;
-    color: #fff;
+    color: #fff;*/
+    background-color: #241c14 !important;
+    border-color: #241c14 !important;
 }
 
 .azul-cinco {
-    background-color: #3dd3d0 !important;
-    border-color: #3dd3d0 !important;
+    background-color: #241C15 !important;
+    border-color: #241C15 !important;
     color: #fff;
 }
 
 .azul-seis {
-    background-color: #49c7c4 !important;
-    border-color: #49c7c4 !important;
+    background-color: #241C15 !important;
+    border-color: #241C15 !important;
     color: #fff;
 }
 
 .cor-azul-quatro {
-    color: #3dd3d0 !important;
+    color: #241c14 !important;
 }
 
 .card .icon-big i {
@@ -595,7 +600,7 @@ h4.title i {
     font-size: 42px;
     float: left;
     margin-top: 16px;
-    color: #523877;
+    color: #241c15;
 }
 
 .btn:hover,
@@ -616,13 +621,13 @@ h4.title i {
 .open>.navbar .navbar-nav>li>a.btn.dropdown-toggle,
 .open>.navbar .navbar-nav>li>a.btn.dropdown-toggle:focus,
 .open>.navbar .navbar-nav>li>a.btn.dropdown-toggle:hover {
-    background-color: #ec268f;
-    border-color: #ec268f;
+    background-color: #403b3b;
+    border-color: #403b3b;
 }
 
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li>a:focus {
-    background-color: #ec268f;
+    background-color: #403b3b;
 }
 
 .dropdown-menu>li:last-child>a {
@@ -644,22 +649,22 @@ h4.title i {
 
 .navbar .navbar-nav>li>a.btn.btn-success.btn-fill,
 .btn-success.btn-fill {
-    background-color: #ec268f !important;
-    border-color: #ec268f !important;
+    background-color: #403b3b !important;
+    border-color: #403b3b !important;
 }
 
 .navbar .navbar-nav>li>a.btn.btn-danger.btn-fill,
 .btn-danger.btn-fill {
-    background-color: #523877 !important;
-    border-color: #523877 !important;
+    background-color: #241c15 !important;
+    border-color: #241c15 !important;
 }
 
 .swal2-icon.swal2-warning .body {
-    background-color: #ec268f !important;
+    background-color: #403b3b !important;
 }
 
 .swal2-icon.swal2-warning .dot {
-    background-color: #ec268f !important;
+    background-color: #403b3b !important;
 }
 
 @keyframes pulse-warning {
@@ -667,7 +672,7 @@ h4.title i {
         border-color: #ec9dc7;
     }
     100% {
-        border-color: #ec268f;
+        border-color: #403b3b;
     }
 }
 
@@ -690,7 +695,7 @@ h4.title i {
 }
 
 .textosProgressBar li.data {
-    color: #ec268f;
+    color: #403b3b;
     font-size: 12px;
     line-height: 1.1;
 }
@@ -707,11 +712,11 @@ h4.title i {
 }
 
 .nav-tabs>li.active>a {
-    color: #8b66bc !important;
+    color: #241c15 !important;
 }
 
 .pane-pauta .titulo-pauta {
-    color: #593579;
+    color: #241c15;
     font-weight: bold;
     line-height: 1.1;
     margin: 10px 0px 20px 0px;
@@ -723,35 +728,35 @@ h4.title i {
 }
 
 .card-chat .self .msg {
-    border: 2px solid #dbbbeb;
-    background-color: #dbbbeb;
+    border: 2px solid #d9d9d2;
+    background-color: #d9d9d2;
 }
 
 .card-chat .self .avatar:after {
-    border: 8px solid #dbbbeb;
+    border: 8px solid #d9d9d2;
     border-right-color: transparent;
     border-top-color: transparent;
 }
 
 .card-chat .other .msg {
-    border: 2px solid #dbbbeb;
-    background-color: #dbbbeb;
+    border: 2px solid #d9d9d2;
+    background-color: #d9d9d2;
 }
 
 .card-chat .other .msg:before {
-    border: 8px solid #dbbbeb;
+    border: 8px solid #d9d9d2;
     border-left-color: transparent;
     border-bottom-color: transparent;
 }
 
 .cor-rosa-claro {
-    color: #e8607f;
+    color: #d9d9d2;
 }
 
 .fundo-rosa-claro {
-    background-color: #e8607f !important;
-    border-color: #e8607f !important;
-    color: #fff;
+    background-color: #d9d9d2 !important;
+    border-color: #d9d9d2 !important;
+    color: #241c15 !important;
 }
 
 .send-message .form-group {
@@ -782,6 +787,7 @@ h4.title i {
 .login-page>.content,
 .lock-page>.content {
     padding-top: 15vh;
+    background: #dbd9d2
 }
 
 .login-page img {
@@ -887,12 +893,12 @@ h4.title i {
 .navbar-default .navbar-nav>.active>a:not(.btn):focus,
 .navbar-default .navbar-nav>li>a:not(.btn):hover,
 .navbar-default .navbar-nav>li>a:not(.btn):focus {
-    color: #ec268f;
+    color: #403b3b;
 }
 
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li>a:focus {
-    background-color: #ec268f;
+    background-color: #403b3b;
 }
 
 .pagination>li>a:hover,
@@ -904,32 +910,32 @@ h4.title i {
 .pagination>li.active>span:hover,
 .pagination>li.active>a:focus,
 .pagination>li.active>span:focus {
-    background-color: #523877;
-    border-color: #523877;
+    background-color: #241c15;
+    border-color: #241c15;
     color: white;
 }
 
 .pagination>li>a,
 .pagination>li>span {
-    border: 2px solid #523877;
-    color: #523877;
+    border: 2px solid #241c15;
+    color: #241c15;
 }
 
 .has-error .form-control,
 .form-control.error {
     background-color: #e6a1c6;
     color: #595858;
-    border-color: #ec268f;
+    border-color: #403b3b;
 }
 
 .has-error .form-control:focus,
 .form-control.error:focus {
     background-color: #FFFFFF;
-    border-color: #ec268f;
+    border-color: #403b3b;
 }
 
 label.error {
-    color: #ec268f;
+    color: #403b3b;
     font-weight: 300;
     font-size: 0.8em;
     position: absolute;
@@ -944,7 +950,7 @@ label.error {
     padding-top: 25px;
 }
 .forgot a{
-    color: #523877;
+    color: #241c15;
 }
 .main-panel > .content {
     margin-bottom: 50px;
@@ -967,8 +973,8 @@ label.error {
     padding: 6px;
 }
 .fc button:hover, .fc button:focus, .fc button:active, .fc button.active, .fc button:active:focus, .fc button:active:hover, .open > .fc button.dropdown-toggle, .open > .fc button.dropdown-toggle:focus, .open > .fc button.dropdown-toggle:hover {
-    background-color: #523877;
-    border-color: #523877;
+    background-color: #241c15;
+    border-color: #241c15;
 }
 .fc-toolbar h2 {
     text-transform: capitalize;
@@ -981,4 +987,7 @@ label.error {
     border: 1px solid #e8e7e3;
     border-radius: 4px;
     padding: 10px 18px;
+}
+.full-page:after{
+    background-color: #dbd9d2;
 }

@@ -2,7 +2,7 @@
 //Desenvolvimento
 define('USER','root');
  define('PASS','');
- define('BANCO','banco_andress_n');
+ define('BANCO','postspot');
  define('HOST','localhost');
  define('DIR_ROOT', $_SERVER['DOCUMENT_ROOT']. '/postspot');
  define('SITE', 'http://localhost/postspot/');

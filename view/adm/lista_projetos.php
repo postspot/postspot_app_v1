@@ -18,7 +18,7 @@ $projetos = projetos::getByUsuario($_SESSION['id_usuario']);
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3 lista-projetos">
-                        <img src="assets/img/logo-colorido.png" alt="Logo PostSpot">
+                        <img src="assets/img/logo-branco.png" alt="Logo PostSpot">
                         <h1>Bem-vindo (a) novamente <?= $_SESSION['nome_usuario'] ?></h1>
                         <p>Selecione o projeto que deseja acompanhar</p>
                         <hr>

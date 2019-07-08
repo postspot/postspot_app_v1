@@ -495,6 +495,7 @@ class tarefas
 	{
 		try {
 			$stmt = Conexao::getInstance()->prepare("SELECT log_tarefas.id_tarefa, tarefas.nome_tarefa from(SELECT id_tarefa, SUM(CAST(status AS UNSIGNED)) as maximo from log_tarefas GROUP by id_tarefa ORDER BY `log_tarefas`.`id_tarefa` ASC) as novo inner join log_tarefas on(novo.id_tarefa = log_tarefas.id_tarefa) inner join tarefas on(log_tarefas.id_tarefa = tarefas.id_tarefa) where maximo = 0 group by log_tarefas.id_tarefa");
+			//$stmt = Conexao::getInstance()->prepare("SELECT *  FROM `log_tarefas` WHERE `id_tarefa` = 714 ORDER BY `log_tarefas`.`id_log`  DESC");
 
 			if ($stmt->execute()) {
 				while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {

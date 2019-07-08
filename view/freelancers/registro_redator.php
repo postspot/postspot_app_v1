@@ -574,7 +574,7 @@ if (!isset($usuario)) {
                                                                 <a class="font-w600" data-toggle="collapse" data-parent="#accordion1" href="#accordion1_q0" aria-expanded="true" aria-controls="accordion1_q0">Especificações</a>
                                                             </div>
                                                             <div id="accordion1_q0" class="collapse show" role="tabpanel" aria-labelledby="accordion1_h0">
-                                                                <div class="block-content" id="conteudoEspecificacao"><?= $conteudo_teste->especificacoes_conteudo_teste_candidato ?></div>
+                                                                <div class="block-content" id="conteudoEspecificacao"><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Leia (e releia) a pauta completa, de pesquisar sobre o tema e de organizar suas ideias antes de iniciar a redação do seu texto.</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><b style="font-weight:normal;" id="docs-internal-guid-03858792-7fff-963a-6ec1-2035653ae8b7"><br></b></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">O texto deve ter entre 500 e 700 palavras, deve conter a palavra-chave, pelo menos, 3 vezes — na introdução, em um intertítulo e na conclusão — e deve conter um hiperlink contextual e pertinente ao conteúdo.</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><b style="font-weight:normal;"><br></b></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Estrutura:</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><b style="font-weight:normal;"><br></b></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Introdução (~ de 6 a 10 linhas);</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Desenvolvimento dividido em, pelo menos, 3 intertítulos padronizados em "Título 2";</span></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"></p><p dir="ltr" style="line-height:1.38;margin-top:0pt;margin-bottom:0pt;"><span style="font-size:11pt;font-family:Arial;color:#000000;background-color:transparent;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;">Conclusão (~ 5 linhas) com o call to action especificado na pauta.</span></p></div>
                                                             </div>
                                                         </div>
                                                         <div class="block block-rounded mb-1">
@@ -747,7 +747,7 @@ if (!isset($usuario)) {
                         timeout: 15000,
                         success: function (data) {
                             if (data != 'false') {
-                                $('#conteudoEspecificacao').empty().append(data['especificacoes_conteudo_teste_candidato']);
+                                //$('#conteudoEspecificacao').empty().append(data['especificacoes_conteudo_teste_candidato']);
                                 $('#conteudoPauta').empty().append(data['pauta_conteudo_teste_candidato']);
                             } else {
                                 alert('Não foi possível gerar o teste, tente novamente!')
@@ -772,7 +772,7 @@ if (!isset($usuario)) {
                     }
                 });
 
-                var isCPF = true;
+                var isCPF = <?=("Pessoa Física" == $usuario->modalidade_conta_usuario) ? 'true' : 'false'?>;
 
                 $(".mask-cnpj-cpf").keydown(function(){
                     try {

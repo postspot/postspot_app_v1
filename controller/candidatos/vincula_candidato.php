@@ -6,6 +6,7 @@ require_once '../../model/candidatos.php';
 
 $obj = new stdClass();
 $obj->id_usuario = filter_input(INPUT_POST, 'id_usuario', FILTER_VALIDATE_INT);
+$obj->modalidade_candidatos = filter_input(INPUT_POST, 'modalidade_candidatos', FILTER_VALIDATE_INT);
 $obj->rede_social_candidato = filter_input(INPUT_POST, 'rede_social_candidato');
 $obj->razao_social_candidato = filter_input(INPUT_POST, 'razao_social_candidato');
 $obj->telefone_usuario = filter_input(INPUT_POST, 'telefone_usuario');

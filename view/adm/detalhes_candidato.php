@@ -32,7 +32,7 @@ if(isset($_GET["u"])){
 
                 <div class="content">
                     <div class="container-fluid">
-                        <form action="../../controller/candidato/edita_candidato.php" enctype="multipart/form-data" method="POST">
+                        <form action="../../controller/candidato/edita_candidato.php" enctype="multipart/form-data" method="POST" id="formCandidato">
                             <input type="hidden" value="<?= $usuario->id_candidato ?>" name="id_candidato">
                             <h4 class="title"><i class="ti-user"></i>Detalhes Candidato</h4>
                             <div class="row">
@@ -279,12 +279,12 @@ if(isset($_GET["u"])){
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Conteúdo do Teste</label>
-                                                        <textarea name="texto_candidatos" class="form-control border-input" cols="30" rows="10"><?= $usuario->texto_candidatos   ?></textarea>
+                                                        <div class="estilo-input"><?= $usuario->texto_candidatos?></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">                                          
-                                                    <button type="submit" class="btn btn-fill btn-info">Aprovar</button>                                               
-                                                    <button type="submit" class="btn btn-fill btn-info pull-right">Recusar</button>                                               
+                                                    <button type="buttom" class="btn btn-fill btn-info" id="btnAprovar">Aprovar</button>                                               
+                                                    <button type="buttom" class="btn btn-fill btn-info pull-right" id="btnRecusar">Recusar</button>                                               
                                                 </div>
                                             </div>
                                         </div>
@@ -299,4 +299,17 @@ if(isset($_GET["u"])){
     </body>
 
     <?php require_once './includes/footer_imports.php'; ?>
+    <script>
+        $("#btnAprovar").click(function (e) { 
+            e.preventDefault();
+            $("#formCandidato").attr('action', '../../controller/candidato/aprova_candidato.php');
+            $("#formCandidato").submit();
+        });
+
+        $("#btnRecusar").click(function (e) { 
+            e.preventDefault();
+            $("#formCandidato").attr('action', '../../controller/candidato/recusa_candidato.php');
+            $("#formCandidato").submit();
+        });
+    </script>
 </html>

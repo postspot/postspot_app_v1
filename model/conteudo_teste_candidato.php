@@ -65,11 +65,39 @@ class conteudo_teste_candidato
             return false;
         }
     }
+
+    public static function getAllDetalhado()
+    {
+        
+        try {
+            $stmt = Conexao::getInstance()->prepare("SELECT ha.nome_habilidade, ct.*, tc.nome_teste_candidato
+            FROM conteudo_teste_candidato ct
+            INNER JOIN habilidades ha
+            on(ct.id_habilidade = ha.id_habilidade)
+            INNER JOIN teste_candidato tc
+            on(ct.id_teste_candidato = tc.id_teste_candidato)");
+
+            $stmt->execute();
+            $colunas = array();
+            while ($row = $stmt->fetch(PDO::FETCH_OBJ)) {
+                array_push($colunas, $row);
+            }
+            return $colunas;
+        } catch (PDOException $ex) {
+            return false;
+        }
+    }
     
     public static function getById($id)
     {
         try {
-            $stmt = Conexao::getInstance()->prepare("SELECT * FROM conteudo_teste_candidato WHERE id_conteudo_teste_candidato = :id");
+            $stmt = Conexao::getInstance()->prepare("SELECT ha.nome_habilidade, ct.*, tc.nome_teste_candidato
+            FROM conteudo_teste_candidato ct
+            INNER JOIN habilidades ha
+            on(ct.id_habilidade = ha.id_habilidade)
+            INNER JOIN teste_candidato tc
+            on(ct.id_teste_candidato = tc.id_teste_candidato) 
+            WHERE ct.id_conteudo_teste_candidato = :id");
 
             $stmt->bindParam(":id", $id);
             $stmt->execute();

@@ -273,6 +273,15 @@ if (!isset($usuario)) {
                                                         />
                                                     </div>
                                                     <div class="form-group">
+                                                        <label class="control-label">Experiência</label>
+                                                        <select class="form-control" name="experiencia_candidato" required="true">
+                                                            <option disabled value="null" <?=("" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Escolha sua experiência</option>
+                                                            <option value="Nunca trabalhei como designer"  <?=("Nunca trabalhei como designer" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Nunca trabalhei como designer</option>
+                                                            <option value="Já trabalho como designer, mas não com peças para mídias digitais" <?=("Já trabalho como designer, mas não com peças para mídias digitais" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Já trabalho como designer, mas não com peças para mídias digitais</option>
+                                                            <option value="Já tenho freelas como designer em peças para mídias digitais" <?=("Já tenho freelas como designer em peças para mídias digitais" == $usuario->experiencia_candidato) ? 'selected' : ''?>>Já tenho freelas como designer em peças para mídias digitais</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
                                                         <label class="control-label">Formação</label>
                                                         <select class="form-control" name="formacao_candidato" required="true">
                                                             <option selected disabled value="null" <?=("" == $usuario->formacao_candidato) ? 'selected' : ''?>>Escolha sua formação</option>
